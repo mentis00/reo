@@ -1,1 +1,295 @@
+---
+layout: null
+permalink: /
+title: REO
+---
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REO</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: #080c14;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      color: #eef2ff;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 배경 글로우 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse,
+        rgba(139,92,246,0.06) 0%,
+        rgba(249,115,22,0.04) 40%,
+        transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── 헤더 ── */
+    .header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 40px 0 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 40px;
+    }
+
+    .guild-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: 12px;
+      line-height: 1;
+      background: linear-gradient(135deg, #e2d9f3 0%, #a78bfa 40%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+    }
+
+    /* ── 이벤트 카드 ── */
+    .events {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .event-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: background .2s, border-color .2s, transform .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      border-radius: 18px 0 0 18px;
+      opacity: 0.8;
+    }
+
+    .event-card.arena::before  { background: linear-gradient(180deg, #c084fc, #38bdf8); }
+    .event-card.gar::before    { background: linear-gradient(180deg, #fb923c, #ef4444); }
+    .event-card.kvk::before    { background: linear-gradient(180deg, #fbbf24, #d97706); }
+
+    .event-card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.1);
+      transform: translateX(3px);
+    }
+
+    .event-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+      width: 48px;
+      text-align: center;
+    }
+
+    .event-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .event-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 3px;
+    }
+
+    .event-card.arena  .event-name { color: #c4b5fd; }
+    .event-card.gar    .event-name { color: #fb923c; }
+    .event-card.kvk    .event-name { color: #fbbf24; }
+
+    .event-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 1px;
+    }
+
+    /* ── 버튼 그룹 ── */
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all .15s;
+      white-space: nowrap;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .btn-main {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+    }
+    .btn-main:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.25); }
+
+    .btn-archive {
+      color: #7dd3fc;
+      border: 1px solid rgba(125,211,252,0.2);
+      background: rgba(30,58,95,0.5);
+    }
+    .btn-archive:hover { background: rgba(30,58,95,0.9); }
+
+    /* arena 메인버튼 */
+    .event-card.arena .btn-main {
+      background: rgba(192,132,252,0.12);
+      border-color: rgba(192,132,252,0.3);
+      color: #e9d5ff;
+    }
+    .event-card.arena .btn-main:hover { background: rgba(192,132,252,0.22); }
+
+    /* gar 메인버튼 */
+    .event-card.gar .btn-main {
+      background: rgba(251,146,60,0.12);
+      border-color: rgba(251,146,60,0.3);
+      color: #fed7aa;
+    }
+    .event-card.gar .btn-main:hover { background: rgba(251,146,60,0.22); }
+
+    /* kvk 메인버튼 */
+    .event-card.kvk .btn-main {
+      background: rgba(251,191,36,0.12);
+      border-color: rgba(251,191,36,0.3);
+      color: #fef08a;
+    }
+    .event-card.kvk .btn-main:hover { background: rgba(251,191,36,0.22); }
+
+    /* ── 푸터 ── */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 1px;
+    }
+
+    /* ── 반응형 ── */
+    @media (max-width: 600px) {
+      .header { padding: 28px 0 24px; margin-bottom: 28px; }
+      .guild-name { font-size: 52px; letter-spacing: 8px; }
+      .event-card { padding: 18px 16px; gap: 14px; flex-wrap: wrap; }
+      .btn-group { width: 100%; justify-content: flex-end; }
+      .btn { padding: 7px 13px; font-size: 12px; }
+      .event-icon { font-size: 26px; width: 36px; }
+      .event-name { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="guild-name">REO</div>
+      <div class="header-sub">Top Heroes · Guild</div>
+    </div>
+
+    <div class="events">
+
+      <!-- Guild Arena -->
+      <div class="event-card arena">
+        <div class="event-icon">🏟️</div>
+        <div class="event-info">
+          <div class="event-name">GUILD ARENA</div>
+          <div class="event-desc">개인 랭킹 경쟁</div>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-main" href="{{ '/arena/' | relative_url }}">현재 시즌 →</a>
+          <a class="btn btn-archive" href="{{ '/arena/archive/' | relative_url }}">📁 아카이브</a>
+        </div>
+      </div>
+
+      <!-- Guild Arms Race -->
+      <div class="event-card gar">
+        <div class="event-icon">🔥</div>
+        <div class="event-info">
+          <div class="event-name">GUILD ARMS RACE</div>
+          <div class="event-desc">길드 군비 경쟁</div>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-main" href="{{ '/gar/' | relative_url }}">현재 시즌 →</a>
+          <a class="btn btn-archive" href="{{ '/gar/archive/' | relative_url }}">📁 아카이브</a>
+        </div>
+      </div>
+
+      <!-- Kingdom Duel -->
+      <div class="event-card kvk">
+        <div class="event-icon">🏰</div>
+        <div class="event-info">
+          <div class="event-name">KINGDOM DUEL</div>
+          <div class="event-desc">왕국 대결</div>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-main" href="{{ '/kvk/' | relative_url }}">현재 시즌 →</a>
+          <a class="btn btn-archive" href="{{ '/kvk/archive/' | relative_url }}">📁 아카이브</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">REO · Top Heroes Guild</div>
+
+  </div>
+<script>
+(function(){
+  var last=0;
+  document.addEventListener('touchend',function(e){
+    var now=Date.now();
+    if(now-last<300){e.preventDefault();}
+    last=now;
+  },{passive:false});
+})();
+</script>
+</body>
+</html>
