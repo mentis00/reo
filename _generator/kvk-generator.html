@@ -403,7 +403,7 @@ function renderPreview(){
           <div class="kvk-event-label">Kingdom Duel</div>
           <div class="kvk-update-time">최종 업데이트: <span>${esc(fmtUpd(state.updateInput))}</span></div>
         </div>
-        <a class="kvk-arc-btn" href="#">📁 지난 시즌 아카이브</a>
+        <a class="kvk-arc-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
       </div>
     </div>
     <div class="kvk-total-box">
@@ -673,8 +673,8 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   })();
 
   const arcLinks=isArchive
-    ?`<a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/">📁 아카이브 목록</a><a class="abtn" href="https://mentis00.github.io/reo/kvk/">← 현재 시즌</a>`
-    :`<a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/">📁 지난 시즌 아카이브</a>`;
+    ?`<a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/">📁 아카이브 목록</a><a class="abtn" href="https://mentis00.github.io/reo/">🏠 메인</a>`
+    :`<a class="abtn" href="https://mentis00.github.io/reo/">🏠 메인</a>`;
 
   const dayInfoJs = isArchive ? '' :
     `<span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span>`;

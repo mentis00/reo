@@ -370,7 +370,7 @@ function renderPreview() {
             <div class="arena-event-label">Guild Arena</div>
             <div class="arena-update-time">최종 업데이트: <span>${escapeHtml(displayUpdate)}</span></div>
           </div>
-          <a style="display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none;">📁 지난 시즌 아카이브</a>
+          <a style="display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none;" href="https://mentis00.github.io/reo/">🏠 메인</a>
         </div>
       </div>
       <div class="arena-total-score-box">
@@ -491,7 +491,7 @@ function buildStaticIndexHtml() {
           '<div class="event-label">Guild Arena</div>' +
           '<div class="update-time">최종 업데이트: <span>' + escapeHtml(displayUpdate) + '</span></div>' +
         '</div>' +
-        '<a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 지난 시즌 아카이브</a>' +
+        '<a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>' +
       '</div>' +
     '</div>' +
     (function(){ var ts = sorted.reduce(function(s,m){ return s+(Number(m.score)||0); },0); var below = sorted.filter(function(m){ return (Number(m.score)||0) < goalScore; }).length; return '<div class="total-score-box"><div><div class="total-score-label">🏆 길드 총 합계 점수</div><div class="total-score-value">' + ts.toLocaleString() + '</div><div class="total-score-sub">' + sorted.length + '명 참여 &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);">목표점수 미달 ' + below + '명</span></div></div></div>'; })() +
@@ -597,7 +597,7 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
         '</div>' +
         (periodLabel ? '<span class="period-badge">📅 ' + escapeHtml(periodLabel) + '</span>' : '') +
         '<a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 아카이브 목록</a>' +
-        '<a class="archive-btn" href="https://mentis00.github.io/reo/arena/">← 현재 시즌</a>' +
+        '<a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>' +
       '</div>' +
     '</div>' +
     (function(){ var ts = (manualTotalScore > 0) ? manualTotalScore : sorted.reduce(function(s,m){ return s+(Number(m.score)||0); },0); var below = sorted.filter(function(m){ return (Number(m.score)||0) < goalScore; }).length; var note = manualTotalScore > 0 ? ' <span style="font-size:11px;color:rgba(200,180,255,0.4);">(서버 기준)</span>' : ''; return '<div class="total-score-box"><div><div class="total-score-label">🏆 길드 총 합계 점수</div><div class="total-score-value">' + ts.toLocaleString() + note + '</div><div class="total-score-sub">' + sorted.length + '명 참여 &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);">목표점수 미달 ' + below + '명</span></div></div></div>'; })() +

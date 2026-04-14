@@ -413,7 +413,7 @@ function renderPreview(){
           <div class="gar-event-label">Guild Arms Race</div>
           <div class="gar-update-time">최종 업데이트: <span>${esc(fmtUpd(state.updateInput))}</span></div>
         </div>
-        <a class="gar-arc-btn" href="#">📁 지난 시즌 아카이브</a>
+        <a class="gar-arc-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
       </div>
     </div>
     <div class="gar-total-box">
@@ -699,8 +699,8 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   })();
 
   const arcLinks=isArchive
-    ?`<a class="abtn" href="https://mentis00.github.io/reo/gar/archive/">📁 아카이브 목록</a><a class="abtn" href="https://mentis00.github.io/reo/gar/">← 현재 시즌</a>`
-    :`<a class="abtn" href="https://mentis00.github.io/reo/gar/archive/">📁 지난 시즌 아카이브</a>`;
+    ?`<a class="abtn" href="https://mentis00.github.io/reo/gar/archive/">📁 아카이브 목록</a><a class="abtn" href="https://mentis00.github.io/reo/">🏠 메인</a>`
+    :`<a class="abtn" href="https://mentis00.github.io/reo/">🏠 메인</a>`;
 
   // 현재(index) 페이지는 접속 시점 Day를 JS로 계산, 아카이브는 전체합산 고정
   const dayInfoJs = isArchive ? '' :
