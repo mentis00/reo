@@ -2,6 +2,7 @@
 layout: null
 permalink: /
 title: REO
+active_event: gar
 ---
 
 <!DOCTYPE html>
@@ -25,7 +26,6 @@ title: REO
       overflow-x: hidden;
     }
 
-    /* 배경 글로우 */
     body::before {
       content: '';
       position: fixed;
@@ -47,7 +47,6 @@ title: REO
       z-index: 1;
     }
 
-    /* ── 헤더 ── */
     .header {
       display: flex;
       align-items: flex-end;
@@ -76,7 +75,6 @@ title: REO
       padding-bottom: 8px;
     }
 
-    /* ── 이벤트 카드 ── */
     .events {
       display: flex;
       flex-direction: column;
@@ -105,14 +103,24 @@ title: REO
       opacity: 0.8;
     }
 
-    .event-card.arena::before  { background: linear-gradient(180deg, #c084fc, #38bdf8); }
-    .event-card.gar::before    { background: linear-gradient(180deg, #fb923c, #ef4444); }
-    .event-card.kvk::before    { background: linear-gradient(180deg, #fbbf24, #d97706); }
+    .event-card.arena::before { background: linear-gradient(180deg, #c084fc, #38bdf8); }
+    .event-card.gar::before   { background: linear-gradient(180deg, #fb923c, #ef4444); }
+    .event-card.kvk::before   { background: linear-gradient(180deg, #fbbf24, #d97706); }
+
+    .event-card.active {
+      background: rgba(255,255,255,0.035);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .event-card.inactive {
+      opacity: 0.45;
+    }
 
     .event-card:hover {
       background: rgba(255,255,255,0.04);
       border-color: rgba(255,255,255,0.1);
       transform: translateX(3px);
+      opacity: 1;
     }
 
     .event-icon {
@@ -133,11 +141,14 @@ title: REO
       font-weight: 700;
       letter-spacing: 2px;
       margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .event-card.arena  .event-name { color: #c4b5fd; }
-    .event-card.gar    .event-name { color: #fb923c; }
-    .event-card.kvk    .event-name { color: #fbbf24; }
+    .event-card.arena .event-name { color: #c4b5fd; }
+    .event-card.gar   .event-name { color: #fb923c; }
+    .event-card.kvk   .event-name { color: #fbbf24; }
 
     .event-desc {
       font-size: 12px;
@@ -145,7 +156,35 @@ title: REO
       letter-spacing: 1px;
     }
 
-    /* ── 버튼 그룹 ── */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 1px;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .event-card.arena .live-badge { background: rgba(192,132,252,0.15); color: #c4b5fd; border: 1px solid rgba(192,132,252,0.3); }
+    .event-card.gar   .live-badge { background: rgba(251,146,60,0.15);  color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+    .event-card.kvk   .live-badge { background: rgba(251,191,36,0.15);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    .event-card.arena .live-dot { background: #c4b5fd; }
+    .event-card.gar   .live-dot { background: #fb923c; }
+    .event-card.kvk   .live-dot { background: #fbbf24; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
+    }
+
     .btn-group {
       display: flex;
       gap: 8px;
@@ -166,13 +205,6 @@ title: REO
       font-family: 'Noto Sans KR', sans-serif;
     }
 
-    .btn-main {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.07);
-    }
-    .btn-main:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.25); }
-
     .btn-archive {
       color: #7dd3fc;
       border: 1px solid rgba(125,211,252,0.2);
@@ -180,31 +212,13 @@ title: REO
     }
     .btn-archive:hover { background: rgba(30,58,95,0.9); }
 
-    /* arena 메인버튼 */
-    .event-card.arena .btn-main {
-      background: rgba(192,132,252,0.12);
-      border-color: rgba(192,132,252,0.3);
-      color: #e9d5ff;
-    }
-    .event-card.arena .btn-main:hover { background: rgba(192,132,252,0.22); }
+    .event-card.arena .btn-current { background: rgba(192,132,252,0.12); border: 1px solid rgba(192,132,252,0.3); color: #e9d5ff; }
+    .event-card.arena .btn-current:hover { background: rgba(192,132,252,0.22); }
+    .event-card.gar   .btn-current { background: rgba(251,146,60,0.12);  border: 1px solid rgba(251,146,60,0.3);  color: #fed7aa; }
+    .event-card.gar   .btn-current:hover { background: rgba(251,146,60,0.22); }
+    .event-card.kvk   .btn-current { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3);  color: #fef08a; }
+    .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.22); }
 
-    /* gar 메인버튼 */
-    .event-card.gar .btn-main {
-      background: rgba(251,146,60,0.12);
-      border-color: rgba(251,146,60,0.3);
-      color: #fed7aa;
-    }
-    .event-card.gar .btn-main:hover { background: rgba(251,146,60,0.22); }
-
-    /* kvk 메인버튼 */
-    .event-card.kvk .btn-main {
-      background: rgba(251,191,36,0.12);
-      border-color: rgba(251,191,36,0.3);
-      color: #fef08a;
-    }
-    .event-card.kvk .btn-main:hover { background: rgba(251,191,36,0.22); }
-
-    /* ── 푸터 ── */
     .footer {
       margin-top: 48px;
       padding-top: 20px;
@@ -215,7 +229,6 @@ title: REO
       letter-spacing: 1px;
     }
 
-    /* ── 반응형 ── */
     @media (max-width: 600px) {
       .header { padding: 28px 0 24px; margin-bottom: 28px; }
       .guild-name { font-size: 52px; letter-spacing: 8px; }
@@ -238,40 +251,55 @@ title: REO
     <div class="events">
 
       <!-- Guild Arena -->
-      <div class="event-card arena">
+      <div class="event-card arena{% if page.active_event == 'arena' %} active{% else %} inactive{% endif %}">
         <div class="event-icon">🏟️</div>
         <div class="event-info">
-          <div class="event-name">GUILD ARENA</div>
-          <div class="event-desc">개인 랭킹 경쟁</div>
+          <div class="event-name">
+            GUILD ARENA
+            {% if page.active_event == 'arena' %}<span class="live-badge"><span class="live-dot"></span>진행중</span>{% endif %}
+          </div>
+          <div class="event-desc">길드 아레나</div>
         </div>
         <div class="btn-group">
-          <a class="btn btn-main" href="{{ '/arena/' | relative_url }}">현재 시즌 →</a>
+          {% if page.active_event == 'arena' %}
+          <a class="btn btn-current" href="{{ '/arena/' | relative_url }}">현재 시즌 →</a>
+          {% endif %}
           <a class="btn btn-archive" href="{{ '/arena/archive/' | relative_url }}">📁 아카이브</a>
         </div>
       </div>
 
       <!-- Guild Arms Race -->
-      <div class="event-card gar">
+      <div class="event-card gar{% if page.active_event == 'gar' %} active{% else %} inactive{% endif %}">
         <div class="event-icon">🔥</div>
         <div class="event-info">
-          <div class="event-name">GUILD ARMS RACE</div>
-          <div class="event-desc">길드 군비 경쟁</div>
+          <div class="event-name">
+            GUILD ARMS RACE
+            {% if page.active_event == 'gar' %}<span class="live-badge"><span class="live-dot"></span>진행중</span>{% endif %}
+          </div>
+          <div class="event-desc">길드 군비</div>
         </div>
         <div class="btn-group">
-          <a class="btn btn-main" href="{{ '/gar/' | relative_url }}">현재 시즌 →</a>
+          {% if page.active_event == 'gar' %}
+          <a class="btn btn-current" href="{{ '/gar/' | relative_url }}">현재 시즌 →</a>
+          {% endif %}
           <a class="btn btn-archive" href="{{ '/gar/archive/' | relative_url }}">📁 아카이브</a>
         </div>
       </div>
 
       <!-- Kingdom Duel -->
-      <div class="event-card kvk">
+      <div class="event-card kvk{% if page.active_event == 'kvk' %} active{% else %} inactive{% endif %}">
         <div class="event-icon">🏰</div>
         <div class="event-info">
-          <div class="event-name">KINGDOM DUEL</div>
+          <div class="event-name">
+            KINGDOM DUEL
+            {% if page.active_event == 'kvk' %}<span class="live-badge"><span class="live-dot"></span>진행중</span>{% endif %}
+          </div>
           <div class="event-desc">왕국 대결</div>
         </div>
         <div class="btn-group">
-          <a class="btn btn-main" href="{{ '/kvk/' | relative_url }}">현재 시즌 →</a>
+          {% if page.active_event == 'kvk' %}
+          <a class="btn btn-current" href="{{ '/kvk/' | relative_url }}">현재 시즌 →</a>
+          {% endif %}
           <a class="btn btn-archive" href="{{ '/kvk/archive/' | relative_url }}">📁 아카이브</a>
         </div>
       </div>
