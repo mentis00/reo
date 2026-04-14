@@ -1158,5 +1158,11 @@
     "",
     ""
   ],
-  "guildFullName": "#10472[REO]NOOK"
+  "guildFullName": "#10472[REO]NOOK",
+  "analytics": {
+    "gaEnabled": true,
+    "gaId": "G-S62PCJME6Q",
+    "cfEnabled": true,
+    "cfToken": "1cd771082b694474a3b1804d22dbcbac"
+  }
 }
