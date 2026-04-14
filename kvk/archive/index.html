@@ -1,1 +1,283 @@
+---
+layout: null
+permalink: /archive/
+title: REO KVK Archive
+---
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: linear-gradient(180deg, #06101e, #0b1422);
+      font-family: 'Noto Sans KR', sans-serif;
+      padding: 20px;
+      color: #eef2ff;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(160deg, #1a1000 0%, #0e0c02 50%, #120e00 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 20px;
+      padding: 36px 40px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .container::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── 헤더 ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+      position: relative;
+      z-index: 1;
+    }
+
+    .guild-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-right {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .event-label {
+      font-size: 14px;
+      color: rgba(255, 220, 120, 0.6);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .archive-btn {
+      display: inline-block;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #7dd3fc;
+      background: rgba(30, 58, 95, 0.7);
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      text-decoration: none;
+      transition: background .15s;
+    }
+
+    .archive-btn:hover {
+      background: rgba(30, 58, 95, 1);
+    }
+
+    /* ── 섹션 타이틀 ── */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 220, 120, 0.5);
+      margin: 22px 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── 아이템 그리드 ── */
+    .list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 11px 14px;
+      min-width: 0;
+      text-decoration: none;
+      color: #fff9e6;
+      transition: background .15s, border-color .15s, transform .12s;
+    }
+
+    .item:hover {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.30);
+      transform: translateY(-1px);
+    }
+
+    .icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+
+    .name {
+      flex: 1;
+      min-width: 0;
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #fff9e6;
+    }
+
+    .meta {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 220, 120, 0.45);
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── 빈 상태 ── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255, 220, 120, 0.3);
+      font-size: 14px;
+      border: 1px dashed rgba(245, 158, 11, 0.18);
+      border-radius: 10px;
+    }
+
+    /* ── 푸터 ── */
+    .footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(245, 158, 11, 0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-left {
+      font-size: 14px;
+      color: rgba(255, 220, 120, 0.4);
+    }
+
+    .footer-left strong {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      color: rgba(255, 220, 120, 0.7);
+    }
+
+    /* ── 반응형 ── */
+    @media (max-width: 860px) {
+      body { padding: 12px; }
+      .container { padding: 22px 18px 28px; }
+      .list { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .header-right { text-align: left; align-items: flex-start; }
+      .guild-name { font-size: 36px; letter-spacing: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <div class="guild-name">REO</div>
+      <div class="header-right">
+        <div class="event-label">Kingdom Duel &nbsp;·&nbsp; Archive</div>
+        <a class="archive-btn" href="https://mentis00.github.io/reo/kvk/">← 현재 시즌</a>
+      </div>
+    </div>
+
+    {% assign file_count = 0 %}
+    {% assign files_sorted = site.static_files | sort: "name" | reverse %}
+    {% for file in files_sorted %}
+      {% if file.path contains '/kvk/archive/' and file.name != 'index.html' %}
+        {% assign file_count = file_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if file_count > 0 %}
+      <div class="section-title">📄 시즌 기록</div>
+      <div class="list">
+        {% for file in files_sorted %}
+          {% if file.path contains '/kvk/archive/' and file.name != 'index.html' %}
+            <a class="item" href="{{ file.path | relative_url }}">
+              <span class="icon">⚔️</span>
+              <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
+              <span class="meta">{{ file.extname | upcase | remove: '.' }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="section-title">📄 시즌 기록</div>
+      <div class="list">
+        <div class="empty">아직 저장된 아카이브가 없습니다.</div>
+      </div>
+    {% endif %}
+
+    <div class="footer">
+      <div class="footer-left">총 <strong>{{ file_count }}</strong>개 시즌 기록</div>
+    </div>
+
+  </div>
+<script>
+(function(){
+  var last=0;
+  document.addEventListener("touchend",function(e){
+    var now=Date.now();
+    if(now-last<300){e.preventDefault();}
+    last=now;
+  },{passive:false});
+})();
+</script>
+</body>
+</html>
