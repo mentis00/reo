@@ -577,5 +577,11 @@
   "gaMeasurementId": "G-S62PCJME6Q",
   "guildTotalScore": 1574699,
   "seasonStart": "2026-04-06",
-  "seasonEnd": "2026-04-13"
+  "seasonEnd": "2026-04-13",
+  "analytics": {
+    "gaEnabled": true,
+    "gaId": "G-S62PCJME6Q",
+    "cfEnabled": true,
+    "cfToken": "1cd771082b694474a3b1804d22dbcbac"
+  }
 }
