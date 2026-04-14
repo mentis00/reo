@@ -178,7 +178,7 @@
       <hr class="section-divider">
       <!-- 상대 왕국 섹션 -->
       <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:14px;padding:14px 16px;">
-        <label style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:12px;display:block;">⚔️ 상대 왕국 기록</label>
+        <label style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:12px;display:block;">🏰 상대 왕국 기록</label>
         <div style="margin-bottom:12px;">
           <label>상대 서버 번호 <span style="font-size:11px;color:rgba(255,255,255,0.3);">(# 생략 가능)</span></label>
           <input id="opponentName" placeholder="예) 10468">
@@ -383,7 +383,7 @@ function renderPreview(){
     const resultStr='<span style="color:#34d399;">'+wins+'승</span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">'+loses+'패</span>'+(draws>0?' <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#fcd34d;">'+draws+'무</span>':'');
     return `<div class="kvk-vs-box">
       <div class="kvk-vs-header">
-        <span class="kvk-vs-title">⚔️ ${state.kingdomNum?esc(state.kingdomNum)+' vs ':''} ${esc(opp)}</span>
+        <span class="kvk-vs-title">🏰 ${state.kingdomNum?esc(state.kingdomNum)+' vs ':''} ${esc(opp)}</span>
         <span class="kvk-vs-result">${resultStr}</span>
       </div>
       <div class="kvk-vs-grid">${dayCols}</div>
@@ -594,7 +594,7 @@ document.querySelectorAll('.tab').forEach(function(b){
 });
 var dayInfoEl=document.getElementById('dayInfoText');
 if(dayInfoEl){
-  dayInfoEl.textContent=updateDay?'Day '+updateDay.num+' / 6'+(updateDay.isWar?' ⚔️ 전쟁':''):'';
+  dayInfoEl.textContent=updateDay?'Day '+updateDay.num+' / 6':'';
   if(!updateDay)dayInfoEl.style.display='none';
 }
 function applyFilter(){
@@ -697,7 +697,7 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
       return `<div class="vsday" style="background:${rBg[r]};border-color:${rBd[r]};"><span class="vsdlbl">Day${i+1}</span><span class="vsdname">${l}</span><div class="vsscores"><span class="vsus">${usDaysM[i]?Number(usDaysM[i]).toLocaleString()+'M':'—'}</span><span class="vsopp">${fmtM(oppDays[i])}</span></div><span class="vsbadge" style="color:${rText[r]};background:${rBg[r]};border:1px solid ${rBd[r]};">${rLabel[r]}</span></div>`;
     }).join('');
     const resultStr='<span style="color:#34d399;">'+wins+'승</span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">'+loses+'패</span>'+(draws>0?' <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#fcd34d;">'+draws+'무</span>':'');
-    return `<div class="vsbox"><div class="vshdr"><span class="vstitle">⚔️ ${(state.kingdomNum?esc(state.kingdomNum)+' vs ':'')}${esc(opp)}</span><span class="vsresult">${resultStr}</span></div><div class="vsgrid">${dayCols}</div></div>`;
+    return `<div class="vsbox"><div class="vshdr"><span class="vstitle">🏰 ${(state.kingdomNum?esc(state.kingdomNum)+' vs ':'')}${esc(opp)}</span><span class="vsresult">${resultStr}</span></div><div class="vsgrid">${dayCols}</div></div>`;
   })();
 
   const arcLinks=isArchive
