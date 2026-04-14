@@ -1,1 +1,91 @@
+---
+layout: null
+title: REO Archive
+---
 
+{% assign base_path = '/arena/archive/' %}
+{% assign current_url = '/arena/' %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <!-- 스타일은 기존 그대로 유지 -->
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="guild-name">REO</div>
+      <div class="header-right">
+        <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
+        <a class="archive-btn" href="{{ current_url | relative_url }}">← 현재 시즌</a>
+      </div>
+    </div>
+
+    {% assign folder_string = '' %}
+    {% for file in site.static_files %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assign folder_array = folder_string | split: '|' | sort %}
+
+    {% assign file_count = 0 %}
+    {% assign files_sorted = site.static_files | sort: "name" %}
+    {% for file in files_sorted %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if folder_array.size > 1 %}
+      <h2 class="section-title">폴더</h2>
+      <div class="list">
+        {% for folder in folder_array %}
+          {% if folder != '' %}
+            <a class="item" href="{{ base_path | append: folder | append: '/' | relative_url }}">
+              <span class="icon">📁</span>
+              <span class="name">{{ folder }}</span>
+              <span class="meta">FOLDER</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if file_count > 0 %}
+      <h2 class="section-title">파일</h2>
+      <div class="list">
+        {% for file in files_sorted %}
+          {% if file.path contains base_path %}
+            {% assign rest = file.path | remove_first: base_path %}
+            {% assign parts = rest | split: '/' %}
+            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+              <a class="item" href="{{ file.path | relative_url }}">
+                <span class="icon">📄</span>
+                <span class="name">{{ file.name }}</span>
+                <span class="meta">{{ file.extname | upcase }}</span>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="footer">REO Archive</div>
+  </div>
+</body>
+</html>
