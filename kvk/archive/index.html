@@ -3,6 +3,9 @@ layout: null
 title: REO KVK Archive
 ---
 
+{% assign base_path = '/kvk/archive/' %}
+{% assign current_url = '/kvk/' %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -55,7 +58,6 @@ title: REO KVK Archive
       pointer-events: none;
     }
 
-    /* ── 헤더 ── */
     .header {
       display: flex;
       align-items: center;
@@ -111,7 +113,6 @@ title: REO KVK Archive
       background: rgba(30, 58, 95, 1);
     }
 
-    /* ── 섹션 타이틀 ── */
     .section-title {
       font-size: 13px;
       font-weight: 700;
@@ -123,7 +124,6 @@ title: REO KVK Archive
       z-index: 1;
     }
 
-    /* ── 아이템 그리드 ── */
     .list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -179,7 +179,6 @@ title: REO KVK Archive
       letter-spacing: 0.5px;
     }
 
-    /* ── 빈 상태 ── */
     .empty {
       grid-column: 1 / -1;
       text-align: center;
@@ -190,7 +189,6 @@ title: REO KVK Archive
       border-radius: 10px;
     }
 
-    /* ── 푸터 ── */
     .footer {
       margin-top: 28px;
       padding-top: 16px;
@@ -213,7 +211,6 @@ title: REO KVK Archive
       color: rgba(255, 220, 120, 0.7);
     }
 
-    /* ── 반응형 ── */
     @media (max-width: 860px) {
       body { padding: 12px; }
       .container { padding: 22px 18px 28px; }
@@ -231,36 +228,76 @@ title: REO KVK Archive
       <div class="guild-name">REO</div>
       <div class="header-right">
         <div class="event-label">Kingdom Duel &nbsp;·&nbsp; Archive</div>
-        <a class="archive-btn" href="https://mentis00.github.io/reo/kvk/">← 현재 시즌</a>
+        <a class="archive-btn" href="{{ current_url | relative_url }}">← 현재 시즌</a>
       </div>
     </div>
+
+    {% assign folder_string = '' %}
+    {% for file in site.static_files %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% assign folder_array = folder_string | split: '|' | sort %}
 
     {% assign file_count = 0 %}
     {% assign files_sorted = site.static_files | sort: "name" | reverse %}
     {% for file in files_sorted %}
-      {% if file.path contains '/kvk/archive/' and file.name != 'index.html' %}
-        {% assign file_count = file_count | plus: 1 %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
       {% endif %}
     {% endfor %}
+
+    {% if folder_array.size > 1 %}
+      <div class="section-title">📁 폴더</div>
+      <div class="list">
+        {% for folder in folder_array %}
+          {% if folder != '' %}
+            <a class="item" href="{{ base_path | append: folder | append: '/' | relative_url }}">
+              <span class="icon">📁</span>
+              <span class="name">{{ folder }}</span>
+              <span class="meta">FOLDER</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
     {% if file_count > 0 %}
       <div class="section-title">📄 시즌 기록</div>
       <div class="list">
         {% for file in files_sorted %}
-          {% if file.path contains '/kvk/archive/' and file.name != 'index.html' %}
-            <a class="item" href="{{ file.path | relative_url }}">
-              <span class="icon">⚔️</span>
-              <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
-              <span class="meta">{{ file.extname | upcase | remove: '.' }}</span>
-            </a>
+          {% if file.path contains base_path %}
+            {% assign rest = file.path | remove_first: base_path %}
+            {% assign parts = rest | split: '/' %}
+            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+              <a class="item" href="{{ file.path | relative_url }}">
+                <span class="icon">⚔️</span>
+                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
+                <span class="meta">{{ file.extname | upcase | remove: '.' }}</span>
+              </a>
+            {% endif %}
           {% endif %}
         {% endfor %}
       </div>
     {% else %}
-      <div class="section-title">📄 시즌 기록</div>
-      <div class="list">
-        <div class="empty">아직 저장된 아카이브가 없습니다.</div>
-      </div>
+      {% if folder_array.size <= 1 %}
+        <div class="section-title">📄 시즌 기록</div>
+        <div class="list">
+          <div class="empty">아직 저장된 아카이브가 없습니다.</div>
+        </div>
+      {% endif %}
     {% endif %}
 
     <div class="footer">
