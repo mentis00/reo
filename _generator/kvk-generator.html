@@ -88,6 +88,7 @@
   .kvk-tab.active { background:rgba(245,158,11,0.18); border-color:rgba(245,158,11,0.55); color:#fbbf24; }
   .kvk-tab.war-tab { border-color:rgba(239,68,68,0.3); }
   .kvk-tab.war-tab.active { background:rgba(239,68,68,0.20); border-color:rgba(239,68,68,0.55); color:#f87171; }
+  .kvk-tab.disabled, .kvk-tab:disabled { opacity:0.28; cursor:not-allowed; pointer-events:none; }
 
   .kvk-fbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .kvk-fbtn { border:1px solid rgba(255,255,255,0.10); background:rgba(255,255,255,0.04); color:#e8e3ff; padding:8px 12px; border-radius:999px; font-size:13px; font-weight:700; cursor:pointer; }
@@ -419,7 +420,7 @@ function renderPreview(){
     ${buildVsHtml()}
     ${goal>0?`<div class="kvk-rule-box" id="pRuleBox"><span>📌</span><span>길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
     <div class="kvk-tabs">
-      ${DL.map((l,i)=>`<button class="kvk-tab${i===5?' war-tab':''}${initDay===String(i)?' active':''}" data-day="${i}">Day${i+1} ${l}</button>`).join('')}
+      ${DL.map((l,i)=>{const empty=sorted.every(m=>(Number(m.days[i])||0)===0);return `<button class="kvk-tab${i===5?' war-tab':''}${initDay===String(i)?' active':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
       <button class="kvk-tab${initDay==='all'?' active':''}" data-day="all">전체 합산</button>
     </div>
     ${goal>0?`<div class="kvk-fbar" id="pFbar">
@@ -440,12 +441,14 @@ function renderPreview(){
   const dsArr2=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
 
   function applyPrev(){
-    const allRows=document.querySelectorAll('#pGrid [data-days]');
+    const allRows=Array.from(document.querySelectorAll('#pGrid [data-days]'));
+    const grid=document.getElementById('pGrid');
     const lbl=$('pTotalLbl'), val=$('pTotalVal');
     const belowWrap=$('pBelowWrap'), cntEl=$('pBelowCnt');
     const fbar=$('pFbar');
     const ruleBox=$('pRuleBox'), gnote=$('pGnote');
     const isAll=cDay==='all';
+    const di=isAll?-1:Number(cDay);
 
     if(fbar) fbar.style.display=isAll?'none':'';
     if(belowWrap) belowWrap.style.display=isAll?'none':'';
@@ -454,8 +457,8 @@ function renderPreview(){
 
     if(isAll){
       lbl.textContent='🏆 전체 합산'; val.textContent=allSum.toLocaleString(); val.style.color='#f59e0b';
+      cMode='all';
     } else {
-      const di=Number(cDay);
       lbl.textContent=`🏆 Day${di+1} ${DL[di]} 합계`;
       val.textContent=dsArr2[di].toLocaleString(); val.style.color=DC[di];
       if(cntEl&&goal>0&&di<5){
@@ -463,23 +466,35 @@ function renderPreview(){
       }
     }
 
-    if(isAll) cMode='all';
-    allRows.forEach(row=>{
+    // 탭별 점수 기준 재정렬
+    const sortedRows=allRows.slice().sort((a,b)=>{
+      const da=JSON.parse(a.dataset.days||'[]');
+      const db=JSON.parse(b.dataset.days||'[]');
+      const sa=isAll?Number(a.dataset.score||0):Number(da[di]||0);
+      const sb=isAll?Number(b.dataset.score||0):Number(db[di]||0);
+      return sb-sa;
+    });
+    if(grid){sortedRows.forEach(r=>grid.appendChild(r));}
+
+    let rank=1;
+    sortedRows.forEach(row=>{
       const days=JSON.parse(row.dataset.days||'[]');
       const tot=Number(row.dataset.score||0);
-      const sv=isAll?tot:Number(days[Number(cDay)]||0);
+      const sv=isAll?tot:Number(days[di]||0);
       const modeOk=isAll||cMode==='all'||(goal>0&&cMode==='above'&&sv>=goal)||(goal>0&&cMode==='below'&&sv<goal);
       row.style.display=modeOk?'':'none';
+      const noEl=row.querySelector('.no');
+      if(noEl&&modeOk){noEl.textContent=rank++;}
       const se=row.querySelector('.kvk-score');
       if(se){
         se.textContent=sv.toLocaleString();
-        const di=isAll?-1:Number(cDay);
         se.className='kvk-score'+(isAll?' high':goal>0&&di<5?(sv>=goal?' high':sv===0?' zs':''):' high');
       }
     });
   }
   document.querySelectorAll('#previewRoot .kvk-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{
+      if(btn.disabled||btn.classList.contains('disabled')) return;
       document.querySelectorAll('#previewRoot .kvk-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active'); cDay=btn.dataset.day; applyPrev();
     });
@@ -519,6 +534,7 @@ function staticCss(){
   ".tab.active{background:rgba(245,158,11,0.18);border-color:rgba(245,158,11,0.55);color:#fbbf24}"+
   ".tab.war-tab{border-color:rgba(239,68,68,0.3)}"+
   ".tab.war-tab.active{background:rgba(239,68,68,0.20);border-color:rgba(239,68,68,0.55);color:#f87171}"+
+  ".tab.disabled,.tab:disabled{opacity:0.28;cursor:not-allowed;pointer-events:none}"+
   ".fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;position:relative;z-index:1}"+
   ".fbtn{border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#e8e3ff;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer}"+
   ".fbtn.active{background:rgba(245,158,11,0.18);border-color:rgba(245,158,11,0.55)}"+
@@ -583,20 +599,21 @@ if(dayInfoEl){
 }
 function applyFilter(){
   var isAll=cDay==='all';
-  var rows=document.querySelectorAll('[data-days]');
+  var rows=Array.from(document.querySelectorAll('[data-days]'));
   var lbl=document.getElementById('tLbl'),val=document.getElementById('tVal');
   var cntWrap=document.getElementById('bCntWrap'),cnt=document.getElementById('bCnt');
   var fbar=document.getElementById('fbar');
   var ruleBox=document.getElementById('ruleBox'),gnote=document.getElementById('gnote');
+  var grid=document.querySelector('.grid');
   if(fbar)fbar.style.display=isAll?'none':'';
   if(cntWrap)cntWrap.style.display=isAll?'none':'';
   if(ruleBox)ruleBox.style.display=isAll?'none':'';
   if(gnote)gnote.style.display=isAll?'none':'';
+  var di=isAll?-1:Number(cDay);
   if(isAll){
     lbl.textContent='🏆 전체 합산';val.textContent=allSum.toLocaleString();val.style.color='#f59e0b';
     cMode='all';
   }else{
-    var di=Number(cDay);
     lbl.textContent='🏆 Day'+(di+1)+' '+DL[di]+' 합계';
     val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
     if(cnt&&goal>0&&di<5){
@@ -604,13 +621,23 @@ function applyFilter(){
       cnt.textContent='목표점수 미달 '+b2+'명';
     }
   }
-  rows.forEach(function(row){
+  var sorted=rows.slice().sort(function(a,b){
+    var da=JSON.parse(a.getAttribute('data-days')||'[]');
+    var db=JSON.parse(b.getAttribute('data-days')||'[]');
+    var sa=isAll?Number(a.getAttribute('data-score')||0):Number(da[di]||0);
+    var sb=isAll?Number(b.getAttribute('data-score')||0):Number(db[di]||0);
+    return sb-sa;
+  });
+  if(grid){sorted.forEach(function(r){grid.appendChild(r);});}
+  var rank=1;
+  sorted.forEach(function(row){
     var days=JSON.parse(row.getAttribute('data-days')||'[]');
     var tot=Number(row.getAttribute('data-score')||0);
-    var sv=isAll?tot:Number(days[Number(cDay)]||0);
-    var di=isAll?-1:Number(cDay);
+    var sv=isAll?tot:Number(days[di]||0);
     var modeOk=isAll||cMode==='all'||(goal>0&&di<5&&cMode==='above'&&sv>=goal)||(goal>0&&di<5&&cMode==='below'&&sv<goal);
     row.style.display=modeOk?'':'none';
+    var noEl=row.querySelector('.no');
+    if(noEl&&modeOk){noEl.textContent=rank++;}
     var se=row.querySelector('.sc');
     if(se){
       se.textContent=sv.toLocaleString();
@@ -620,6 +647,7 @@ function applyFilter(){
 }
 document.querySelectorAll('.tab').forEach(function(btn){
   btn.addEventListener('click',function(){
+    if(btn.disabled||btn.classList.contains('disabled')) return;
     document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');cDay=btn.getAttribute('data-day');applyFilter();
   });
@@ -704,7 +732,7 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   ${vsHtml}
   ${goal>0?`<div class="rbox" id="ruleBox"><span>📌</span><span>길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
   <div class="tabs" id="tabsWrap">
-    ${DL.map((l,i)=>`<button class="tab${i===5?' war-tab':''}" data-day="${i}">Day${i+1} ${l}</button>`).join('')}
+    ${DL.map((l,i)=>{const empty=dsArr[i]===0;return `<button class="tab${i===5?' war-tab':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
     <button class="tab${isArchive?' active':''}" data-day="all">전체 합산</button>
   </div>
   ${goal>0?`<div class="fbar" id="fbar">

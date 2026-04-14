@@ -86,6 +86,7 @@
   .gar-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
   .gar-tab { border:1px solid rgba(255,255,255,0.10); background:rgba(255,255,255,0.04); color:#e8e3ff; padding:7px 13px; border-radius:999px; font-size:12px; font-weight:700; cursor:pointer; transition:.15s; }
   .gar-tab.active { background:rgba(249,115,22,0.20); border-color:rgba(249,115,22,0.45); color:#fb923c; }
+  .gar-tab.disabled, .gar-tab:disabled { opacity:0.28; cursor:not-allowed; pointer-events:none; }
 
   .gar-fbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .gar-fbtn { border:1px solid rgba(255,255,255,0.10); background:rgba(255,255,255,0.04); color:#e8e3ff; padding:8px 12px; border-radius:999px; font-size:13px; font-weight:700; cursor:pointer; }
@@ -429,7 +430,7 @@ function renderPreview(){
     ${buildVsHtml()}
     ${goal>0?`<div class="gar-rule-box" id="pRuleBox"><span>📌</span><span>길드 규칙: 길드 군비(Guild Arms Race) 이벤트 진행 시 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
     <div class="gar-tabs">
-      ${DL.map((l,i)=>`<button class="gar-tab${initDay===String(i)?' active':''}" data-day="${i}">Day${i+1} ${l}</button>`).join('')}
+      ${DL.map((l,i)=>{const empty=sorted.every(m=>(Number(m.days[i])||0)===0);return `<button class="gar-tab${initDay===String(i)?' active':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
       <button class="gar-tab${initDay==='all'?' active':''}" data-day="all">전체 합산</button>
     </div>
     ${goal>0?`<div class="gar-fbar" id="pFbar">
@@ -494,6 +495,7 @@ function renderPreview(){
   }
   document.querySelectorAll('#previewRoot .gar-tab').forEach(btn=>{
     btn.addEventListener('click',()=>{
+      if(btn.disabled) return;
       document.querySelectorAll('#previewRoot .gar-tab').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active'); cDay=btn.dataset.day; applyPrev();
     });
@@ -534,6 +536,7 @@ function staticCss(){
   ".tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}"+
   ".tab{border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#e8e3ff;padding:7px 13px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer}"+
   ".tab.active{background:rgba(249,115,22,0.20);border-color:rgba(249,115,22,0.45);color:#fb923c}"+
+  ".tab.disabled,.tab:disabled{opacity:0.28;cursor:not-allowed;pointer-events:none}"+
   ".fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}"+
   ".fbtn{border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#e8e3ff;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer}"+
   ".fbtn.active{background:rgba(249,115,22,0.20);border-color:rgba(249,115,22,0.45)}"+
@@ -607,11 +610,12 @@ if(dayInfoEl){
 }
 function applyFilter(){
   var isAll=cDay==='all';
-  var rows=document.querySelectorAll('[data-days]');
+  var rows=Array.from(document.querySelectorAll('[data-days]'));
   var lbl=document.getElementById('tLbl'),val=document.getElementById('tVal');
   var cntWrap=document.getElementById('bCntWrap'),cnt=document.getElementById('bCnt');
   var fbar=document.getElementById('fbar');
   var ruleBox=document.getElementById('ruleBox'),gnote=document.getElementById('gnote');
+  var grid=document.querySelector('.grid');
   // fbar 숨김/표시
   if(fbar)fbar.style.display=isAll?'none':'';
   // 미달+분리자 숨김/표시
@@ -619,11 +623,11 @@ function applyFilter(){
   // 규칙박스·미달주의 숨김/표시
   if(ruleBox)ruleBox.style.display=isAll?'none':'';
   if(gnote)gnote.style.display=isAll?'none':'';
+  var di=isAll?-1:Number(cDay);
   if(isAll){
     lbl.textContent='🏆 전체 합산';val.textContent=allSum.toLocaleString();val.style.color='#f97316';
     cMode='all';
   }else{
-    var di=Number(cDay);
     lbl.textContent='🏆 Day'+(di+1)+' '+DL[di]+' 합계';
     val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
     if(cnt&&goal>0){
@@ -631,12 +635,25 @@ function applyFilter(){
       cnt.textContent='목표점수 미달 '+b2+'명';
     }
   }
-  rows.forEach(function(row){
+  // 탭별 점수 기준으로 행 재정렬
+  var sorted=rows.slice().sort(function(a,b){
+    var da=JSON.parse(a.getAttribute('data-days')||'[]');
+    var db=JSON.parse(b.getAttribute('data-days')||'[]');
+    var sa=isAll?Number(a.getAttribute('data-score')||0):Number(da[di]||0);
+    var sb=isAll?Number(b.getAttribute('data-score')||0):Number(db[di]||0);
+    return sb-sa;
+  });
+  if(grid){sorted.forEach(function(r){grid.appendChild(r);});}
+  // 순위 번호 및 점수/스타일 갱신
+  var rank=1;
+  sorted.forEach(function(row){
     var days=JSON.parse(row.getAttribute('data-days')||'[]');
     var tot=Number(row.getAttribute('data-score')||0);
-    var sv=isAll?tot:Number(days[Number(cDay)]||0);
+    var sv=isAll?tot:Number(days[di]||0);
     var modeOk=isAll||cMode==='all'||(goal>0&&cMode==='above'&&sv>=goal)||(goal>0&&cMode==='below'&&sv<goal);
     row.style.display=modeOk?'':'none';
+    var noEl=row.querySelector('.no');
+    if(noEl&&modeOk){noEl.textContent=rank++;} 
     var se=row.querySelector('.sc');
     if(se){
       se.textContent=sv.toLocaleString();
@@ -646,6 +663,7 @@ function applyFilter(){
 }
 document.querySelectorAll('.tab').forEach(function(btn){
   btn.addEventListener('click',function(){
+    if(btn.disabled||btn.classList.contains('disabled')) return;
     document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');cDay=btn.getAttribute('data-day');applyFilter();
   });
@@ -731,7 +749,7 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   ${vsHtml}
   ${goal>0?`<div class="rbox" id="ruleBox"><span>📌</span><span>길드 규칙: 길드 군비(Guild Arms Race) 이벤트 진행 시 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
   <div class="tabs" id="tabsWrap">
-    ${DL.map((l,i)=>`<button class="tab" data-day="${i}">Day${i+1} ${l}</button>`).join('')}
+    ${DL.map((l,i)=>{const empty=dsArr[i]===0;return `<button class="tab${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
     <button class="tab${isArchive?' active':''}" data-day="all">전체 합산</button>
   </div>
   ${goal>0?`<div class="fbar" id="fbar">
