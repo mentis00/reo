@@ -180,6 +180,14 @@
             <label>CF 토큰 <span style="color:rgba(255,255,255,0.35);font-size:11px;">Cloudflare 대시보드에서 확인</span></label>
             <input id="cfToken" placeholder="abcdef1234567890abcdef1234567890" style="font-family:ui-monospace,monospace;">
           </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <input type="checkbox" id="umamiEnabled" style="width:16px;height:16px;flex-shrink:0;accent-color:#4ade80;">
+            <label for="umamiEnabled" style="font-size:13px;color:#86efac;margin:0;cursor:pointer;">Umami Analytics</label>
+          </div>
+          <div id="umamiIdWrap" style="display:none;">
+            <label>Website ID <span style="color:rgba(255,255,255,0.35);font-size:11px;">Umami 대시보드에서 확인</span></label>
+            <input id="umamiId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="font-family:ui-monospace,monospace;">
+          </div>
         </div>
       </div>
 
@@ -227,7 +235,7 @@ let state = {
   totalMembers: '',
   updateInput: '',
   members: [],
-  analytics: { gaEnabled: false, gaId: '', cfEnabled: false, cfToken: '' },
+  analytics: { gaEnabled: false, gaId: '', cfEnabled: false, cfToken: '', umamiEnabled: false, umamiId: '' },
 };
 
 const $ = id => document.getElementById(id);
@@ -321,6 +329,9 @@ function syncForm() {
   $('cfEnabled').checked = !!an.cfEnabled;
   $('cfToken').value = an.cfToken || '';
   $('cfTokenWrap').style.display = an.cfEnabled ? '' : 'none';
+  $('umamiEnabled').checked = !!an.umamiEnabled;
+  $('umamiId').value = an.umamiId || '';
+  $('umamiIdWrap').style.display = an.umamiEnabled ? '' : 'none';
 
   syncMeta();
   $('jsonBox').value = JSON.stringify(state, null, 2);
@@ -337,6 +348,8 @@ function syncState() {
     gaId: $('gaId').value.trim(),
     cfEnabled: $('cfEnabled').checked,
     cfToken: $('cfToken').value.trim(),
+    umamiEnabled: $('umamiEnabled').checked,
+    umamiId: $('umamiId').value.trim(),
   };
 
   syncMeta();
@@ -708,6 +721,12 @@ function buildAnalyticsHead() {
       html += `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${token}"}'><\/script>`;
     }
   }
+  if ($('umamiEnabled').checked) {
+    const id = ($('umamiId').value || '').trim();
+    if (id) {
+      html += `<script defer src="https://cloud.umami.is/script.js" data-website-id="${id}"><\/script>`;
+    }
+  }
   return html;
 }
 
@@ -719,7 +738,11 @@ $('cfEnabled').addEventListener('change', () => {
   $('cfTokenWrap').style.display = $('cfEnabled').checked ? '' : 'none';
   syncState();
 });
-['gaId','cfToken'].forEach(id => $(id).addEventListener('input', syncState));
+$('umamiEnabled').addEventListener('change', () => {
+  $('umamiIdWrap').style.display = $('umamiEnabled').checked ? '' : 'none';
+  syncState();
+});
+['gaId','cfToken','umamiId'].forEach(id => $(id).addEventListener('input', syncState));
 
 $('downloadIndexBtn').addEventListener('click', () => {
   syncMeta();
