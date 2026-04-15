@@ -226,6 +226,14 @@
             <label>CF 토큰 <span style="color:rgba(255,255,255,0.35);font-size:11px;">Cloudflare 대시보드에서 확인</span></label>
             <input id="cfToken" placeholder="abcdef1234567890abcdef1234567890" style="font-family:ui-monospace,monospace;">
           </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <input type="checkbox" id="umamiEnabled" style="width:16px;height:16px;flex-shrink:0;accent-color:#4ade80;">
+            <label for="umamiEnabled" style="font-size:13px;color:#86efac;margin:0;cursor:pointer;">Umami Analytics</label>
+          </div>
+          <div id="umamiIdWrap" style="display:none;">
+            <label>Website ID <span style="color:rgba(255,255,255,0.35);font-size:11px;">Umami 대시보드에서 확인</span></label>
+            <input id="umamiId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="font-family:ui-monospace,monospace;">
+          </div>
         </div>
       </div>
 
@@ -271,7 +279,7 @@ let state = {
   opponent:'', opponentDays:[0,0,0,0,0,0], opponentResults:['','','','','',''],
   guildFullName:'',
   members:[],
-  analytics:{ gaEnabled:false, gaId:'', cfEnabled:false, cfToken:'' }
+  analytics:{ gaEnabled:false, gaId:'', cfEnabled:false, cfToken:'', umamiEnabled:false, umamiId:'' }
 };
 
 const $=id=>document.getElementById(id);
@@ -329,6 +337,9 @@ function syncForm(){
   $('cfEnabled').checked=!!an.cfEnabled;
   $('cfToken').value=an.cfToken||'';
   $('cfTokenWrap').style.display=an.cfEnabled?'':'none';
+  $('umamiEnabled').checked=!!an.umamiEnabled;
+  $('umamiId').value=an.umamiId||'';
+  $('umamiIdWrap').style.display=an.umamiEnabled?'':'none';
 
   syncMeta();
   $('jsonBox').value=JSON.stringify(state,null,2);
@@ -347,6 +358,8 @@ function syncState(){
     gaId:$('gaId').value.trim(),
     cfEnabled:$('cfEnabled').checked,
     cfToken:$('cfToken').value.trim(),
+    umamiEnabled:$('umamiEnabled').checked,
+    umamiId:$('umamiId').value.trim(),
   };
 
   syncMeta();
@@ -489,7 +502,8 @@ function renderPreview(){
   const dsArr2=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
 
   function applyPrev(){
-    const allRows=document.querySelectorAll('#pGrid [data-days]');
+    const allRows=Array.from(document.querySelectorAll('#pGrid [data-days]'));
+    const grid=document.querySelector('#pGrid');
     const lbl=$('pTotalLbl'), val=$('pTotalVal');
     const belowWrap=$('pBelowWrap'), cntEl=$('pBelowCnt');
     const fbar=$('pFbar');
@@ -505,10 +519,10 @@ function renderPreview(){
     if(gnote) gnote.style.display=isAll?'none':'';
 
     // 총점 박스
+    const di=isAll?0:Number(cDay);
     if(isAll){
       lbl.textContent='🏆 전체 합산'; val.textContent=allSum.toLocaleString(); val.style.color='#f97316';
     } else {
-      const di=Number(cDay);
       lbl.textContent=`🏆 Day${di+1} ${DL[di]} 합계`;
       val.textContent=dsArr2[di].toLocaleString(); val.style.color=DC[di];
       if(cntEl&&goal>0){
@@ -516,14 +530,27 @@ function renderPreview(){
       }
     }
 
-    // 카드 점수
+    // 탭별 점수 기준 재정렬
+    const sortedRows=allRows.slice().sort((a,b)=>{
+      const da=JSON.parse(a.dataset.days||'[]');
+      const db=JSON.parse(b.dataset.days||'[]');
+      const sa=isAll?Number(a.dataset.score||0):Number(da[di]||0);
+      const sb=isAll?Number(b.dataset.score||0):Number(db[di]||0);
+      return sb-sa;
+    });
+    if(grid){sortedRows.forEach(r=>grid.appendChild(r));}
+
+    // 카드 점수 + 순위 번호 갱신
     if(isAll) cMode='all';
-    allRows.forEach(row=>{
+    let rank=1;
+    sortedRows.forEach(row=>{
       const days=JSON.parse(row.dataset.days||'[]');
       const tot=Number(row.dataset.score||0);
-      const sv=isAll?tot:Number(days[Number(cDay)]||0);
+      const sv=isAll?tot:Number(days[di]||0);
       const modeOk=isAll||cMode==='all'||(goal>0&&cMode==='above'&&sv>=goal)||(goal>0&&cMode==='below'&&sv<goal);
       row.style.display=modeOk?'':'none';
+      const noEl=row.querySelector('.gar-no');
+      if(noEl&&modeOk){noEl.textContent=rank++;}
       const se=row.querySelector('.gar-score');
       if(se){
         se.textContent=sv.toLocaleString();
@@ -867,6 +894,12 @@ function buildAnalyticsHead() {
       html += `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${token}"}'><\/script>`;
     }
   }
+  if ($('umamiEnabled').checked) {
+    const id = ($('umamiId').value || '').trim();
+    if (id) {
+      html += `<script defer src="https://cloud.umami.is/script.js" data-website-id="${id}"><\/script>`;
+    }
+  }
   return html;
 }
 
@@ -878,7 +911,11 @@ $('cfEnabled').addEventListener('change', () => {
   $('cfTokenWrap').style.display = $('cfEnabled').checked ? '' : 'none';
   syncState();
 });
-['gaId','cfToken'].forEach(id => $(id).addEventListener('input', syncState));
+$('umamiEnabled').addEventListener('change', () => {
+  $('umamiIdWrap').style.display = $('umamiEnabled').checked ? '' : 'none';
+  syncState();
+});
+['gaId','cfToken','umamiId'].forEach(id => $(id).addEventListener('input', syncState));
 
 $('downloadIndexBtn').addEventListener('click',()=>{syncMeta();$('jsonBox').value=JSON.stringify(state,null,2);renderTable();renderPreview();dlFile('index.html',buildIndexHtml(),'text/html;charset=utf-8');});
 $('downloadJsonBtn').addEventListener('click',()=>{syncMeta();$('jsonBox').value=JSON.stringify(state,null,2);renderTable();renderPreview();dlFile('gar-data.json',JSON.stringify(state,null,2),'application/json;charset=utf-8');});
