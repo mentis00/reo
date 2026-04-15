@@ -582,6 +582,8 @@
     "gaEnabled": true,
     "gaId": "G-S62PCJME6Q",
     "cfEnabled": true,
-    "cfToken": "1cd771082b694474a3b1804d22dbcbac"
+    "cfToken": "1cd771082b694474a3b1804d22dbcbac",
+    "umamiEnabled": true,
+    "umamiId": "037d2112-cf9c-420d-acbe-c6276583ddca"
   }
 }
