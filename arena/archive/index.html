@@ -171,12 +171,6 @@ title: REO Arena Archive
       text-overflow:ellipsis;
     }
 
-    .meta {
-      font-size:13px;
-      color:rgba(180,160,255,0.65);
-      flex-shrink:0;
-    }
-
     .empty {
       grid-column: 1 / -1;
       text-align: center;
@@ -263,7 +257,6 @@ title: REO Arena Archive
             <a class="item" href="{{ base_path | append: folder | append: '/' | relative_url }}">
               <span class="icon">📁</span>
               <span class="name">{{ folder }}</span>
-              <span class="meta">FOLDER</span>
             </a>
           {% endif %}
         {% endfor %}
@@ -280,8 +273,7 @@ title: REO Arena Archive
             {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
               <a class="item" href="{{ file.url | relative_url }}">
                 <span class="icon">📄</span>
-                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
-                <span class="meta">HTML</span>
+                <span class="name">{{ file.name }}</span>
               </a>
             {% endif %}
           {% endif %}
@@ -294,8 +286,7 @@ title: REO Arena Archive
             {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
               <a class="item" href="{{ file.path | relative_url }}">
                 <span class="icon">📄</span>
-                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
-                <span class="meta">{{ file.extname | upcase | remove: '.' }}</span>
+                <span class="name">{{ file.name }}</span>
               </a>
             {% endif %}
           {% endif %}
