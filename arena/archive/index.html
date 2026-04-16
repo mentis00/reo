@@ -12,9 +12,9 @@ title: REO Arena Archive
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
-  {% raw %}{% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}{% endraw %}
-  {% raw %}{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}{% endraw %}
-  {% raw %}{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}{% endraw %}
+  {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}
+  {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
+  {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
