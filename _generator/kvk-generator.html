@@ -198,37 +198,6 @@
         </div>
         <div class="hint" style="margin-top:8px;">파일명: <strong id="archiveFilenamePreview">시작일_종료일.html</strong> → <code>archive/</code> 폴더에 업로드하세요</div>
       </div>
-      <!-- 애널리틱스 옵션 -->
-      <div style="background:rgba(15,30,15,0.5);border:1px solid rgba(100,200,100,0.15);border-radius:14px;padding:14px 16px;">
-        <label style="font-size:14px;font-weight:800;color:#86efac;margin-bottom:12px;display:block;">📊 애널리틱스 옵션 <span style="font-size:11px;font-weight:400;color:rgba(134,239,172,0.5);">(생성되는 HTML에 삽입)</span></label>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <input type="checkbox" id="gaEnabled" style="width:16px;height:16px;flex-shrink:0;accent-color:#4ade80;">
-            <label for="gaEnabled" style="font-size:13px;color:#86efac;margin:0;cursor:pointer;">Google Analytics (gtag.js)</label>
-          </div>
-          <div id="gaIdWrap" style="display:none;">
-            <label>측정 ID <span style="color:rgba(255,255,255,0.35);font-size:11px;">예) G-XXXXXXXXXX</span></label>
-            <input id="gaId" placeholder="G-XXXXXXXXXX" style="font-family:ui-monospace,monospace;">
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <input type="checkbox" id="cfEnabled" style="width:16px;height:16px;flex-shrink:0;accent-color:#4ade80;">
-            <label for="cfEnabled" style="font-size:13px;color:#86efac;margin:0;cursor:pointer;">Cloudflare Web Analytics</label>
-          </div>
-          <div id="cfTokenWrap" style="display:none;">
-            <label>CF 토큰 <span style="color:rgba(255,255,255,0.35);font-size:11px;">Cloudflare 대시보드에서 확인</span></label>
-            <input id="cfToken" placeholder="abcdef1234567890abcdef1234567890" style="font-family:ui-monospace,monospace;">
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <input type="checkbox" id="umamiEnabled" style="width:16px;height:16px;flex-shrink:0;accent-color:#4ade80;">
-            <label for="umamiEnabled" style="font-size:13px;color:#86efac;margin:0;cursor:pointer;">Umami Analytics</label>
-          </div>
-          <div id="umamiIdWrap" style="display:none;">
-            <label>Website ID <span style="color:rgba(255,255,255,0.35);font-size:11px;">Umami 대시보드에서 확인</span></label>
-            <input id="umamiId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="font-family:ui-monospace,monospace;">
-          </div>
-        </div>
-      </div>
-
       <textarea id="jsonBox" placeholder="JSON 붙여넣기 / 백업용"></textarea>
       <div class="hint">목표점수는 <strong>준비단계(Day1~5) 일일 기준</strong>입니다. Day6(전쟁)은 별도 집계됩니다.<br>GitHub에서는 시작 시 같은 폴더의 kvk-data.json을 읽습니다.</div>
       <div class="table-wrap">
@@ -274,7 +243,7 @@ let state = {
   kingdomNum:'', kingdomFullName:'',
   opponent:'', opponentDays:[0,0,0,0,0,0], opponentResults:['','','','','',''],
   members:[],
-  analytics:{ gaEnabled:false, gaId:'', cfEnabled:false, cfToken:'', umamiEnabled:false, umamiId:'' }
+
 };
 
 const $=id=>document.getElementById(id);
@@ -327,17 +296,6 @@ function syncForm(){
     updateOppBtnStyle(i,(state.opponentResults||[])[i]||'');
   });
 
-  const an=state.analytics||{};
-  $('gaEnabled').checked=!!an.gaEnabled;
-  $('gaId').value=an.gaId||'';
-  $('gaIdWrap').style.display=an.gaEnabled?'':'none';
-  $('cfEnabled').checked=!!an.cfEnabled;
-  $('cfToken').value=an.cfToken||'';
-  $('cfTokenWrap').style.display=an.cfEnabled?'':'none';
-  $('umamiEnabled').checked=!!an.umamiEnabled;
-  $('umamiId').value=an.umamiId||'';
-  $('umamiIdWrap').style.display=an.umamiEnabled?'':'none';
-
   syncMeta();
   $('jsonBox').value=JSON.stringify(state,null,2);
 }
@@ -351,14 +309,6 @@ function syncState(){
   state.opponent=addHash($('opponentName').value.trim());
   state.opponentDays=[0,1,2,3,4,5].map(i=>Number($('opp'+i).value)||0);
   state.opponentResults=[0,1,2,3,4,5].map(i=>state.opponentResults[i]||'');
-  state.analytics={
-    gaEnabled:$('gaEnabled').checked,
-    gaId:$('gaId').value.trim(),
-    cfEnabled:$('cfEnabled').checked,
-    cfToken:$('cfToken').value.trim(),
-    umamiEnabled:$('umamiEnabled').checked,
-    umamiId:$('umamiId').value.trim(),
-  };
 
   syncMeta();
   $('jsonBox').value=JSON.stringify(state,null,2);
@@ -806,7 +756,7 @@ function buildIndexHtml(){
   const allSum=sorted.reduce((s,m)=>s+mTotal(m),0);
   const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
 
-  return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">` +
+  return `---\nlayout: null\n---\n<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">` +
     `<title>${esc(state.guildName||'')} Kingdom Duel</title>` +
     buildAnalyticsHead() +
     `<style>${staticCss()}</style></head><body>` +
@@ -823,7 +773,7 @@ function buildArchiveHtml(sd, ed, manualTotal){
   const allSum=manualTotal>0?manualTotal:sorted.reduce((s,m)=>s+mTotal(m),0);
   const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
   const period=sd&&ed?sd+' ~ '+ed:(sd||ed||'');
-  return `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">` +
+  return `---\nlayout: null\n---\n<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">` +
     `<title>${esc(state.guildName||'')} KVK – ${esc(period)}</title>` +
     buildAnalyticsHead() +
     `<style>${staticCss()}</style></head><body>` +
@@ -849,42 +799,12 @@ async function tryLoadJson(){
 }
 
 function buildAnalyticsHead() {
-  let html = '';
-  if ($('gaEnabled').checked) {
-    const id = ($('gaId').value || '').trim();
-    if (id) {
-      html += `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"><\/script>` +
-              `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');<\/script>`;
-    }
-  }
-  if ($('cfEnabled').checked) {
-    const token = ($('cfToken').value || '').trim();
-    if (token) {
-      html += `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${token}"}'><\/script>`;
-    }
-  }
-  if ($('umamiEnabled').checked) {
-    const id = ($('umamiId').value || '').trim();
-    if (id) {
-      html += `<script defer src="https://cloud.umami.is/script.js" data-website-id="${id}"><\/script>`;
-    }
-  }
-  return html;
+  return (
+    "{% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}" +
+    "{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}" +
+    "{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}"
+  );
 }
-
-$('gaEnabled').addEventListener('change', () => {
-  $('gaIdWrap').style.display = $('gaEnabled').checked ? '' : 'none';
-  syncState();
-});
-$('cfEnabled').addEventListener('change', () => {
-  $('cfTokenWrap').style.display = $('cfEnabled').checked ? '' : 'none';
-  syncState();
-});
-$('umamiEnabled').addEventListener('change', () => {
-  $('umamiIdWrap').style.display = $('umamiEnabled').checked ? '' : 'none';
-  syncState();
-});
-['gaId','cfToken','umamiId'].forEach(id => $(id).addEventListener('input', syncState));
 
 $('downloadIndexBtn').addEventListener('click',()=>{syncMeta();$('jsonBox').value=JSON.stringify(state,null,2);renderTable();renderPreview();dlFile('index.html',buildIndexHtml(),'text/html;charset=utf-8');});
 $('downloadJsonBtn').addEventListener('click',()=>{syncMeta();$('jsonBox').value=JSON.stringify(state,null,2);renderTable();renderPreview();dlFile('kvk-data.json',JSON.stringify(state,null,2),'application/json;charset=utf-8');});
