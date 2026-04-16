@@ -171,6 +171,12 @@ title: REO Arena Archive
       text-overflow:ellipsis;
     }
 
+    .meta {
+      font-size:13px;
+      color:rgba(180,160,255,0.65);
+      flex-shrink:0;
+    }
+
     .empty {
       grid-column: 1 / -1;
       text-align: center;
@@ -257,6 +263,7 @@ title: REO Arena Archive
             <a class="item" href="{{ base_path | append: folder | append: '/' | relative_url }}">
               <span class="icon">📁</span>
               <span class="name">{{ folder }}</span>
+              <span class="meta">FOLDER</span>
             </a>
           {% endif %}
         {% endfor %}
