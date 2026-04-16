@@ -177,6 +177,16 @@ title: REO Arena Archive
       flex-shrink:0;
     }
 
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(200,180,255,0.35);
+      font-size: 14px;
+      border: 1px dashed rgba(180,130,255,0.15);
+      border-radius: 10px;
+    }
+
     .footer {
       margin-top:24px;
       padding-top:16px;
@@ -206,8 +216,28 @@ title: REO Arena Archive
       </div>
     </div>
 
+    {% assign page_files_sorted = site.pages | sort: "name" %}
+    {% assign static_files_sorted = site.static_files | sort: "name" %}
     {% assign folder_string = '' %}
-    {% for file in site.static_files %}
+    {% assign file_count = 0 %}
+
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for file in static_files_sorted %}
       {% if file.path contains base_path %}
         {% assign rest = file.path | remove_first: base_path %}
         {% assign parts = rest | split: '/' %}
@@ -217,21 +247,13 @@ title: REO Arena Archive
             {% assign folder_string = folder_string | append: token %}
           {% endunless %}
         {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% assign folder_array = folder_string | split: '|' | sort %}
-
-    {% assign file_count = 0 %}
-    {% assign files_sorted = site.static_files | sort: "name" %}
-    {% for file in files_sorted %}
-      {% if file.path contains base_path %}
-        {% assign rest = file.path | remove_first: base_path %}
-        {% assign parts = rest | split: '/' %}
         {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
           {% assign file_count = file_count | plus: 1 %}
         {% endif %}
       {% endif %}
     {% endfor %}
+
+    {% assign folder_array = folder_string | split: '|' | sort %}
 
     {% if folder_array.size > 1 %}
       <h2 class="section-title">폴더</h2>
@@ -251,7 +273,20 @@ title: REO Arena Archive
     {% if file_count > 0 %}
       <h2 class="section-title">파일</h2>
       <div class="list">
-        {% for file in files_sorted %}
+        {% for file in page_files_sorted %}
+          {% if file.url contains base_path %}
+            {% assign rest = file.url | remove_first: base_path %}
+            {% assign parts = rest | split: '/' %}
+            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+              <a class="item" href="{{ file.url | relative_url }}">
+                <span class="icon">📄</span>
+                <span class="name">{{ file.name }}</span>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% for file in static_files_sorted %}
           {% if file.path contains base_path %}
             {% assign rest = file.path | remove_first: base_path %}
             {% assign parts = rest | split: '/' %}
@@ -259,12 +294,18 @@ title: REO Arena Archive
               <a class="item" href="{{ file.path | relative_url }}">
                 <span class="icon">📄</span>
                 <span class="name">{{ file.name }}</span>
-                <span class="meta">{{ file.extname | upcase }}</span>
               </a>
             {% endif %}
           {% endif %}
         {% endfor %}
       </div>
+    {% else %}
+      {% if folder_array.size <= 1 %}
+        <h2 class="section-title">파일</h2>
+        <div class="list">
+          <div class="empty">아직 저장된 아카이브가 없습니다.</div>
+        </div>
+      {% endif %}
     {% endif %}
 
     <div class="footer">REO Archive</div>
