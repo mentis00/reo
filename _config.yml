@@ -1,0 +1,10 @@
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+analytics:
+  ga: true
+  cf: true
+  umami: true
