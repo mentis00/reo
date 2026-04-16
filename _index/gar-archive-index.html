@@ -235,8 +235,28 @@ title: REO GAR Archive
       </div>
     </div>
 
+    {% assign page_files_sorted = site.pages | sort: "name" | reverse %}
+    {% assign static_files_sorted = site.static_files | sort: "name" | reverse %}
     {% assign folder_string = '' %}
-    {% for file in site.static_files %}
+    {% assign file_count = 0 %}
+
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for file in static_files_sorted %}
       {% if file.path contains base_path %}
         {% assign rest = file.path | remove_first: base_path %}
         {% assign parts = rest | split: '/' %}
@@ -246,21 +266,13 @@ title: REO GAR Archive
             {% assign folder_string = folder_string | append: token %}
           {% endunless %}
         {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% assign folder_array = folder_string | split: '|' | sort %}
-
-    {% assign file_count = 0 %}
-    {% assign files_sorted = site.static_files | sort: "name" | reverse %}
-    {% for file in files_sorted %}
-      {% if file.path contains base_path %}
-        {% assign rest = file.path | remove_first: base_path %}
-        {% assign parts = rest | split: '/' %}
         {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
           {% assign file_count = file_count | plus: 1 %}
         {% endif %}
       {% endif %}
     {% endfor %}
+
+    {% assign folder_array = folder_string | split: '|' | sort %}
 
     {% if folder_array.size > 1 %}
       <div class="section-title">📁 폴더</div>
@@ -280,7 +292,21 @@ title: REO GAR Archive
     {% if file_count > 0 %}
       <div class="section-title">📄 시즌 기록</div>
       <div class="list">
-        {% for file in files_sorted %}
+        {% for file in page_files_sorted %}
+          {% if file.url contains base_path %}
+            {% assign rest = file.url | remove_first: base_path %}
+            {% assign parts = rest | split: '/' %}
+            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+              <a class="item" href="{{ file.url | relative_url }}">
+                <span class="icon">📄</span>
+                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
+                <span class="meta">HTML</span>
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% for file in static_files_sorted %}
           {% if file.path contains base_path %}
             {% assign rest = file.path | remove_first: base_path %}
             {% assign parts = rest | split: '/' %}
