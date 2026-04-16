@@ -1,0 +1,23 @@
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S62PCJME6Q"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-S62PCJME6Q');
+</script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token":"1cd771082b694474a3b1804d22dbcbac"}'></script>
+
+<!-- Umami Analytics (로컬 차단 포함) -->
+<script>
+if (location.protocol === 'https:' && location.hostname !== '') {
+  var s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://cloud.umami.is/script.js';
+  s.setAttribute('data-website-id', '037d2112-cf9c-420d-acbe-c6276583ddca');
+  document.head.appendChild(s);
+}
+</script>
