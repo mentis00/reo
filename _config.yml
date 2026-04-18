@@ -1,4 +1,4 @@
 analytics:
-  ga: true
-  cf: true
+  ga: false
+  cf: false
   umami: true
