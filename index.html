@@ -254,7 +254,7 @@ active_event: none   # arena / gar / kvk / none
     <div class="events">
 
       <!-- Guild Arena -->
-      <div class="event-card arena{% if page.active_event == 'arena' %} active{% else %} inactive{% endif %}">
+      <div class="event-card arena{% if page.active_event == 'arena' %} active{% elsif page.active_event != 'none' and page.active_event != '' %} inactive{% endif %}">
         <div class="event-icon">🏟️</div>
         <div class="event-info">
           <div class="event-name">
@@ -272,7 +272,7 @@ active_event: none   # arena / gar / kvk / none
       </div>
 
       <!-- Guild Arms Race -->
-      <div class="event-card gar{% if page.active_event == 'gar' %} active{% else %} inactive{% endif %}">
+      <div class="event-card gar{% if page.active_event == 'gar' %} active{% elsif page.active_event != 'none' and page.active_event != '' %} inactive{% endif %}">
         <div class="event-icon">⚔️</div>
         <div class="event-info">
           <div class="event-name">
@@ -290,7 +290,7 @@ active_event: none   # arena / gar / kvk / none
       </div>
 
       <!-- Kingdom Duel -->
-      <div class="event-card kvk{% if page.active_event == 'kvk' %} active{% else %} inactive{% endif %}">
+      <div class="event-card kvk{% if page.active_event == 'kvk' %} active{% elsif page.active_event != 'none' and page.active_event != '' %} inactive{% endif %}">
         <div class="event-icon">🏰</div>
         <div class="event-info">
           <div class="event-name">
