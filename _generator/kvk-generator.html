@@ -368,7 +368,7 @@ function renderPreview(){
     function fmtM(v){return (v&&Number(v)>0)?Number(v).toLocaleString()+'M':'—';}
     let wins=0,loses=0,draws=0;
     oppResults.forEach(r=>{if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
-    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?(s/1000000).toFixed(1):0;});
+    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?Math.floor(s/1000000):0;});
     const dayCols=DL.map((l,i)=>{
       const r=oppResults[i]||'';
       return `<div class="kvk-vs-day" style="background:${bgColor[r]};border-color:${bdColor[r]};">
@@ -692,7 +692,7 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
     function fmtM(v){return (v&&Number(v)>0)?Number(v).toLocaleString()+'M':'—';}
     let wins=0,loses=0,draws=0;
     oppResults.forEach(r=>{if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
-    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?(s/1000000).toFixed(1):0;});
+    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?Math.floor(s/1000000):0;});
     const dayCols=DL.map((l,i)=>{
       const r=oppResults[i]||'';
       return `<div class="vsday" style="background:${rBg[r]};border-color:${rBd[r]};"><span class="vsdlbl">Day${i+1}</span><span class="vsdname">${l}</span><div class="vsscores"><span class="vsus">${usDaysM[i]?Number(usDaysM[i]).toLocaleString()+'M':'—'}</span><span class="vsopp">${fmtM(oppDays[i])}</span></div><span class="vsbadge" style="color:${rText[r]};background:${rBg[r]};border:1px solid ${rBd[r]};">${rLabel[r]}</span></div>`;
@@ -867,7 +867,7 @@ window.updateMember=updateMember;window.deleteMember=deleteMember;
     row.style.cssText='display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;';
     row.innerHTML=
       `<span style="font-size:12px;color:${dayColors[i]};font-weight:700;">Day${i+1} <span style="color:rgba(255,255,255,0.35);font-weight:400;">${dayNames[i]}</span></span>`+
-      `<input id="opp${i}" type="number" step="0.1" placeholder="0.0" style="text-align:center;padding:6px 4px;">`+
+      `<input id="opp${i}" type="number" step="1" placeholder="0" style="text-align:center;padding:6px 4px;">`+
       `<button class="opp-btn" data-day="${i}" data-val="win"  style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;cursor:pointer;">승</button>`+
       `<button class="opp-btn" data-day="${i}" data-val="lose" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#f87171;cursor:pointer;">패</button>`+
       `<button class="opp-btn" data-day="${i}" data-val="draw" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,200,80,0.1);border:1px solid rgba(255,200,80,0.3);color:#fcd34d;cursor:pointer;">무</button>`;
