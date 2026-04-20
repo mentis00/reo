@@ -264,8 +264,10 @@ function getDayInfo(isoStr){
   const d=isoStr?new Date(isoStr):null;
   if(!d||isNaN(d.getTime())) return null;
   const dow=d.getDay()===0?7:d.getDay();
-  if(dow===7) return null;
   const before11=d.getHours()<11;
+  // 일요일 오전 11시 이전 → 전날(토=Day6)로 처리
+  if(dow===7&&before11) return {num:6, idx:5, label:DL[5]};
+  if(dow===7) return null;
   const effectiveDow=before11?dow-1:dow;
   if(effectiveDow<=0||effectiveDow>6) return null;
   return {num:effectiveDow, idx:effectiveDow-1, label:DL[effectiveDow-1]};
@@ -604,8 +606,9 @@ function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
   if(!d||isNaN(d.getTime()))return null;
   var dow=d.getDay()===0?7:d.getDay();
-  if(dow===7)return null;
   var before11=d.getHours()<11;
+  if(dow===7&&before11)return{num:6,idx:5};
+  if(dow===7)return null;
   var eff=before11?dow-1:dow;
   if(eff<=0||eff>6)return null;
   return{num:eff,idx:eff-1};
