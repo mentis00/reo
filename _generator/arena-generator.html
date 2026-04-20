@@ -447,6 +447,10 @@ function buildStaticIndexHtml() {
   }).join('');
 
   return '---\nlayout: null\n---\n<!DOCTYPE html>\n' +
+  '<html lang="ko">\n<head>\n' +
+  '<meta charset="UTF-8">\n' +
+  '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+  '<title>' + escapeHtml(state.guildName || '') + ' Guild Arena</title>\n' +
   buildAnalyticsHead() + '\n' +
   '<style>\n' +
   "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');\n" +
@@ -487,8 +491,8 @@ function buildStaticIndexHtml() {
   ".total{font-size:14px;color:rgba(200,180,255,0.45)}\n" +
   ".total strong{color:rgba(200,180,255,0.8);font-family:'Rajdhani',sans-serif;font-size:17px}\n" +
   ".goal-note{font-size:14px;color:rgba(252,211,77,0.6)}\n" +
-  "@media (max-width:860px){body{padding:12px}.container{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.header-right{text-align:left}.guild-name{font-size:36px;letter-spacing:4px}}\n" +
-  "@media (max-width:860px) and (orientation:portrait){.arena-updated,.updated{display:none!important}}\n" +
+  "@media (max-width:860px){body{padding:12px}.container{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.header-right{text-align:left;align-items:flex-start}.guild-name{font-size:36px;letter-spacing:4px}}\n" +
+  "@media (max-width:540px){.updated{display:none!important}}\n" +
   '</style>\n</head>\n<body>\n' +
   '<div class="container">\n' +
     '  <div class="header">\n' +
@@ -609,7 +613,7 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
   ".total strong{color:rgba(200,180,255,0.8);font-family:'Rajdhani',sans-serif;font-size:17px}\n" +
   ".goal-note{font-size:14px;color:rgba(252,211,77,0.6)}\n" +
   "@media (max-width:860px){body{padding:12px}.container{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.header-right{text-align:left;align-items:flex-start}.guild-name{font-size:36px;letter-spacing:4px}}\n" +
-  "@media (max-width:860px) and (orientation:portrait){.updated{display:none!important}}\n" +
+  "@media (max-width:540px){.updated{display:none!important}}\n" +
   '</style>\n</head>\n<body>\n' +
   '<div class="container">\n' +
     '  <div class="header">\n' +
