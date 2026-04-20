@@ -234,8 +234,6 @@
 // KVK: Day1~5 준비단계, Day6 전쟁(정복)
 const DL = ['건설','기술','채집','영웅','훈련','전쟁'];
 const DC = ['#fbbf24','#60a5fa','#34d399','#f472b6','#38bdf8','#f87171'];
-// Day6(전쟁)은 전쟁 페이즈
-const IS_WAR = [false,false,false,false,false,true];
 
 let state = {
   guildName:'', eventLabel:'Kingdom Duel', goalScore:0, totalMembers:0, updateInput:'',
@@ -260,11 +258,12 @@ function getDayInfo(isoStr){
   const d=isoStr?new Date(isoStr):null;
   if(!d||isNaN(d.getTime())) return null;
   const dow=d.getDay()===0?7:d.getDay(); // 1=월...7=일
-  if(dow===7) return null; // 일요일 없음
   const before11=d.getHours()<11;
+  if(dow===7&&before11) return {num:6, idx:5, label:DL[5]};
+  if(dow===7) return null;
   const effectiveDow=before11?dow-1:dow;
   if(effectiveDow<=0||effectiveDow>6) return null;
-  return {num:effectiveDow, idx:effectiveDow-1, label:DL[effectiveDow-1], isWar:effectiveDow===6};
+  return {num:effectiveDow, idx:effectiveDow-1, label:DL[effectiveDow-1]};
 }
 
 function ensureDefaults(){
@@ -581,11 +580,12 @@ function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
   if(!d||isNaN(d.getTime()))return null;
   var dow=d.getDay()===0?7:d.getDay();
-  if(dow===7)return null;
   var before11=d.getHours()<11;
+  if(dow===7&&before11)return{num:6,idx:5};
+  if(dow===7)return null;
   var eff=before11?dow-1:dow;
   if(eff<=0||eff>6)return null;
-  return{num:eff,idx:eff-1,isWar:eff===6};
+  return{num:eff,idx:eff-1};
 }
 var updateDay=isArchive?null:getUpdateDay();
 var cDay=updateDay?String(updateDay.idx):'all';
