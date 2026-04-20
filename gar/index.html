@@ -610,8 +610,9 @@ function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
   if(!d||isNaN(d.getTime()))return null;
   var dow=d.getDay()===0?7:d.getDay();
-  if(dow===7)return null;
   var before11=d.getHours()<11;
+  if(dow===7&&before11)return{num:6,idx:5};
+  if(dow===7)return null;
   var eff=before11?dow-1:dow;
   if(eff<=0||eff>6)return null;
   return{num:eff,idx:eff-1};
