@@ -370,6 +370,7 @@ function renderPreview() {
             <div class="arena-event-label">Guild Arena</div>
             <div class="arena-update-time">최종 업데이트: <span>${escapeHtml(displayUpdate)}</span></div>
           </div>
+          <a style="display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none;" href="https://mentis00.github.io/reo/arena/archive/">📁 아카이브</a>
           <a style="display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none;" href="https://mentis00.github.io/reo/">🏠 메인</a>
         </div>
       </div>
@@ -503,6 +504,7 @@ function buildStaticIndexHtml() {
     '        <div class="event-label">Guild Arena</div>\n' +
     '        <div class="update-time">최종 업데이트: <span>' + escapeHtml(displayUpdate) + '</span></div>\n' +
     '      </div>\n' +
+    '      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 아카이브</a>\n' +
     '      <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -626,7 +628,7 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
     '        <div class="update-time">최종 업데이트: <span>' + escapeHtml(displayUpdate) + '</span></div>\n' +
     '      </div>\n' +
     (periodLabel ? '      <span class="period-badge">📅 ' + escapeHtml(periodLabel) + '</span>\n' : '') +
-    '      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 아카이브 목록</a>\n' +
+    '      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 아카이브</a>\n' +
     '      <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>\n' +
     '    </div>\n' +
     '  </div>\n' +
