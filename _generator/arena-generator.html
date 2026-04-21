@@ -453,6 +453,7 @@ function buildStaticIndexHtml() {
   '<title>' + escapeHtml(state.guildName || '') + ' Guild Arena</title>\n' +
   buildAnalyticsHead() + '\n' +
   '<style>\n' +
+  "html{-webkit-text-size-adjust:100%;text-size-adjust:100%}\n" +
   "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');\n" +
   "*{margin:0;padding:0;box-sizing:border-box}\n" +
   "body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color:#fff}\n" +
@@ -574,6 +575,7 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
   '<title>' + escapeHtml(state.guildName || '') + ' Guild Arena – ' + escapeHtml(periodLabel) + '</title>\n' +
   buildAnalyticsHead() + '\n' +
   '<style>\n' +
+  "html{-webkit-text-size-adjust:100%;text-size-adjust:100%}\n" +
   "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');\n" +
   "*{margin:0;padding:0;box-sizing:border-box}\n" +
   "body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color:#fff}\n" +
