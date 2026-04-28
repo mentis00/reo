@@ -2,7 +2,7 @@
   "guildName": "REO",
   "eventLabel": "Guild Arms Race",
   "goalScore": 1500000,
-  "totalMembers": 92,
+  "totalMembers": 95,
   "updateInput": "2026-04-28T10:45",
   "seasonStart": "2026-04-27",
   "seasonEnd": "2026-05-03",
@@ -1121,6 +1121,42 @@
       "name": "Uhhhokay",
       "days": [
         1096,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "updated": "2026-04-28T10:45"
+    },
+    {
+      "name": "페라리탄토끼🐰",
+      "days": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "updated": "2026-04-28T10:45"
+    },
+    {
+      "name": "chris",
+      "days": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "updated": "2026-04-28T10:45"
+    },
+    {
+      "name": "Ramen",
+      "days": [
+        0,
         0,
         0,
         0,
