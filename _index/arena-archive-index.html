@@ -216,8 +216,8 @@ title: REO Arena Archive
       </div>
     </div>
 
-    {% assign page_files_sorted = site.pages | sort: "name" %}
-    {% assign static_files_sorted = site.static_files | sort: "name" %}
+    {% assign page_files_sorted = site.pages | sort: "name" | reverse %}
+    {% assign static_files_sorted = site.static_files | sort: "name" | reverse %}
     {% assign folder_string = '' %}
     {% assign file_count = 0 %}
 
