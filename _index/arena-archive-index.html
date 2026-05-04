@@ -253,7 +253,7 @@ title: REO Arena Archive
       {% endif %}
     {% endfor %}
 
-    {% assign folder_array = folder_string | split: '|' | sort %}
+    {% assign folder_array = folder_string | split: '|' | sort | reverse %}
 
     {% if folder_array.size > 1 %}
       <h2 class="section-title">폴더</h2>
