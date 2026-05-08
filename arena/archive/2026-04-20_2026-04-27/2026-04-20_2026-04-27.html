@@ -757,18 +757,24 @@ body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color
   var buttons=document.querySelectorAll(".filter-btn");
   var rows=document.querySelectorAll("[data-score]");
   var goal=7000;
+  function applyFilter(mode){
+    var rank=1;
+    rows.forEach(function(row){
+      var s=Number(row.getAttribute("data-score")||0);
+      var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);
+      row.style.display=show?"":"none";
+      var noEl=row.querySelector(".no");
+      if(noEl&&show){noEl.textContent=rank++;}
+    });
+  }
   buttons.forEach(function(btn){
     btn.addEventListener("click",function(){
       buttons.forEach(function(b){b.classList.remove("active")});
       btn.classList.add("active");
-      var mode=btn.getAttribute("data-mode");
-      rows.forEach(function(row){
-        var s=Number(row.getAttribute("data-score")||0);
-        var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);
-        row.style.display=show?"":"none";
-      });
+      applyFilter(btn.getAttribute("data-mode"));
     });
   });
+  applyFilter("all");
 })();
 </script>
 <script>
