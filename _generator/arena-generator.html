@@ -349,10 +349,13 @@ function renderTable() {
 }
 function applyFilterToRows(container, mode, goalScore) {
   const rows = container.querySelectorAll('[data-score]');
+  let rank = 1;
   rows.forEach(row => {
     const score = Number(row.getAttribute('data-score') || 0);
     const show = mode === 'all' || (mode === 'above' && score >= goalScore) || (mode === 'below' && score < goalScore);
     row.style.display = show ? '' : 'none';
+    const noEl = row.querySelector('.arena-no');
+    if (noEl && show) noEl.textContent = rank++;
   });
 }
 function renderPreview() {
@@ -529,18 +532,24 @@ function buildStaticIndexHtml() {
     '  var buttons=document.querySelectorAll(".filter-btn");\n' +
     '  var rows=document.querySelectorAll("[data-score]");\n' +
     '  var goal=' + JSON.stringify(goalScore) + ';\n' +
+    '  function applyFilter(mode){\n' +
+    '    var rank=1;\n' +
+    '    rows.forEach(function(row){\n' +
+    '      var s=Number(row.getAttribute("data-score")||0);\n' +
+    '      var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);\n' +
+    '      row.style.display=show?"":"none";\n' +
+    '      var noEl=row.querySelector(".no");\n' +
+    '      if(noEl&&show){noEl.textContent=rank++;}\n' +
+    '    });\n' +
+    '  }\n' +
     '  buttons.forEach(function(btn){\n' +
     '    btn.addEventListener("click",function(){\n' +
     '      buttons.forEach(function(b){b.classList.remove("active")});\n' +
     '      btn.classList.add("active");\n' +
-    '      var mode=btn.getAttribute("data-mode");\n' +
-    '      rows.forEach(function(row){\n' +
-    '        var s=Number(row.getAttribute("data-score")||0);\n' +
-    '        var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);\n' +
-    '        row.style.display=show?"":"none";\n' +
-    '      });\n' +
+    '      applyFilter(btn.getAttribute("data-mode"));\n' +
     '    });\n' +
     '  });\n' +
+    '  applyFilter("all");\n' +
   '})();\n<\/script>\n' +
   '<script>\n(function(){var last=0;document.addEventListener("touchend",function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();\n<\/script>\n' +
   '</body>\n</html>';
@@ -654,18 +663,24 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
     '  var buttons=document.querySelectorAll(".filter-btn");\n' +
     '  var rows=document.querySelectorAll("[data-score]");\n' +
     '  var goal=' + JSON.stringify(goalScore) + ';\n' +
+    '  function applyFilter(mode){\n' +
+    '    var rank=1;\n' +
+    '    rows.forEach(function(row){\n' +
+    '      var s=Number(row.getAttribute("data-score")||0);\n' +
+    '      var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);\n' +
+    '      row.style.display=show?"":"none";\n' +
+    '      var noEl=row.querySelector(".no");\n' +
+    '      if(noEl&&show){noEl.textContent=rank++;}\n' +
+    '    });\n' +
+    '  }\n' +
     '  buttons.forEach(function(btn){\n' +
     '    btn.addEventListener("click",function(){\n' +
     '      buttons.forEach(function(b){b.classList.remove("active")});\n' +
     '      btn.classList.add("active");\n' +
-    '      var mode=btn.getAttribute("data-mode");\n' +
-    '      rows.forEach(function(row){\n' +
-    '        var s=Number(row.getAttribute("data-score")||0);\n' +
-    '        var show=(mode==="all")||(mode==="above"&&s>=goal)||(mode==="below"&&s<goal);\n' +
-    '        row.style.display=show?"":"none";\n' +
-    '      });\n' +
+    '      applyFilter(btn.getAttribute("data-mode"));\n' +
     '    });\n' +
     '  });\n' +
+    '  applyFilter("all");\n' +
   '})();\n<\/script>\n' +
   '<script>\n(function(){var last=0;document.addEventListener("touchend",function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();\n<\/script>\n' +
   '</body>\n</html>';
