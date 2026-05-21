@@ -142,11 +142,11 @@ body{
 .item{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:12px;
   background:rgba(255,255,255,0.03);
   border:1px solid rgba(180,130,255,0.12);
-  border-radius:14px;
-  padding:16px 18px;
+  border-radius:12px;
+  padding:13px 16px;
   text-decoration:none;
   color:#fff;
   transition:all .18s ease;
@@ -168,62 +168,25 @@ body{
 
 .item:hover{
   background:rgba(180,130,255,0.08);
-  border-color:rgba(180,130,255,0.3);
+  border-color:rgba(180,130,255,0.28);
   transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(130,80,255,0.15);
+  box-shadow:0 4px 16px rgba(130,80,255,0.12);
 }
 
 .item:hover::before{ opacity:1; }
 
-.item.latest{
-  border-color:rgba(192,132,252,0.35);
-  background:rgba(130,80,255,0.06);
-}
-
-.item.latest::before{ opacity:1; }
-
 .icon{
-  font-size:22px;
+  font-size:18px;
   flex-shrink:0;
-  width:36px;
-  height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
   background:rgba(180,130,255,0.1);
-  border-radius:10px;
-}
-
-.item-body{
-  flex:1;
-  min-width:0;
-}
-
-.item-dates{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-family:'Rajdhani',sans-serif;
-  font-size:17px;
-  font-weight:700;
-  color:#e2d9f3;
-  white-space:nowrap;
-}
-
-.date-sep{
-  color:rgba(180,130,255,0.5);
-  font-size:14px;
-}
-
-.item-sub{
-  margin-top:3px;
-  font-size:12px;
-  color:rgba(180,160,255,0.45);
-  letter-spacing:0.5px;
+  border-radius:8px;
 }
 
 .name{
   flex:1;
+  font-size:15px;
   font-weight:700;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -232,47 +195,14 @@ body{
 }
 
 .meta {
-  font-size:13px;
-  color:rgba(180,160,255,0.65);
-  flex-shrink:0;
-}
-
-.item-badges{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:5px;
-  flex-shrink:0;
-}
-
-.badge-latest{
-  padding:3px 8px;
-  border-radius:999px;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:1px;
-  background:linear-gradient(135deg,#c084fc,#818cf8);
-  color:#fff;
-}
-
-.badge-view{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  padding:5px 12px;
-  border-radius:999px;
   font-size:12px;
   font-weight:700;
-  color:rgba(180,130,255,0.8);
+  color:rgba(180,130,255,0.6);
   background:rgba(180,130,255,0.08);
-  border:1px solid rgba(180,130,255,0.2);
-  transition:all .15s ease;
-}
-
-.item:hover .badge-view{
-  background:rgba(180,130,255,0.18);
-  color:#c084fc;
-  border-color:rgba(180,130,255,0.4);
+  border:1px solid rgba(180,130,255,0.18);
+  border-radius:999px;
+  padding:3px 10px;
+  flex-shrink:0;
 }
 
 .image-grid{
@@ -482,37 +412,17 @@ body{
   {% if file_count > 0 %}
     <div class="section-title">시즌 기록</div>
     <div class="list">
-      {% assign is_first_item = true %}
       {% for file in page_files_sorted %}
         {% if file.url contains page.url %}
           {% assign rest = file.url | remove_first: page.url %}
           {% assign parts = rest | split:'/' %}
 
           {% if parts.size == 1 and rest != '' and file.name != 'index.html' %}
-            {% assign fname = file.name | replace: '.html', '' %}
-            {% assign dparts = fname | split: '_' %}
-            {% if dparts.size >= 2 %}
-              {% assign d_start = dparts[0] %}
-              {% assign d_end = dparts[1] %}
-            {% else %}
-              {% assign d_start = fname %}
-              {% assign d_end = '' %}
-            {% endif %}
-            <a class="item{% if is_first_item %} latest{% endif %}" href="{{ file.url | relative_url }}">
-              <div class="icon">📄</div>
-              <div class="item-body">
-                <div class="item-dates">
-                  {{ d_start }}
-                  {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
-                </div>
-                <div class="item-sub">GUILD ARENA SEASON</div>
-              </div>
-              <div class="item-badges">
-                {% if is_first_item %}<span class="badge-latest">LATEST</span>{% endif %}
-                <span class="badge-view">보기 →</span>
-              </div>
+            <a class="item" href="{{ file.url | relative_url }}">
+              <span class="icon">📄</span>
+              <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
+              <span class="meta">보기 →</span>
             </a>
-            {% assign is_first_item = false %}
           {% endif %}
         {% endif %}
       {% endfor %}
