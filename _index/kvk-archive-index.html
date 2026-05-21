@@ -152,16 +152,9 @@ title: REO KVK Archive
       width: 3px;
       background: linear-gradient(180deg, #fbbf24, #d97706);
       border-radius: 3px 0 0 3px;
-      opacity: 0;
-      transition: opacity .18s ease;
+      opacity: 0.8;
     }
 
-    .season-card:hover {
-      background: rgba(245,158,11,0.07);
-      border-color: rgba(245,158,11,0.32);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245,158,11,0.12);
-    }
 
     .season-card:hover::before { opacity: 1; }
 
@@ -278,6 +271,13 @@ title: REO KVK Archive
       .header-right { text-align: left; align-items: flex-start; }
       .guild-name { font-size: 36px; letter-spacing: 4px; }
       .card-dates { font-size: 15px; }
+    }
+
+    .season-card:hover {
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
     }
   </style>
 </head>
