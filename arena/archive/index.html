@@ -153,7 +153,8 @@ title: REO Arena Archive
       width:3px;
       background:linear-gradient(180deg,#c084fc,#818cf8);
       border-radius:3px 0 0 3px;
-      opacity:0.8;
+      opacity:0;
+      transition:opacity .18s ease;
     }
 
     .season-card:hover {
@@ -357,21 +358,6 @@ title: REO Arena Archive
       .header-right { text-align:left; align-items:flex-start; }
       .guild-name { font-size:36px; letter-spacing:4px; }
       .card-dates, .folder-dates { font-size:15px; }
-    }
-
-    .season-card:hover,
-    .folder-card:hover {
-      background:rgba(255,255,255,0.04);
-      border-color:rgba(255,255,255,0.1);
-      transform:translateX(3px);
-      opacity:1;
-    }
-
-    .season-card:hover .badge-view,
-    .folder-card:hover .badge-view {
-      background:rgba(192,132,252,0.22);
-      color:#e9d5ff;
-      border-color:rgba(192,132,252,0.45);
     }
   </style>
 </head>
