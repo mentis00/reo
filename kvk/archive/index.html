@@ -334,8 +334,7 @@ title: REO KVK Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
-              <a class="season-card{% if is_first %} latest{% endif %}"
-                 href="{{ file.url | relative_url }}">
+              <div class="season-card{% if is_first %} latest{% endif %}">
                 <div class="card-icon">⚔️</div>
                 <div class="card-body">
                   <div class="card-dates">
@@ -346,9 +345,9 @@ title: REO KVK Archive
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <span class="badge-view">보기 →</span>
+                  <a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a>
                 </div>
-              </a>
+              </div>
               {% assign is_first = false %}
             {% endif %}
           {% endif %}
@@ -368,8 +367,7 @@ title: REO KVK Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
-              <a class="season-card{% if is_first %} latest{% endif %}"
-                 href="{{ file.path | relative_url }}">
+              <div class="season-card{% if is_first %} latest{% endif %}">
                 <div class="card-icon">⚔️</div>
                 <div class="card-body">
                   <div class="card-dates">
@@ -380,9 +378,9 @@ title: REO KVK Archive
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <span class="badge-view">보기 →</span>
+                  <a class="badge-view" href="{{ file.path | relative_url }}">보기 →</a>
                 </div>
-              </a>
+              </div>
               {% assign is_first = false %}
             {% endif %}
           {% endif %}
