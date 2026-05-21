@@ -281,6 +281,13 @@ title: REO Arena Archive
       overflow:hidden;
     }
 
+    .folder-card:hover {
+      background:rgba(180,130,255,0.08);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(130,80,255,0.12);
+    }
+
     .folder-card.latest {
       border-color:rgba(192,132,252,0.35);
       background:rgba(130,80,255,0.06);
@@ -364,6 +371,13 @@ title: REO Arena Archive
       border-color:rgba(255,255,255,0.1);
       transform:translateX(3px);
       opacity:1;
+    }
+
+    .season-card:hover .badge-view,
+    .folder-card:hover .badge-view {
+      background:rgba(192,132,252,0.22);
+      color:#e9d5ff;
+      border-color:rgba(192,132,252,0.45);
     }
   </style>
 </head>
