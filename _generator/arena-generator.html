@@ -107,6 +107,9 @@
     .arena-header-right{text-align:left}
     .arena-guild-name{font-size:36px; letter-spacing:4px}
   }
+  @media (max-width:860px) and (orientation:landscape){
+    .arena-grid{grid-template-columns:repeat(2,1fr)!important}
+  }
 </style>
 </head>
 <body>
@@ -497,6 +500,7 @@ function buildStaticIndexHtml() {
   ".total strong{color:rgba(200,180,255,0.8);font-family:'Rajdhani',sans-serif;font-size:17px}\n" +
   ".goal-note{font-size:14px;color:rgba(252,211,77,0.6)}\n" +
   "@media (max-width:860px){body{padding:12px}.container{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.header-right{text-align:left;align-items:flex-start}.guild-name{font-size:36px;letter-spacing:4px}}\n" +
+  "@media (max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}}\n" +
   "@media (max-width:540px){.updated{display:none!important}}\n" +
   '</style>\n</head>\n<body>\n' +
   '<div class="container">\n' +
@@ -626,6 +630,7 @@ function buildArchiveHtml(startDate, endDate, manualTotalScore) {
   ".total strong{color:rgba(200,180,255,0.8);font-family:'Rajdhani',sans-serif;font-size:17px}\n" +
   ".goal-note{font-size:14px;color:rgba(252,211,77,0.6)}\n" +
   "@media (max-width:860px){body{padding:12px}.container{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.header-right{text-align:left;align-items:flex-start}.guild-name{font-size:36px;letter-spacing:4px}}\n" +
+  "@media (max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}}\n" +
   "@media (max-width:540px){.updated{display:none!important}}\n" +
   '</style>\n</head>\n<body>\n' +
   '<div class="container">\n' +
