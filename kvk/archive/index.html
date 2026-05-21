@@ -140,7 +140,7 @@ title: REO KVK Archive
       padding: 16px 18px;
       text-decoration: none;
       color: #fff9e6;
-      transition: all .18s ease;
+      transition:background .2s, border-color .2s, transform .15s;
       position: relative;
       overflow: hidden;
     }
@@ -152,25 +152,22 @@ title: REO KVK Archive
       width: 3px;
       background: linear-gradient(180deg, #fbbf24, #d97706);
       border-radius: 3px 0 0 3px;
-      opacity: 0;
-      transition: opacity .18s ease;
+      opacity: 0.8;
     }
 
     .season-card:hover {
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(245,158,11,0.3);
-      transform: translateX(3px);
-      cursor: default;
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
     }
 
-    .season-card:hover::before { opacity: 1; }
 
     .season-card.latest {
       border-color: rgba(251,191,36,0.38);
       background: rgba(245,158,11,0.05);
     }
 
-    .season-card.latest::before { opacity: 1; }
 
     .card-icon {
       font-size: 22px;
@@ -238,11 +235,6 @@ title: REO KVK Archive
       transition: all .15s ease;
     }
 
-    .season-card:hover .badge-view {
-      background: rgba(245,158,11,0.18);
-      color: #fbbf24;
-      border-color: rgba(245,158,11,0.45);
-    }
 
     .empty {
       grid-column: 1 / -1;
@@ -279,7 +271,8 @@ title: REO KVK Archive
       .guild-name { font-size: 36px; letter-spacing: 4px; }
       .card-dates { font-size: 15px; }
     }
-    a.badge-view:hover {
+
+    a.badge-view:hover, a.meta:hover {
       background:rgba(251,191,36,0.22);
       color:#fef08a;
       border-color:rgba(251,191,36,0.45);
