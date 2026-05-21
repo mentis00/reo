@@ -1,10 +1,10 @@
 ---
 layout: null
-title: REO KVK Archive
+title: REO GAR Archive
 ---
 
-{% assign base_path = '/kvk/archive/' %}
-{% assign current_url = '/kvk/' %}
+{% assign base_path = '/gar/archive/' %}
+{% assign current_url = '/gar/' %}
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,256 +20,264 @@ title: REO KVK Archive
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background: linear-gradient(180deg, #0e0a00, #14100a);
-      font-family: 'Noto Sans KR', sans-serif;
-      padding: 20px;
-      color: #fff9e6;
-      min-height: 100vh;
+      background:linear-gradient(180deg,#06101e,#0b1422);
+      font-family:'Noto Sans KR',sans-serif;
+      padding:20px;
+      color:#eef2ff;
+      min-height:100vh;
     }
 
     .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: linear-gradient(160deg, #1a1000 0%, #0e0c02 50%, #120e00 100%);
-      border: 1px solid rgba(245,158,11,0.22);
-      border-radius: 20px;
-      padding: 36px 40px 44px;
-      position: relative;
-      overflow: hidden;
+      max-width:1100px;
+      margin:0 auto;
+      background:linear-gradient(160deg,#150e28 0%,#0b0e1c 50%,#0c1420 100%);
+      border:1px solid rgba(255,140,60,0.2);
+      border-radius:20px;
+      padding:36px 40px 44px;
+      position:relative;
+      overflow:hidden;
     }
 
     .container::before {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%);
-      pointer-events: none;
+      content:'';
+      position:absolute;
+      top:-80px; right:-80px;
+      width:320px; height:320px;
+      background:radial-gradient(circle,rgba(249,115,22,0.12) 0%,transparent 70%);
+      pointer-events:none;
     }
 
     .container::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
-      pointer-events: none;
+      content:'';
+      position:absolute;
+      bottom:-60px; left:-60px;
+      width:260px; height:260px;
+      background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);
+      pointer-events:none;
     }
 
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 28px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(245,158,11,0.22);
-      position: relative;
-      z-index: 1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+      padding-bottom:20px;
+      border-bottom:1px solid rgba(255,140,60,0.2);
+      position:relative;
+      z-index:1;
     }
 
     .guild-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 52px;
-      font-weight: 700;
-      letter-spacing: 8px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family:'Rajdhani',sans-serif;
+      font-size:52px;
+      font-weight:700;
+      letter-spacing:8px;
+      background:linear-gradient(135deg,#fb923c,#f97316,#ef4444);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
     .header-right {
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
     }
 
     .event-label {
-      font-size: 14px;
-      color: rgba(255,220,120,0.6);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-size:14px;
+      color:rgba(255,180,120,0.6);
+      letter-spacing:2px;
+      text-transform:uppercase;
     }
 
     .nav-btn {
-      display: inline-block;
-      padding: 7px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #7dd3fc;
-      background: rgba(30,58,95,0.7);
-      border: 1px solid rgba(125,211,252,0.25);
-      text-decoration: none;
-      transition: all .15s ease;
+      display:inline-block;
+      padding:7px 16px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      color:#7dd3fc;
+      background:rgba(30,58,95,0.7);
+      border:1px solid rgba(125,211,252,0.25);
+      text-decoration:none;
+      transition:all .15s ease;
     }
 
     .nav-btn:hover {
-      background: rgba(30,58,95,1);
-      transform: translateY(-1px);
+      background:rgba(30,58,95,1);
+      transform:translateY(-1px);
     }
 
     .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,220,120,0.45);
-      margin: 0 0 14px;
-      position: relative;
-      z-index: 1;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:rgba(255,180,120,0.5);
+      margin:0 0 14px;
+      position:relative;
+      z-index:1;
     }
 
     .season-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      position: relative;
-      z-index: 1;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
     }
 
     .season-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(245,158,11,0.12);
-      border-radius: 14px;
-      padding: 16px 18px;
-      text-decoration: none;
-      color: #fff9e6;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,140,60,0.12);
+      border-radius:14px;
+      padding:16px 18px;
+      text-decoration:none;
+      color:#f0e8e0;
       transition:background .2s, border-color .2s, transform .15s;
-      position: relative;
-      overflow: hidden;
+      position:relative;
+      overflow:hidden;
     }
 
     .season-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, #fbbf24, #d97706);
-      border-radius: 3px 0 0 3px;
-      opacity: 0.8;
+      content:'';
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:3px;
+      background:linear-gradient(180deg,#fb923c,#ef4444);
+      border-radius:3px 0 0 3px;
+      opacity:0.8;
+      transition:opacity .18s ease;
     }
 
 
 
     .season-card.latest {
-      border-color: rgba(251,191,36,0.38);
-      background: rgba(245,158,11,0.05);
+      border-color:rgba(251,146,60,0.35);
+      background:rgba(249,115,22,0.05);
     }
 
 
     .card-icon {
-      font-size: 22px;
-      flex-shrink: 0;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(245,158,11,0.1);
-      border-radius: 10px;
+      font-size:22px;
+      flex-shrink:0;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(249,115,22,0.1);
+      border-radius:10px;
     }
 
-    .card-body { flex: 1; min-width: 0; }
+    .card-body {
+      flex:1;
+      min-width:0;
+    }
 
     .card-dates {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: #fff9e6;
-      white-space: nowrap;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
+      font-weight:700;
+      color:#f0e8e0;
+      white-space:nowrap;
     }
 
     .date-sep {
-      color: rgba(245,158,11,0.5);
-      font-size: 14px;
+      color:rgba(249,115,22,0.5);
+      font-size:14px;
     }
 
     .card-sub {
-      margin-top: 3px;
-      font-size: 12px;
-      color: rgba(255,220,120,0.4);
-      letter-spacing: 0.5px;
+      margin-top:3px;
+      font-size:12px;
+      color:rgba(255,180,120,0.4);
+      letter-spacing:0.5px;
     }
 
     .card-badges {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-      flex-shrink: 0;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:5px;
+      flex-shrink:0;
     }
 
     .badge-latest {
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      background: linear-gradient(135deg, #fbbf24, #d97706);
-      color: #3a1f00;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      background:linear-gradient(135deg,#fb923c,#ef4444);
+      color:#fff;
     }
 
     .badge-view {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(251,191,36,0.8);
-      background: rgba(245,158,11,0.08);
-      border: 1px solid rgba(245,158,11,0.2);
-      transition: all .15s ease;
+      display:flex;
+      align-items:center;
+      gap:4px;
+      padding:5px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      color:rgba(251,146,60,0.75);
+      background:rgba(249,115,22,0.08);
+      border:1px solid rgba(249,115,22,0.2);
+      transition:all .15s;
+      text-decoration:none;
     }
 
 
     .empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px 20px;
-      color: rgba(255,220,120,0.3);
-      font-size: 14px;
-      border: 1px dashed rgba(245,158,11,0.15);
-      border-radius: 10px;
+      grid-column:1/-1;
+      text-align:center;
+      padding:40px 20px;
+      color:rgba(255,180,120,0.3);
+      font-size:14px;
+      border:1px dashed rgba(255,140,60,0.12);
+      border-radius:10px;
     }
 
     .footer {
-      margin-top: 28px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(245,158,11,0.15);
-      font-size: 13px;
-      color: rgba(255,220,120,0.4);
-      position: relative;
-      z-index: 1;
+      margin-top:28px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,140,60,0.15);
+      font-size:13px;
+      color:rgba(255,180,120,0.4);
+      position:relative;
+      z-index:1;
     }
 
     .footer strong {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 17px;
-      color: rgba(255,220,120,0.7);
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
+      color:rgba(255,180,120,0.7);
     }
 
-    @media (max-width: 860px) {
-      body { padding: 12px; }
-      .container { padding: 22px 18px 28px; }
-      .season-grid { grid-template-columns: 1fr; }
-      .header { flex-direction: column; align-items: flex-start; }
-      .header-right { text-align: left; align-items: flex-start; }
-      .guild-name { font-size: 36px; letter-spacing: 4px; }
-      .card-dates { font-size: 15px; }
+    @media (max-width:860px) {
+      body { padding:12px; }
+      .container { padding:22px 18px 28px; }
+      .season-grid { grid-template-columns:1fr; }
+      .header { flex-direction:column; align-items:flex-start; }
+      .header-right { text-align:left; align-items:flex-start; }
+      .guild-name { font-size:36px; letter-spacing:4px; }
+      .card-dates { font-size:15px; }
     }
 
     a.badge-view:hover, a.meta:hover {
-      background:rgba(251,191,36,0.22);
-      color:#fef08a;
-      border-color:rgba(251,191,36,0.45);
+      background:rgba(251,146,60,0.22);
+      color:#fed7aa;
+      border-color:rgba(251,146,60,0.45);
     }
 
     .season-card:hover {
@@ -280,9 +288,9 @@ title: REO KVK Archive
     }
 
     .season-card:hover .badge-view {
-      background:rgba(251,191,36,0.22);
-      color:#fef08a;
-      border-color:rgba(251,191,36,0.45);
+      background:rgba(251,146,60,0.22);
+      color:#fed7aa;
+      border-color:rgba(251,146,60,0.45);
     }
   </style>
 </head>
@@ -291,7 +299,7 @@ title: REO KVK Archive
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
-        <div class="event-label">Kingdom Duel &nbsp;·&nbsp; Archive</div>
+        <div class="event-label">Guild Arms Race &nbsp;·&nbsp; Archive</div>
         <a class="nav-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
       </div>
     </div>
@@ -340,13 +348,13 @@ title: REO KVK Archive
                 {% assign d_end = '' %}
               {% endif %}
               <div class="season-card{% if is_first %} latest{% endif %}">
-                <div class="card-icon">⚔️</div>
+                <div class="card-icon">📄</div>
                 <div class="card-body">
                   <div class="card-dates">
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
@@ -373,13 +381,13 @@ title: REO KVK Archive
                 {% assign d_end = '' %}
               {% endif %}
               <div class="season-card{% if is_first %} latest{% endif %}">
-                <div class="card-icon">⚔️</div>
+                <div class="card-icon">📄</div>
                 <div class="card-body">
                   <div class="card-dates">
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
