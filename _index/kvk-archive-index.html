@@ -17,14 +17,13 @@ title: REO KVK Archive
   {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
-
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background: linear-gradient(180deg, #06101e, #0b1422);
+      background: linear-gradient(180deg, #0e0a00, #14100a);
       font-family: 'Noto Sans KR', sans-serif;
       padding: 20px;
-      color: #eef2ff;
+      color: #fff9e6;
       min-height: 100vh;
     }
 
@@ -32,7 +31,7 @@ title: REO KVK Archive
       max-width: 1100px;
       margin: 0 auto;
       background: linear-gradient(160deg, #1a1000 0%, #0e0c02 50%, #120e00 100%);
-      border: 1px solid rgba(245, 158, 11, 0.25);
+      border: 1px solid rgba(245,158,11,0.22);
       border-radius: 20px;
       padding: 36px 40px 44px;
       position: relative;
@@ -42,10 +41,8 @@ title: REO KVK Archive
     .container::before {
       content: '';
       position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 320px;
-      height: 320px;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
       background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -53,10 +50,8 @@ title: REO KVK Archive
     .container::after {
       content: '';
       position: absolute;
-      bottom: -60px;
-      left: -60px;
-      width: 260px;
-      height: 260px;
+      bottom: -60px; left: -60px;
+      width: 260px; height: 260px;
       background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -68,7 +63,7 @@ title: REO KVK Archive
       gap: 16px;
       margin-bottom: 28px;
       padding-bottom: 20px;
-      border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+      border-bottom: 1px solid rgba(245,158,11,0.22);
       position: relative;
       z-index: 1;
     }
@@ -93,27 +88,27 @@ title: REO KVK Archive
 
     .event-label {
       font-size: 14px;
-      color: rgba(255, 220, 120, 0.6);
+      color: rgba(255,220,120,0.6);
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 4px;
     }
 
-    .archive-btn {
+    .nav-btn {
       display: inline-block;
       padding: 7px 16px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 700;
       color: #7dd3fc;
-      background: rgba(30, 58, 95, 0.7);
-      border: 1px solid rgba(125, 211, 252, 0.25);
+      background: rgba(30,58,95,0.7);
+      border: 1px solid rgba(125,211,252,0.25);
       text-decoration: none;
-      transition: background .15s;
+      transition: all .15s ease;
     }
 
-    .archive-btn:hover {
-      background: rgba(30, 58, 95, 1);
+    .nav-btn:hover {
+      background: rgba(30,58,95,1);
+      transform: translateY(-1px);
     }
 
     .section-title {
@@ -121,135 +116,189 @@ title: REO KVK Archive
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255, 220, 120, 0.5);
-      margin: 22px 0 10px;
+      color: rgba(255,220,120,0.45);
+      margin: 0 0 14px;
       position: relative;
       z-index: 1;
     }
 
-    .list {
+    .season-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 9px;
+      gap: 12px;
       position: relative;
       z-index: 1;
     }
 
-    .item {
+    .season-card {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      padding: 11px 14px;
-      min-width: 0;
+      gap: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,158,11,0.12);
+      border-radius: 14px;
+      padding: 16px 18px;
       text-decoration: none;
       color: #fff9e6;
-      transition: background .15s, border-color .15s, transform .12s;
-    }
-
-    .item:hover {
-      background: rgba(245, 158, 11, 0.08);
-      border-color: rgba(245, 158, 11, 0.30);
-      transform: translateY(-1px);
-    }
-
-    .icon {
-      font-size: 18px;
-      flex-shrink: 0;
-      width: 24px;
-      text-align: center;
-    }
-
-    .name {
-      flex: 1;
-      min-width: 0;
-      font-size: 15px;
-      font-weight: 700;
-      white-space: nowrap;
+      transition: all .18s ease;
+      position: relative;
       overflow: hidden;
-      text-overflow: ellipsis;
-      color: #fff9e6;
     }
 
-    .meta {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255, 220, 120, 0.45);
+    .season-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #fbbf24, #d97706);
+      border-radius: 3px 0 0 3px;
+      opacity: 0;
+      transition: opacity .18s ease;
+    }
+
+    .season-card:hover {
+      background: rgba(245,158,11,0.07);
+      border-color: rgba(245,158,11,0.32);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,158,11,0.12);
+    }
+
+    .season-card:hover::before { opacity: 1; }
+
+    .season-card.latest {
+      border-color: rgba(251,191,36,0.38);
+      background: rgba(245,158,11,0.05);
+    }
+
+    .season-card.latest::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 22px;
       flex-shrink: 0;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(245,158,11,0.1);
+      border-radius: 10px;
+    }
+
+    .card-body { flex: 1; min-width: 0; }
+
+    .card-dates {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff9e6;
+      white-space: nowrap;
+    }
+
+    .date-sep {
+      color: rgba(245,158,11,0.5);
+      font-size: 14px;
+    }
+
+    .card-sub {
+      margin-top: 3px;
+      font-size: 12px;
+      color: rgba(255,220,120,0.4);
       letter-spacing: 0.5px;
+    }
+
+    .card-badges {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .badge-latest {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      color: #3a1f00;
+    }
+
+    .badge-view {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(251,191,36,0.8);
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      transition: all .15s ease;
+    }
+
+    .season-card:hover .badge-view {
+      background: rgba(245,158,11,0.18);
+      color: #fbbf24;
+      border-color: rgba(245,158,11,0.45);
     }
 
     .empty {
       grid-column: 1 / -1;
       text-align: center;
       padding: 40px 20px;
-      color: rgba(255, 220, 120, 0.3);
+      color: rgba(255,220,120,0.3);
       font-size: 14px;
-      border: 1px dashed rgba(245, 158, 11, 0.18);
+      border: 1px dashed rgba(245,158,11,0.15);
       border-radius: 10px;
     }
 
     .footer {
       margin-top: 28px;
       padding-top: 16px;
-      border-top: 1px solid rgba(245, 158, 11, 0.18);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border-top: 1px solid rgba(245,158,11,0.15);
+      font-size: 13px;
+      color: rgba(255,220,120,0.4);
       position: relative;
       z-index: 1;
     }
 
-    .footer-left {
-      font-size: 14px;
-      color: rgba(255, 220, 120, 0.4);
-    }
-
-    .footer-left strong {
+    .footer strong {
       font-family: 'Rajdhani', sans-serif;
       font-size: 17px;
-      color: rgba(255, 220, 120, 0.7);
+      color: rgba(255,220,120,0.7);
     }
 
     @media (max-width: 860px) {
       body { padding: 12px; }
       .container { padding: 22px 18px 28px; }
-      .list { grid-template-columns: 1fr; }
+      .season-grid { grid-template-columns: 1fr; }
       .header { flex-direction: column; align-items: flex-start; }
       .header-right { text-align: left; align-items: flex-start; }
       .guild-name { font-size: 36px; letter-spacing: 4px; }
+      .card-dates { font-size: 15px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
         <div class="event-label">Kingdom Duel &nbsp;·&nbsp; Archive</div>
-        <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+        <a class="nav-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
       </div>
     </div>
 
     {% assign page_files_sorted = site.pages | sort: "name" | reverse %}
     {% assign static_files_sorted = site.static_files | sort: "name" | reverse %}
-    {% assign folder_string = '' %}
     {% assign file_count = 0 %}
 
     {% for file in page_files_sorted %}
       {% if file.url contains base_path %}
         {% assign rest = file.url | remove_first: base_path %}
         {% assign parts = rest | split: '/' %}
-        {% if parts.size > 1 and parts[0] != '' %}
-          {% assign token = '|' | append: parts[0] | append: '|' %}
-          {% unless folder_string contains token %}
-            {% assign folder_string = folder_string | append: token %}
-          {% endunless %}
-        {% endif %}
         {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
           {% assign file_count = file_count | plus: 1 %}
         {% endif %}
@@ -260,48 +309,47 @@ title: REO KVK Archive
       {% if file.path contains base_path %}
         {% assign rest = file.path | remove_first: base_path %}
         {% assign parts = rest | split: '/' %}
-        {% if parts.size > 1 and parts[0] != '' %}
-          {% assign token = '|' | append: parts[0] | append: '|' %}
-          {% unless folder_string contains token %}
-            {% assign folder_string = folder_string | append: token %}
-          {% endunless %}
-        {% endif %}
         {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
           {% assign file_count = file_count | plus: 1 %}
         {% endif %}
       {% endif %}
     {% endfor %}
 
-    {% assign folder_array = folder_string | split: '|' | sort %}
+    <div class="section-title">📄 시즌 기록</div>
+    <div class="season-grid">
+      {% if file_count > 0 %}
+        {% assign is_first = true %}
 
-    {% if folder_array.size > 1 %}
-      <div class="section-title">📁 폴더</div>
-      <div class="list">
-        {% for folder in folder_array %}
-          {% if folder != '' %}
-            <a class="item" href="{{ base_path | append: folder | append: '/' | relative_url }}">
-              <span class="icon">📁</span>
-              <span class="name">{{ folder }}</span>
-              <span class="meta">FOLDER</span>
-            </a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {% if file_count > 0 %}
-      <div class="section-title">📄 시즌 기록</div>
-      <div class="list">
         {% for file in page_files_sorted %}
           {% if file.url contains base_path %}
             {% assign rest = file.url | remove_first: base_path %}
             {% assign parts = rest | split: '/' %}
             {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              <a class="item" href="{{ file.url | relative_url }}">
-                <span class="icon">⚔️</span>
-                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
-                <span class="meta">HTML</span>
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% if date_parts.size >= 2 %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+              {% else %}
+                {% assign d_start = fname %}
+                {% assign d_end = '' %}
+              {% endif %}
+              <a class="season-card{% if is_first %} latest{% endif %}"
+                 href="{{ file.url | relative_url }}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">
+                    {{ d_start }}
+                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  </div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">
+                  {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
+                  <span class="badge-view">보기 →</span>
+                </div>
               </a>
+              {% assign is_first = false %}
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -311,38 +359,51 @@ title: REO KVK Archive
             {% assign rest = file.path | remove_first: base_path %}
             {% assign parts = rest | split: '/' %}
             {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              <a class="item" href="{{ file.path | relative_url }}">
-                <span class="icon">⚔️</span>
-                <span class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</span>
-                <span class="meta">{{ file.extname | upcase | remove: '.' }}</span>
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% if date_parts.size >= 2 %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+              {% else %}
+                {% assign d_start = fname %}
+                {% assign d_end = '' %}
+              {% endif %}
+              <a class="season-card{% if is_first %} latest{% endif %}"
+                 href="{{ file.path | relative_url }}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">
+                    {{ d_start }}
+                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  </div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">
+                  {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
+                  <span class="badge-view">보기 →</span>
+                </div>
               </a>
+              {% assign is_first = false %}
             {% endif %}
           {% endif %}
         {% endfor %}
-      </div>
-    {% else %}
-      {% if folder_array.size <= 1 %}
-        <div class="section-title">📄 시즌 기록</div>
-        <div class="list">
-          <div class="empty">아직 저장된 기록이 없습니다.</div>
-        </div>
+      {% else %}
+        <div class="empty">아직 저장된 기록이 없습니다.</div>
       {% endif %}
-    {% endif %}
-
-    <div class="footer">
-      <div class="footer-left">총 <strong>{{ file_count }}</strong>개 시즌 기록</div>
     </div>
 
+    <div class="footer">총 <strong>{{ file_count }}</strong>개 시즌 기록</div>
   </div>
-<script>
-(function(){
-  var last=0;
-  document.addEventListener("touchend",function(e){
-    var now=Date.now();
-    if(now-last<300){e.preventDefault();}
-    last=now;
-  },{passive:false});
-})();
-</script>
+
+  <script>
+  (function(){
+    var last=0;
+    document.addEventListener("touchend",function(e){
+      var now=Date.now();
+      if(now-last<300){e.preventDefault();}
+      last=now;
+    },{passive:false});
+  })();
+  </script>
 </body>
 </html>
