@@ -141,7 +141,7 @@ title: REO Arena Archive
       padding:16px 18px;
       text-decoration:none;
       color:#fff;
-      transition:all .18s ease;
+      transition:background .2s, border-color .2s, transform .15s;
       position:relative;
       overflow:hidden;
     }
@@ -153,25 +153,23 @@ title: REO Arena Archive
       width:3px;
       background:linear-gradient(180deg,#c084fc,#818cf8);
       border-radius:3px 0 0 3px;
-      opacity:0;
+      opacity:0.8;
       transition:opacity .18s ease;
     }
 
     .season-card:hover {
-      background:rgba(180,130,255,0.08);
-      border-color:rgba(180,130,255,0.3);
-      transform:translateY(-2px);
-      box-shadow:0 6px 20px rgba(130,80,255,0.15);
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
     }
 
-    .season-card:hover::before { opacity:1; }
 
     .season-card.latest {
       border-color:rgba(192,132,252,0.35);
       background:rgba(130,80,255,0.06);
     }
 
-    .season-card.latest::before { opacity:1; }
 
     .card-icon {
       font-size:22px;
@@ -242,15 +240,9 @@ title: REO Arena Archive
       color:rgba(180,130,255,0.8);
       background:rgba(180,130,255,0.08);
       border:1px solid rgba(180,130,255,0.2);
-      transition:all .15s;
-      text-decoration:none;
+      transition:all .15s ease;
     }
 
-    .season-card:hover .badge-view {
-      background:rgba(180,130,255,0.18);
-      color:#c084fc;
-      border-color:rgba(180,130,255,0.4);
-    }
 
     /* 폴더 그리드 (arena용) */
     .folder-grid {
@@ -272,16 +264,16 @@ title: REO Arena Archive
       padding:16px 18px;
       text-decoration:none;
       color:#fff;
-      transition:all .18s ease;
+      transition:background .2s, border-color .2s, transform .15s;
       position:relative;
       overflow:hidden;
     }
 
     .folder-card:hover {
-      background:rgba(180,130,255,0.08);
-      border-color:rgba(180,130,255,0.3);
-      transform:translateY(-2px);
-      box-shadow:0 6px 20px rgba(130,80,255,0.12);
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
     }
 
     .folder-card.latest {
@@ -360,7 +352,8 @@ title: REO Arena Archive
       .guild-name { font-size:36px; letter-spacing:4px; }
       .card-dates, .folder-dates { font-size:15px; }
     }
-    a.badge-view:hover {
+
+    a.badge-view:hover, a.meta:hover {
       background:rgba(192,132,252,0.22);
       color:#e9d5ff;
       border-color:rgba(192,132,252,0.45);
