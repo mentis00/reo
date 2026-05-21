@@ -90,10 +90,9 @@ title: REO Arena Archive
       color:rgba(200,180,255,0.6);
       letter-spacing:2px;
       text-transform:uppercase;
-      margin-bottom:4px;
     }
 
-    .archive-btn {
+    .nav-btn {
       display:inline-block;
       padding:7px 16px;
       border-radius:999px;
@@ -103,49 +102,51 @@ title: REO Arena Archive
       background:rgba(30,58,95,0.7);
       border:1px solid rgba(125,211,252,0.25);
       text-decoration:none;
-      letter-spacing:0.5px;
       transition:all .15s ease;
     }
 
-    .archive-btn:hover {
+    .nav-btn:hover {
       background:rgba(45,78,125,0.9);
       transform:translateY(-1px);
     }
 
     .section-title {
-      font-size:18px;
-      font-weight:900;
-      margin:20px 0 12px;
-      color:#f3e8ff;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:rgba(200,180,255,0.5);
+      margin:0 0 14px;
       position:relative;
       z-index:1;
     }
 
-    .list {
+    /* 카드 그리드 */
+    .season-grid {
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:9px;
+      gap:12px;
       position:relative;
       z-index:1;
+      margin-bottom:28px;
     }
 
-    /* 카드 */
-    .item {
+    .season-card {
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       background:rgba(255,255,255,0.03);
       border:1px solid rgba(180,130,255,0.12);
-      border-radius:12px;
-      padding:13px 16px;
-      min-width:0;
-      transition:background .2s, border-color .2s, transform .15s;
+      border-radius:14px;
+      padding:16px 18px;
+      text-decoration:none;
+      color:#fff;
+      transition:all .18s ease;
       position:relative;
       overflow:hidden;
     }
 
-    /* 왼쪽 컬러 바 */
-    .item::before {
+    .season-card::before {
       content:'';
       position:absolute;
       left:0; top:0; bottom:0;
@@ -156,55 +157,71 @@ title: REO Arena Archive
       transition:opacity .18s ease;
     }
 
-    .item.latest {
+    .season-card:hover {
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateX(3px);
+    }
+
+    .season-card:hover::before { opacity:1; }
+
+    .season-card.latest {
       border-color:rgba(192,132,252,0.35);
       background:rgba(130,80,255,0.06);
     }
 
-    .item.latest::before { opacity:1; }
+    .season-card.latest::before { opacity:1; }
 
-    .item:hover {
-      background:rgba(255,255,255,0.04);
-      border-color:rgba(180,130,255,0.25);
-      transform:translateX(3px);
-      cursor:default;
-    }
-
-    .item:hover::before { opacity:1; }
-
-    .icon {
-      font-size:18px;
+    .card-icon {
+      font-size:22px;
       flex-shrink:0;
-      width:32px; height:32px;
-      display:flex; align-items:center; justify-content:center;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background:rgba(180,130,255,0.1);
-      border-radius:8px;
+      border-radius:10px;
     }
 
-    .item-body {
+    .card-body {
       flex:1;
       min-width:0;
     }
 
-    .name {
-      font-size:15px;
+    .card-dates {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
       font-weight:700;
       color:#e2d9f3;
       white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
 
-    .item-right {
+    .date-sep {
+      color:rgba(180,130,255,0.5);
+      font-size:14px;
+    }
+
+    .card-sub {
+      margin-top:3px;
+      font-size:12px;
+      color:rgba(180,160,255,0.45);
+      letter-spacing:0.5px;
+    }
+
+    .card-badges {
       display:flex;
       flex-direction:column;
       align-items:flex-end;
-      gap:4px;
+      gap:5px;
       flex-shrink:0;
     }
 
     .badge-latest {
-      padding:2px 8px;
+      padding:3px 8px;
       border-radius:999px;
       font-size:10px;
       font-weight:800;
@@ -213,24 +230,103 @@ title: REO Arena Archive
       color:#fff;
     }
 
-    .meta {
+    .badge-view {
+      display:flex;
+      align-items:center;
+      gap:4px;
+      padding:5px 12px;
+      border-radius:999px;
       font-size:12px;
       font-weight:700;
-      color:rgba(180,130,255,0.7);
+      color:rgba(180,130,255,0.8);
       background:rgba(180,130,255,0.08);
       border:1px solid rgba(180,130,255,0.2);
-      border-radius:999px;
-      padding:4px 11px;
-      flex-shrink:0;
-      text-decoration:none;
-      cursor:pointer;
       transition:all .15s ease;
+      text-decoration:none;
     }
 
-    .meta:hover {
+    .season-card:hover .badge-view {
       background:rgba(180,130,255,0.18);
       color:#c084fc;
       border-color:rgba(180,130,255,0.4);
+    }
+
+    /* 폴더 그리드 (arena용) */
+    .folder-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
+      margin-bottom:28px;
+    }
+
+    .folder-card {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(180,130,255,0.12);
+      border-radius:14px;
+      padding:16px 18px;
+      text-decoration:none;
+      color:#fff;
+      transition:all .18s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .folder-card:hover {
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateX(3px);
+    }
+
+    .folder-card.latest {
+      border-color:rgba(192,132,252,0.35);
+      background:rgba(130,80,255,0.06);
+    }
+
+    .folder-icon {
+      font-size:22px;
+      flex-shrink:0;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(180,130,255,0.1);
+      border-radius:10px;
+    }
+
+    .folder-body {
+      flex:1;
+      min-width:0;
+    }
+
+    .folder-dates {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
+      font-weight:700;
+      color:#e2d9f3;
+    }
+
+    .folder-sub {
+      margin-top:3px;
+      font-size:12px;
+      color:rgba(180,160,255,0.45);
+      letter-spacing:0.5px;
+    }
+
+    .folder-right {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:5px;
+      flex-shrink:0;
     }
 
     .empty {
@@ -244,10 +340,11 @@ title: REO Arena Archive
     }
 
     .footer {
-      margin-top:24px;
+      margin-top:4px;
       padding-top:16px;
       border-top:1px solid rgba(180,130,255,0.15);
       color:rgba(200,180,255,0.45);
+      font-size:13px;
       position:relative;
       z-index:1;
     }
@@ -255,10 +352,11 @@ title: REO Arena Archive
     @media (max-width:860px) {
       body { padding:12px; }
       .container { padding:22px 18px 28px; }
-      .list { grid-template-columns:1fr; }
+      .season-grid, .folder-grid { grid-template-columns:1fr; }
       .header { flex-direction:column; align-items:flex-start; }
       .header-right { text-align:left; align-items:flex-start; }
       .guild-name { font-size:36px; letter-spacing:4px; }
+      .card-dates, .folder-dates { font-size:15px; }
     }
   </style>
 </head>
@@ -268,12 +366,12 @@ title: REO Arena Archive
       <div class="guild-name">REO</div>
       <div class="header-right">
         <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
-        <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+        <a class="nav-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
       </div>
     </div>
 
-    {% assign page_files_sorted = site.pages | sort: "name" | reverse %}
-    {% assign static_files_sorted = site.static_files | sort: "name" | reverse %}
+    {% assign page_files_sorted = site.pages | sort: "name" %}
+    {% assign static_files_sorted = site.static_files | sort: "name" %}
     {% assign folder_string = '' %}
     {% assign file_count = 0 %}
 
@@ -313,19 +411,31 @@ title: REO Arena Archive
     {% assign folder_array_clean = folder_array | where_exp: "f", "f != ''" %}
 
     {% if folder_array_clean.size > 0 %}
-      <h2 class="section-title">폴더</h2>
-      <div class="list">
+      <div class="section-title">📁 시즌 기록</div>
+      <div class="folder-grid">
         {% assign is_first_folder = true %}
         {% for folder in folder_array %}
           {% if folder != '' %}
-            <div class="item{% if is_first_folder %} latest{% endif %}">
-              <div class="icon">📁</div>
-              <div class="item-body">
-                <div class="name">{{ folder | replace: '_', ' ~ ' }}</div>
+            {% assign date_parts = folder | split: '_' %}
+            {% if date_parts.size >= 2 %}
+              {% assign d_start = date_parts[0] %}
+              {% assign d_end = date_parts[1] %}
+            {% else %}
+              {% assign d_start = folder %}
+              {% assign d_end = '' %}
+            {% endif %}
+            <div class="folder-card{% if is_first_folder %} latest{% endif %}">
+              <div class="folder-icon">📁</div>
+              <div class="folder-body">
+                <div class="folder-dates">
+                  {{ d_start }}
+                  {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                </div>
+                <div class="folder-sub">SEASON FOLDER</div>
               </div>
-              <div class="item-right">
+              <div class="folder-right">
                 {% if is_first_folder %}<span class="badge-latest">LATEST</span>{% endif %}
-                <a class="meta" href="{{ base_path | append: folder | append: '/' | relative_url }}">열기 →</a>
+                <a class="badge-view" href="{{ base_path | append: folder | append: '/' | relative_url }}">열기 →</a>
               </div>
             </div>
             {% assign is_first_folder = false %}
@@ -335,42 +445,35 @@ title: REO Arena Archive
     {% endif %}
 
     {% if file_count > 0 %}
-      <h2 class="section-title">파일</h2>
-      <div class="list">
+      <div class="section-title">📄 파일</div>
+      <div class="season-grid">
         {% assign is_first_file = true %}
         {% for file in page_files_sorted %}
           {% if file.url contains base_path %}
             {% assign rest = file.url | remove_first: base_path %}
             {% assign parts = rest | split: '/' %}
             {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              <div class="item{% if is_first_file %} latest{% endif %}">
-                <div class="icon">📄</div>
-                <div class="item-body">
-                  <div class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</div>
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% if date_parts.size >= 2 %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+              {% else %}
+                {% assign d_start = fname %}
+                {% assign d_end = '' %}
+              {% endif %}
+              <div class="season-card{% if is_first_file %} latest{% endif %}">
+                <div class="card-icon">📄</div>
+                <div class="card-body">
+                  <div class="card-dates">
+                    {{ d_start }}
+                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  </div>
+                  <div class="card-sub">GUILD ARENA SEASON</div>
                 </div>
-                <div class="item-right">
+                <div class="card-badges">
                   {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="meta" href="{{ file.url | relative_url }}">보기 →</a>
-                </div>
-              </div>
-              {% assign is_first_file = false %}
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-
-        {% for file in static_files_sorted %}
-          {% if file.path contains base_path %}
-            {% assign rest = file.path | remove_first: base_path %}
-            {% assign parts = rest | split: '/' %}
-            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              <div class="item{% if is_first_file %} latest{% endif %}">
-                <div class="icon">📄</div>
-                <div class="item-body">
-                  <div class="name">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</div>
-                </div>
-                <div class="item-right">
-                  {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="meta" href="{{ file.path | relative_url }}">보기 →</a>
+                  <a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a>
                 </div>
               </div>
               {% assign is_first_file = false %}
@@ -378,16 +481,16 @@ title: REO Arena Archive
           {% endif %}
         {% endfor %}
       </div>
-    {% else %}
-      {% if folder_array_clean.size == 0 %}
-        <h2 class="section-title">파일</h2>
-        <div class="list">
-          <div class="empty">아직 저장된 기록이 없습니다.</div>
-        </div>
-      {% endif %}
     {% endif %}
 
-    <div class="footer">REO Archive</div>
+    {% if folder_array_clean.size == 0 and file_count == 0 %}
+      <div class="section-title">📄 시즌 기록</div>
+      <div class="season-grid">
+        <div class="empty">아직 저장된 기록이 없습니다.</div>
+      </div>
+    {% endif %}
+
+    <div class="footer">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
   </div>
 
   <script>
