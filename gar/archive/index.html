@@ -152,25 +152,23 @@ title: REO GAR Archive
       width:3px;
       background:linear-gradient(180deg,#fb923c,#ef4444);
       border-radius:3px 0 0 3px;
-      opacity:0;
+      opacity:0.8;
       transition:opacity .18s ease;
     }
 
     .season-card:hover {
       background:rgba(255,255,255,0.04);
-      border-color:rgba(249,115,22,0.3);
+      border-color:rgba(255,255,255,0.1);
       transform:translateX(3px);
-      cursor:default;
+      opacity:1;
     }
 
-    .season-card:hover::before { opacity:1; }
 
     .season-card.latest {
       border-color:rgba(251,146,60,0.35);
       background:rgba(249,115,22,0.05);
     }
 
-    .season-card.latest::before { opacity:1; }
 
     .card-icon {
       font-size:22px;
@@ -245,11 +243,6 @@ title: REO GAR Archive
       text-decoration:none;
     }
 
-    .season-card:hover .badge-view {
-      background:rgba(249,115,22,0.18);
-      color:#fb923c;
-      border-color:rgba(249,115,22,0.45);
-    }
 
     .empty {
       grid-column:1/-1;
@@ -286,7 +279,8 @@ title: REO GAR Archive
       .guild-name { font-size:36px; letter-spacing:4px; }
       .card-dates { font-size:15px; }
     }
-    a.badge-view:hover {
+
+    a.badge-view:hover, a.meta:hover {
       background:rgba(251,146,60,0.22);
       color:#fed7aa;
       border-color:rgba(251,146,60,0.45);
