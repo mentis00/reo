@@ -141,7 +141,7 @@ title: REO Arena Archive
       padding:16px 18px;
       text-decoration:none;
       color:#fff;
-      transition:background .2s, border-color .2s, transform .15s;
+      transition:all .18s ease;
       position:relative;
       overflow:hidden;
     }
@@ -154,22 +154,23 @@ title: REO Arena Archive
       background:linear-gradient(180deg,#c084fc,#818cf8);
       border-radius:3px 0 0 3px;
       opacity:0.8;
-      transition:opacity .18s ease;
     }
 
     .season-card:hover {
-      background:rgba(255,255,255,0.04);
-      border-color:rgba(255,255,255,0.1);
-      transform:translateX(3px);
-      opacity:1;
+      background:rgba(180,130,255,0.08);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(130,80,255,0.15);
     }
 
+    .season-card:hover::before { opacity:1; }
 
     .season-card.latest {
       border-color:rgba(192,132,252,0.35);
       background:rgba(130,80,255,0.06);
     }
 
+    .season-card.latest::before { opacity:1; }
 
     .card-icon {
       font-size:22px;
@@ -243,6 +244,11 @@ title: REO Arena Archive
       transition:all .15s ease;
     }
 
+    .season-card:hover .badge-view {
+      background:rgba(180,130,255,0.18);
+      color:#c084fc;
+      border-color:rgba(180,130,255,0.4);
+    }
 
     /* 폴더 그리드 (arena용) */
     .folder-grid {
@@ -264,16 +270,16 @@ title: REO Arena Archive
       padding:16px 18px;
       text-decoration:none;
       color:#fff;
-      transition:background .2s, border-color .2s, transform .15s;
+      transition:all .18s ease;
       position:relative;
       overflow:hidden;
     }
 
     .folder-card:hover {
-      background:rgba(255,255,255,0.04);
-      border-color:rgba(255,255,255,0.1);
-      transform:translateX(3px);
-      opacity:1;
+      background:rgba(180,130,255,0.08);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(130,80,255,0.12);
     }
 
     .folder-card.latest {
@@ -353,7 +359,16 @@ title: REO Arena Archive
       .card-dates, .folder-dates { font-size:15px; }
     }
 
-    a.badge-view:hover, a.meta:hover {
+    .season-card:hover,
+    .folder-card:hover {
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
+    }
+
+    .season-card:hover .badge-view,
+    .folder-card:hover .badge-view {
       background:rgba(192,132,252,0.22);
       color:#e9d5ff;
       border-color:rgba(192,132,252,0.45);
@@ -424,7 +439,8 @@ title: REO Arena Archive
               {% assign d_start = folder %}
               {% assign d_end = '' %}
             {% endif %}
-            <div class="folder-card{% if is_first_folder %} latest{% endif %}">
+            <a class="folder-card{% if is_first_folder %} latest{% endif %}"
+               href="{{ base_path | append: folder | append: '/' | relative_url }}">
               <div class="folder-icon">📁</div>
               <div class="folder-body">
                 <div class="folder-dates">
@@ -435,9 +451,9 @@ title: REO Arena Archive
               </div>
               <div class="folder-right">
                 {% if is_first_folder %}<span class="badge-latest">LATEST</span>{% endif %}
-                <a class="badge-view" href="{{ base_path | append: folder | append: '/' | relative_url }}">열기 →</a>
+                <span class="badge-view">열기 →</span>
               </div>
-            </div>
+            </a>
             {% assign is_first_folder = false %}
           {% endif %}
         {% endfor %}
@@ -462,7 +478,8 @@ title: REO Arena Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
-              <div class="season-card{% if is_first_file %} latest{% endif %}">
+              <a class="season-card{% if is_first_file %} latest{% endif %}"
+                 href="{{ file.url | relative_url }}">
                 <div class="card-icon">📄</div>
                 <div class="card-body">
                   <div class="card-dates">
@@ -473,9 +490,9 @@ title: REO Arena Archive
                 </div>
                 <div class="card-badges">
                   {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a>
+                  <span class="badge-view">보기 →</span>
                 </div>
-              </div>
+              </a>
               {% assign is_first_file = false %}
             {% endif %}
           {% endif %}
