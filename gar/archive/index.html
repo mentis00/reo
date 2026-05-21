@@ -140,7 +140,7 @@ title: REO GAR Archive
       padding:16px 18px;
       text-decoration:none;
       color:#f0e8e0;
-      transition:background .2s, border-color .2s, transform .15s;
+      transition:all .18s ease;
       position:relative;
       overflow:hidden;
     }
@@ -153,16 +153,13 @@ title: REO GAR Archive
       background:linear-gradient(180deg,#fb923c,#ef4444);
       border-radius:3px 0 0 3px;
       opacity:0.8;
-      transition:opacity .18s ease;
     }
-
 
 
     .season-card.latest {
       border-color:rgba(251,146,60,0.35);
       background:rgba(249,115,22,0.05);
     }
-
 
     .card-icon {
       font-size:22px;
@@ -233,10 +230,14 @@ title: REO GAR Archive
       color:rgba(251,146,60,0.75);
       background:rgba(249,115,22,0.08);
       border:1px solid rgba(249,115,22,0.2);
-      transition:all .15s;
-      text-decoration:none;
+      transition:all .15s ease;
     }
 
+    .season-card:hover .badge-view {
+      background:rgba(249,115,22,0.18);
+      color:#fb923c;
+      border-color:rgba(249,115,22,0.45);
+    }
 
     .empty {
       grid-column:1/-1;
@@ -274,23 +275,11 @@ title: REO GAR Archive
       .card-dates { font-size:15px; }
     }
 
-    a.badge-view:hover, a.meta:hover {
-      background:rgba(251,146,60,0.22);
-      color:#fed7aa;
-      border-color:rgba(251,146,60,0.45);
-    }
-
     .season-card:hover {
       background:rgba(255,255,255,0.04);
       border-color:rgba(255,255,255,0.1);
       transform:translateX(3px);
       opacity:1;
-    }
-
-    .season-card:hover .badge-view {
-      background:rgba(251,146,60,0.22);
-      color:#fed7aa;
-      border-color:rgba(251,146,60,0.45);
     }
   </style>
 </head>
@@ -347,7 +336,8 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
-              <div class="season-card{% if is_first %} latest{% endif %}">
+              <a class="season-card{% if is_first %} latest{% endif %}"
+                 href="{{ file.url | relative_url }}">
                 <div class="card-icon">📄</div>
                 <div class="card-body">
                   <div class="card-dates">
@@ -358,9 +348,9 @@ title: REO GAR Archive
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a>
+                  <span class="badge-view">보기 →</span>
                 </div>
-              </div>
+              </a>
               {% assign is_first = false %}
             {% endif %}
           {% endif %}
@@ -380,7 +370,8 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
-              <div class="season-card{% if is_first %} latest{% endif %}">
+              <a class="season-card{% if is_first %} latest{% endif %}"
+                 href="{{ file.path | relative_url }}">
                 <div class="card-icon">📄</div>
                 <div class="card-body">
                   <div class="card-dates">
@@ -391,9 +382,9 @@ title: REO GAR Archive
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="badge-view" href="{{ file.path | relative_url }}">보기 →</a>
+                  <span class="badge-view">보기 →</span>
                 </div>
-              </div>
+              </a>
               {% assign is_first = false %}
             {% endif %}
           {% endif %}
