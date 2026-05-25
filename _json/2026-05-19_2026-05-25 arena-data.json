@@ -1,0 +1,573 @@
+{
+  "guildName": "REO",
+  "guildFullName": "#10472[REO]NOOK",
+  "season": "2026-05-19_2026-05-26",
+  "seasonStart": "2026-05-19",
+  "seasonEnd": "2026-05-25",
+  "targetScore": 7000,
+  "updateInput": "2026-05-25 10:50:31",
+  "members": [
+    {
+      "name": "FARMER",
+      "rank": 5,
+      "score": 44903,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ꜰᴍＳＯＮＧ🌹🌷",
+      "rank": 8,
+      "score": 44022,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ᴘʀɪɴᴄᴇꜱꜱ김깽",
+      "rank": 11,
+      "score": 43171,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "HoHo_LiM",
+      "rank": 13,
+      "score": 42099,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "HJjjjJH🍀",
+      "rank": 16,
+      "score": 41791,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "red",
+      "rank": 17,
+      "score": 41469,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ⒼⓊⓃ🍞",
+      "rank": 18,
+      "score": 41433,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "WhiteCat🐾",
+      "rank": 19,
+      "score": 40914,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "zzĐÚcdzz",
+      "rank": 23,
+      "score": 39399,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Ellen_🧛87",
+      "rank": 24,
+      "score": 39203,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "神崎澄",
+      "rank": 26,
+      "score": 37372,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "cho 초초",
+      "rank": 27,
+      "score": 37276,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "YOU_ゆう",
+      "rank": 31,
+      "score": 35279,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "신타로",
+      "rank": 34,
+      "score": 35130,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Ylis일리스",
+      "rank": 41,
+      "score": 33306,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "🫧Celli 🫧",
+      "rank": 43,
+      "score": 31931,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "FBPFK♡_소🐮",
+      "rank": 45,
+      "score": 31447,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "YaY 얍",
+      "rank": 55,
+      "score": 28870,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Tarik",
+      "rank": 67,
+      "score": 26358,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Lucas",
+      "rank": 69,
+      "score": 26196,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "HAYATO79",
+      "rank": 74,
+      "score": 24702,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "xxx",
+      "rank": 76,
+      "score": 24125,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "CHICKEN",
+      "rank": 78,
+      "score": 23926,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Maese",
+      "rank": 79,
+      "score": 23365,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Fisher",
+      "rank": 86,
+      "score": 22632,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "NaNashi名無し",
+      "rank": 88,
+      "score": 22430,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Vendetta 벤",
+      "rank": 92,
+      "score": 21746,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Nbybi",
+      "rank": 94,
+      "score": 21661,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "PEPEぺぺ",
+      "rank": 97,
+      "score": 21029,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "키라리♡kirari",
+      "rank": 103,
+      "score": 20645,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "aki_あき",
+      "rank": 106,
+      "score": 20536,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Mama Raz",
+      "rank": 111,
+      "score": 19414,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "럭키Ducky",
+      "rank": 113,
+      "score": 19204,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "мιиgкα",
+      "rank": 114,
+      "score": 19147,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Teto디노니논",
+      "rank": 120,
+      "score": 17869,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Satori",
+      "rank": 121,
+      "score": 17827,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Soda 솜사탕",
+      "rank": 122,
+      "score": 17791,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "PoP Heroes",
+      "rank": 125,
+      "score": 17299,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Dong_동삼집",
+      "rank": 128,
+      "score": 17122,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "미안해_YOYO",
+      "rank": 131,
+      "score": 16352,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "체리cherry🍒",
+      "rank": 135,
+      "score": 16178,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Andy5909",
+      "rank": 136,
+      "score": 16178,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "장첸 zzang",
+      "rank": 139,
+      "score": 15847,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "yoon 💎",
+      "rank": 141,
+      "score": 15554,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Luffy",
+      "rank": 151,
+      "score": 15075,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Lilith",
+      "rank": 155,
+      "score": 14685,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "냥코",
+      "rank": 162,
+      "score": 13994,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "sang 상한가",
+      "rank": 164,
+      "score": 13795,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Agnes",
+      "rank": 168,
+      "score": 13588,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "leez_이자하",
+      "rank": 169,
+      "score": 13588,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Apii😇",
+      "rank": 177,
+      "score": 13098,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "jjuny 쭈니",
+      "rank": 182,
+      "score": 12779,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "jjing",
+      "rank": 183,
+      "score": 12658,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Bell",
+      "rank": 187,
+      "score": 12454,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "jason치로",
+      "rank": 190,
+      "score": 12380,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "페라리탄토끼🐰",
+      "rank": 197,
+      "score": 11787,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ʚïɞMadameY",
+      "rank": 203,
+      "score": 11299,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Shooshi",
+      "rank": 207,
+      "score": 10933,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "⚡𝕋ℍ𝕆ℝ⚡",
+      "rank": 209,
+      "score": 10800,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Manjo_0",
+      "rank": 222,
+      "score": 10003,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Haarhus",
+      "rank": 229,
+      "score": 9763,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "YT",
+      "rank": 232,
+      "score": 9532,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "miyabi_みやび",
+      "rank": 234,
+      "score": 9246,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Aphrodite",
+      "rank": 236,
+      "score": 8926,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Ruby💗루비",
+      "rank": 239,
+      "score": 8690,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Ice Tea🍹",
+      "rank": 241,
+      "score": 8663,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Meeshka",
+      "rank": 250,
+      "score": 8204,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "새우🦐Shrimp",
+      "rank": 256,
+      "score": 7756,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ᴺⁱᶜʰᵒᵒ니콜ଳ",
+      "rank": 259,
+      "score": 7659,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ulssy_얼씨군요",
+      "rank": 262,
+      "score": 7619,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "린_RIN",
+      "rank": 263,
+      "score": 7555,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "GOLD D SON",
+      "rank": 267,
+      "score": 7383,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "kb park",
+      "rank": 268,
+      "score": 7311,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "san、オーク",
+      "rank": 271,
+      "score": 7241,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Black_리무바이",
+      "rank": 273,
+      "score": 7210,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ゆき💕Yuki💕",
+      "rank": 274,
+      "score": 7204,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Miffy",
+      "rank": 275,
+      "score": 7165,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "두부_Dubu",
+      "rank": 279,
+      "score": 7135,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Sekiden",
+      "rank": 281,
+      "score": 7117,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "선배_sunbae",
+      "rank": 282,
+      "score": 7099,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "sweetNlow",
+      "rank": 283,
+      "score": 7072,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "GodSpeed",
+      "rank": 287,
+      "score": 7016,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "yon_욘욘",
+      "rank": 291,
+      "score": 6698,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "chris",
+      "rank": 292,
+      "score": 6616,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ⒷⒺⓁⓁⒾⓄⓃ",
+      "rank": 293,
+      "score": 6584,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Yota Mafia",
+      "rank": 296,
+      "score": 6447,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "rank": 298,
+      "score": 6168,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "apple_공주",
+      "rank": 310,
+      "score": 5274,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Uhhhokay",
+      "rank": 328,
+      "score": 3928,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "LJ",
+      "rank": 338,
+      "score": 3192,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "Jmong_제이몽",
+      "rank": 350,
+      "score": 1275,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "ASEDO 아세도",
+      "rank": 0,
+      "score": 0,
+      "updated": "2026-05-25 10:50:31"
+    },
+    {
+      "name": "HelpMe쟌스노우",
+      "rank": 0,
+      "score": 0,
+      "updated": "2026-05-25 10:50:31"
+    }
+  ],
+  "eventLabel": "Guild Arena",
+  "totalMembers": 93,
+  "goalScore": 7000,
+  "guildTotalScore": 1649993
+}
