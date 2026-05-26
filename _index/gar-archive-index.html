@@ -10,7 +10,7 @@ title: REO GAR Archive
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>{{ page.title }}</title>
   {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}
   {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
@@ -18,6 +18,11 @@ title: REO GAR Archive
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
+
+    html {
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
 
     body {
       background:linear-gradient(180deg,#06101e,#0b1422);
@@ -196,8 +201,10 @@ title: REO GAR Archive
 
     .card-sub {
       margin-top:3px;
-      font-size:12px;
-      color:rgba(255,180,120,0.4);
+      font-family:'Rajdhani',sans-serif;
+      font-size:13px !important;
+      font-weight:600;
+      color:rgba(255,180,120,0.5);
       letter-spacing:0.5px;
     }
 
@@ -273,7 +280,9 @@ title: REO GAR Archive
       .header-right { text-align:left; align-items:flex-start; }
       .guild-name { font-size:36px; letter-spacing:4px; }
       .card-dates { font-size:15px; }
+      .card-sub { font-size:12px; }
     }
+
 
     .season-card:hover {
       background:rgba(255,255,255,0.04);
@@ -336,6 +345,7 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
+              {% assign d_opp = date_parts[2] %}
               <a class="season-card{% if is_first %} latest{% endif %}"
                  href="{{ file.url | relative_url }}">
                 <div class="card-icon">📄</div>
@@ -344,7 +354,7 @@ title: REO GAR Archive
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
+                  <div class="card-sub">{% if d_opp != '' and d_opp != nil %}vs {{ d_opp }}{% else %}GUILD ARMS RACE SEASON{% endif %}</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
@@ -370,6 +380,7 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
+              {% assign d_opp = date_parts[2] %}
               <a class="season-card{% if is_first %} latest{% endif %}"
                  href="{{ file.path | relative_url }}">
                 <div class="card-icon">📄</div>
@@ -378,7 +389,7 @@ title: REO GAR Archive
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
+                  <div class="card-sub">{% if d_opp != '' and d_opp != nil %}vs {{ d_opp }}{% else %}GUILD ARMS RACE SEASON{% endif %}</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
