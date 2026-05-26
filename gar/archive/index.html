@@ -275,6 +275,7 @@ title: REO GAR Archive
       .card-dates { font-size:15px; }
     }
 
+
     .season-card:hover {
       background:rgba(255,255,255,0.04);
       border-color:rgba(255,255,255,0.1);
@@ -336,6 +337,7 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
+              {% assign d_opp = date_parts[2] %}
               <a class="season-card{% if is_first %} latest{% endif %}"
                  href="{{ file.url | relative_url }}">
                 <div class="card-icon">📄</div>
@@ -344,7 +346,7 @@ title: REO GAR Archive
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
+                  <div class="card-sub">{% if d_opp != '' and d_opp != nil %}vs {{ d_opp }}{% else %}GUILD ARMS RACE SEASON{% endif %}</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
@@ -370,6 +372,7 @@ title: REO GAR Archive
                 {% assign d_start = fname %}
                 {% assign d_end = '' %}
               {% endif %}
+              {% assign d_opp = date_parts[2] %}
               <a class="season-card{% if is_first %} latest{% endif %}"
                  href="{{ file.path | relative_url }}">
                 <div class="card-icon">📄</div>
@@ -378,7 +381,7 @@ title: REO GAR Archive
                     {{ d_start }}
                     {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                   </div>
-                  <div class="card-sub">GUILD ARMS RACE SEASON</div>
+                  <div class="card-sub">{% if d_opp != '' and d_opp != nil %}vs {{ d_opp }}{% else %}GUILD ARMS RACE SEASON{% endif %}</div>
                 </div>
                 <div class="card-badges">
                   {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
