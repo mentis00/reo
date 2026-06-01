@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REO 길드원 관리</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+Mono:wght@400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0f1117;
+  --bg2:#161b24;
+  --bg3:#1e2533;
+  --border:#2a3244;
+  --border2:#3a4560;
+  --txt:#e2e8f0;
+  --txt2:#94a3b8;
+  --txt3:#4a5568;
+  --accent:#4f9eff;
+  --accent-bg:rgba(79,158,255,.12);
+  --accent-border:rgba(79,158,255,.35);
+  --danger:#ff5f6d;
+  --danger-bg:rgba(255,95,109,.1);
+  --danger-border:rgba(255,95,109,.35);
+  --success:#43e097;
+  --success-bg:rgba(67,224,151,.1);
+  --warn:#fbbf24;
+  --radius:8px;
+  --radius-sm:5px;
+  --mono:'Noto Sans Mono',monospace;
+  --sans:'Noto Sans KR',sans-serif;
+}
+
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  padding:2rem 1.5rem;
+}
+
+.container{max-width:1600px;margin:0 auto}
+
+header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;margin-bottom:2rem;
+  padding-bottom:1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.header-left h1{
+  font-size:22px;font-weight:600;letter-spacing:-.3px;
+  color:var(--txt);margin-bottom:4px;
+}
+.guild-tag{
+  font-size:12px;font-family:var(--mono);color:var(--txt3);
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:2px 8px;display:inline-block;
+}
+.header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.stats-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.stat-chip{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:5px 12px;
+  font-size:13px;color:var(--txt2);display:flex;align-items:center;gap:5px;
+}
+.stat-chip strong{color:var(--txt);font-weight:600;font-family:var(--mono)}
+.save-status{font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:5px;margin-left:4px}
+.save-status.saving{color:var(--warn)}
+.save-status.saved{color:var(--success)}
+.save-status.error{color:var(--danger)}
+
+.toolbar{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:1rem;align-items:center;
+}
+input[type=text]{
+  height:36px;padding:0 12px;
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--bg2);color:var(--txt);font-family:var(--sans);font-size:14px;
+  outline:none;transition:border-color .15s;
+}
+input[type=text]:focus{border-color:var(--accent-border)}
+input[type=text]::placeholder{color:var(--txt3)}
+select{
+  height:36px;padding:0 10px;
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--bg2);color:var(--txt);font-family:var(--sans);font-size:14px;
+  cursor:pointer;outline:none;
+}
+
+.btn-group{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+button{
+  border:1px solid var(--border2);background:transparent;color:var(--txt);
+  border-radius:var(--radius-sm);padding:7px 14px;font-size:13px;
+  cursor:pointer;font-family:var(--sans);display:inline-flex;align-items:center;
+  gap:6px;transition:all .12s;line-height:1;
+}
+button:hover{background:var(--bg3);border-color:var(--txt3)}
+button:active{transform:scale(.98)}
+button.primary{background:var(--accent-bg);border-color:var(--accent-border);color:var(--accent)}
+button.primary:hover{background:rgba(79,158,255,.2)}
+button.success-btn{background:var(--success-bg);border-color:rgba(67,224,151,.35);color:var(--success)}
+button.danger-btn{background:var(--danger-bg);border-color:var(--danger-border);color:var(--danger)}
+
+.drag-hint{
+  font-size:12px;color:var(--txt3);
+  margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:6px;
+}
+
+.member-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 12px;
+  display:flex;align-items:center;gap:7px;min-width:0;
+  transition:background .1s,border-color .1s,opacity .15s,transform .1s;
+  user-select:none;
+}
+.member-card:hover{background:var(--bg3);border-color:var(--border2)}
+.member-card.editing{background:var(--accent-bg);border-color:var(--accent-border)}
+.member-card.confirming{background:var(--danger-bg);border-color:var(--danger-border)}
+.member-card.dragging{opacity:.3;transform:scale(.97)}
+.member-card.drag-over{border-color:var(--accent);background:var(--accent-bg)}
+
+.drag-handle{
+  color:var(--txt3);font-size:14px;flex-shrink:0;
+  cursor:grab;display:flex;align-items:center;padding:2px;
+  border-radius:4px;transition:color .1s;
+}
+.drag-handle:hover{color:var(--txt2)}
+.drag-handle:active{cursor:grabbing}
+
+.num{
+  font-size:12px;color:var(--txt3);width:26px;text-align:right;
+  flex-shrink:0;font-family:var(--mono);
+}
+.name-cell{
+  flex:1;font-size:15px;font-weight:500;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  cursor:default;
+}
+.name-input{
+  flex:1;font-size:15px;height:28px;
+  border-radius:var(--radius-sm);border:1px solid var(--accent-border);
+  background:var(--bg);color:var(--txt);padding:0 6px;
+  font-family:var(--sans);min-width:0;width:100%;outline:none;
+}
+.row-actions{display:flex;gap:2px;flex-shrink:0}
+.icon-btn{
+  border:0;background:transparent;color:var(--txt3);
+  padding:3px 5px;border-radius:var(--radius-sm);cursor:pointer;
+  font-size:14px;line-height:1;display:flex;align-items:center;
+  transition:all .1s;font-family:inherit;
+}
+.icon-btn:hover{background:var(--bg);color:var(--txt)}
+.icon-btn.i-del:hover{background:var(--danger-bg);color:var(--danger)}
+.icon-btn.i-save{color:var(--success)}
+.icon-btn.i-save:hover{background:var(--success-bg)}
+.icon-btn.i-confirm{color:var(--danger)}
+.icon-btn.i-confirm:hover{background:var(--danger-bg)}
+
+.empty{
+  text-align:center;padding:3rem;color:var(--txt3);
+  font-size:14px;grid-column:1/-1;
+}
+
+.add-section{margin-top:1rem;display:flex;gap:8px}
+.add-section input{flex:1;max-width:320px}
+
+/* Modal */
+.modal-backdrop{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  z-index:100;align-items:center;justify-content:center;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--radius);padding:1.5rem;
+  min-width:300px;max-width:520px;width:90%;
+  box-shadow:0 24px 64px rgba(0,0,0,.5);
+}
+.modal h3{font-size:16px;font-weight:600;margin-bottom:.4rem}
+.modal p{font-size:13px;color:var(--txt2);margin-bottom:12px}
+.modal textarea{
+  width:100%;height:180px;font-size:12px;font-family:var(--mono);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--bg);color:var(--txt);padding:10px;resize:vertical;
+  outline:none;transition:border-color .15s;
+}
+.modal textarea:focus{border-color:var(--accent-border)}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:var(--radius);padding:10px 16px;
+  font-size:13px;opacity:0;transition:opacity .2s;
+  pointer-events:none;z-index:200;color:var(--txt);
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.toast.show{opacity:1}
+
+/* SVG icons inline */
+.ic{display:inline-block;width:1em;height:1em;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="header-left">
+    <h1>
+      <svg class="ic" style="width:20px;height:20px;margin-right:8px;vertical-align:-3px" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      REO 길드원 관리
+    </h1>
+    <span class="guild-tag">#10472[REO]NOOK</span>
+  </div>
+  <div class="header-right">
+    <button onclick="openImport()">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      불러오기
+    </button>
+    <button class="primary" onclick="openExport()">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      내보내기
+    </button>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-chip">전체 <strong id="statTotal">0</strong>명</div>
+  <div class="stat-chip" id="statFiltered" style="display:none">검색 <strong id="statFilteredNum">0</strong>명</div>
+  <div class="save-status" id="saveStatus"></div>
+</div>
+
+<div class="toolbar">
+  <input type="text" id="searchInput" placeholder="이름 검색..." oninput="filterList()" style="max-width:220px">
+  <select id="sortSelect" onchange="onSortChange()">
+    <option value="num">번호순</option>
+    <option value="name">이름순</option>
+  </select>
+</div>
+
+<div class="drag-hint" id="dragHint">
+  <svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="19" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="5" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="19" r="1" fill="currentColor" stroke="none"/></svg>
+  왼쪽 핸들을 드래그해서 순서를 바꿀 수 있어요 · 변경사항은 자동 저장됩니다
+</div>
+
+<div class="grid3" id="memberGrid"></div>
+
+<div class="add-section">
+  <input type="text" id="newNameInput" placeholder="새 길드원 이름 입력..." onkeydown="if(event.key==='Enter')addMember()">
+  <button class="success-btn" onclick="addMember()">
+    <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    추가
+  </button>
+</div>
+
+</div><!-- container -->
+
+<!-- Export Modal -->
+<div class="modal-backdrop" id="exportModal">
+  <div class="modal">
+    <h3>내보내기</h3>
+    <p>guild_member.txt 형식 — 복사해서 파일에 붙여넣으세요</p>
+    <textarea id="exportText" readonly></textarea>
+    <div class="modal-footer">
+      <button class="primary" onclick="copyExport()">
+        <svg class="ic" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        복사
+      </button>
+      <button onclick="closeModal('exportModal')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-backdrop" id="importModal">
+  <div class="modal">
+    <h3>불러오기</h3>
+    <p>guild_member.txt 내용을 붙여넣으세요 (기존 목록이 교체됩니다)</p>
+    <textarea id="importText" placeholder="1. 神崎澄 / 2. Vendetta 벤 / ..."></textarea>
+    <div class="modal-footer">
+      <button class="primary" onclick="doImport()">
+        <svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        적용
+      </button>
+      <button onclick="closeModal('importModal')">취소</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'reo_guild_members_v1';
+const INITIAL = `1. 神崎澄 / 2. Vendetta 벤 / 3. Maese / 4. ꜰᴍＳＯＮＧ🌹🌷 / 5. xxx / 6. leez_이자하 / 7. cho 초초 / 8. red / 9. Ylis일리스 / 10. sang 상한가 / 11. Apii😇 / 12. Satori / 13. YaY 얍 / 14. 린_RIN / 15. Aphrodite / 16. Luffy / 17. 키라리♡kirari / 18. 신타로 / 19. Mama Raz / 20. PEPEぺぺ / 21. Tarik / 22. Agnes / 23. aki_あき / 24. ᴘʀɪɴᴄᴇꜱꜱ김깽 / 25. ʚïɞMadameY / 26. miyabi_みやび / 27. FARMER / 28. Soda 솜사탕 / 29. Nbybi / 30. yoon 💎 / 31. 럭키Ducky / 32. YT / 33. CHICKEN / 34. FBPFK♡_소🐮 / 35. ulssy_얼씨군요 / 36. zzĐÚcdzz / 37. Dong_동삼집 / 38. apple_공주 / 39. Lucas / 40. 장첸 zzang / 41. 체리cherry🍒 / 42. Ruby💗루비 / 43. ゆき💕Yuki💕 / 44. мιиgкα / 45. Teto디노니논 / 46. NaNashi名無し / 47. 🫧Celli 🫧 / 48. Bell / 49. Ice Tea🍹 / 50. jason치로 / 51. san、オーク / 52. 새우🦐Shrimp / 53. HelpMe쟌스노우 / 54. ASEDO 아세도 / 55. YOU_ゆう / 56. 선배_sunbae / 57. HoHo_LiM / 58. Andy5909 / 59. ⚡𝕋ℍ𝕆ℝ⚡ / 60. Shooshi / 61. Meeshka / 62. ᴺⁱᶜʰᵒᵒ니콜ଳ / 63. GodSpeed / 64. ⒷⒺⓁⓁⒾⓄⓃ / 65. Sekiden / 66. Miffy / 67. LJ / 68. sweetNlow / 69. chris / 70. Fisher / 71. 두부_Dubu / 72. Black_리무바이 / 73. Ellen_🦇 / 74. yon_욘욘 / 75. 냥코 / 76. WhiteCat🐾 / 77. HAYATO79 / 78. Haarhus / 79. jjing / 80. ⒼⓊⓃ🍞 / 81. PoP Heroes / 82. Lilith / 83. HJjjjJH🍀 / 84. jjuny 쭈니 / 85. GOLD D SON / 86. Yota Mafia / 87. NSAIDs미노브이 / 88. 미안해_YOYO / 89. Manjo_0 / 90. Jmong_제이몽 / 91. Uhhhokay / 92. 페라리탄토끼🐰 / 93. kb park / 94. 일리스윤서 / 95. Romariense`;
+
+let members = [];
+let editingIdx = null;
+let confirmingIdx = null;
+let sortMode = 'num';
+let searchQuery = '';
+let dragSrcOrigIdx = null;
+let dragOverOrigIdx = null;
+let saveTimer = null;
+
+// ── Storage (localStorage) ──────────────────────────────
+function saveMembers() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(members));
+      setSaveStatus('saved');
+    } catch(e) {
+      setSaveStatus('error');
+    }
+  }, 300);
+  setSaveStatus('saving');
+}
+
+function loadMembers() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    members = raw ? JSON.parse(raw) : parseTxt(INITIAL);
+  } catch(e) {
+    members = parseTxt(INITIAL);
+  }
+  render();
+}
+
+function setSaveStatus(state) {
+  const el = document.getElementById('saveStatus');
+  const icons = {
+    saving: `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`,
+    saved:  `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+    error:  `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  };
+  el.className = 'save-status ' + state;
+  const labels = {saving:'저장 중...', saved:'저장됨', error:'저장 실패 (로컬 실행 필요)'};
+  el.innerHTML = (icons[state]||'') + ' ' + (labels[state]||'');
+  if (state === 'saved') setTimeout(() => { el.className='save-status'; el.innerHTML=''; }, 2000);
+}
+
+// ── Utils ───────────────────────────────────────────────
+function parseTxt(txt) {
+  return txt.split('/').map(s => s.trim()).filter(Boolean).map(p => {
+    const m = p.match(/^\d+\.\s*(.+)$/);
+    return m ? m[1].trim() : p.trim();
+  }).filter(Boolean);
+}
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function buildTxt() { return members.map((n,i) => `${i+1}. ${n}`).join(' / '); }
+
+// ── Render ──────────────────────────────────────────────
+function getFiltered() {
+  const q = searchQuery.toLowerCase();
+  let list = members.map((name,i) => ({name, origIdx:i}));
+  if (q) list = list.filter(m => m.name.toLowerCase().includes(q));
+  if (sortMode === 'name') list.sort((a,b) => a.name.localeCompare(b.name,'ko'));
+  return list;
+}
+
+function onSortChange() {
+  sortMode = document.getElementById('sortSelect').value;
+  document.getElementById('dragHint').style.display = sortMode==='num' ? '' : 'none';
+  render();
+}
+function filterList() {
+  searchQuery = document.getElementById('searchInput').value.trim();
+  render();
+}
+
+const GRIP = `<svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"/></svg>`;
+const IC_EDIT   = `<svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+const IC_TRASH  = `<svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`;
+const IC_CHECK  = `<svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
+const IC_X      = `<svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
+function render() {
+  const list = getFiltered();
+  document.getElementById('statTotal').textContent = members.length;
+  const fc = document.getElementById('statFiltered');
+  if (searchQuery) { fc.style.display=''; document.getElementById('statFilteredNum').textContent=list.length; }
+  else fc.style.display = 'none';
+
+  const el = document.getElementById('memberGrid');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty">검색 결과 없음</div>';
+    return;
+  }
+
+  const isDraggable = sortMode==='num' && !searchQuery;
+
+  el.innerHTML = list.map(m => {
+    const isEdit = editingIdx === m.origIdx;
+    const isConf = confirmingIdx === m.origIdx;
+    const num = m.origIdx + 1;
+    const isDragging = dragSrcOrigIdx === m.origIdx;
+    const isDragOver = dragOverOrigIdx === m.origIdx && !isDragging;
+
+    let cls = 'member-card';
+    if (isEdit) cls += ' editing';
+    else if (isConf) cls += ' confirming';
+    if (isDragging) cls += ' dragging';
+    if (isDragOver) cls += ' drag-over';
+
+    const handle = isDraggable
+      ? `<span class="drag-handle" draggable="true"
+           ondragstart="onDragStart(event,${m.origIdx})"
+           ondragend="onDragEnd()">${GRIP}</span>`
+      : '';
+
+    const dndAttrs = isDraggable
+      ? `ondragover="onDragOver(event,${m.origIdx})" ondrop="onDrop(event,${m.origIdx})"`
+      : '';
+
+    if (isEdit) return `
+      <div class="${cls}" ${dndAttrs}>
+        ${handle}
+        <span class="num">${num}</span>
+        <input class="name-input" id="edit_${m.origIdx}" value="${esc(m.name)}"
+          onkeydown="if(event.key==='Enter')saveEdit(${m.origIdx});if(event.key==='Escape')cancelEdit()">
+        <div class="row-actions">
+          <button class="icon-btn i-save" onclick="saveEdit(${m.origIdx})" title="저장">${IC_CHECK}</button>
+          <button class="icon-btn" onclick="cancelEdit()" title="취소">${IC_X}</button>
+        </div>
+      </div>`;
+
+    if (isConf) return `
+      <div class="${cls}">
+        ${handle}
+        <span class="num">${num}</span>
+        <span class="name-cell" style="font-size:12px;color:var(--danger)">삭제할까요?</span>
+        <div class="row-actions">
+          <button class="icon-btn i-confirm" onclick="doRemove(${m.origIdx})" title="삭제">${IC_CHECK}</button>
+          <button class="icon-btn" onclick="cancelRemove()" title="취소">${IC_X}</button>
+        </div>
+      </div>`;
+
+    return `
+      <div class="${cls}" ${dndAttrs}>
+        ${handle}
+        <span class="num">${num}</span>
+        <span class="name-cell" title="${esc(m.name)}">${esc(m.name)}</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(${m.origIdx})" title="이름 변경">${IC_EDIT}</button>
+          <button class="icon-btn i-del" onclick="askRemove(${m.origIdx})" title="삭제">${IC_TRASH}</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  if (editingIdx !== null) {
+    const inp = document.getElementById('edit_'+editingIdx);
+    if (inp) { inp.focus(); inp.select(); }
+  }
+}
+
+// ── Actions ─────────────────────────────────────────────
+function startEdit(idx) { editingIdx=idx; confirmingIdx=null; render(); }
+function cancelEdit() { editingIdx=null; render(); }
+function saveEdit(idx) {
+  const inp = document.getElementById('edit_'+idx);
+  if (!inp) return;
+  const val = inp.value.trim();
+  if (!val) { showToast('이름을 입력해주세요'); return; }
+  const old = members[idx];
+  members[idx] = val;
+  editingIdx = null;
+  render(); saveMembers();
+  showToast(`"${old}" → "${val}"`);
+}
+
+function askRemove(idx) { confirmingIdx=idx; editingIdx=null; render(); }
+function cancelRemove() { confirmingIdx=null; render(); }
+function doRemove(idx) {
+  const name = members[idx];
+  members.splice(idx,1);
+  confirmingIdx=null;
+  if (editingIdx===idx) editingIdx=null;
+  render(); saveMembers();
+  showToast(`"${name}" 삭제됨`);
+}
+
+function addMember() {
+  const inp = document.getElementById('newNameInput');
+  const val = inp.value.trim();
+  if (!val) { inp.focus(); return; }
+  if (members.includes(val)) { showToast('이미 존재하는 이름입니다'); return; }
+  members.push(val);
+  inp.value = '';
+  render(); saveMembers();
+  showToast(`"${val}" 추가됨 (${members.length}번)`);
+}
+
+// ── Drag & Drop ─────────────────────────────────────────
+function onDragStart(e, origIdx) {
+  dragSrcOrigIdx = origIdx;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', origIdx);
+  setTimeout(() => render(), 0);
+}
+function onDragOver(e, origIdx) {
+  if (dragSrcOrigIdx===null) return;
+  e.preventDefault();
+  if (dragOverOrigIdx!==origIdx) { dragOverOrigIdx=origIdx; render(); }
+}
+function onDrop(e, targetOrigIdx) {
+  e.preventDefault();
+  if (dragSrcOrigIdx===null || dragSrcOrigIdx===targetOrigIdx) {
+    dragSrcOrigIdx=null; dragOverOrigIdx=null; render(); return;
+  }
+  const src = dragSrcOrigIdx;
+  const item = members.splice(src,1)[0];
+  const tgt = targetOrigIdx > src ? targetOrigIdx-1 : targetOrigIdx;
+  members.splice(tgt,0,item);
+  dragSrcOrigIdx=null; dragOverOrigIdx=null;
+  render(); saveMembers();
+  showToast(`"${item}" 순서 변경됨`);
+}
+function onDragEnd() { dragSrcOrigIdx=null; dragOverOrigIdx=null; render(); }
+
+// ── Modals ───────────────────────────────────────────────
+function openExport() {
+  document.getElementById('exportText').value = buildTxt();
+  document.getElementById('exportModal').classList.add('open');
+}
+function copyExport() {
+  const txt = document.getElementById('exportText').value;
+  navigator.clipboard.writeText(txt)
+    .then(() => showToast('클립보드에 복사됨'))
+    .catch(() => { document.getElementById('exportText').select(); document.execCommand('copy'); showToast('복사됨'); });
+}
+function openImport() {
+  document.getElementById('importText').value='';
+  document.getElementById('importModal').classList.add('open');
+}
+function doImport() {
+  const txt = document.getElementById('importText').value.trim();
+  if (!txt) return;
+  const parsed = parseTxt(txt);
+  if (!parsed.length) { showToast('파싱 실패: 형식을 확인해주세요'); return; }
+  members = parsed;
+  editingIdx=null; confirmingIdx=null;
+  closeModal('importModal');
+  render(); saveMembers();
+  showToast(`${parsed.length}명 불러오기 완료`);
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.getElementById('exportModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('exportModal'); });
+document.getElementById('importModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('importModal'); });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeModal('exportModal'); closeModal('importModal'); } });
+
+// ── Toast ────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+loadMembers();
+</script>
+</body>
+</html>
