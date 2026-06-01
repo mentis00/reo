@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REO 길드원 관리</title>
@@ -67,10 +65,6 @@ header{
   font-size:13px;color:var(--txt2);display:flex;align-items:center;gap:5px;
 }
 .stat-chip strong{color:var(--txt);font-weight:600;font-family:var(--mono)}
-.save-status{font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:5px;margin-left:4px}
-.save-status.saving{color:var(--warn)}
-.save-status.saved{color:var(--success)}
-.save-status.error{color:var(--danger)}
 
 .toolbar{
   display:flex;gap:8px;flex-wrap:wrap;
@@ -219,31 +213,35 @@ button.danger-btn{background:var(--danger-bg);border-color:var(--danger-border);
 <header>
   <div class="header-left">
     <h1>
-      <svg class="ic" style="width:20px;height:20px;margin-right:8px;vertical-align:-3px" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <svg class="ic" style="width:20px;height:20px;margin-right:8px;vertical-align:-3px" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       REO 길드원 관리
     </h1>
     <span class="guild-tag">#10472[REO]NOOK</span>
   </div>
   <div class="header-right">
-    <button onclick="openImport()">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <button onclick="document.getElementById('fileInput').click()">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
       불러오기
     </button>
-    <button class="primary" onclick="openExport()">
-      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      내보내기
+    <input type="file" id="fileInput" accept=".txt,.html" style="display:none" onchange="loadFile(event)">
+    <button onclick="saveTxt()">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      저장 .txt
+    </button>
+    <button class="primary" onclick="saveHtml()">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      저장 .html
     </button>
   </div>
 </header>
 
 <div class="stats-row">
-  <div class="stat-chip">전체 <strong id="statTotal">0</strong>명</div>
+  <div class="stat-chip">전체 <strong id="statTotal">95</strong>명</div>
   <div class="stat-chip" id="statFiltered" style="display:none">검색 <strong id="statFilteredNum">0</strong>명</div>
-  <div class="save-status" id="saveStatus"></div>
 </div>
 
 <div class="toolbar">
-  <input type="text" id="searchInput" placeholder="이름 검색..." oninput="filterList()" style="max-width:220px">
+  <input type="text" id="searchInput" placeholder="이름 검색..." oninput="filterList()" style="max-width:220px" autocomplete="new-password" spellcheck="false">
   <select id="sortSelect" onchange="onSortChange()">
     <option value="num">번호순</option>
     <option value="name">이름순</option>
@@ -251,16 +249,871 @@ button.danger-btn{background:var(--danger-bg);border-color:var(--danger-border);
 </div>
 
 <div class="drag-hint" id="dragHint">
-  <svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="19" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="5" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="19" r="1" fill="currentColor" stroke="none"/></svg>
+  <svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1" fill="currentColor" stroke="none"></circle></svg>
   왼쪽 핸들을 드래그해서 순서를 바꿀 수 있어요 · 변경사항은 자동 저장됩니다
 </div>
 
-<div class="grid3" id="memberGrid"></div>
+<div class="grid3" id="memberGrid">
+      <div class="member-card" ondragover="onDragOver(event,0)" ondrop="onDrop(event,0)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,0)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">1</span>
+        <span class="name-cell" title="Ylis일리스">Ylis일리스</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(0)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(0)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,1)" ondrop="onDrop(event,1)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,1)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">2</span>
+        <span class="name-cell" title="PEPEぺぺ">PEPEぺぺ</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(1)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(1)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,2)" ondrop="onDrop(event,2)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,2)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">3</span>
+        <span class="name-cell" title="神崎澄">神崎澄</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(2)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(2)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,3)" ondrop="onDrop(event,3)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,3)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">4</span>
+        <span class="name-cell" title="miyabi_みやび">miyabi_みやび</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(3)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(3)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,4)" ondrop="onDrop(event,4)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,4)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">5</span>
+        <span class="name-cell" title="Ellen_🦇">Ellen_🦇</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(4)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(4)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,5)" ondrop="onDrop(event,5)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,5)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">6</span>
+        <span class="name-cell" title="ꜰᴍＳＯＮＧ🌹🌷">ꜰᴍＳＯＮＧ🌹🌷</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(5)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(5)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,6)" ondrop="onDrop(event,6)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,6)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">7</span>
+        <span class="name-cell" title="ᴘʀɪɴᴄᴇꜱꜱ김깽">ᴘʀɪɴᴄᴇꜱꜱ김깽</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(6)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(6)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,7)" ondrop="onDrop(event,7)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,7)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">8</span>
+        <span class="name-cell" title="Aphrodite">Aphrodite</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(7)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(7)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,8)" ondrop="onDrop(event,8)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,8)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">9</span>
+        <span class="name-cell" title="aki_あき">aki_あき</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(8)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(8)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,9)" ondrop="onDrop(event,9)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,9)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">10</span>
+        <span class="name-cell" title="red">red</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(9)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(9)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,10)" ondrop="onDrop(event,10)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,10)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">11</span>
+        <span class="name-cell" title="FARMER">FARMER</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(10)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(10)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,11)" ondrop="onDrop(event,11)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,11)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">12</span>
+        <span class="name-cell" title="xxx">xxx</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(11)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(11)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,12)" ondrop="onDrop(event,12)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,12)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">13</span>
+        <span class="name-cell" title="cho 초초">cho 초초</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(12)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(12)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,13)" ondrop="onDrop(event,13)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,13)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">14</span>
+        <span class="name-cell" title="🫧Celli 🫧">🫧Celli 🫧</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(13)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(13)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,14)" ondrop="onDrop(event,14)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,14)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">15</span>
+        <span class="name-cell" title="ⒼⓊⓃ🍞">ⒼⓊⓃ🍞</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(14)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(14)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,15)" ondrop="onDrop(event,15)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,15)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">16</span>
+        <span class="name-cell" title="Vendetta 벤">Vendetta 벤</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(15)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(15)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,16)" ondrop="onDrop(event,16)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,16)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">17</span>
+        <span class="name-cell" title="Maese">Maese</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(16)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(16)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,17)" ondrop="onDrop(event,17)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,17)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">18</span>
+        <span class="name-cell" title="leez_이자하">leez_이자하</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(17)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(17)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,18)" ondrop="onDrop(event,18)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,18)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">19</span>
+        <span class="name-cell" title="sang 상한가">sang 상한가</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(18)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(18)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,19)" ondrop="onDrop(event,19)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,19)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">20</span>
+        <span class="name-cell" title="Apii😇">Apii😇</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(19)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(19)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,20)" ondrop="onDrop(event,20)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,20)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">21</span>
+        <span class="name-cell" title="Satori">Satori</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(20)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(20)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,21)" ondrop="onDrop(event,21)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,21)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">22</span>
+        <span class="name-cell" title="YaY 얍">YaY 얍</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(21)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(21)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,22)" ondrop="onDrop(event,22)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,22)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">23</span>
+        <span class="name-cell" title="키라리♡kirari">키라리♡kirari</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(22)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(22)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,23)" ondrop="onDrop(event,23)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,23)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">24</span>
+        <span class="name-cell" title="신타로">신타로</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(23)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(23)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,24)" ondrop="onDrop(event,24)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,24)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">25</span>
+        <span class="name-cell" title="Mama Raz">Mama Raz</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(24)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(24)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,25)" ondrop="onDrop(event,25)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,25)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">26</span>
+        <span class="name-cell" title="Tarik">Tarik</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(25)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(25)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,26)" ondrop="onDrop(event,26)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,26)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">27</span>
+        <span class="name-cell" title="Agnes">Agnes</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(26)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(26)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,27)" ondrop="onDrop(event,27)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,27)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">28</span>
+        <span class="name-cell" title="ʚïɞMadameY">ʚïɞMadameY</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(27)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(27)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,28)" ondrop="onDrop(event,28)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,28)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">29</span>
+        <span class="name-cell" title="Soda 솜사탕">Soda 솜사탕</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(28)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(28)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,29)" ondrop="onDrop(event,29)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,29)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">30</span>
+        <span class="name-cell" title="Nbybi">Nbybi</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(29)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(29)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,30)" ondrop="onDrop(event,30)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,30)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">31</span>
+        <span class="name-cell" title="yoon 💎">yoon 💎</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(30)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(30)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,31)" ondrop="onDrop(event,31)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,31)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">32</span>
+        <span class="name-cell" title="럭키Ducky">럭키Ducky</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(31)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(31)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,32)" ondrop="onDrop(event,32)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,32)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">33</span>
+        <span class="name-cell" title="YT">YT</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(32)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(32)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,33)" ondrop="onDrop(event,33)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,33)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">34</span>
+        <span class="name-cell" title="CHICKEN">CHICKEN</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(33)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(33)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,34)" ondrop="onDrop(event,34)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,34)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">35</span>
+        <span class="name-cell" title="ulssy_얼씨군요">ulssy_얼씨군요</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(34)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(34)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,35)" ondrop="onDrop(event,35)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,35)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">36</span>
+        <span class="name-cell" title="zzĐÚcdzz">zzĐÚcdzz</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(35)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(35)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,36)" ondrop="onDrop(event,36)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,36)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">37</span>
+        <span class="name-cell" title="Dong_동삼집">Dong_동삼집</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(36)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(36)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,37)" ondrop="onDrop(event,37)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,37)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">38</span>
+        <span class="name-cell" title="apple_공주">apple_공주</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(37)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(37)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,38)" ondrop="onDrop(event,38)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,38)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">39</span>
+        <span class="name-cell" title="Lucas">Lucas</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(38)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(38)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,39)" ondrop="onDrop(event,39)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,39)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">40</span>
+        <span class="name-cell" title="장첸 zzang">장첸 zzang</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(39)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(39)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,40)" ondrop="onDrop(event,40)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,40)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">41</span>
+        <span class="name-cell" title="체리cherry🍒">체리cherry🍒</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(40)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(40)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,41)" ondrop="onDrop(event,41)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,41)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">42</span>
+        <span class="name-cell" title="Ruby💗루비">Ruby💗루비</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(41)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(41)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,42)" ondrop="onDrop(event,42)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,42)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">43</span>
+        <span class="name-cell" title="ゆき💕Yuki💕">ゆき💕Yuki💕</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(42)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(42)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,43)" ondrop="onDrop(event,43)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,43)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">44</span>
+        <span class="name-cell" title="мιиgкα">мιиgкα</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(43)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(43)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,44)" ondrop="onDrop(event,44)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,44)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">45</span>
+        <span class="name-cell" title="Teto디노니논">Teto디노니논</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(44)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(44)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,45)" ondrop="onDrop(event,45)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,45)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">46</span>
+        <span class="name-cell" title="NaNashi名無し">NaNashi名無し</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(45)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(45)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,46)" ondrop="onDrop(event,46)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,46)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">47</span>
+        <span class="name-cell" title="Bell">Bell</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(46)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(46)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,47)" ondrop="onDrop(event,47)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,47)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">48</span>
+        <span class="name-cell" title="jason치로">jason치로</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(47)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(47)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,48)" ondrop="onDrop(event,48)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,48)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">49</span>
+        <span class="name-cell" title="san、オーク">san、オーク</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(48)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(48)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,49)" ondrop="onDrop(event,49)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,49)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">50</span>
+        <span class="name-cell" title="YOU_ゆう">YOU_ゆう</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(49)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(49)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,50)" ondrop="onDrop(event,50)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,50)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">51</span>
+        <span class="name-cell" title="선배_sunbae">선배_sunbae</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(50)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(50)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,51)" ondrop="onDrop(event,51)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,51)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">52</span>
+        <span class="name-cell" title="HoHo_LiM">HoHo_LiM</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(51)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(51)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,52)" ondrop="onDrop(event,52)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,52)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">53</span>
+        <span class="name-cell" title="Andy5909">Andy5909</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(52)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(52)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,53)" ondrop="onDrop(event,53)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,53)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">54</span>
+        <span class="name-cell" title="Shooshi">Shooshi</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(53)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(53)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,54)" ondrop="onDrop(event,54)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,54)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">55</span>
+        <span class="name-cell" title="Meeshka">Meeshka</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(54)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(54)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,55)" ondrop="onDrop(event,55)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,55)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">56</span>
+        <span class="name-cell" title="ᴺⁱᶜʰᵒᵒ니콜ଳ">ᴺⁱᶜʰᵒᵒ니콜ଳ</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(55)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(55)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,56)" ondrop="onDrop(event,56)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,56)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">57</span>
+        <span class="name-cell" title="ⒷⒺⓁⓁⒾⓄⓃ">ⒷⒺⓁⓁⒾⓄⓃ</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(56)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(56)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,57)" ondrop="onDrop(event,57)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,57)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">58</span>
+        <span class="name-cell" title="Sekiden">Sekiden</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(57)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(57)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,58)" ondrop="onDrop(event,58)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,58)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">59</span>
+        <span class="name-cell" title="sweetNlow">sweetNlow</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(58)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(58)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,59)" ondrop="onDrop(event,59)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,59)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">60</span>
+        <span class="name-cell" title="chris">chris</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(59)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(59)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,60)" ondrop="onDrop(event,60)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,60)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">61</span>
+        <span class="name-cell" title="Fisher">Fisher</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(60)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(60)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,61)" ondrop="onDrop(event,61)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,61)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">62</span>
+        <span class="name-cell" title="두부_Dubu">두부_Dubu</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(61)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(61)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,62)" ondrop="onDrop(event,62)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,62)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">63</span>
+        <span class="name-cell" title="Black_리무바이">Black_리무바이</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(62)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(62)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,63)" ondrop="onDrop(event,63)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,63)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">64</span>
+        <span class="name-cell" title="yon_욘욘">yon_욘욘</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(63)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(63)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,64)" ondrop="onDrop(event,64)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,64)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">65</span>
+        <span class="name-cell" title="냥코">냥코</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(64)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(64)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,65)" ondrop="onDrop(event,65)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,65)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">66</span>
+        <span class="name-cell" title="WhiteCat🐾">WhiteCat🐾</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(65)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(65)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,66)" ondrop="onDrop(event,66)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,66)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">67</span>
+        <span class="name-cell" title="HAYATO79">HAYATO79</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(66)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(66)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,67)" ondrop="onDrop(event,67)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,67)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">68</span>
+        <span class="name-cell" title="jjing">jjing</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(67)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(67)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,68)" ondrop="onDrop(event,68)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,68)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">69</span>
+        <span class="name-cell" title="PoP Heroes">PoP Heroes</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(68)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(68)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,69)" ondrop="onDrop(event,69)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,69)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">70</span>
+        <span class="name-cell" title="HJjjjJH🍀">HJjjjJH🍀</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(69)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(69)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,70)" ondrop="onDrop(event,70)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,70)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">71</span>
+        <span class="name-cell" title="NSAIDs미노브이">NSAIDs미노브이</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(70)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(70)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,71)" ondrop="onDrop(event,71)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,71)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">72</span>
+        <span class="name-cell" title="미안해_YOYO">미안해_YOYO</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(71)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(71)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,72)" ondrop="onDrop(event,72)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,72)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">73</span>
+        <span class="name-cell" title="Uhhhokay">Uhhhokay</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(72)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(72)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,73)" ondrop="onDrop(event,73)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,73)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">74</span>
+        <span class="name-cell" title="페라리탄토끼🐰">페라리탄토끼🐰</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(73)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(73)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,74)" ondrop="onDrop(event,74)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,74)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">75</span>
+        <span class="name-cell" title="kb park">kb park</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(74)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(74)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,75)" ondrop="onDrop(event,75)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,75)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">76</span>
+        <span class="name-cell" title="린_RIN">린_RIN</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(75)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(75)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,76)" ondrop="onDrop(event,76)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,76)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">77</span>
+        <span class="name-cell" title="Miffy">Miffy</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(76)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(76)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,77)" ondrop="onDrop(event,77)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,77)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">78</span>
+        <span class="name-cell" title="Manjo_0">Manjo_0</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(77)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(77)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,78)" ondrop="onDrop(event,78)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,78)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">79</span>
+        <span class="name-cell" title="Romariense">Romariense</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(78)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(78)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,79)" ondrop="onDrop(event,79)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,79)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">80</span>
+        <span class="name-cell" title="Yota Mafia">Yota Mafia</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(79)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(79)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,80)" ondrop="onDrop(event,80)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,80)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">81</span>
+        <span class="name-cell" title="Haarhus">Haarhus</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(80)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(80)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,81)" ondrop="onDrop(event,81)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,81)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">82</span>
+        <span class="name-cell" title="Ice Tea🍹">Ice Tea🍹</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(81)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(81)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,82)" ondrop="onDrop(event,82)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,82)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">83</span>
+        <span class="name-cell" title="GodSpeed">GodSpeed</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(82)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(82)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,83)" ondrop="onDrop(event,83)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,83)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">84</span>
+        <span class="name-cell" title="새우🦐Shrimp">새우🦐Shrimp</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(83)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(83)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,84)" ondrop="onDrop(event,84)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,84)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">85</span>
+        <span class="name-cell" title="ʚTanakaɞ">ʚTanakaɞ</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(84)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(84)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,85)" ondrop="onDrop(event,85)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,85)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">86</span>
+        <span class="name-cell" title="Cort">Cort</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(85)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(85)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,86)" ondrop="onDrop(event,86)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,86)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">87</span>
+        <span class="name-cell" title="Danbi">Danbi</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(86)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(86)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,87)" ondrop="onDrop(event,87)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,87)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">88</span>
+        <span class="name-cell" title="Mayo🍒">Mayo🍒</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(87)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(87)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,88)" ondrop="onDrop(event,88)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,88)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">89</span>
+        <span class="name-cell" title="JIN진">JIN진</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(88)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(88)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,89)" ondrop="onDrop(event,89)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,89)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">90</span>
+        <span class="name-cell" title="hiroki">hiroki</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(89)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(89)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,90)" ondrop="onDrop(event,90)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,90)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">91</span>
+        <span class="name-cell" title="ASA🐥">ASA🐥</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(90)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(90)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,91)" ondrop="onDrop(event,91)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,91)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">92</span>
+        <span class="name-cell" title="Silver 🪩">Silver 🪩</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(91)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(91)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,92)" ondrop="onDrop(event,92)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,92)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">93</span>
+        <span class="name-cell" title="COS🐏">COS🐏</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(92)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(92)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,93)" ondrop="onDrop(event,93)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,93)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">94</span>
+        <span class="name-cell" title="V25">V25</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(93)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(93)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div>
+      <div class="member-card" ondragover="onDragOver(event,94)" ondrop="onDrop(event,94)">
+        <span class="drag-handle" draggable="true" ondragstart="onDragStart(event,94)" ondragend="onDragEnd()"><svg class="ic" style="width:13px;height:13px;cursor:inherit" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="9" cy="19" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="5" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="15" cy="19" r="1.2" fill="currentColor" stroke="none"></circle></svg></span>
+        <span class="num">95</span>
+        <span class="name-cell" title="Tess🍖">Tess🍖</span>
+        <div class="row-actions">
+          <button class="icon-btn" onclick="startEdit(94)" title="이름 변경"><svg class="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+          <button class="icon-btn i-del" onclick="askRemove(94)" title="삭제"><svg class="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>
+        </div>
+      </div></div>
 
 <div class="add-section">
-  <input type="text" id="newNameInput" placeholder="새 길드원 이름 입력..." onkeydown="if(event.key==='Enter')addMember()">
+  <input type="text" id="newNameInput" placeholder="새 길드원 이름 입력..." onkeydown="if(event.key==='Enter')addMember()" autocomplete="new-password" spellcheck="false">
   <button class="success-btn" onclick="addMember()">
-    <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
     추가
   </button>
 </div>
@@ -272,10 +1125,10 @@ button.danger-btn{background:var(--danger-bg);border-color:var(--danger-border);
   <div class="modal">
     <h3>내보내기</h3>
     <p>guild_member.txt 형식 — 복사해서 파일에 붙여넣으세요</p>
-    <textarea id="exportText" readonly></textarea>
+    <textarea id="exportText" readonly=""></textarea>
     <div class="modal-footer">
       <button class="primary" onclick="copyExport()">
-        <svg class="ic" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg class="ic" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         복사
       </button>
       <button onclick="closeModal('exportModal')">닫기</button>
@@ -283,27 +1136,12 @@ button.danger-btn{background:var(--danger-bg);border-color:var(--danger-border);
   </div>
 </div>
 
-<!-- Import Modal -->
-<div class="modal-backdrop" id="importModal">
-  <div class="modal">
-    <h3>불러오기</h3>
-    <p>guild_member.txt 내용을 붙여넣으세요 (기존 목록이 교체됩니다)</p>
-    <textarea id="importText" placeholder="1. 神崎澄 / 2. Vendetta 벤 / ..."></textarea>
-    <div class="modal-footer">
-      <button class="primary" onclick="doImport()">
-        <svg class="ic" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        적용
-      </button>
-      <button onclick="closeModal('importModal')">취소</button>
-    </div>
-  </div>
-</div>
 
-<div class="toast" id="toast"></div>
+
+<div class="toast" id="toast">95명 불러오기 완료</div>
 
 <script>
-const STORAGE_KEY = 'reo_guild_members_v1';
-const INITIAL = `1. 神崎澄 / 2. Vendetta 벤 / 3. Maese / 4. ꜰᴍＳＯＮＧ🌹🌷 / 5. xxx / 6. leez_이자하 / 7. cho 초초 / 8. red / 9. Ylis일리스 / 10. sang 상한가 / 11. Apii😇 / 12. Satori / 13. YaY 얍 / 14. 린_RIN / 15. Aphrodite / 16. Luffy / 17. 키라리♡kirari / 18. 신타로 / 19. Mama Raz / 20. PEPEぺぺ / 21. Tarik / 22. Agnes / 23. aki_あき / 24. ᴘʀɪɴᴄᴇꜱꜱ김깽 / 25. ʚïɞMadameY / 26. miyabi_みやび / 27. FARMER / 28. Soda 솜사탕 / 29. Nbybi / 30. yoon 💎 / 31. 럭키Ducky / 32. YT / 33. CHICKEN / 34. FBPFK♡_소🐮 / 35. ulssy_얼씨군요 / 36. zzĐÚcdzz / 37. Dong_동삼집 / 38. apple_공주 / 39. Lucas / 40. 장첸 zzang / 41. 체리cherry🍒 / 42. Ruby💗루비 / 43. ゆき💕Yuki💕 / 44. мιиgкα / 45. Teto디노니논 / 46. NaNashi名無し / 47. 🫧Celli 🫧 / 48. Bell / 49. Ice Tea🍹 / 50. jason치로 / 51. san、オーク / 52. 새우🦐Shrimp / 53. HelpMe쟌스노우 / 54. ASEDO 아세도 / 55. YOU_ゆう / 56. 선배_sunbae / 57. HoHo_LiM / 58. Andy5909 / 59. ⚡𝕋ℍ𝕆ℝ⚡ / 60. Shooshi / 61. Meeshka / 62. ᴺⁱᶜʰᵒᵒ니콜ଳ / 63. GodSpeed / 64. ⒷⒺⓁⓁⒾⓄⓃ / 65. Sekiden / 66. Miffy / 67. LJ / 68. sweetNlow / 69. chris / 70. Fisher / 71. 두부_Dubu / 72. Black_리무바이 / 73. Ellen_🦇 / 74. yon_욘욘 / 75. 냥코 / 76. WhiteCat🐾 / 77. HAYATO79 / 78. Haarhus / 79. jjing / 80. ⒼⓊⓃ🍞 / 81. PoP Heroes / 82. Lilith / 83. HJjjjJH🍀 / 84. jjuny 쭈니 / 85. GOLD D SON / 86. Yota Mafia / 87. NSAIDs미노브이 / 88. 미안해_YOYO / 89. Manjo_0 / 90. Jmong_제이몽 / 91. Uhhhokay / 92. 페라리탄토끼🐰 / 93. kb park / 94. 일리스윤서 / 95. Romariense`;
+const INITIAL = `1. Ylis일리스 / 2. PEPEぺぺ / 3. 神崎澄 / 4. miyabi_みやび / 5. Ellen_🦇 / 6. ꜰᴍＳＯＮＧ🌹🌷 / 7. ᴘʀɪɴᴄᴇꜱꜱ김깽 / 8. Aphrodite / 9. aki_あき / 10. red / 11. FARMER / 12. xxx / 13. cho 초초 / 14. 🫧Celli 🫧 / 15. ⒼⓊⓃ🍞 / 16. Vendetta 벤 / 17. Maese / 18. leez_이자하 / 19. sang 상한가 / 20. Apii😇 / 21. Satori / 22. YaY 얍 / 23. 키라리♡kirari / 24. 신타로 / 25. Mama Raz / 26. Tarik / 27. Agnes / 28. ʚïɞMadameY / 29. Soda 솜사탕 / 30. Nbybi / 31. yoon 💎 / 32. 럭키Ducky / 33. YT / 34. CHICKEN / 35. ulssy_얼씨군요 / 36. zzĐÚcdzz / 37. Dong_동삼집 / 38. apple_공주 / 39. Lucas / 40. 장첸 zzang / 41. 체리cherry🍒 / 42. Ruby💗루비 / 43. ゆき💕Yuki💕 / 44. мιиgкα / 45. Teto디노니논 / 46. NaNashi名無し / 47. Bell / 48. jason치로 / 49. san、オーク / 50. YOU_ゆう / 51. 선배_sunbae / 52. HoHo_LiM / 53. Andy5909 / 54. Shooshi / 55. Meeshka / 56. ᴺⁱᶜʰᵒᵒ니콜ଳ / 57. ⒷⒺⓁⓁⒾⓄⓃ / 58. Sekiden / 59. sweetNlow / 60. chris / 61. Fisher / 62. 두부_Dubu / 63. Black_리무바이 / 64. yon_욘욘 / 65. 냥코 / 66. WhiteCat🐾 / 67. HAYATO79 / 68. jjing / 69. PoP Heroes / 70. HJjjjJH🍀 / 71. NSAIDs미노브이 / 72. 미안해_YOYO / 73. Uhhhokay / 74. 페라리탄토끼🐰 / 75. kb park / 76. 린_RIN / 77. Miffy / 78. Manjo_0 / 79. Romariense / 80. Yota Mafia / 81. Haarhus / 82. Ice Tea🍹 / 83. GodSpeed / 84. 새우🦐Shrimp / 85. ʚTanakaɞ / 86. Cort / 87. Danbi / 88. Mayo🍒 / 89. JIN진 / 90. hiroki / 91. ASA🐥 / 92. Silver 🪩 / 93. COS🐏 / 94. V25 / 95. Tess🍖`;
 
 let members = [];
 let editingIdx = null;
@@ -312,43 +1150,39 @@ let sortMode = 'num';
 let searchQuery = '';
 let dragSrcOrigIdx = null;
 let dragOverOrigIdx = null;
-let saveTimer = null;
 
-// ── Storage (localStorage) ──────────────────────────────
-function saveMembers() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(members));
-      setSaveStatus('saved');
-    } catch(e) {
-      setSaveStatus('error');
-    }
-  }, 300);
-  setSaveStatus('saving');
+// ── Download helpers ────────────────────────────────────
+function download(filename, content, mime) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type: mime}));
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast(filename + ' 다운로드됨');
 }
+
+function saveTxt() {
+  download('guild_member.txt', buildTxt(), 'text/plain;charset=utf-8');
+}
+
+function saveHtml() {
+  const txt = buildTxt();
+  // safely escape for backtick template literal
+  const escaped = txt.split('\\').join('\\\\').split('`').join('\\`').split('${').join('\\${');
+  const src = document.documentElement.outerHTML;
+  const marker = 'const INITIAL = `';
+  const start = src.indexOf(marker);
+  const end = src.indexOf('`;', start) + 2;
+  if (start === -1) { showToast('저장 실패: 마커를 찾을 수 없음'); return; }
+  const updated = src.slice(0, start) + marker + escaped + '`;' + src.slice(end);
+  download('reo-member-manager.html', updated, 'text/html;charset=utf-8');
+}
+
+function saveMembers() { /* no-op: use save buttons */ }
 
 function loadMembers() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    members = raw ? JSON.parse(raw) : parseTxt(INITIAL);
-  } catch(e) {
-    members = parseTxt(INITIAL);
-  }
+  members = parseTxt(INITIAL);
   render();
-}
-
-function setSaveStatus(state) {
-  const el = document.getElementById('saveStatus');
-  const icons = {
-    saving: `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`,
-    saved:  `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
-    error:  `<svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
-  };
-  el.className = 'save-status ' + state;
-  const labels = {saving:'저장 중...', saved:'저장됨', error:'저장 실패 (로컬 실행 필요)'};
-  el.innerHTML = (icons[state]||'') + ' ' + (labels[state]||'');
-  if (state === 'saved') setTimeout(() => { el.className='save-status'; el.innerHTML=''; }, 2000);
 }
 
 // ── Utils ───────────────────────────────────────────────
@@ -542,26 +1376,36 @@ function copyExport() {
     .then(() => showToast('클립보드에 복사됨'))
     .catch(() => { document.getElementById('exportText').select(); document.execCommand('copy'); showToast('복사됨'); });
 }
-function openImport() {
-  document.getElementById('importText').value='';
-  document.getElementById('importModal').classList.add('open');
-}
-function doImport() {
-  const txt = document.getElementById('importText').value.trim();
-  if (!txt) return;
-  const parsed = parseTxt(txt);
-  if (!parsed.length) { showToast('파싱 실패: 형식을 확인해주세요'); return; }
-  members = parsed;
-  editingIdx=null; confirmingIdx=null;
-  closeModal('importModal');
-  render(); saveMembers();
-  showToast(`${parsed.length}명 불러오기 완료`);
+function loadFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const txt = ev.target.result;
+    let parsed = [];
+    if (file.name.endsWith('.html')) {
+      // extract INITIAL from saved html
+      const marker = 'const INITIAL = `';
+      const start = txt.indexOf(marker);
+      const end = txt.indexOf('`;', start);
+      if (start === -1) { showToast('HTML에서 데이터를 찾을 수 없음'); return; }
+      parsed = parseTxt(txt.slice(start + marker.length, end));
+    } else {
+      parsed = parseTxt(txt);
+    }
+    if (!parsed.length) { showToast('파싱 실패: 형식을 확인해주세요'); return; }
+    members = parsed;
+    editingIdx=null; confirmingIdx=null;
+    render();
+    showToast(parsed.length + '명 불러오기 완료');
+  };
+  reader.readAsText(file, 'utf-8');
+  e.target.value = '';
 }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 document.getElementById('exportModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('exportModal'); });
-document.getElementById('importModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal('importModal'); });
-document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeModal('exportModal'); closeModal('importModal'); } });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeModal('exportModal'); } });
 
 // ── Toast ────────────────────────────────────────────────
 function showToast(msg) {
@@ -573,5 +1417,6 @@ function showToast(msg) {
 
 loadMembers();
 </script>
-</body>
-</html>
+
+
+</body></html>
