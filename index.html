@@ -222,6 +222,11 @@ active_event: arena   # arena / gar / kvk / none
     .event-card.kvk   .btn-current { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3);  color: #fef08a; }
     .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.22); }
 
+    .event-card.report::before { background: linear-gradient(180deg, #34d399, #0891b2); }
+    .event-card.report .event-name { color: #6ee7b7; }
+    .event-card.report .btn-report { background: rgba(52,211,153,0.10); border: 1px solid rgba(52,211,153,0.28); color: #6ee7b7; }
+    .event-card.report:hover .btn-report { background: rgba(52,211,153,0.22); }
+
     .footer {
       margin-top: 48px;
       padding-top: 20px;
@@ -306,6 +311,18 @@ active_event: arena   # arena / gar / kvk / none
           <a class="btn btn-archive" href="{{ '/kvk/archive/' | relative_url }}">📁 지난시즌</a>
         </div>
       </div>
+
+      <!-- Guild Report -->
+      <a class="event-card report" href="{{ '/report/' | relative_url }}" style="text-decoration:none">
+        <div class="event-icon">📊</div>
+        <div class="event-info">
+          <div class="event-name">GUILD REPORT</div>
+          <div class="event-desc">멤버 성과 분석</div>
+        </div>
+        <div class="btn-group">
+          <span class="btn btn-report">리포트 →</span>
+        </div>
+      </a>
 
     </div>
 
