@@ -1,0 +1,224 @@
+{
+  "type": "arena-report",
+  "generatedAt": "2026-06-02T16:32:24.509Z",
+  "goalScore": 7000,
+  "seasons": [
+    {
+      "season": "2026-05-19_2026-05-26",
+      "seasonStart": "2026-05-19",
+      "seasonEnd": "2026-05-25"
+    }
+  ],
+  "violators": [
+    {
+      "name": "神崎澄",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 37372
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Fisher",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 22632
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "aki_あき",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 20536
+        }
+      ],
+      "missionViol": 2
+    },
+    {
+      "name": "Satori",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 17827
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Agnes",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 13588
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "jjuny 쭈니",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 12779
+        }
+      ],
+      "missionViol": 2
+    },
+    {
+      "name": "Ice Tea🍹",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 8663
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Miffy",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 7165
+        }
+      ],
+      "missionViol": 2
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 7099
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "GodSpeed",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 7016
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "yon_욘욘",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 6698
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "chris",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 6616
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "ⒷⒺⓁⓁⒾⓄⓃ",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 6584
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Yota Mafia",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 6447
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 6168
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "apple_공주",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 5274
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Uhhhokay",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 3928
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "LJ",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 3192
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Jmong_제이몽",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 1275
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ASEDO 아세도",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 0
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HelpMe쟌스노우",
+      "seasonScores": [
+        {
+          "season": "2026-05-19_2026-05-26",
+          "score": 0
+        }
+      ],
+      "missionViol": 0
+    }
+  ]
+}

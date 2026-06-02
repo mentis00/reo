@@ -1,0 +1,579 @@
+{
+  "type": "gar-report",
+  "generatedAt": "2026-06-02T16:25:10.725Z",
+  "goalScore": 1500000,
+  "seasons": [
+    {
+      "season": "2026-05-25_2026-05-31",
+      "seasonStart": "2026-05-25"
+    }
+  ],
+  "violators": [
+    {
+      "name": "yon_욘욘",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 6,
+              "score": 96244
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "일리스윤서",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 3,
+              "score": 26900
+            },
+            {
+              "day": 4,
+              "score": 0
+            },
+            {
+              "day": 5,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Satori",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 1169555
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "yoon 💎",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 1112181
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Apii😇",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 458978
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "miyabi_みやび",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 2,
+              "score": 554764
+            },
+            {
+              "day": 3,
+              "score": 132030
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ⒷⒺⓁⓁⒾⓄⓃ",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 1226805
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ice Tea🍹",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 1196832
+            },
+            {
+              "day": 6,
+              "score": 1035652
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 3,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 42294
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jason치로",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 425438
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "⚡𝕋ℍ𝕆ℝ⚡",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 6,
+              "score": 1208946
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GOLD D SON",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 3,
+              "score": 0
+            },
+            {
+              "day": 4,
+              "score": 1240848
+            },
+            {
+              "day": 5,
+              "score": 640493
+            },
+            {
+              "day": 6,
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Manjo_0",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 4,
+              "score": 658896
+            },
+            {
+              "day": 5,
+              "score": 487937
+            },
+            {
+              "day": 6,
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lilith",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 3,
+              "score": 1420738
+            },
+            {
+              "day": 5,
+              "score": 884161
+            },
+            {
+              "day": 6,
+              "score": 895379
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 2,
+              "score": 1488779
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "мιиgкα",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 884348
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ⒼⓊⓃ🍞",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 4,
+              "score": 5172
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "새우🦐Shrimp",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 6,
+              "score": 962665
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Meeshka",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 5,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 45152
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chris",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 1348541
+            },
+            {
+              "day": 5,
+              "score": 636349
+            },
+            {
+              "day": 6,
+              "score": 1079780
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GodSpeed",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 1087129
+            },
+            {
+              "day": 4,
+              "score": 0
+            },
+            {
+              "day": 5,
+              "score": 800
+            },
+            {
+              "day": 6,
+              "score": 268235
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ASEDO 아세도",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 944587
+            },
+            {
+              "day": 2,
+              "score": 0
+            },
+            {
+              "day": 3,
+              "score": 0
+            },
+            {
+              "day": 4,
+              "score": 501970
+            },
+            {
+              "day": 5,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 295318
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Miffy",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 669574
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LJ",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 522105
+            },
+            {
+              "day": 3,
+              "score": 878910
+            },
+            {
+              "day": 4,
+              "score": 889405
+            },
+            {
+              "day": 5,
+              "score": 598636
+            },
+            {
+              "day": 6,
+              "score": 1012982
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jjuny 쭈니",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 55160
+            },
+            {
+              "day": 5,
+              "score": 1211189
+            },
+            {
+              "day": 6,
+              "score": 496529
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Yota Mafia",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 3981
+            },
+            {
+              "day": 5,
+              "score": 834164
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HelpMe쟌스노우",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 0
+            },
+            {
+              "day": 2,
+              "score": 0
+            },
+            {
+              "day": 3,
+              "score": 0
+            },
+            {
+              "day": 4,
+              "score": 0
+            },
+            {
+              "day": 5,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 2424
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "두부_Dubu",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 0
+            },
+            {
+              "day": 3,
+              "score": 110135
+            },
+            {
+              "day": 6,
+              "score": 16226
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Romariense",
+      "seasonResults": [
+        {
+          "season": "2026-05-25_2026-05-31",
+          "failDays": [
+            {
+              "day": 1,
+              "score": 0
+            },
+            {
+              "day": 6,
+              "score": 196120
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

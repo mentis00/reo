@@ -1,0 +1,224 @@
+{
+  "type": "arena-report",
+  "generatedAt": "2026-06-02T16:29:08.481Z",
+  "goalScore": 7000,
+  "seasons": [
+    {
+      "season": "2026-04-20",
+      "seasonStart": "2026-04-20",
+      "seasonEnd": "2026-04-27"
+    }
+  ],
+  "violators": [
+    {
+      "name": "Mỹ Miều",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 22252
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "체리cherry🍒",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 17042
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Luffy",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 15696
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "럭키Ducky",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 13370
+        }
+      ],
+      "missionViol": 2
+    },
+    {
+      "name": "Shooshi",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 11894
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "GodSpeed",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 7505
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Miffy",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 7167
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "ASEDO 아세도",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 6581
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Yota Mafia",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 6414
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ᴺⁱᶜʰᵒᵒ니콜ଳ",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 6071
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ゆき💕Yuki💕",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 5788
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "린_RIN",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 5451
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 5448
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ⒷⒺⓁⓁⒾⓄⓃ",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 5031
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Jmong_제이몽",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 4584
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 4477
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Uhhhokay",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 4273
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "apple_공주",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 3101
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "LJ",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 2856
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "chris",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 345
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ramen",
+      "seasonScores": [
+        {
+          "season": "2026-04-20",
+          "score": 0
+        }
+      ],
+      "missionViol": 0
+    }
+  ]
+}

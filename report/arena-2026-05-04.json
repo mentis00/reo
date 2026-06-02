@@ -1,0 +1,144 @@
+{
+  "type": "arena-report",
+  "generatedAt": "2026-06-02T16:30:28.163Z",
+  "goalScore": 7000,
+  "seasons": [
+    {
+      "season": "2026-05-04",
+      "seasonStart": "2026-05-04",
+      "seasonEnd": "2026-05-11"
+    }
+  ],
+  "violators": [
+    {
+      "name": "Tym",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 24043
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Meeshka",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13793
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Shooshi",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13448
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "jjuny 쭈니",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 12983
+        }
+      ],
+      "missionViol": 2
+    },
+    {
+      "name": "Soda 솜사탕",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8168
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Miffy",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7926
+        }
+      ],
+      "missionViol": 3
+    },
+    {
+      "name": "GodSpeed",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7339
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 6305
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Yota Mafia",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 5898
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Uhhhokay",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 4995
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "apple_공주",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 3583
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "LJ",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 3024
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ASEDO 아세도",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 2239
+        }
+      ],
+      "missionViol": 0
+    }
+  ]
+}
