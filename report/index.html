@@ -391,9 +391,10 @@ function renderReport(arenaData, garData){
     var r = {name:name, arenaFail:0, arenaTotal:0, arenaFailScores:[], missionViol:0, garFail:0, garTotal:0, garFailScores:[]};
 
     arenaData.forEach(function(f){
-      r.arenaTotal += (f.seasons||[]).length;
       var v = (f.violators||[]).find(function(v){ return v.name===name; });
       if(v){
+        // 실제 참여한 시즌 수 = seasonScores 길이
+        r.arenaTotal += (v.seasonScores||[]).length;
         (v.seasonScores||[]).forEach(function(ss){
           if(Number(ss.score||0) < Number(f.goalScore||7000)){
             r.arenaFail++;
@@ -407,9 +408,8 @@ function renderReport(arenaData, garData){
     garData.forEach(function(f){
       var v = (f.violators||[]).find(function(v){ return v.name===name; });
       if(v){
-        // 참여한 시즌 수만큼만 garTotal 카운트
-        // seasonResults에 있는 시즌 + 미달 없이 통과한 시즌 = 전체 참여 시즌
-        // 단순하게: 해당 파일의 전체 시즌 수 * 6 (참여자로 등록된 경우)
+        // 실제 참여 시즌 수 = f.seasons 전체 중 해당 멤버가 있는 시즌
+        // generator에서 참여 시즌만 저장하므로 f.seasons.length가 참여 시즌 수
         r.garTotal += (f.seasons||[]).length * 6;
         (v.seasonResults||[]).forEach(function(sr){
           (sr.failDays||[]).forEach(function(fd){
@@ -418,7 +418,6 @@ function renderReport(arenaData, garData){
           });
         });
       }
-      // 참여하지 않은 경우(violators에 없음) = garTotal 미추가
     });
 
     r.totalViol = r.arenaFail + r.missionViol + r.garFail;
