@@ -375,14 +375,14 @@ function renderReport(arenaData, garData){
     return;
   }
 
-  // 위반자 이름 합집합
+  // 전체 멤버 합집합
   var nameSet = {};
-  arenaData.forEach(function(f){ (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; }); });
-  garData.forEach(function(f){   (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; }); });
+  arenaData.forEach(function(f){ (f.members||[]).forEach(function(m){ nameSet[m.name]=1; }); });
+  garData.forEach(function(f){   (f.members||[]).forEach(function(m){ nameSet[m.name]=1; }); });
   var names = Object.keys(nameSet);
 
   if(!names.length){
-    document.getElementById('reportArea').innerHTML = '<div class="empty" style="color:#34d399">✅ 선택한 시즌에서 위반자가 없습니다.</div>';
+    document.getElementById('reportArea').innerHTML = '<div class="empty" style="color:#34d399">✅ 데이터가 없습니다.</div>';
     return;
   }
 
@@ -391,33 +391,35 @@ function renderReport(arenaData, garData){
     var r = {name:name, arenaFail:0, arenaTotal:0, arenaFailScores:[], missionViol:0, garFail:0, garTotal:0, garFailScores:[]};
 
     arenaData.forEach(function(f){
-      var v = (f.violators||[]).find(function(v){ return v.name===name; });
-      if(v){
-        // 실제 참여한 시즌 수 = seasonScores 길이
-        r.arenaTotal += (v.seasonScores||[]).length;
-        (v.seasonScores||[]).forEach(function(ss){
-          if(Number(ss.score||0) < Number(f.goalScore||7000)){
-            r.arenaFail++;
-            r.arenaFailScores.push(Number(ss.score||0));
-          }
-        });
-        r.missionViol += Number(v.missionViol||0);
-      }
+      var m = (f.members||[]).find(function(m){ return m.name===name; });
+      if(!m) return;
+      var goal = Number(f.goalScore||7000);
+      (m.seasonScores||[]).forEach(function(ss){
+        if(ss.score === null) return; // 미참여
+        r.arenaTotal++;
+        if(Number(ss.score) < goal){
+          r.arenaFail++;
+          r.arenaFailScores.push(Number(ss.score));
+        }
+      });
+      r.missionViol += Number(m.missionViol||0);
     });
 
     garData.forEach(function(f){
-      var v = (f.violators||[]).find(function(v){ return v.name===name; });
-      if(v){
-        // 실제 참여 시즌 수 = f.seasons 전체 중 해당 멤버가 있는 시즌
-        // generator에서 참여 시즌만 저장하므로 f.seasons.length가 참여 시즌 수
-        r.garTotal += (f.seasons||[]).length * 6;
-        (v.seasonResults||[]).forEach(function(sr){
-          (sr.failDays||[]).forEach(function(fd){
+      var m = (f.members||[]).find(function(m){ return m.name===name; });
+      if(!m) return;
+      var goal = Number(f.goalScore||1500000);
+      (m.seasonResults||[]).forEach(function(sr){
+        if(!sr.participated) return; // 미참여 시즌 제외
+        for(var d=0;d<6;d++){
+          r.garTotal++;
+          var sc = Number((sr.days||[])[d]||0);
+          if(sc < goal){
             r.garFail++;
-            r.garFailScores.push(Number(fd.score||0));
-          });
-        });
-      }
+            r.garFailScores.push(sc);
+          }
+        }
+      });
     });
 
     r.totalViol = r.arenaFail + r.missionViol + r.garFail;
