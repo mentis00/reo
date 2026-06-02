@@ -1,11 +1,12 @@
 {
   "type": "gar-report",
-  "generatedAt": "2026-06-02T16:25:10.725Z",
+  "generatedAt": "2026-06-02T17:52:50.688Z",
   "goalScore": 1500000,
   "seasons": [
     {
       "season": "2026-05-25_2026-05-31",
-      "seasonStart": "2026-05-25"
+      "seasonStart": "2026-05-25",
+      "totalMembers": 95
     }
   ],
   "violators": [

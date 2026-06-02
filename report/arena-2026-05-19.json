@@ -1,12 +1,13 @@
 {
   "type": "arena-report",
-  "generatedAt": "2026-06-02T16:32:24.509Z",
+  "generatedAt": "2026-06-02T17:52:09.301Z",
   "goalScore": 7000,
   "seasons": [
     {
       "season": "2026-05-19_2026-05-26",
       "seasonStart": "2026-05-19",
-      "seasonEnd": "2026-05-25"
+      "seasonEnd": "2026-05-25",
+      "totalMembers": 93
     }
   ],
   "violators": [
