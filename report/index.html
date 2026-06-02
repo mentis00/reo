@@ -405,9 +405,12 @@ function renderReport(arenaData, garData){
     });
 
     garData.forEach(function(f){
-      r.garTotal += (f.seasons||[]).length * 6;
       var v = (f.violators||[]).find(function(v){ return v.name===name; });
       if(v){
+        // 참여한 시즌 수만큼만 garTotal 카운트
+        // seasonResults에 있는 시즌 + 미달 없이 통과한 시즌 = 전체 참여 시즌
+        // 단순하게: 해당 파일의 전체 시즌 수 * 6 (참여자로 등록된 경우)
+        r.garTotal += (f.seasons||[]).length * 6;
         (v.seasonResults||[]).forEach(function(sr){
           (sr.failDays||[]).forEach(function(fd){
             r.garFail++;
@@ -415,6 +418,7 @@ function renderReport(arenaData, garData){
           });
         });
       }
+      // 참여하지 않은 경우(violators에 없음) = garTotal 미추가
     });
 
     r.totalViol = r.arenaFail + r.missionViol + r.garFail;
@@ -459,7 +463,7 @@ function renderReport(arenaData, garData){
     (chips ? '<div class="chips">'+chips+'</div>' : '')
     +'<div class="stats">'
     +(arenaData.length ? '<div class="stat"><div class="sv" style="color:#c4b5fd">'+totalArenaFail+'</div><div class="sl">Arena 미달 횟수</div></div>' : '')
-    +'<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반</div></div>'
+    +(totalMissionViol>0 ? '<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반</div></div>' : '')
     +(garData.length ? '<div class="stat"><div class="sv" style="color:#fb923c">'+totalGarFail+'</div><div class="sl">GAR 미달 일수</div></div>' : '')
     +(garData.length ? '<div class="stat"><div class="sv" style="color:#38bdf8">'+garTotalDays+'</div><div class="sl">GAR 기준 총 일수</div></div>' : '')
     +'</div>'
