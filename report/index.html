@@ -182,22 +182,13 @@ function applySelection(){
 
   aChecked.forEach(function(el){
     promises.push(fetch(el.dataset.path).then(function(r){return r.json();}).then(function(d){
-      // report-generator 출력 포맷: {type:'arena-report', seasons:[], missionData:{}}
-      if(d.type==='arena-report'){
-        (d.seasons||[]).forEach(function(s){ arenaData.push({season:s, mission:d.missionData||{}}); });
-      } else {
-        arenaData.push({season:d, mission:{}});
-      }
+      if(d.type==='arena-report') arenaData.push(d);
     }).catch(function(){ console.warn('로드 실패:', el.dataset.path); }));
   });
 
   gChecked.forEach(function(el){
     promises.push(fetch(el.dataset.path).then(function(r){return r.json();}).then(function(d){
-      if(d.type==='gar-report'){
-        (d.seasons||[]).forEach(function(s){ garData.push(s); });
-      } else {
-        garData.push(d);
-      }
+      if(d.type==='gar-report') garData.push(d);
     }).catch(function(){ console.warn('로드 실패:', el.dataset.path); }));
   });
 
@@ -207,52 +198,56 @@ function applySelection(){
   });
 }
 
-// 멤버 목록 (Arena 기준)
-function getMembers(arenaData){
-  var names = [];
-  arenaData.forEach(function(a){
-    ((a.season||{}).members||[]).forEach(function(m){
-      if(m.name && !names.includes(m.name)) names.push(m.name);
-    });
-  });
-  return names;
-}
-
 var currentSort = 'total';
 
 function renderReport(arenaData, garData){
-  var members = getMembers(arenaData);
-  if(!members.length && !garData.length){
-    document.getElementById('reportBox').innerHTML='<div class="empty">멤버 데이터가 없습니다.</div>';
+  // arenaData: [{type, goalScore, seasons:[{season}], violators:[{name, seasonScores, missionViol}]}]
+  // garData:   [{type, goalScore, seasons:[{season}], violators:[{name, seasonResults:[{season,failDays}]}]}]
+
+  if(!arenaData.length && !garData.length){
+    document.getElementById('reportBox').innerHTML='<div class="empty">데이터가 없습니다.</div>';
     return;
   }
-  // GAR만 있을 때 멤버 보완
-  if(!members.length && garData.length){
-    (garData[0].members||[]).forEach(function(m){ if(!members.includes(m.name)) members.push(m.name); });
+
+  // 위반자 이름 합집합
+  var nameSet = {};
+  arenaData.forEach(function(f){ (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; }); });
+  garData.forEach(function(f){   (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; }); });
+  var names = Object.keys(nameSet);
+
+  if(!names.length){
+    document.getElementById('reportBox').innerHTML='<div class="empty" style="color:#34d399">✅ 위반자가 없습니다.</div>';
+    return;
   }
 
-  // 계산
-  var report = members.map(function(name){
+  // 멤버별 집계
+  var report = names.map(function(name){
     var r = {name:name, arenaFail:0, arenaTotal:0, arenaFailScores:[], missionViol:0, garFail:0, garTotal:0, garFailScores:[]};
 
-    arenaData.forEach(function(a){
-      var s = a.season||{};
-      var goal = Number(s.goalScore||7000);
-      var m = (s.members||[]).find(function(m){return m.name===name;});
-      r.arenaTotal++;
-      if(m && Number(m.score||0)<goal){ r.arenaFail++; r.arenaFailScores.push(Number(m.score||0)); }
-      // 공동미션 위반 합산 (파일별)
-      if(a.mission && a.mission[name]) r.missionViol += Number(a.mission[name])||0;
+    arenaData.forEach(function(f){
+      r.arenaTotal += (f.seasons||[]).length;
+      var v = (f.violators||[]).find(function(v){ return v.name===name; });
+      if(v){
+        (v.seasonScores||[]).forEach(function(ss){
+          if(Number(ss.score||0) < Number(f.goalScore||7000)){
+            r.arenaFail++;
+            r.arenaFailScores.push(Number(ss.score||0));
+          }
+        });
+        r.missionViol += Number(v.missionViol||0);
+      }
     });
 
-    garData.forEach(function(s){
-      var goal = Number(s.goalScore||1500000);
-      var m = (s.members||[]).find(function(m){return m.name===name;});
-      var days = m?(m.days||[0,0,0,0,0,0]):[0,0,0,0,0,0];
-      for(var d=0;d<6;d++){
-        r.garTotal++;
-        var sc = Number(days[d]||0);
-        if(sc<goal){ r.garFail++; r.garFailScores.push(sc); }
+    garData.forEach(function(f){
+      r.garTotal += (f.seasons||[]).length * 6;
+      var v = (f.violators||[]).find(function(v){ return v.name===name; });
+      if(v){
+        (v.seasonResults||[]).forEach(function(sr){
+          (sr.failDays||[]).forEach(function(fd){
+            r.garFail++;
+            r.garFailScores.push(Number(fd.score||0));
+          });
+        });
       }
     });
 
@@ -277,8 +272,8 @@ function renderReport(arenaData, garData){
 
   // 시즌 칩
   var chips='';
-  arenaData.forEach(function(a){ var s=a.season||{}; chips+='<div class="chip ac"><span class="cl">ARENA</span><span class="cv">'+(s.season||s.seasonStart||'')+'</span></div>'; });
-  garData.forEach(function(s){ chips+='<div class="chip gc"><span class="cl">GAR</span><span class="cv">'+(s.season||s.seasonStart||'')+'</span></div>'; });
+  arenaData.forEach(function(f){ (f.seasons||[]).forEach(function(s){ chips+='<div class="chip ac"><span class="cl">ARENA</span><span class="cv">'+(s.season||s.seasonStart||'')+'</span></div>'; }); });
+  garData.forEach(function(f){   (f.seasons||[]).forEach(function(s){ chips+='<div class="chip gc"><span class="cl">GAR</span><span class="cv">'+(s.season||s.seasonStart||'')+'</span></div>'; }); });
 
   function buildGrid(sk){
     var sorted = violators.slice().sort(function(a,b){
@@ -304,7 +299,7 @@ function renderReport(arenaData, garData){
     }).join('');
   }
 
-  var garTotalDays = garData.length * 6;
+  var garTotalDays = garData.reduce(function(s,f){ return s+(f.seasons||[]).length*6; },0);
   var statHtml = ''
     +(arenaData.length?'<div class="stat"><div class="sv" style="color:#c4b5fd">'+totalArenaFail+'</div><div class="sl">Arena 미달 횟수</div></div>':'')
     +'<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반</div></div>'
@@ -320,15 +315,13 @@ function renderReport(arenaData, garData){
   document.getElementById('reportBox').innerHTML =
     (chips?'<div class="chips">'+chips+'</div>':'')
     +'<div class="stats">'+statHtml+'</div>'
-    +'<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px">⚠️ 위반자 <strong style="color:#f87171;font-family:Rajdhani,sans-serif;font-size:16px">'+violators.length+'명</strong> / 전체 '+report.length+'명</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px">⚠️ 위반자 <strong style="color:#f87171;font-family:Rajdhani,sans-serif;font-size:16px">'+violators.length+'명</strong></div>'
     +'<div class="sort-bar">'+sortBar+'</div>'
     +'<div class="rpt-grid" id="rptGrid">'+buildGrid(currentSort)+'</div>'
     +'<div class="rpt-footer">REO #10472[REO]NOOK · '+new Date().toLocaleString('ko-KR')+'</div>';
 
-  // 소트 상태 기억
   window._lastArena = arenaData;
   window._lastGar   = garData;
-  window._lastReport = report;
   window._lastViolators = violators;
 }
 
