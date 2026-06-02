@@ -471,6 +471,7 @@ function renderReport(arenaData, garData){
     +'<div class="sort-bar">'
     +'<button class="sort-btn active" onclick="reSort(this,\'total\')">전체 위반순</button>'
     +(arenaData.length ? '<button class="sort-btn" onclick="reSort(this,\'arena\')">Arena 미달순</button>' : '')
+    +(arenaData.length ? '<button class="sort-btn" onclick="reSort(this,\'mission\')">공동미션순</button>' : '')
     +(garData.length ? '<button class="sort-btn" onclick="reSort(this,\'gar\')">GAR 미달순</button>' : '')
     +'</div>'
     +'<div class="rpt-grid" id="rptGrid">'+buildGrid(violators, arenaData, garData, 'total')+'</div>'
