@@ -1,16 +1,255 @@
 {
   "type": "arena-report",
-  "generatedAt": "2026-06-02T17:50:58.273Z",
+  "generatedAt": "2026-06-02T19:09:33.781Z",
   "goalScore": 7000,
   "seasons": [
     {
       "season": "2026-05-04",
       "seasonStart": "2026-05-04",
-      "seasonEnd": "2026-05-11",
-      "totalMembers": 95
+      "seasonEnd": "2026-05-11"
     }
   ],
-  "violators": [
+  "members": [
+    {
+      "name": "FARMER",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 46424
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ꜰᴍＳＯＮＧ🌹🌷",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 44390
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "신타로",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 42997
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HJjjjJH🍀",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 41272
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "red",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 40503
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "神崎澄",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 39876
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "cho 초초",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 38588
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HoHo_LiM",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 37593
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ⒼⓊⓃ🍞",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 37255
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ylis일리스",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 36983
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YOU_ゆう",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 36142
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "zzĐÚcdzz",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 35259
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YaY 얍",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 35145
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "WhiteCat🐾",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 33694
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "🫧Celli 🫧",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 33408
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "FBPFK♡_소🐮",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 31797
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ᴘʀɪɴᴄᴇꜱꜱ김깽",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 30682
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Haarhus",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 29808
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "xxx",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 28590
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "PEPEぺぺ",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 26366
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Mạnh 😊",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 25838
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "CHICKEN",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 25823
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Maese",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 25365
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "장첸 zzang",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 24219
+        }
+      ],
+      "missionViol": 0
+    },
     {
       "name": "Tym",
       "seasonScores": [
@@ -20,6 +259,246 @@
         }
       ],
       "missionViol": 1
+    },
+    {
+      "name": "Mama Raz",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 23862
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Tarik",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 23563
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Lucas",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 23533
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "aki_あき",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 23261
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Nbybi",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 23147
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Fisherrr",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 22149
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ĐÚc Anh",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 22011
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "키라리♡kirari",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 21401
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Teresa🙂테라",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 21152
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Teto디노니논",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 21109
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ven 벤데타",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 20833
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "럭키Ducky",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 19957
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Dong_동삼집",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 19320
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NaNashi名無し",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 17348
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "yoon",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 16699
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Apii😇",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 16338
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "PoP Heroes",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 16291
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "엘렌_Ellen🧛",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 16145
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "мιиgкα",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 16007
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Andy5909",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 15834
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "영블리_YoYo",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 15605
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Luffy",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 14454
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HelpMe쟌스노우",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 14283
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "miyabi_みやび",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13823
+        }
+      ],
+      "missionViol": 0
     },
     {
       "name": "Meeshka",
@@ -32,6 +511,26 @@
       "missionViol": 1
     },
     {
+      "name": "체리cherry🍒",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13592
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Satori",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13550
+        }
+      ],
+      "missionViol": 0
+    },
+    {
       "name": "Shooshi",
       "seasonScores": [
         {
@@ -40,6 +539,16 @@
         }
       ],
       "missionViol": 1
+    },
+    {
+      "name": "sang 상한가",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 13102
+        }
+      ],
+      "missionViol": 0
     },
     {
       "name": "jjuny 쭈니",
@@ -52,6 +561,176 @@
       "missionViol": 2
     },
     {
+      "name": "냥코",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 12824
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HAYATO79",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 12075
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "jason치로",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 11703
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "jjing",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 11623
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "새우🦐Shrimp",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 11379
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "페라리탄토끼🐰",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 11236
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "leez_이자하",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 10861
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Bell",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 10451
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YT",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 10219
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ʚïɞMadameY",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 9618
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Manjo_0",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 9588
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ⒷⒺⓁⓁⒾⓄⓃ",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 9477
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Agnes",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 9410
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Aphrodite",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8964
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "GOLD D SON",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8624
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "⚡𝕋ℍ𝕆ℝ⚡",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8527
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ice Tea🍹",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8362
+        }
+      ],
+      "missionViol": 0
+    },
+    {
       "name": "Soda 솜사탕",
       "seasonScores": [
         {
@@ -60,6 +739,26 @@
         }
       ],
       "missionViol": 1
+    },
+    {
+      "name": "Lilith",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8102
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "chris",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 8029
+        }
+      ],
+      "missionViol": 0
     },
     {
       "name": "Miffy",
@@ -72,6 +771,56 @@
       "missionViol": 3
     },
     {
+      "name": "sweetNlow",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7659
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7441
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Black_리무바이",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7413
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ᴺⁱᶜʰᵒᵒ니콜ଳ",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7383
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ulssy_얼씨군요",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7377
+        }
+      ],
+      "missionViol": 0
+    },
+    {
       "name": "GodSpeed",
       "seasonScores": [
         {
@@ -80,6 +829,76 @@
         }
       ],
       "missionViol": 1
+    },
+    {
+      "name": "ゆき💕Yuki💕",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7203
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "두부_Dubu",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7167
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "san、オーク",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7104
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Jmong_제이몽",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7078
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "yon_욘욘",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7056
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Sekiden",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7052
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "린_RIN",
+      "seasonScores": [
+        {
+          "season": "2026-05-04",
+          "score": 7038
+        }
+      ],
+      "missionViol": 0
     },
     {
       "name": "선배_sunbae",

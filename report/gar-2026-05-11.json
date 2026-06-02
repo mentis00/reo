@@ -1,25 +1,656 @@
 {
   "type": "gar-report",
-  "generatedAt": "2026-06-02T17:52:42.512Z",
+  "generatedAt": "2026-06-02T19:05:34.159Z",
   "goalScore": 1500000,
   "seasons": [
     {
       "season": "2026-05-11",
-      "seasonStart": "2026-05-11",
-      "totalMembers": 95
+      "seasonStart": "2026-05-11"
     }
   ],
-  "violators": [
+  "members": [
+    {
+      "name": "Ylis일리스",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            15814972,
+            13496095,
+            22903186,
+            7071686,
+            20014457,
+            11713076
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Andy5909",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            30955287,
+            30117785,
+            9337415,
+            1902672,
+            8227429,
+            4375138
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cho 초초",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            19536995,
+            15858689,
+            26194267,
+            7389297,
+            6330855,
+            6960619
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ꜰᴍＳＯＮＧ🌹🌷",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            13375294,
+            15906022,
+            28455441,
+            5456627,
+            4127764,
+            10651348
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FARMER",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5235755,
+            26022140,
+            23829382,
+            5323322,
+            2932177,
+            6690775
+          ]
+        }
+      ]
+    },
+    {
+      "name": "神崎澄",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            33262910,
+            3950990,
+            17297835,
+            3826043,
+            3460651,
+            7999889
+          ]
+        }
+      ]
+    },
+    {
+      "name": "red",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            10890036,
+            16519259,
+            21926847,
+            6131566,
+            2486881,
+            9520272
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Satori",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            22670924,
+            11532869,
+            14127251,
+            5571732,
+            2873904,
+            5064600
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maese",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            23208497,
+            10917957,
+            13990482,
+            4455189,
+            3075833,
+            5055175
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tarik",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            15627993,
+            12347702,
+            16985593,
+            6577413,
+            4906998,
+            3938764
+          ]
+        }
+      ]
+    },
+    {
+      "name": "apple_공주",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            16247438,
+            7700903,
+            15601272,
+            7311358,
+            9556204,
+            2969792
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ᴘʀɪɴᴄᴇꜱꜱ김깽",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            3823760,
+            11201876,
+            17608801,
+            10818616,
+            3457946,
+            11046905
+          ]
+        }
+      ]
+    },
+    {
+      "name": "YaY 얍",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            21293807,
+            6845011,
+            17592646,
+            3111320,
+            3627767,
+            5241698
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PEPEぺぺ",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            10440194,
+            10385851,
+            13001826,
+            9128332,
+            2730810,
+            9408683
+          ]
+        }
+      ]
+    },
+    {
+      "name": "aki_あき",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5666216,
+            6878004,
+            17902340,
+            10326965,
+            2218520,
+            10309248
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aphrodite",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            16394617,
+            7993577,
+            16173658,
+            4229572,
+            1896920,
+            3868583
+          ]
+        }
+      ]
+    },
+    {
+      "name": "xxx",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            14744469,
+            8242334,
+            11152664,
+            5769540,
+            4427891,
+            6182970
+          ]
+        }
+      ]
+    },
     {
       "name": "NaNashi名無し",
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1269079
-            }
+          "participated": true,
+          "days": [
+            16895808,
+            12437429,
+            9696293,
+            3462983,
+            1269079,
+            6658301
+          ]
+        }
+      ]
+    },
+    {
+      "name": "miyabi_みやび",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            8566445,
+            15541281,
+            11042150,
+            3884119,
+            4322079,
+            4065011
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HAYATO79",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            2957623,
+            20816903,
+            9215272,
+            9577391,
+            2246931,
+            2321355
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sang 상한가",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            9874696,
+            12027706,
+            15638094,
+            3389618,
+            3082166,
+            2956722
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ruby💗루비",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            8747175,
+            2702613,
+            18377239,
+            6208269,
+            5813404,
+            5066536
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soda 솜사탕",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            13702393,
+            5627025,
+            13193790,
+            5659075,
+            4409750,
+            4271464
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vendetta 벤",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            13577540,
+            7776216,
+            12852880,
+            4662437,
+            1923321,
+            4670428
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nbybi",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5422068,
+            7873289,
+            19037987,
+            6986804,
+            2188996,
+            3320076
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ʚïɞMadameY",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            10369261,
+            4357018,
+            15826608,
+            4714640,
+            2752904,
+            6191893
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🐐NON🐐",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            20110488,
+            8703249,
+            7975754,
+            3545531,
+            1561246,
+            1552134
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ellen_🧛87",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            3227196,
+            14091264,
+            10829524,
+            4854144,
+            2017839,
+            7071941
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zzĐÚcdzz",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            13722386,
+            11104816,
+            8103761,
+            3707421,
+            1693987,
+            1837927
+          ]
+        }
+      ]
+    },
+    {
+      "name": "yoon 💎",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            8044607,
+            10927563,
+            9677545,
+            4160732,
+            1581024,
+            5770972
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Apii😇",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            9870898,
+            9154245,
+            11642943,
+            5544721,
+            1736390,
+            1669982
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jjing",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4833581,
+            12571890,
+            9912316,
+            3959440,
+            2413540,
+            4618575
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nh mít ướt",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4504408,
+            7101651,
+            11669807,
+            6951853,
+            3753045,
+            3520790
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mama Raz",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4534206,
+            3199594,
+            16157559,
+            3545977,
+            2063390,
+            7632042
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leez_이자하",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            11546624,
+            6079395,
+            8660647,
+            4366548,
+            2196400,
+            3797981
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HJjjjJH🍀",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1549569,
+            2873964,
+            24161838,
+            2487884,
+            1509690,
+            3611940
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🫧Celli 🫧",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4362711,
+            11232875,
+            8774168,
+            4244641,
+            1867550,
+            5169254
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dong_동삼집",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5319408,
+            10427464,
+            11214718,
+            3008880,
+            2006400,
+            2956303
           ]
         }
       ]
@@ -29,11 +660,31 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1476195
-            }
+          "participated": true,
+          "days": [
+            2135387,
+            4085662,
+            12867891,
+            3834672,
+            1476195,
+            7816157
+          ]
+        }
+      ]
+    },
+    {
+      "name": "럭키Ducky",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            6011779,
+            4895577,
+            9042429,
+            5316412,
+            1646611,
+            3307438
           ]
         }
       ]
@@ -43,11 +694,65 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1211636
-            }
+          "participated": true,
+          "days": [
+            5851061,
+            5603859,
+            6769064,
+            2680072,
+            1211636,
+            7321292
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ⒼⓊⓃ🍞",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            2293154,
+            1520491,
+            7569355,
+            6732666,
+            1704158,
+            9327452
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ᴺⁱᶜʰᵒᵒ니콜ଳ",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            6915262,
+            5344249,
+            6755901,
+            3122016,
+            2091075,
+            4718399
+          ]
+        }
+      ]
+    },
+    {
+      "name": "YOU_ゆう",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4299830,
+            2453308,
+            12846610,
+            1678857,
+            1729624,
+            5544891
           ]
         }
       ]
@@ -57,11 +762,150 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 2,
-              "score": 864371
-            }
+          "participated": true,
+          "days": [
+            1959771,
+            864371,
+            17898320,
+            2471918,
+            1757425,
+            3418646
+          ]
+        }
+      ]
+    },
+    {
+      "name": "린_RIN",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4222210,
+            3261208,
+            2020737,
+            3303942,
+            9365690,
+            5030827
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mạnh 😊",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            6626124,
+            7487621,
+            4726919,
+            3664193,
+            1827356,
+            2801344
+          ]
+        }
+      ]
+    },
+    {
+      "name": "WhiteCat🐾",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1598718,
+            1995350,
+            16437500,
+            1781922,
+            1517165,
+            3704150
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lucas",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4111969,
+            2415979,
+            12884953,
+            1568022,
+            1669126,
+            4112183
+          ]
+        }
+      ]
+    },
+    {
+      "name": "미안해_YOYO",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4616106,
+            2712972,
+            8664522,
+            2484915,
+            3787510,
+            4324746
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Agnes",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4103238,
+            1773630,
+            14677189,
+            1656572,
+            1671767,
+            2629652
+          ]
+        }
+      ]
+    },
+    {
+      "name": "키라리♡kirari",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            11315108,
+            3276620,
+            6002860,
+            1561119,
+            1877705,
+            2439111
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Teto디노니논",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4821533,
+            6333578,
+            7283073,
+            3490243,
+            1548309,
+            2975141
           ]
         }
       ]
@@ -71,11 +915,82 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1206635
-            }
+          "participated": true,
+          "days": [
+            7363619,
+            2841139,
+            6542900,
+            1845172,
+            1206635,
+            6610215
+          ]
+        }
+      ]
+    },
+    {
+      "name": "장첸 zzang",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            3013409,
+            1534237,
+            12636240,
+            2029167,
+            1653042,
+            5081552
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fisher",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4448335,
+            5628731,
+            4336111,
+            4084638,
+            4386212,
+            2569013
+          ]
+        }
+      ]
+    },
+    {
+      "name": "jason치로",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            2840143,
+            1800107,
+            10575631,
+            4659765,
+            1578561,
+            3991080
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Luffy",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            10535915,
+            1517412,
+            4474770,
+            3742500,
+            2498313,
+            2490197
           ]
         }
       ]
@@ -85,11 +1000,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 6,
-              "score": 1389782
-            }
+          "participated": true,
+          "days": [
+            4110395,
+            7953668,
+            4208364,
+            4330649,
+            2238306,
+            1389782
           ]
         }
       ]
@@ -99,19 +1017,82 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 2,
-              "score": 1467126
-            },
-            {
-              "day": 5,
-              "score": 0
-            },
-            {
-              "day": 6,
-              "score": 229193
-            }
+          "participated": true,
+          "days": [
+            3414377,
+            1467126,
+            14573717,
+            3291742,
+            0,
+            229193
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bell",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            7649591,
+            2453999,
+            3601269,
+            4798997,
+            2602350,
+            1844112
+          ]
+        }
+      ]
+    },
+    {
+      "name": "냥코",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            2709854,
+            1641889,
+            10513371,
+            1509372,
+            3870582,
+            2218501
+          ]
+        }
+      ]
+    },
+    {
+      "name": "san、オーク",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5155958,
+            2520194,
+            4030152,
+            2431195,
+            4072133,
+            4155475
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CHICKEN",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1801454,
+            2026895,
+            8992393,
+            3854213,
+            1649574,
+            3672051
           ]
         }
       ]
@@ -121,11 +1102,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 4,
-              "score": 1452720
-            }
+          "participated": true,
+          "days": [
+            6819720,
+            5161260,
+            3029446,
+            1452720,
+            1627468,
+            3861336
           ]
         }
       ]
@@ -135,11 +1119,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 6,
-              "score": 1034883
-            }
+          "participated": true,
+          "days": [
+            5509737,
+            1536643,
+            6155831,
+            3798786,
+            3550356,
+            1034883
           ]
         }
       ]
@@ -149,11 +1136,48 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 6,
-              "score": 1178368
-            }
+          "participated": true,
+          "days": [
+            6369135,
+            3290903,
+            4790887,
+            3522234,
+            1638351,
+            1178368
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sweetNlow",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            3508926,
+            2577359,
+            5638425,
+            5039668,
+            1810785,
+            1893117
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ulssy_얼씨군요",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            5163804,
+            2088303,
+            4461030,
+            2082990,
+            2238589,
+            3504523
           ]
         }
       ]
@@ -163,11 +1187,31 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 785103
-            }
+          "participated": true,
+          "days": [
+            2073507,
+            3671965,
+            6603391,
+            2210293,
+            785103,
+            3526931
+          ]
+        }
+      ]
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            4807681,
+            2983930,
+            3009672,
+            3227370,
+            1686606,
+            2355503
           ]
         }
       ]
@@ -177,11 +1221,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1174718
-            }
+          "participated": true,
+          "days": [
+            2603201,
+            1714894,
+            3824700,
+            4299052,
+            1174718,
+            4150313
           ]
         }
       ]
@@ -191,23 +1238,48 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 652200
-            },
-            {
-              "day": 2,
-              "score": 635867
-            },
-            {
-              "day": 4,
-              "score": 72240
-            },
-            {
-              "day": 6,
-              "score": 0
-            }
+          "participated": true,
+          "days": [
+            652200,
+            635867,
+            7194823,
+            72240,
+            8883796,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sekiden",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            2382422,
+            2972574,
+            6102738,
+            1898006,
+            1726095,
+            2112181
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Black_리무바이",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            3031259,
+            1695762,
+            4486209,
+            4336051,
+            1681758,
+            1580936
           ]
         }
       ]
@@ -217,15 +1289,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 581592
-            },
-            {
-              "day": 6,
-              "score": 1333885
-            }
+          "participated": true,
+          "days": [
+            4560522,
+            2184997,
+            4289922,
+            2822220,
+            581592,
+            1333885
           ]
         }
       ]
@@ -235,15 +1306,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 3,
-              "score": 72900
-            },
-            {
-              "day": 5,
-              "score": 1028924
-            }
+          "participated": true,
+          "days": [
+            2364228,
+            5931918,
+            72900,
+            3811670,
+            1028924,
+            2394926
           ]
         }
       ]
@@ -253,15 +1323,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 4,
-              "score": 1364472
-            },
-            {
-              "day": 5,
-              "score": 639399
-            }
+          "participated": true,
+          "days": [
+            2564670,
+            2335477,
+            6880913,
+            1364472,
+            639399,
+            1785074
           ]
         }
       ]
@@ -271,15 +1340,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 3,
-              "score": 668479
-            },
-            {
-              "day": 5,
-              "score": 975596
-            }
+          "participated": true,
+          "days": [
+            5374635,
+            1769002,
+            668479,
+            3867714,
+            975596,
+            2199622
           ]
         }
       ]
@@ -289,11 +1357,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 628817
-            }
+          "participated": true,
+          "days": [
+            5890089,
+            1561465,
+            2122671,
+            2259162,
+            628817,
+            2159789
           ]
         }
       ]
@@ -303,15 +1374,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 3,
-              "score": 75512
-            },
-            {
-              "day": 4,
-              "score": 4566
-            }
+          "participated": true,
+          "days": [
+            5797991,
+            2128556,
+            75512,
+            4566,
+            1703275,
+            4572694
           ]
         }
       ]
@@ -321,15 +1391,48 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 5,
-              "score": 1140383
-            },
-            {
-              "day": 6,
-              "score": 517020
-            }
+          "participated": true,
+          "days": [
+            4073984,
+            3639470,
+            2360003,
+            1512560,
+            1140383,
+            517020
+          ]
+        }
+      ]
+    },
+    {
+      "name": "YT",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1851264,
+            2312139,
+            1941773,
+            2218720,
+            1940430,
+            2010994
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PoP Heroes",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1611490,
+            3138262,
+            1857090,
+            1665800,
+            1515510,
+            2074525
           ]
         }
       ]
@@ -339,11 +1442,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 6,
-              "score": 1237583
-            }
+          "participated": true,
+          "days": [
+            2143738,
+            2432643,
+            2747547,
+            1753500,
+            1527890,
+            1237583
           ]
         }
       ]
@@ -353,23 +1459,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 394715
-            },
-            {
-              "day": 2,
-              "score": 841022
-            },
-            {
-              "day": 4,
-              "score": 4701
-            },
-            {
-              "day": 6,
-              "score": 7582
-            }
+          "participated": true,
+          "days": [
+            394715,
+            841022,
+            7770007,
+            4701,
+            2353143,
+            7582
           ]
         }
       ]
@@ -379,23 +1476,31 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 711413
-            },
-            {
-              "day": 2,
-              "score": 356761
-            },
-            {
-              "day": 4,
-              "score": 466011
-            },
-            {
-              "day": 6,
-              "score": 47200
-            }
+          "participated": true,
+          "days": [
+            711413,
+            356761,
+            7306647,
+            466011,
+            1671763,
+            47200
+          ]
+        }
+      ]
+    },
+    {
+      "name": "페라리탄토끼🐰",
+      "seasonResults": [
+        {
+          "season": "2026-05-11",
+          "participated": true,
+          "days": [
+            1520294,
+            2092290,
+            1974525,
+            1635000,
+            1560760,
+            1698264
           ]
         }
       ]
@@ -405,19 +1510,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 329449
-            },
-            {
-              "day": 3,
-              "score": 498622
-            },
-            {
-              "day": 4,
-              "score": 220796
-            }
+          "participated": true,
+          "days": [
+            329449,
+            3304885,
+            498622,
+            220796,
+            1782497,
+            3104539
           ]
         }
       ]
@@ -427,19 +1527,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 1164964
-            },
-            {
-              "day": 4,
-              "score": 0
-            },
-            {
-              "day": 6,
-              "score": 0
-            }
+          "participated": true,
+          "days": [
+            1164964,
+            4530276,
+            1579304,
+            0,
+            1544837,
+            0
           ]
         }
       ]
@@ -449,15 +1544,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 179111
-            },
-            {
-              "day": 2,
-              "score": 145762
-            }
+          "participated": true,
+          "days": [
+            179111,
+            145762,
+            1575000,
+            2448779,
+            1742027,
+            2156963
           ]
         }
       ]
@@ -467,27 +1561,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 358710
-            },
-            {
-              "day": 2,
-              "score": 175800
-            },
-            {
-              "day": 4,
-              "score": 0
-            },
-            {
-              "day": 5,
-              "score": 631460
-            },
-            {
-              "day": 6,
-              "score": 1152838
-            }
+          "participated": true,
+          "days": [
+            358710,
+            175800,
+            3941901,
+            0,
+            631460,
+            1152838
           ]
         }
       ]
@@ -497,27 +1578,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 136903
-            },
-            {
-              "day": 3,
-              "score": 556156
-            },
-            {
-              "day": 4,
-              "score": 321566
-            },
-            {
-              "day": 5,
-              "score": 593280
-            },
-            {
-              "day": 6,
-              "score": 1122705
-            }
+          "participated": true,
+          "days": [
+            136903,
+            2346097,
+            556156,
+            321566,
+            593280,
+            1122705
           ]
         }
       ]
@@ -527,31 +1595,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 0
-            },
-            {
-              "day": 2,
-              "score": 0
-            },
-            {
-              "day": 3,
-              "score": 0
-            },
-            {
-              "day": 4,
-              "score": 0
-            },
-            {
-              "day": 5,
-              "score": 0
-            },
-            {
-              "day": 6,
-              "score": 0
-            }
+          "participated": true,
+          "days": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ]
         }
       ]
@@ -561,31 +1612,14 @@
       "seasonResults": [
         {
           "season": "2026-05-11",
-          "failDays": [
-            {
-              "day": 1,
-              "score": 0
-            },
-            {
-              "day": 2,
-              "score": 0
-            },
-            {
-              "day": 3,
-              "score": 0
-            },
-            {
-              "day": 4,
-              "score": 0
-            },
-            {
-              "day": 5,
-              "score": 0
-            },
-            {
-              "day": 6,
-              "score": 0
-            }
+          "participated": true,
+          "days": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ]
         }
       ]
