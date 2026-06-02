@@ -7,10 +7,12 @@ title: REO Guild Report
 {% assign report_gar = "" %}
 {% for f in site.static_files %}
   {% if f.path contains '/report/arena-' and f.extname == '.json' %}
-    {% assign report_arena = report_arena | append: f.path | append: "|||" %}
+    {% assign file_url = f.path | relative_url %}
+    {% assign report_arena = report_arena | append: file_url | append: "|||" %}
   {% endif %}
   {% if f.path contains '/report/gar-' and f.extname == '.json' %}
-    {% assign report_gar = report_gar | append: f.path | append: "|||" %}
+    {% assign file_url = f.path | relative_url %}
+    {% assign report_gar = report_gar | append: file_url | append: "|||" %}
   {% endif %}
 {% endfor %}
 
@@ -100,7 +102,7 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .chk-lbl{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;flex:1;line-height:1.2}
 .chk-lbl.al{color:#c4b5fd}
 .chk-lbl.gl{color:#fb923c}
-.chk-date-range{font-size:11px;color:rgba(255,255,255,0.3);display:block;margin-top:1px}
+
 .no-data{font-size:13px;color:rgba(255,255,255,0.2);padding:8px 0}
 
 .apply-btn{
@@ -305,7 +307,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var range = garDateRange(d);
       return '<label class="chk-item">'
         +'<input type="checkbox" class="gar-chk" data-path="'+p+'" onchange="onChkChange()">'
-        +'<span class="chk-lbl gl">'+d+'<span class="chk-date-range">'+range+'</span></span>'
+        +'<span class="chk-lbl gl">'+range+'</span>'
         +'</label>';
     }).join('');
   }
@@ -323,20 +325,38 @@ function applySelection(){
   var promises = [];
 
   aChecked.forEach(function(el){
+    var path = el.dataset.path;
+    console.log('Arena fetch 시도:', path);
     promises.push(
-      fetch(el.dataset.path)
-        .then(function(r){ return r.json(); })
-        .then(function(d){ if(d.type==='arena-report') arenaData.push(d); })
-        .catch(function(e){ console.warn('Arena 로드 실패:', el.dataset.path, e); })
+      fetch(path)
+        .then(function(r){
+          if(!r.ok) throw new Error('HTTP '+r.status+' '+path);
+          return r.json();
+        })
+        .then(function(d){
+          console.log('Arena 로드 성공:', path, d.type);
+          if(d.type==='arena-report') arenaData.push(d);
+          else console.warn('type 불일치:', d.type);
+        })
+        .catch(function(e){ console.error('Arena 로드 실패:', path, e.message); })
     );
   });
 
   gChecked.forEach(function(el){
+    var path = el.dataset.path;
+    console.log('GAR fetch 시도:', path);
     promises.push(
-      fetch(el.dataset.path)
-        .then(function(r){ return r.json(); })
-        .then(function(d){ if(d.type==='gar-report') garData.push(d); })
-        .catch(function(e){ console.warn('GAR 로드 실패:', el.dataset.path, e); })
+      fetch(path)
+        .then(function(r){
+          if(!r.ok) throw new Error('HTTP '+r.status+' '+path);
+          return r.json();
+        })
+        .then(function(d){
+          console.log('GAR 로드 성공:', path, d.type);
+          if(d.type==='gar-report') garData.push(d);
+          else console.warn('type 불일치:', d.type);
+        })
+        .catch(function(e){ console.error('GAR 로드 실패:', path, e.message); })
     );
   });
 
@@ -350,7 +370,7 @@ var currentSort = 'total';
 
 function renderReport(arenaData, garData){
   if(!arenaData.length && !garData.length){
-    document.getElementById('reportArea').innerHTML = '<div class="empty">데이터를 불러오지 못했습니다.</div>';
+    document.getElementById('reportArea').innerHTML = '<div class="empty" style="color:#f87171">⚠️ 데이터를 불러오지 못했습니다.<br><span style="font-size:12px;opacity:.6">브라우저 콘솔(F12)에서 오류를 확인해주세요.</span></div>';
     return;
   }
 
