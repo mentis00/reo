@@ -205,6 +205,26 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 
 .empty{color:rgba(52,211,153,.25);text-align:center;padding:48px 0;font-size:14px;position:relative;z-index:1}
 
+/* 드래그 */
+.rpt-row{cursor:grab}
+.rpt-row.dragging{opacity:.4;cursor:grabbing}
+.rpt-row.drag-over{border-color:rgba(52,211,153,.6)!important;background:rgba(52,211,153,.08)!important}
+
+/* 합치기 팝업 */
+.merge-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+.merge-overlay.active{display:flex}
+.merge-box{background:#0d2018;border:1px solid rgba(52,211,153,.3);border-radius:18px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+.merge-title{font-size:13px;color:rgba(52,211,153,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.merge-names{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#eef2ff;margin-bottom:20px;line-height:1.4}
+.merge-plus{color:rgba(52,211,153,.5);font-size:16px;margin:0 8px}
+.merge-btns{display:flex;gap:10px;justify-content:center}
+.merge-ok{background:linear-gradient(135deg,#059669,#0d9488);border:0;border-radius:10px;padding:10px 24px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+.merge-cancel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 24px;font-size:14px;font-weight:800;color:#aaa;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+/* 합쳐진 카드 */
+.rpt-row.merged{border-color:rgba(52,211,153,.2)!important;background:rgba(52,211,153,.03)!important}
+.merge-split-btn{font-size:10px;color:rgba(52,211,153,.4);cursor:pointer;border:0;background:0;padding:0;font-family:'Noto Sans KR',sans-serif;flex-shrink:0}
+.merge-split-btn:hover{color:#34d399}
+
 /* 가중치 패널 */
 .weight-panel{background:rgba(255,255,255,.02);border:1px solid rgba(52,211,153,.12);border-radius:14px;padding:14px 18px;margin-bottom:18px}
 .weight-title{font-size:12px;font-weight:800;letter-spacing:2px;color:rgba(52,211,153,.5);text-transform:uppercase;margin-bottom:12px}
@@ -314,6 +334,19 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
   </div>
 
   <div class="page-footer">REO #10472[REO]NOOK · Guild Report</div>
+</div>
+
+<!-- 합치기 팝업 -->
+<div class="merge-overlay" id="mergeOverlay">
+  <div class="merge-box">
+    <div class="merge-title">🔗 멤버 합치기</div>
+    <div class="merge-names" id="mergeNames"></div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:20px">두 멤버의 위반 기록을 합산합니다</div>
+    <div class="merge-btns">
+      <button class="merge-ok" onclick="confirmMerge()">합치기</button>
+      <button class="merge-cancel" onclick="cancelMerge()">취소</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -582,6 +615,7 @@ function renderReport(arenaData, garData){
   window._viol = violators;
   window._arenaData = arenaData;
   window._garData = garData;
+  setTimeout(initDrag, 0);
 
   document.getElementById('reportArea').innerHTML =
     ''
@@ -640,13 +674,17 @@ function buildGrid(violators, arenaData, garData, sk){
     var penalty = r.arenaFail * weights.arena + r.missionViol * weights.mission + r.garFail * weights.gar;
     r.penalty = penalty;
     var grade = getGrade(penalty);
-    return '<div class="rpt-row">'
+    var displayName = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
+    var mergeClass = r.merged ? ' merged' : '';
+    var splitBtn = r.merged ? '<button class="merge-split-btn" onclick="splitMerge('+i+')">✕ 분리</button>' : '';
+    return '<div class="rpt-row'+mergeClass+'" data-idx="'+i+'">'
       +'<div class="rpt-top">'
       +'<span class="rpt-no">'+(i+1)+'</span>'
-      +'<span class="rpt-name">'+esc(r.name)+'</span>'
+      +'<span class="rpt-name" title="'+esc(displayName)+'">'+esc(displayName)+'</span>'
       +'<span class="penalty-score">'+penalty+'점</span>'
       +'<span class="grade-badge grade-'+grade+'">'+grade+'</span>'
       +'<span class="rpt-viol">'+r.totalViol+'</span>'
+      +splitBtn
       +'</div>'
       +'<div class="rpt-badges">'+badges+'</div>'
       +'</div>';
@@ -661,6 +699,12 @@ function reSort(btn, sk){
   if(grid) grid.innerHTML = buildGrid(window._viol||[], window._arenaData||[], window._garData||[], sk);
 }
 
+function splitMerge(idx){
+  if(!confirm('합치기를 취소하면 원래 데이터로 되돌아갑니다.\n분석을 다시 실행하시겠어요?')) return;
+  // 재분석
+  applySelection();
+}
+
 function tipDateRange(seasonStr, type){
   var start = (seasonStr||'').replace(/_.*$/,'');
   var m = start.match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -672,6 +716,91 @@ function tipDateRange(seasonStr, type){
 }
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── 드래그 합치기 ──
+var dragSrcIdx = null;
+var mergeTarget = null; // {srcIdx, dstIdx}
+
+function initDrag(){
+  var rows = document.querySelectorAll('.rpt-row[data-idx]');
+  rows.forEach(function(row){
+    // 터치/마우스 드래그
+    row.setAttribute('draggable','true');
+    row.addEventListener('dragstart', function(e){
+      dragSrcIdx = Number(this.getAttribute('data-idx'));
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    row.addEventListener('dragend', function(){
+      this.classList.remove('dragging');
+      document.querySelectorAll('.rpt-row').forEach(function(r){ r.classList.remove('drag-over'); });
+    });
+    row.addEventListener('dragover', function(e){
+      e.preventDefault();
+      var dstIdx = Number(this.getAttribute('data-idx'));
+      if(dstIdx !== dragSrcIdx){
+        document.querySelectorAll('.rpt-row').forEach(function(r){ r.classList.remove('drag-over'); });
+        this.classList.add('drag-over');
+      }
+    });
+    row.addEventListener('dragleave', function(){
+      this.classList.remove('drag-over');
+    });
+    row.addEventListener('drop', function(e){
+      e.preventDefault();
+      this.classList.remove('drag-over');
+      var dstIdx = Number(this.getAttribute('data-idx'));
+      if(dstIdx === dragSrcIdx) return;
+      mergeTarget = {srcIdx: dragSrcIdx, dstIdx: dstIdx};
+      showMergePopup();
+    });
+  });
+}
+
+function showMergePopup(){
+  var src = window._viol[mergeTarget.srcIdx];
+  var dst = window._viol[mergeTarget.dstIdx];
+  if(!src||!dst) return;
+  var srcName = src.mergedNames ? src.mergedNames.join(' / ') : src.name;
+  var dstName = dst.mergedNames ? dst.mergedNames.join(' / ') : dst.name;
+  document.getElementById('mergeNames').innerHTML =
+    '<span>'+esc(srcName)+'</span><span class="merge-plus">＋</span><span>'+esc(dstName)+'</span>';
+  document.getElementById('mergeOverlay').classList.add('active');
+}
+
+function cancelMerge(){
+  mergeTarget = null;
+  document.getElementById('mergeOverlay').classList.remove('active');
+}
+
+function confirmMerge(){
+  var src = window._viol[mergeTarget.srcIdx];
+  var dst = window._viol[mergeTarget.dstIdx];
+  // 이름 합치기
+  var srcNames = src.mergedNames || [src.name];
+  var dstNames = dst.mergedNames || [dst.name];
+  dst.mergedNames = dstNames.concat(srcNames);
+  // 위반 합산
+  dst.arenaFail    += src.arenaFail;
+  dst.arenaTotal   += src.arenaTotal;
+  dst.arenaFailScores = dst.arenaFailScores.concat(src.arenaFailScores);
+  dst.missionViol  += src.missionViol;
+  dst.garFail      += src.garFail;
+  dst.garTotal     += src.garTotal;
+  dst.garFailScores = dst.garFailScores.concat(src.garFailScores);
+  dst.totalViol     = dst.arenaFail + dst.missionViol + dst.garFail;
+  dst.arenaFailAvg  = dst.arenaFailScores.length ? Math.round(dst.arenaFailScores.reduce(function(a,b){return a+b;},0)/dst.arenaFailScores.length) : 0;
+  dst.garFailAvg    = dst.garFailScores.length   ? Math.round(dst.garFailScores.reduce(function(a,b){return a+b;},0)/dst.garFailScores.length)   : 0;
+  dst.penalty       = calcPenalty(dst);
+  dst.merged        = true;
+  // src 제거
+  window._viol.splice(mergeTarget.srcIdx, 1);
+  // 팝업 닫기
+  cancelMerge();
+  // 재렌더
+  document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
+  initDrag();
+}
 
 function toggleTip(e){
   e.stopPropagation();
