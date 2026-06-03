@@ -132,12 +132,15 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .stat .sl{font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px;letter-spacing:.3px}
 
 /* 선택된 시즌 칩 */
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.chip{padding:7px 13px;border-radius:10px;font-size:12px;border:1px solid;display:flex;flex-direction:column;gap:2px}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.chip{padding:4px 10px;border-radius:8px;font-size:11px;border:1px solid;display:flex;align-items:center;gap:5px}
 .chip.ac{background:rgba(192,132,252,.07);border-color:rgba(192,132,252,.25);color:#c4b5fd}
 .chip.gc{background:rgba(251,146,60,.07);border-color:rgba(251,146,60,.25);color:#fb923c}
-.chip .cl{font-size:10px;opacity:.55;letter-spacing:1px;font-weight:800}
-.chip .cv{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700}
+.chip .cl{font-size:9px;opacity:.55;letter-spacing:1px;font-weight:800}
+.chip .cv{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700}
+/* 선택 칩 영역 */
+.selected-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;min-height:26px}
+.selected-chips:empty{display:none}
 
 /* 소트 바 */
 .sort-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -247,6 +250,7 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
       <div id="garList"><div class="no-data">로딩 중...</div></div>
     </div>
   </div>
+  <div class="selected-chips" id="selectedChips"></div>
   <button class="apply-btn" id="applyBtn" onclick="applySelection()" disabled>선택한 시즌으로 분석 →</button>
 
   <hr class="divider">
@@ -297,8 +301,17 @@ function garDateRange(startStr){
 }
 
 function onChkChange(){
-  var any = document.querySelectorAll('.arena-chk:checked, .gar-chk:checked').length > 0;
-  document.getElementById('applyBtn').disabled = !any;
+  var checked = Array.from(document.querySelectorAll('.arena-chk:checked, .gar-chk:checked'));
+  document.getElementById('applyBtn').disabled = checked.length === 0;
+  // 선택 칩 업데이트
+  var box = document.getElementById('selectedChips');
+  box.innerHTML = checked.map(function(el){
+    var isArena = el.classList.contains('arena-chk');
+    var date = extractStartDate(el.dataset.path);
+    var cls = isArena ? 'ac' : 'gc';
+    var lbl = isArena ? 'A' : 'G';
+    return '<span class="chip '+cls+'"><span class="cl">'+lbl+'</span><span class="cv">'+date+'</span></span>';
+  }).join('');
 }
 
 // 초기화
@@ -314,7 +327,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var range = arenaDateRange(d);
       return '<label class="chk-item">'
         +'<input type="checkbox" class="arena-chk" data-path="'+p+'" onchange="onChkChange()">'
-        +'<span class="chk-lbl al">'+range+'</span>'
+        +'<span class="chk-lbl al">'+d+'</span>'
         +'</label>';
     }).join('');
   }
@@ -329,7 +342,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var range = garDateRange(d);
       return '<label class="chk-item">'
         +'<input type="checkbox" class="gar-chk" data-path="'+p+'" onchange="onChkChange()">'
-        +'<span class="chk-lbl gl">'+range+'</span>'
+        +'<span class="chk-lbl gl">'+d+'</span>'
         +'</label>';
     }).join('');
   }
