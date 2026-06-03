@@ -675,8 +675,8 @@ function buildTxtTable(topN){
   });
 
   var seasonHtml = '';
-  if(arenaSeasons.length) seasonHtml += '<div>Arena: ' + esc(arenaSeasons.join(', ')) + '</div>';
-  if(garSeasons.length)   seasonHtml += '<div>GAR: ' + esc(garSeasons.join(', ')) + '</div>';
+  if(arenaSeasons.length) seasonHtml += '<div>🏟️ Arena: ' + esc(arenaSeasons.join('  ·  ')) + '</div>';
+  if(garSeasons.length)   seasonHtml += '<div>⚔️ GAR: ' + esc(garSeasons.join('  ·  ')) + '</div>';
 
   var rows = sorted.map(function(r, i){
     var name = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
