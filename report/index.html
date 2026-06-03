@@ -783,29 +783,44 @@ function cancelMerge(){
 }
 
 function confirmMerge(){
-  var src = window._viol[mergeTarget.srcIdx];
-  var dst = window._viol[mergeTarget.dstIdx];
+  if(!mergeTarget) return;
+  var srcIdx = mergeTarget.srcIdx;
+  var dstIdx = mergeTarget.dstIdx;
+  var src = window._viol[srcIdx];
+  var dst = window._viol[dstIdx];
+  if(!src || !dst) { cancelMerge(); return; }
+
   // 이름 합치기
   var srcNames = src.mergedNames || [src.name];
   var dstNames = dst.mergedNames || [dst.name];
   dst.mergedNames = dstNames.concat(srcNames);
   // 위반 합산
-  dst.arenaFail    += src.arenaFail;
-  dst.arenaTotal   += src.arenaTotal;
-  dst.arenaFailScores = dst.arenaFailScores.concat(src.arenaFailScores);
-  dst.missionViol  += src.missionViol;
-  dst.garFail      += src.garFail;
-  dst.garTotal     += src.garTotal;
-  dst.garFailScores = dst.garFailScores.concat(src.garFailScores);
-  dst.totalViol     = dst.arenaFail + dst.missionViol + dst.garFail;
-  dst.arenaFailAvg  = dst.arenaFailScores.length ? Math.round(dst.arenaFailScores.reduce(function(a,b){return a+b;},0)/dst.arenaFailScores.length) : 0;
-  dst.garFailAvg    = dst.garFailScores.length   ? Math.round(dst.garFailScores.reduce(function(a,b){return a+b;},0)/dst.garFailScores.length)   : 0;
-  dst.penalty       = calcPenalty(dst);
-  dst.merged        = true;
-  // src 제거
-  window._viol.splice(mergeTarget.srcIdx, 1);
-  // 팝업 닫기
-  cancelMerge();
+  dst.arenaFail        += src.arenaFail;
+  dst.arenaTotal       += src.arenaTotal;
+  dst.arenaFailScores   = dst.arenaFailScores.concat(src.arenaFailScores);
+  dst.arenaSeasonDetail = (dst.arenaSeasonDetail||[]).concat(src.arenaSeasonDetail||[]);
+  dst.missionViol      += src.missionViol;
+  dst.garFail          += src.garFail;
+  dst.garTotal         += src.garTotal;
+  dst.garFailScores     = dst.garFailScores.concat(src.garFailScores);
+  dst.garSeasonDetail   = (dst.garSeasonDetail||[]).concat(src.garSeasonDetail||[]);
+  dst.totalViol         = dst.arenaFail + dst.missionViol + dst.garFail;
+  dst.arenaFailAvg      = dst.arenaFailScores.length ? Math.round(dst.arenaFailScores.reduce(function(a,b){return a+b;},0)/dst.arenaFailScores.length) : 0;
+  dst.garFailAvg        = dst.garFailScores.length   ? Math.round(dst.garFailScores.reduce(function(a,b){return a+b;},0)/dst.garFailScores.length)   : 0;
+  dst.penalty           = calcPenalty(dst);
+  dst.merged            = true;
+
+  // src 제거 (dstIdx가 srcIdx보다 뒤면 인덱스 조정 불필요, 앞이면 조정)
+  window._viol.splice(srcIdx, 1);
+  // splice 후 dstIdx 보정
+  if(srcIdx < dstIdx) dstIdx--;
+  window._viol[dstIdx] = dst;
+
+  // 팝업/모드 닫기
+  mergeTarget = null;
+  document.getElementById('mergeOverlay').classList.remove('active');
+  cancelMergeMode();
+
   // 재렌더
   document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
 }
