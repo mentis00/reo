@@ -659,6 +659,8 @@ function buildGrid(violators, arenaData, garData, sk){
     return b.totalViol-a.totalViol;
   });
   return sorted.map(function(r,i){
+    // window._viol에서의 실제 인덱스 찾기
+    var violIdx = violators.indexOf(r);
     var badges='';
     if(arenaData.length && r.arenaFail>0){
       var aTip = (r.arenaSeasonDetail||[]).map(function(d){
@@ -687,9 +689,9 @@ function buildGrid(violators, arenaData, garData, sk){
     var displayName = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
     var mergeClass = r.merged ? ' merged' : '';
     var actionBtn = r.merged
-      ? '<button class="merge-split-btn" onclick="splitMerge('+i+')">✕ 분리</button>'
-      : '<button class="merge-btn" onclick="startMergeMode('+i+');event.stopPropagation()">🔗</button>';
-    return '<div class="rpt-row'+mergeClass+'" data-idx="'+i+'">'
+      ? '<button class="merge-split-btn" onclick="splitMerge('+violIdx+')">✕ 분리</button>'
+      : '<button class="merge-btn" onclick="startMergeMode('+violIdx+');event.stopPropagation()">🔗</button>';
+    return '<div class="rpt-row'+mergeClass+'" data-idx="'+violIdx+'">'
       +'<div class="rpt-top">'
       +'<span class="rpt-no">'+(i+1)+'</span>'
       +'<span class="rpt-name" title="'+esc(displayName)+'">'+esc(displayName)+'</span>'
