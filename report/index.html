@@ -491,6 +491,13 @@ function applySelection(){
 
   Promise.all(promises).then(function(){
     document.getElementById('applyBtn').disabled = false;
+    console.log('Arena 로드:', arenaData.length, '개 / GAR 로드:', garData.length, '개');
+    if(!arenaData.length && !garData.length){
+      document.getElementById('reportArea').innerHTML =
+        '<div class="empty" style="color:#f87171">⚠️ JSON 파일을 불러오지 못했습니다.<br>'
+        +'<span style="font-size:12px;opacity:.7">파일이 /report/ 폴더에 있는지, 파일명이 arena-YYYY-MM-DD.json / gar-YYYY-MM-DD.json 형식인지 확인해주세요.</span></div>';
+      return;
+    }
     renderReport(arenaData, garData);
   });
 }
