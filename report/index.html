@@ -538,8 +538,15 @@ function renderReport(arenaData, garData){
 
   // 전체 멤버 합집합
   var nameSet = {};
-  arenaData.forEach(function(f){ (f.members||[]).forEach(function(m){ nameSet[m.name]=1; }); });
-  garData.forEach(function(f){   (f.members||[]).forEach(function(m){ nameSet[m.name]=1; }); });
+  // 구 포맷(violators[]) + 신 포맷(members[]) 모두 지원
+  arenaData.forEach(function(f){
+    (f.members||[]).forEach(function(m){ nameSet[m.name]=1; });
+    (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; });
+  });
+  garData.forEach(function(f){
+    (f.members||[]).forEach(function(m){ nameSet[m.name]=1; });
+    (f.violators||[]).forEach(function(v){ nameSet[v.name]=1; });
+  });
   var names = Object.keys(nameSet);
 
   if(!names.length){
@@ -555,36 +562,66 @@ function renderReport(arenaData, garData){
     r.garSeasonDetail = [];   // [{season, total, pass}]
 
     arenaData.forEach(function(f){
-      var m = (f.members||[]).find(function(m){ return m.name===name; });
-      if(!m) return;
       var goal = Number(f.goalScore||7000);
-      (m.seasonScores||[]).forEach(function(ss){
-        if(ss.score === null) return;
-        r.arenaTotal++;
-        var sc = Number(ss.score);
-        var pass = sc >= goal;
-        if(!pass){ r.arenaFail++; r.arenaFailScores.push(sc); }
-        r.arenaSeasonDetail.push({season: ss.season, score: sc, pass: pass});
-      });
-      r.missionViol += Number(m.missionViol||0);
+      var m = (f.members||[]).find(function(m){ return m.name===name; });
+      if(m){
+        // 신 포맷: members[].seasonScores[]
+        (m.seasonScores||[]).forEach(function(ss){
+          if(ss.score === null) return;
+          r.arenaTotal++;
+          var sc = Number(ss.score);
+          var pass = sc >= goal;
+          if(!pass){ r.arenaFail++; r.arenaFailScores.push(sc); }
+          r.arenaSeasonDetail.push({season: ss.season, score: sc, pass: pass});
+        });
+        r.missionViol += Number(m.missionViol||0);
+      } else {
+        // 구 포맷: violators[].seasonScores[]
+        var v = (f.violators||[]).find(function(v){ return v.name===name; });
+        if(v){
+          r.arenaTotal += (f.seasons||[]).length;
+          (v.seasonScores||[]).forEach(function(ss){
+            var sc = Number(ss.score||0);
+            var pass = sc >= goal;
+            if(!pass){ r.arenaFail++; r.arenaFailScores.push(sc); }
+            r.arenaSeasonDetail.push({season: ss.season||'', score: sc, pass: pass});
+          });
+          r.missionViol += Number(v.missionViol||0);
+        }
+      }
     });
 
     garData.forEach(function(f){
-      var m = (f.members||[]).find(function(m){ return m.name===name; });
-      if(!m) return;
       var goal = Number(f.goalScore||1500000);
-      (m.seasonResults||[]).forEach(function(sr){
-        if(!sr.participated) return;
-        var total = 0;
-        var seasonFail = 0;
-        for(var d=0;d<6;d++){
-          r.garTotal++;
-          var sc = Number((sr.days||[])[d]||0);
-          total += sc;
-          if(sc < goal){ r.garFail++; r.garFailScores.push(sc); seasonFail++; }
+      var m = (f.members||[]).find(function(m){ return m.name===name; });
+      if(m){
+        // 신 포맷: members[].seasonResults[]
+        (m.seasonResults||[]).forEach(function(sr){
+          if(!sr.participated) return;
+          var total = 0, seasonFail = 0;
+          for(var d=0;d<6;d++){
+            r.garTotal++;
+            var sc = Number((sr.days||[])[d]||0);
+            total += sc;
+            if(sc < goal){ r.garFail++; r.garFailScores.push(sc); seasonFail++; }
+          }
+          r.garSeasonDetail.push({season: sr.season, total: total, pass: seasonFail===0});
+        });
+      } else {
+        // 구 포맷: violators[].seasonResults[].failDays[]
+        var v = (f.violators||[]).find(function(v){ return v.name===name; });
+        if(v){
+          r.garTotal += (f.seasons||[]).length * 6;
+          (v.seasonResults||[]).forEach(function(sr){
+            var total = (sr.failDays||[]).reduce(function(s,fd){ return s+Number(fd.score||0); },0);
+            (sr.failDays||[]).forEach(function(fd){
+              r.garFail++;
+              r.garFailScores.push(Number(fd.score||0));
+            });
+            r.garSeasonDetail.push({season: sr.season||'', total: total, pass: false});
+          });
         }
-        r.garSeasonDetail.push({season: sr.season, total: total, pass: seasonFail===0});
-      });
+      }
     });
 
     r.totalViol = r.arenaFail + r.missionViol + r.garFail;
