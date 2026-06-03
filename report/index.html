@@ -166,7 +166,7 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
   border-radius:12px;padding:12px 16px;
   display:flex;flex-direction:column;gap:7px;min-width:0;
 }
-.rpt-top{display:flex;align-items:center;gap:8px;min-width:0}
+.rpt-top{display:flex;align-items:center;gap:8px;min-width:0;flex-wrap:nowrap}
 .rpt-no{font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.2);width:20px;text-align:right;flex-shrink:0}
 .rpt-name{flex:1;font-size:15px;font-weight:700;color:#e2d9f3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .rpt-viol{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;width:26px;text-align:center;flex-shrink:0;color:#f87171}
@@ -204,6 +204,26 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .tip-score.fail{color:#f87171}
 
 .empty{color:rgba(52,211,153,.25);text-align:center;padding:48px 0;font-size:14px;position:relative;z-index:1}
+
+/* 가중치 패널 */
+.weight-panel{background:rgba(255,255,255,.02);border:1px solid rgba(52,211,153,.12);border-radius:14px;padding:14px 18px;margin-bottom:18px}
+.weight-title{font-size:12px;font-weight:800;letter-spacing:2px;color:rgba(52,211,153,.5);text-transform:uppercase;margin-bottom:12px}
+.weight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.weight-item{display:flex;flex-direction:column;gap:5px}
+.weight-label{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px}
+.weight-ctrl{display:flex;align-items:center;gap:6px}
+.weight-btn{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:#0c1428;color:#eef2ff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.weight-btn:hover{background:#1a2a4a}
+.weight-val{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#34d399;width:28px;text-align:center}
+
+/* 등급 배지 */
+.grade-badge{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;padding:3px 8px;border-radius:7px;flex-shrink:0;min-width:28px;text-align:center}
+.grade-S{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.3)}
+.grade-A{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3)}
+.grade-B{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+.grade-C{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
+.grade-D{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.penalty-score{font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.3);flex-shrink:0}
 .loading{color:rgba(52,211,153,.4);text-align:center;padding:40px 0;font-size:14px;position:relative;z-index:1}
 
 /* footer */
@@ -402,6 +422,36 @@ function applySelection(){
 }
 
 var currentSort = 'total';
+var weights = {arena: 6, mission: 1, gar: 4};
+
+function changeWeight(key, delta){
+  weights[key] = Math.max(0, weights[key] + delta);
+  document.getElementById('w_'+key).textContent = weights[key];
+  // 리포트가 표시 중이면 재계산
+  if(window._viol && window._viol.length) rerenderWithWeights();
+}
+
+function calcPenalty(r){
+  return r.arenaFail * weights.arena + r.missionViol * weights.mission + r.garFail * weights.gar;
+}
+
+function getGrade(penalty){
+  if(penalty === 0) return 'S';
+  if(penalty <= 5)  return 'A';
+  if(penalty <= 15) return 'B';
+  if(penalty <= 30) return 'C';
+  return 'D';
+}
+
+function rerenderWithWeights(){
+  // 벌점 재계산 후 grid만 갱신
+  window._viol.forEach(function(r){ r.penalty = calcPenalty(r); });
+  document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
+  // 통계 벌점 합산 업데이트
+  var totalPenalty = window._viol.reduce(function(s,r){ return s+r.penalty; },0);
+  var el = document.getElementById('totalPenaltyStat');
+  if(el) el.textContent = totalPenalty;
+}
 
 function renderReport(arenaData, garData){
   if(!arenaData.length && !garData.length){
@@ -494,6 +544,7 @@ function renderReport(arenaData, garData){
   });
 
   // 저장
+  violators.forEach(function(r){ r.penalty = calcPenalty(r); });
   window._viol = violators;
   window._arenaData = arenaData;
   window._garData = garData;
@@ -505,10 +556,14 @@ function renderReport(arenaData, garData){
     +(totalMissionViol>0 ? '<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반</div></div>' : '')
     +(garData.length ? '<div class="stat"><div class="sv" style="color:#fb923c">'+totalGarFail+'</div><div class="sl">GAR 미달 일수</div></div>' : '')
     +(garData.length ? '<div class="stat"><div class="sv" style="color:#38bdf8">'+garTotalDays+'</div><div class="sl">GAR 기준 총 일수</div></div>' : '')
+    +'<div class="stat"><div class="sv" style="color:#f87171" id="totalPenaltyStat">'
+    +violators.reduce(function(s,r){ return s + r.arenaFail*weights.arena + r.missionViol*weights.mission + r.garFail*weights.gar; },0)
+    +'</div><div class="sl">총 벌점 합산</div></div>'
     +'</div>'
     +'<div class="viol-header">⚠️ 위반자 <span class="viol-count">'+violators.length+'명</span></div>'
     +'<div class="sort-bar">'
-    +'<button class="sort-btn active" onclick="reSort(this,\'total\')">전체 위반순</button>'
+    +'<button class="sort-btn active" onclick="reSort(this,\'penalty\')">벌점순</button>'
+    +'<button class="sort-btn" onclick="reSort(this,\'total\')">위반횟수순</button>'
     +(arenaData.length ? '<button class="sort-btn" onclick="reSort(this,\'arena\')">Arena 미달순</button>' : '')
     +(arenaData.length ? '<button class="sort-btn" onclick="reSort(this,\'mission\')">공동미션순</button>' : '')
     +(garData.length ? '<button class="sort-btn" onclick="reSort(this,\'gar\')">GAR 미달순</button>' : '')
@@ -519,6 +574,7 @@ function renderReport(arenaData, garData){
 
 function buildGrid(violators, arenaData, garData, sk){
   var sorted = violators.slice().sort(function(a,b){
+    if(sk==='penalty') return ((b.arenaFail*weights.arena+b.missionViol*weights.mission+b.garFail*weights.gar)-(a.arenaFail*weights.arena+a.missionViol*weights.mission+a.garFail*weights.gar));
     if(sk==='arena')   return (b.arenaFail-a.arenaFail)||(b.totalViol-a.totalViol);
     if(sk==='mission') return (b.missionViol-a.missionViol)||(b.totalViol-a.totalViol);
     if(sk==='gar')     return (b.garFail-a.garFail)||(b.totalViol-a.totalViol);
@@ -547,10 +603,15 @@ function buildGrid(violators, arenaData, garData, sk){
         +'GAR '+r.garFail+'/'+r.garTotal+'일 미달'+(r.garFailAvg?' · 평균 '+Math.round(r.garFailAvg/10000)+'만':'')
         +'<div class="tip-box">'+gTip+'</div></span>';
     }
+    var penalty = r.arenaFail * weights.arena + r.missionViol * weights.mission + r.garFail * weights.gar;
+    r.penalty = penalty;
+    var grade = getGrade(penalty);
     return '<div class="rpt-row">'
       +'<div class="rpt-top">'
       +'<span class="rpt-no">'+(i+1)+'</span>'
       +'<span class="rpt-name">'+esc(r.name)+'</span>'
+      +'<span class="penalty-score">'+penalty+'점</span>'
+      +'<span class="grade-badge grade-'+grade+'">'+grade+'</span>'
       +'<span class="rpt-viol">'+r.totalViol+'</span>'
       +'</div>'
       +'<div class="rpt-badges">'+badges+'</div>'
