@@ -646,7 +646,8 @@ function renderReport(arenaData, garData){
     +(arenaData.length ? '<button class="sort-btn" onclick="reSort(this,\'mission\')">공동미션순</button>' : '')
     +(garData.length ? '<button class="sort-btn" onclick="reSort(this,\'gar\')">GAR 미달순</button>' : '')
     +'</div>'
-    +'<div class="rpt-grid" id="rptGrid">'+buildGrid(violators, arenaData, garData, 'total')+'</div>'
+    +'<div class="merge-mode-hint" id="mergeModeHint">🔗 합칠 멤버를 클릭하세요 — <span style="cursor:pointer;text-decoration:underline" onclick="cancelMergeMode()">취소</span></div>'
+    +'<div class="rpt-grid" id="rptGrid">'+buildGrid(violators, arenaData, garData, 'penalty')+'</div>'
     +'<div class="rpt-footer">REO #10472[REO]NOOK · '+new Date().toLocaleString('ko-KR')+'</div>';
 }
 
