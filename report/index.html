@@ -787,22 +787,35 @@ function splitMerge(){
 }
 
 function toggleTip(e){
-  e.stopPropagation();
-  e.preventDefault();
-  var wrap=e.currentTarget;
-  var isOpen=wrap.classList.contains('tip-open');
-  // 다른 툴팁 닫기
+  // 이 함수는 PC click용으로만 사용
+  // 모바일은 touchend 이벤트로 처리
+}
+
+function openTip(wrap){
+  var isOpen = wrap.classList.contains('tip-open');
   document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){
-    if(el!==wrap) el.classList.remove('tip-open');
+    el.classList.remove('tip-open');
   });
-  if(isOpen){
-    wrap.classList.remove('tip-open');
-  } else {
+  if(!isOpen){
     wrap.classList.add('tip-open');
-    // 위치 계산은 레이아웃 후에 (requestAnimationFrame)
     requestAnimationFrame(function(){ positionTip(wrap); });
   }
 }
+
+// 터치 이벤트 - touchend로 직접 처리 (click 이벤트 발생 전에 처리)
+document.addEventListener('touchend', function(e){
+  var wrap = e.target.closest ? e.target.closest('.tip-wrap') : null;
+  if(wrap){
+    e.preventDefault();
+    e.stopPropagation();
+    openTip(wrap);
+    return;
+  }
+  // tip-wrap 밖 터치 시 닫기
+  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){
+    el.classList.remove('tip-open');
+  });
+}, {passive: false});
 
 function positionTip(wrap){
   var box = wrap.querySelector('.tip-box');
@@ -823,7 +836,11 @@ function positionTip(wrap){
 }
 
 document.addEventListener('click', function(e){
-  if(e.target.closest && e.target.closest('.tip-wrap')) return;
+  var wrap = e.target.closest ? e.target.closest('.tip-wrap') : null;
+  if(wrap){
+    openTip(wrap);
+    return;
+  }
   document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
 });
 document.addEventListener('mouseover', function(e){
@@ -840,6 +857,6 @@ document.addEventListener('mouseout', function(e){
   if(!rel || !wrap.contains(rel)) wrap.classList.remove('tip-open');
 });
 </script>
-<script>(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();</script>
+<!-- touchend는 tip 핸들러에서 통합 처리 -->
 </body>
 </html>
