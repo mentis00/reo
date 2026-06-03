@@ -209,6 +209,9 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .txt-copy-btn:hover{background:rgba(52,211,153,.2)}
 .txt-close-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
 .txt-close-btn:hover{background:rgba(255,255,255,.08)}
+.txt-report-ctrl{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.txt-ctrl-label{font-size:12px;color:rgba(255,255,255,.4)}
+.txt-top-sel{background:#0c1a10;border:1px solid rgba(52,211,153,.2);color:#a7f3d0;border-radius:8px;padding:5px 10px;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer}
 @media(max-width:860px){
   body{padding:12px}
   .container{padding:22px 18px 28px}
@@ -471,6 +474,17 @@ function renderReport(arenaData, garData){
     +'<button class="sort-btn" onclick="toggleTxtReport()" id="txtReportBtn">📋 REPORT</button>'
     +'</div>'
     +'<div class="txt-report-panel" id="txtReportPanel">'
+    +'<div class="txt-report-ctrl">'
+    +'<span class="txt-ctrl-label">상위</span>'
+    +'<select class="txt-top-sel" id="txtTopN" onchange="refreshTxtReport()">'
+    +'<option value="0">전체</option>'
+    +'<option value="10">10명</option>'
+    +'<option value="20">20명</option>'
+    +'<option value="30">30명</option>'
+    +'<option value="50">50명</option>'
+    +'</select>'
+    +'<span class="txt-ctrl-label">까지</span>'
+    +'</div>'
     +'<div class="txt-report-pre" id="txtReportPre"></div>'
     +'<div class="txt-report-btns">'
     +'<button class="txt-copy-btn" onclick="copyTxtReport()">📋 복사</button>'
@@ -629,6 +643,46 @@ function confirmMerge(){
   document.getElementById('rptGrid').innerHTML=buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
 }
 
+function buildTxtLines(topN){
+  var viol = window._viol || [];
+  var sorted = viol.slice().sort(function(a,b){ return calcPenalty(b)-calcPenalty(a); });
+  if(topN > 0) sorted = sorted.slice(0, topN);
+
+  // 선택 시즌 정보 (줄바꿈 구분)
+  var arenaSeasons = [], garSeasons = [];
+  (window._arenaData||[]).forEach(function(f){
+    (f.seasons||[]).forEach(function(s){
+      var d = (s.seasonStart||s.season||'').replace(/_.*$/,'');
+      if(d) arenaSeasons.push(arenaDateRange(d));
+    });
+  });
+  (window._garData||[]).forEach(function(f){
+    (f.seasons||[]).forEach(function(s){
+      var d = (s.seasonStart||s.season||'').replace(/_.*$/,'');
+      if(d) garSeasons.push(garDateRange(d));
+    });
+  });
+
+  var SEP = '─'.repeat(38);
+  var lines = [];
+  lines.push('REO 시즌 분석표');
+  if(arenaSeasons.length) lines.push('Arena: ' + arenaSeasons.join(', '));
+  if(garSeasons.length)   lines.push('GAR:   ' + garSeasons.join(', '));
+  lines.push(SEP);
+  lines.push(' #  이름                    벌점  등급');
+  lines.push(SEP);
+  sorted.forEach(function(r, i){
+    var name = r.mergedNames ? r.mergedNames.join('/') : r.name;
+    var penalty = calcPenalty(r);
+    var grade = getGrade(penalty);
+    var rank = String(i+1).padStart(2,' ');
+    var nameFixed = padName(name, 22);
+    var penaltyStr = (penalty+'점').padStart(4,' ');
+    lines.push(rank + '  ' + nameFixed + '  ' + penaltyStr + '  ' + grade);
+  });
+  return lines.join('\n');
+}
+
 function toggleTxtReport(){
   var panel = document.getElementById('txtReportPanel');
   var btn = document.getElementById('txtReportBtn');
@@ -639,49 +693,17 @@ function toggleTxtReport(){
   } else {
     var viol = window._viol || [];
     if(!viol.length){ alert('먼저 분석을 실행해주세요.'); return; }
-    var sorted = viol.slice().sort(function(a,b){ return calcPenalty(b)-calcPenalty(a); });
-
-    // 선택 시즌 정보
-    var seasonParts = [];
-    (window._arenaData||[]).forEach(function(f){
-      (f.seasons||[]).forEach(function(s){
-        var d = s.seasonStart||s.season||'';
-        if(d) seasonParts.push('Arena ' + arenaDateRange(d.replace(/_.*$/,'')));
-      });
-    });
-    (window._garData||[]).forEach(function(f){
-      (f.seasons||[]).forEach(function(s){
-        var d = s.seasonStart||s.season||'';
-        if(d) seasonParts.push('GAR ' + garDateRange(d.replace(/_.*$/,'')));
-      });
-    });
-
-    var lines = [];
-    var SEP = '─'.repeat(40);
-    lines.push('REO 시즌 분석표');
-    lines.push(seasonParts.join('  |  '));
-    lines.push(SEP);
-    lines.push(' #   이름                      벌점  등급');
-    lines.push(SEP);
-
-    sorted.forEach(function(r, i){
-      var name = r.mergedNames ? r.mergedNames.join('/') : r.name;
-      var penalty = calcPenalty(r);
-      var grade = getGrade(penalty);
-      var rank = String(i+1).padStart(2,' ');
-      // 이름 고정폭: 한글 2바이트 감안해서 표시폭 계산
-      var nameFixed = padName(name, 24);
-      var penaltyStr = String(penalty+'점').padStart(5,' ');
-      lines.push(rank + '   ' + nameFixed + penaltyStr + '  ' + grade);
-    });
-
-    lines.push(SEP);
-    lines.push('위반자 ' + sorted.length + '명  |  총 벌점 ' + sorted.reduce(function(s,r){ return s+calcPenalty(r); },0) + '점');
-    document.getElementById('txtReportPre').textContent = lines.join('\n');
+    document.getElementById('txtTopN').value = '0';
+    document.getElementById('txtReportPre').textContent = buildTxtLines(0);
     panel.classList.add('active');
     btn.classList.add('active');
     setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
   }
+}
+
+function refreshTxtReport(){
+  var topN = Number(document.getElementById('txtTopN').value||0);
+  document.getElementById('txtReportPre').textContent = buildTxtLines(topN);
 }
 
 // 한글 포함 문자열 고정폭 패딩
