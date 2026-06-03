@@ -788,12 +788,19 @@ function splitMerge(){
 
 function toggleTip(e){
   e.stopPropagation();
+  e.preventDefault();
   var wrap=e.currentTarget;
   var isOpen=wrap.classList.contains('tip-open');
-  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
-  if(!isOpen){
+  // 다른 툴팁 닫기
+  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){
+    if(el!==wrap) el.classList.remove('tip-open');
+  });
+  if(isOpen){
+    wrap.classList.remove('tip-open');
+  } else {
     wrap.classList.add('tip-open');
-    positionTip(wrap);
+    // 위치 계산은 레이아웃 후에 (requestAnimationFrame)
+    requestAnimationFrame(function(){ positionTip(wrap); });
   }
 }
 
@@ -815,7 +822,10 @@ function positionTip(wrap){
   box.style.top  = top  + 'px';
 }
 
-document.addEventListener('click', function(){ document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); }); });
+document.addEventListener('click', function(e){
+  if(e.target.closest && e.target.closest('.tip-wrap')) return;
+  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
+});
 document.addEventListener('mouseover', function(e){
   var wrap = e.target.closest ? e.target.closest('.tip-wrap') : null;
   if(!wrap) return;
