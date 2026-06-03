@@ -327,7 +327,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var range = arenaDateRange(d);
       return '<label class="chk-item">'
         +'<input type="checkbox" class="arena-chk" data-path="'+p+'" onchange="onChkChange()">'
-        +'<span class="chk-lbl al">'+d+'</span>'
+        +'<span class="chk-lbl al">'+range+'</span>'
         +'</label>';
     }).join('');
   }
@@ -342,7 +342,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var range = garDateRange(d);
       return '<label class="chk-item">'
         +'<input type="checkbox" class="gar-chk" data-path="'+p+'" onchange="onChkChange()">'
-        +'<span class="chk-lbl gl">'+d+'</span>'
+        +'<span class="chk-lbl gl">'+range+'</span>'
         +'</label>';
     }).join('');
   }
@@ -499,7 +499,7 @@ function renderReport(arenaData, garData){
   window._garData = garData;
 
   document.getElementById('reportArea').innerHTML =
-    (chips ? '<div class="chips">'+chips+'</div>' : '')
+    ''
     +'<div class="stats">'
     +(arenaData.length ? '<div class="stat"><div class="sv" style="color:#c4b5fd">'+totalArenaFail+'</div><div class="sl">Arena 미달 횟수</div></div>' : '')
     +(totalMissionViol>0 ? '<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반</div></div>' : '')
