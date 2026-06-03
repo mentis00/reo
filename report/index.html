@@ -730,9 +730,8 @@ function copyTxtReport(){
   // 테이블에서 텍스트 추출
   var rows = document.querySelectorAll('.rpt-tbl tbody tr');
   var lines = ['REO 시즌 분석표'];
-  var seasonInfo = document.querySelector('.txt-season-info');
-  if(seasonInfo) lines.push(seasonInfo.textContent.trim());
-  lines.push('');
+  var seasonDivs = document.querySelectorAll('.txt-season-info div');
+  seasonDivs.forEach(function(div){ lines.push(div.textContent.trim()); });
   rows.forEach(function(row){
     var cells = row.querySelectorAll('td');
     if(cells.length>=3){
