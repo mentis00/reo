@@ -178,6 +178,27 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
   border-top:1px solid rgba(52,211,153,0.12);
   font-size:13px;color:rgba(255,255,255,.2);text-align:right;
 }
+/* 툴팁 */
+.tip-wrap{position:relative;display:inline-block}
+.tip-box{
+  display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
+  background:#0d1f2d;border:1px solid rgba(255,255,255,.15);border-radius:10px;
+  padding:10px 13px;min-width:200px;max-width:280px;z-index:100;
+  white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+.tip-box::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:#0d1f2d;
+}
+.tip-wrap:hover .tip-box,
+.tip-wrap.tip-open .tip-box{display:block}
+.tip-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.tip-row:last-child{border-bottom:0}
+.tip-season{color:rgba(255,255,255,.5);font-size:11px;flex-shrink:0}
+.tip-score{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700}
+.tip-score.pass{color:#34d399}
+.tip-score.fail{color:#f87171}
 
 .empty{color:rgba(52,211,153,.25);text-align:center;padding:48px 0;font-size:14px;position:relative;z-index:1}
 .loading{color:rgba(52,211,153,.4);text-align:center;padding:40px 0;font-size:14px;position:relative;z-index:1}
@@ -390,17 +411,20 @@ function renderReport(arenaData, garData){
   var report = names.map(function(name){
     var r = {name:name, arenaFail:0, arenaTotal:0, arenaFailScores:[], missionViol:0, garFail:0, garTotal:0, garFailScores:[]};
 
+    r.arenaSeasonDetail = []; // [{season, score, pass}]
+    r.garSeasonDetail = [];   // [{season, total, pass}]
+
     arenaData.forEach(function(f){
       var m = (f.members||[]).find(function(m){ return m.name===name; });
       if(!m) return;
       var goal = Number(f.goalScore||7000);
       (m.seasonScores||[]).forEach(function(ss){
-        if(ss.score === null) return; // 미참여
+        if(ss.score === null) return;
         r.arenaTotal++;
-        if(Number(ss.score) < goal){
-          r.arenaFail++;
-          r.arenaFailScores.push(Number(ss.score));
-        }
+        var sc = Number(ss.score);
+        var pass = sc >= goal;
+        if(!pass){ r.arenaFail++; r.arenaFailScores.push(sc); }
+        r.arenaSeasonDetail.push({season: ss.season, score: sc, pass: pass});
       });
       r.missionViol += Number(m.missionViol||0);
     });
@@ -410,15 +434,16 @@ function renderReport(arenaData, garData){
       if(!m) return;
       var goal = Number(f.goalScore||1500000);
       (m.seasonResults||[]).forEach(function(sr){
-        if(!sr.participated) return; // 미참여 시즌 제외
+        if(!sr.participated) return;
+        var total = 0;
+        var seasonFail = 0;
         for(var d=0;d<6;d++){
           r.garTotal++;
           var sc = Number((sr.days||[])[d]||0);
-          if(sc < goal){
-            r.garFail++;
-            r.garFailScores.push(sc);
-          }
+          total += sc;
+          if(sc < goal){ r.garFail++; r.garFailScores.push(sc); seasonFail++; }
         }
+        r.garSeasonDetail.push({season: sr.season, total: total, pass: seasonFail===0});
       });
     });
 
@@ -488,12 +513,27 @@ function buildGrid(violators, arenaData, garData, sk){
   });
   return sorted.map(function(r,i){
     var badges='';
-    if(arenaData.length && r.arenaFail>0)
-      badges+='<span class="sc-badge ab">Arena '+r.arenaFail+'/'+r.arenaTotal+' 미달'+(r.arenaFailAvg?' · 평균 '+r.arenaFailAvg.toLocaleString()+'점':'')+'</span>';
+    if(arenaData.length && r.arenaFail>0){
+      var aTip = (r.arenaSeasonDetail||[]).map(function(d){
+        return '<div class="tip-row"><span class="tip-season">'+esc(d.season)+'</span>'
+          +'<span class="tip-score '+(d.pass?'pass':'fail')+'">'+d.score.toLocaleString()+'점 '+(d.pass?'✅':'❌')+'</span></div>';
+      }).join('');
+      badges+='<span class="tip-wrap sc-badge ab" onclick="toggleTip(event)">'
+        +'Arena '+r.arenaFail+'/'+r.arenaTotal+' 미달'+(r.arenaFailAvg?' · 평균 '+r.arenaFailAvg.toLocaleString()+'점':'')
+        +'<div class="tip-box">'+aTip+'</div></span>';
+    }
     if(r.missionViol>0)
       badges+='<span class="sc-badge mb">공동미션 '+r.missionViol+'회</span>';
-    if(garData.length && r.garFail>0)
-      badges+='<span class="sc-badge gb">GAR '+r.garFail+'/'+r.garTotal+'일 미달'+(r.garFailAvg?' · 평균 '+Math.round(r.garFailAvg/10000)+'만':'')+'</span>';
+    if(garData.length && r.garFail>0){
+      var gTip = (r.garSeasonDetail||[]).map(function(d){
+        var totalFmt = d.total >= 10000 ? Math.round(d.total/10000)+'만' : d.total.toLocaleString();
+        return '<div class="tip-row"><span class="tip-season">'+esc(d.season)+'</span>'
+          +'<span class="tip-score '+(d.pass?'pass':'fail')+'">'+totalFmt+' '+(d.pass?'✅':'❌')+'</span></div>';
+      }).join('');
+      badges+='<span class="tip-wrap sc-badge gb" onclick="toggleTip(event)">'
+        +'GAR '+r.garFail+'/'+r.garTotal+'일 미달'+(r.garFailAvg?' · 평균 '+Math.round(r.garFailAvg/10000)+'만':'')
+        +'<div class="tip-box">'+gTip+'</div></span>';
+    }
     return '<div class="rpt-row">'
       +'<div class="rpt-top">'
       +'<span class="rpt-no">'+(i+1)+'</span>'
@@ -514,7 +554,18 @@ function reSort(btn, sk){
 }
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toggleTip(e){
+  e.stopPropagation();
+  var wrap = e.currentTarget;
+  var isOpen = wrap.classList.contains('tip-open');
+  // 다른 툴팁 모두 닫기
+  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
+  if(!isOpen) wrap.classList.add('tip-open');
+}
+// 외부 클릭/터치 시 툴팁 닫기
+document.addEventListener('click', function(){ document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); }); });
+document.addEventListener('touchend', function(){ setTimeout(function(){ document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); }); }, 200); });
 </script>
-<script>(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();</script>
 </body>
 </html>
