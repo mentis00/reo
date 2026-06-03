@@ -731,7 +731,11 @@ function copyTxtReport(){
   var rows = document.querySelectorAll('.rpt-tbl tbody tr');
   var lines = ['REO 시즌 분석표'];
   var seasonDivs = document.querySelectorAll('.txt-season-info div');
-  seasonDivs.forEach(function(div){ lines.push(div.textContent.trim()); });
+  var seasonDivs = document.querySelectorAll('.txt-season-info div');
+  seasonDivs.forEach(function(div){
+    var txt = div.textContent.trim().replace(/[^\x00-\x7F\uAC00-\uD7A3\u3131-\u318E\u1100-\u11FF\u3130-\u318F\uFF01-\uFF60\u4E00-\u9FFF \-~:.,\/]/g, '').trim();
+    lines.push(txt);
+  });
   rows.forEach(function(row){
     var cells = row.querySelectorAll('td');
     if(cells.length>=3){
