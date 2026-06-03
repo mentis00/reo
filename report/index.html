@@ -515,7 +515,7 @@ function buildGrid(violators, arenaData, garData, sk){
     var badges='';
     if(arenaData.length && r.arenaFail>0){
       var aTip = (r.arenaSeasonDetail||[]).map(function(d){
-        return '<div class="tip-row"><span class="tip-season">'+esc((d.season||'').replace(/_.*$/,''))+'</span>'
+        return '<div class="tip-row"><span class="tip-season">'+esc(tipDateRange(d.season,'arena'))+'</span>'
           +'<span class="tip-score '+(d.pass?'pass':'fail')+'">'+d.score.toLocaleString()+'점 '+(d.pass?'✅':'❌')+'</span></div>';
       }).join('');
       badges+='<span class="tip-wrap sc-badge ab" onclick="toggleTip(event)">'
@@ -527,8 +527,8 @@ function buildGrid(violators, arenaData, garData, sk){
     if(garData.length && r.garFail>0){
       var gTip = (r.garSeasonDetail||[]).map(function(d){
         var totalFmt = d.total >= 10000 ? Math.round(d.total/10000)+'만' : d.total.toLocaleString();
-        return '<div class="tip-row"><span class="tip-season">'+esc((d.season||'').replace(/_.*$/,''))+'</span>'
-          +'<span class="tip-score '+(d.pass?'pass':'fail')+'">'+totalFmt+' '+(d.pass?'✅':'❌')+'</span></div>';
+        return '<div class="tip-row"><span class="tip-season">'+esc(tipDateRange(d.season,'gar'))+'</span>'
+          +'<span class="tip-score '+(d.pass?'pass':'fail')+'">총점 '+totalFmt+' '+(d.pass?'✅':'❌')+'</span></div>';
       }).join('');
       badges+='<span class="tip-wrap sc-badge gb" onclick="toggleTip(event)">'
         +'GAR '+r.garFail+'/'+r.garTotal+'일 미달'+(r.garFailAvg?' · 평균 '+Math.round(r.garFailAvg/10000)+'만':'')
@@ -551,6 +551,16 @@ function reSort(btn, sk){
   btn.classList.add('active');
   var grid = document.getElementById('rptGrid');
   if(grid) grid.innerHTML = buildGrid(window._viol||[], window._arenaData||[], window._garData||[], sk);
+}
+
+function tipDateRange(seasonStr, type){
+  var start = (seasonStr||'').replace(/_.*$/,'');
+  var m = start.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return start;
+  var d = new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+  var end = new Date(d); end.setDate(end.getDate() + (type==='gar' ? 6 : 7));
+  var fmt = function(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); };
+  return start + ' ~ ' + fmt(end);
 }
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
