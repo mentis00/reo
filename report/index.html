@@ -205,10 +205,13 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 
 .empty{color:rgba(52,211,153,.25);text-align:center;padding:48px 0;font-size:14px;position:relative;z-index:1}
 
-/* 드래그 */
-.rpt-row{cursor:grab}
-.rpt-row.dragging{opacity:.4;cursor:grabbing}
-.rpt-row.drag-over{border-color:rgba(52,211,153,.6)!important;background:rgba(52,211,153,.08)!important}
+/* 합치기 모드 */
+.rpt-row{cursor:default}
+.rpt-row.merge-src{border-color:rgba(52,211,153,.6)!important;background:rgba(52,211,153,.08)!important;box-shadow:0 0 0 2px rgba(52,211,153,.3)}
+.rpt-row.merge-selectable{border-color:rgba(251,146,60,.4)!important;cursor:pointer!important}
+.rpt-row.merge-selectable:hover{border-color:rgba(251,146,60,.8)!important;background:rgba(251,146,60,.06)!important}
+.merge-mode-hint{font-size:12px;color:#fb923c;text-align:center;padding:8px;margin-bottom:10px;background:rgba(251,146,60,.08);border-radius:8px;display:none}
+.merge-mode-hint.active{display:block}
 
 /* 합치기 팝업 */
 .merge-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
@@ -224,6 +227,10 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .rpt-row.merged{border-color:rgba(52,211,153,.2)!important;background:rgba(52,211,153,.03)!important}
 .merge-split-btn{font-size:10px;color:rgba(52,211,153,.4);cursor:pointer;border:0;background:0;padding:0;font-family:'Noto Sans KR',sans-serif;flex-shrink:0}
 .merge-split-btn:hover{color:#34d399}
+.merge-btn{font-size:10px;color:rgba(251,146,60,.5);cursor:pointer;border:1px solid rgba(251,146,60,.2);background:rgba(251,146,60,.06);border-radius:5px;padding:2px 6px;font-family:'Noto Sans KR',sans-serif;flex-shrink:0;white-space:nowrap}
+.merge-btn:hover{color:#fb923c;border-color:rgba(251,146,60,.5)}
+.merge-cancel-btn{font-size:10px;color:rgba(248,113,113,.6);cursor:pointer;border:1px solid rgba(248,113,113,.2);background:rgba(248,113,113,.06);border-radius:5px;padding:2px 6px;font-family:'Noto Sans KR',sans-serif;flex-shrink:0}
+.merge-cancel-btn:hover{color:#f87171}
 
 /* 가중치 패널 */
 .weight-panel{background:rgba(255,255,255,.02);border:1px solid rgba(52,211,153,.12);border-radius:14px;padding:14px 18px;margin-bottom:18px}
@@ -238,6 +245,7 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 
 /* 등급 배지 */
 .grade-badge{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;padding:3px 8px;border-radius:7px;flex-shrink:0;min-width:28px;text-align:center}
+.grade-S{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.3)}
 .grade-A{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3)}
 .grade-B{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
 .grade-C{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
@@ -502,6 +510,7 @@ function calcPenalty(r){
 }
 
 function getGrade(penalty){
+  if(penalty === 0)  return 'S';
   if(penalty <= 5)   return 'A';
   if(penalty <= 15)  return 'B';
   if(penalty <= 30)  return 'C';
@@ -514,6 +523,7 @@ function rerenderWithWeights(){
   // 벌점 재계산 후 grid만 갱신
   window._viol.forEach(function(r){ r.penalty = calcPenalty(r); });
   document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
+  cancelMergeMode();
   // 통계 벌점 합산 업데이트
   var totalPenalty = window._viol.reduce(function(s,r){ return s+r.penalty; },0);
   var el = document.getElementById('totalPenaltyStat');
@@ -676,7 +686,9 @@ function buildGrid(violators, arenaData, garData, sk){
     var grade = getGrade(penalty);
     var displayName = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
     var mergeClass = r.merged ? ' merged' : '';
-    var splitBtn = r.merged ? '<button class="merge-split-btn" onclick="splitMerge('+i+')">✕ 분리</button>' : '';
+    var actionBtn = r.merged
+      ? '<button class="merge-split-btn" onclick="splitMerge('+i+')">✕ 분리</button>'
+      : '<button class="merge-btn" onclick="startMergeMode('+i+');event.stopPropagation()">🔗</button>';
     return '<div class="rpt-row'+mergeClass+'" data-idx="'+i+'">'
       +'<div class="rpt-top">'
       +'<span class="rpt-no">'+(i+1)+'</span>'
@@ -684,7 +696,7 @@ function buildGrid(violators, arenaData, garData, sk){
       +'<span class="penalty-score">'+penalty+'점</span>'
       +'<span class="grade-badge grade-'+grade+'">'+grade+'</span>'
       +'<span class="rpt-viol">'+r.totalViol+'</span>'
-      +splitBtn
+      +actionBtn
       +'</div>'
       +'<div class="rpt-badges">'+badges+'</div>'
       +'</div>';
@@ -717,45 +729,41 @@ function tipDateRange(seasonStr, type){
 
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── 드래그 합치기 ──
-var dragSrcIdx = null;
-var mergeTarget = null; // {srcIdx, dstIdx}
+// ── 합치기 ──
+var mergeSrcIdx = null;
+var mergeTarget = null;
 
-function initDrag(){
-  var rows = document.querySelectorAll('.rpt-row[data-idx]');
-  rows.forEach(function(row){
-    // 터치/마우스 드래그
-    row.setAttribute('draggable','true');
-    row.addEventListener('dragstart', function(e){
-      dragSrcIdx = Number(this.getAttribute('data-idx'));
-      this.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    row.addEventListener('dragend', function(){
-      this.classList.remove('dragging');
-      document.querySelectorAll('.rpt-row').forEach(function(r){ r.classList.remove('drag-over'); });
-    });
-    row.addEventListener('dragover', function(e){
-      e.preventDefault();
-      var dstIdx = Number(this.getAttribute('data-idx'));
-      if(dstIdx !== dragSrcIdx){
-        document.querySelectorAll('.rpt-row').forEach(function(r){ r.classList.remove('drag-over'); });
-        this.classList.add('drag-over');
-      }
-    });
-    row.addEventListener('dragleave', function(){
-      this.classList.remove('drag-over');
-    });
-    row.addEventListener('drop', function(e){
-      e.preventDefault();
-      this.classList.remove('drag-over');
-      var dstIdx = Number(this.getAttribute('data-idx'));
-      if(dstIdx === dragSrcIdx) return;
-      mergeTarget = {srcIdx: dragSrcIdx, dstIdx: dstIdx};
-      showMergePopup();
-    });
+function startMergeMode(idx){
+  mergeSrcIdx = idx;
+  // 소스 카드 하이라이트
+  document.querySelectorAll('.rpt-row[data-idx]').forEach(function(row){
+    var ridx = Number(row.getAttribute('data-idx'));
+    row.classList.remove('merge-src','merge-selectable');
+    if(ridx === idx){
+      row.classList.add('merge-src');
+    } else {
+      row.classList.add('merge-selectable');
+      row.onclick = function(){ selectMergeTarget(ridx); };
+    }
   });
+  document.getElementById('mergeModeHint').classList.add('active');
 }
+
+function selectMergeTarget(dstIdx){
+  mergeTarget = {srcIdx: mergeSrcIdx, dstIdx: dstIdx};
+  showMergePopup();
+}
+
+function cancelMergeMode(){
+  mergeSrcIdx = null;
+  document.querySelectorAll('.rpt-row[data-idx]').forEach(function(row){
+    row.classList.remove('merge-src','merge-selectable');
+    row.onclick = null;
+  });
+  document.getElementById('mergeModeHint').classList.remove('active');
+}
+
+function initDrag(){ /* 드래그 미사용 */ }
 
 function showMergePopup(){
   var src = window._viol[mergeTarget.srcIdx];
@@ -771,6 +779,7 @@ function showMergePopup(){
 function cancelMerge(){
   mergeTarget = null;
   document.getElementById('mergeOverlay').classList.remove('active');
+  cancelMergeMode();
 }
 
 function confirmMerge(){
@@ -799,7 +808,6 @@ function confirmMerge(){
   cancelMerge();
   // 재렌더
   document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
-  initDrag();
 }
 
 function toggleTip(e){
