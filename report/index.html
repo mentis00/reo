@@ -489,13 +489,19 @@ function applySelection(){
     );
   });
 
+  // 경로 표시 (디버그)
+  var pathList = [];
+  aChecked.forEach(function(el){ pathList.push('A: '+el.dataset.path); });
+  gChecked.forEach(function(el){ pathList.push('G: '+el.dataset.path); });
+
   Promise.all(promises).then(function(){
     document.getElementById('applyBtn').disabled = false;
-    console.log('Arena 로드:', arenaData.length, '개 / GAR 로드:', garData.length, '개');
     if(!arenaData.length && !garData.length){
       document.getElementById('reportArea').innerHTML =
-        '<div class="empty" style="color:#f87171">⚠️ JSON 파일을 불러오지 못했습니다.<br>'
-        +'<span style="font-size:12px;opacity:.7">파일이 /report/ 폴더에 있는지, 파일명이 arena-YYYY-MM-DD.json / gar-YYYY-MM-DD.json 형식인지 확인해주세요.</span></div>';
+        '<div class="empty" style="color:#f87171">⚠️ JSON 로드 실패<br>'
+        +'<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:8px;text-align:left;background:rgba(0,0,0,.3);padding:8px;border-radius:8px;line-height:2">'
+        +pathList.map(function(p){ return esc(p); }).join('<br>')
+        +'</div></div>';
       return;
     }
     renderReport(arenaData, garData);
