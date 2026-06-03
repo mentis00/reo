@@ -200,6 +200,15 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .grade-F{background:rgba(127,29,29,.3);color:#fca5a5;border:1px solid rgba(220,38,38,.5)}
 .penalty-score{font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.3);flex-shrink:0}
 .page-footer{margin-top:4px;padding-top:16px;border-top:1px solid rgba(52,211,153,0.15);color:rgba(52,211,153,0.35);font-size:13px;position:relative;z-index:1;}
+/* 텍스트 리포트 */
+.txt-report-panel{display:none;margin-top:16px;background:#060e0a;border:1px solid rgba(52,211,153,.2);border-radius:14px;padding:18px 20px}
+.txt-report-panel.active{display:block}
+.txt-report-pre{font-family:ui-monospace,'Courier New',monospace;font-size:13px;color:#a7f3d0;line-height:1.8;white-space:pre;overflow-x:auto}
+.txt-report-btns{display:flex;gap:8px;margin-top:12px}
+.txt-copy-btn{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:#34d399;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+.txt-copy-btn:hover{background:rgba(52,211,153,.2)}
+.txt-close-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+.txt-close-btn:hover{background:rgba(255,255,255,.08)}
 @media(max-width:860px){
   body{padding:12px}
   .container{padding:22px 18px 28px}
@@ -459,6 +468,14 @@ function renderReport(arenaData, garData){
     +(arenaData.length?'<button class="sort-btn" onclick="reSort(this,\'arena\')">Arena 미달순</button>':'')
     +(arenaData.length?'<button class="sort-btn" onclick="reSort(this,\'mission\')">공동미션순</button>':'')
     +(garData.length?'<button class="sort-btn" onclick="reSort(this,\'gar\')">GAR 미달순</button>':'')
+    +'<button class="sort-btn" onclick="toggleTxtReport()" id="txtReportBtn">📋 REPORT</button>'
+    +'</div>'
+    +'<div class="txt-report-panel" id="txtReportPanel">'
+    +'<div class="txt-report-pre" id="txtReportPre"></div>'
+    +'<div class="txt-report-btns">'
+    +'<button class="txt-copy-btn" onclick="copyTxtReport()">📋 복사</button>'
+    +'<button class="txt-close-btn" onclick="toggleTxtReport()">닫기</button>'
+    +'</div>'
     +'</div>'
     +'<div class="merge-mode-hint" id="mergeModeHint">🔗 합칠 멤버를 클릭하세요 &mdash; <span style="cursor:pointer;text-decoration:underline" onclick="cancelMergeMode()">취소</span></div>'
     +'<div class="rpt-grid" id="rptGrid">'+buildGrid(violators, arenaData, garData, 'penalty')+'</div>'
@@ -610,6 +627,62 @@ function confirmMerge(){
   cancelMergeMode();
   // 재렌더
   document.getElementById('rptGrid').innerHTML=buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
+}
+
+function toggleTxtReport(){
+  var panel = document.getElementById('txtReportPanel');
+  var btn = document.getElementById('txtReportBtn');
+  var isActive = panel.classList.contains('active');
+  if(isActive){
+    panel.classList.remove('active');
+    btn.classList.remove('active');
+  } else {
+    // 리포트 생성
+    var viol = window._viol || [];
+    if(!viol.length){ alert('먼저 분석을 실행해주세요.'); return; }
+    // 현재 정렬 기준으로 소트
+    var sorted = viol.slice().sort(function(a,b){ return calcPenalty(b)-calcPenalty(a); });
+    var today = new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'-').replace('.','');
+    var lines = [];
+    lines.push('REO 성과 리포트  ' + today);
+    lines.push('─'.repeat(36));
+    sorted.forEach(function(r, i){
+      var name = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
+      var penalty = calcPenalty(r);
+      var grade = getGrade(penalty);
+      // 칸 맞추기
+      var rank = String(i+1).padStart(2,' ');
+      var namePad = name.padEnd(20,' ');
+      lines.push(rank + '  ' + namePad + penalty + '점  ' + grade);
+    });
+    lines.push('─'.repeat(36));
+    lines.push('위반자 ' + sorted.length + '명');
+    document.getElementById('txtReportPre').textContent = lines.join('\n');
+    panel.classList.add('active');
+    btn.classList.add('active');
+    // 패널로 스크롤
+    setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
+  }
+}
+
+function copyTxtReport(){
+  var text = document.getElementById('txtReportPre').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.querySelector('.txt-copy-btn');
+    btn.textContent = '✅ 복사됨';
+    setTimeout(function(){ btn.textContent = '📋 복사'; }, 1500);
+  }).catch(function(){
+    // fallback
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var btn = document.querySelector('.txt-copy-btn');
+    btn.textContent = '✅ 복사됨';
+    setTimeout(function(){ btn.textContent = '📋 복사'; }, 1500);
+  });
 }
 
 function splitMerge(){
