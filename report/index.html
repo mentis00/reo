@@ -782,55 +782,51 @@ function cancelMerge(){
 function confirmMerge(){
   var srcName = mergeSrcName;
   var dstName = window._mergeDstName;
-  if(!srcName||!dstName) return;
+  if(!srcName || !dstName){ cancelMerge(); return; }
 
   var srcIdx = window._viol.findIndex(function(r){ return r.name===srcName; });
   var dstIdx = window._viol.findIndex(function(r){ return r.name===dstName; });
-  if(srcIdx===-1||dstIdx===-1) return;
+  if(srcIdx===-1 || dstIdx===-1){ cancelMerge(); return; }
 
   var src = window._viol[srcIdx];
   var dst = window._viol[dstIdx];
 
   // 이름 합치기
   dst.mergedNames = (dst.mergedNames||[dst.name]).concat(src.mergedNames||[src.name]);
-  dst.name = dst.mergedNames[0]; // 내부 키는 첫 번째 이름 유지
 
   // 위반 합산
-  dst.arenaFail         += src.arenaFail;
-  dst.arenaTotal        += src.arenaTotal;
-  dst.arenaFailScores    = (dst.arenaFailScores||[]).concat(src.arenaFailScores||[]);
-  dst.arenaSeasonDetail  = (dst.arenaSeasonDetail||[]).concat(src.arenaSeasonDetail||[]);
-  dst.missionViol       += src.missionViol;
-  dst.garFail           += src.garFail;
-  dst.garTotal          += src.garTotal;
-  dst.garFailScores      = (dst.garFailScores||[]).concat(src.garFailScores||[]);
-  dst.garSeasonDetail    = (dst.garSeasonDetail||[]).concat(src.garSeasonDetail||[]);
-  dst.totalViol          = dst.arenaFail + dst.missionViol + dst.garFail;
-  dst.arenaFailAvg       = dst.arenaFailScores.length ? Math.round(dst.arenaFailScores.reduce(function(a,b){return a+b;},0)/dst.arenaFailScores.length) : 0;
-  dst.garFailAvg         = dst.garFailScores.length   ? Math.round(dst.garFailScores.reduce(function(a,b){return a+b;},0)/dst.garFailScores.length)   : 0;
-  dst.penalty            = calcPenalty(dst);
-  dst.merged             = true;
+  dst.arenaFail        += src.arenaFail;
+  dst.arenaTotal       += src.arenaTotal;
+  dst.arenaFailScores   = (dst.arenaFailScores||[]).concat(src.arenaFailScores||[]);
+  dst.arenaSeasonDetail = (dst.arenaSeasonDetail||[]).concat(src.arenaSeasonDetail||[]);
+  dst.missionViol      += src.missionViol;
+  dst.garFail          += src.garFail;
+  dst.garTotal         += src.garTotal;
+  dst.garFailScores     = (dst.garFailScores||[]).concat(src.garFailScores||[]);
+  dst.garSeasonDetail   = (dst.garSeasonDetail||[]).concat(src.garSeasonDetail||[]);
+  dst.totalViol         = dst.arenaFail + dst.missionViol + dst.garFail;
+  dst.arenaFailAvg      = dst.arenaFailScores.length ? Math.round(dst.arenaFailScores.reduce(function(a,b){return a+b;},0)/dst.arenaFailScores.length) : 0;
+  dst.garFailAvg        = dst.garFailScores.length   ? Math.round(dst.garFailScores.reduce(function(a,b){return a+b;},0)/dst.garFailScores.length)   : 0;
+  dst.penalty           = calcPenalty(dst);
+  dst.merged            = true;
 
   // src 제거
   window._viol.splice(srcIdx, 1);
 
-  // 팝업/모드 닫기
+  // 초기화
+  mergeSrcName = null;
+  window._mergeDstName = null;
+
+  // 팝업 닫기
   document.getElementById('mergeOverlay').classList.remove('active');
-  cancelMergeMode();
+  document.querySelectorAll('.rpt-row[data-name]').forEach(function(row){
+    row.classList.remove('merge-src','merge-selectable');
+    row.onclick = null;
+  });
+  document.getElementById('mergeModeHint').classList.remove('active');
 
   // 재렌더
   document.getElementById('rptGrid').innerHTML = buildGrid(window._viol, window._arenaData||[], window._garData||[], currentSort);
-}
-
-function initDrag(){ /* 미사용 */ }
-
-function toggleTip(e){
-  e.stopPropagation();
-  var wrap = e.currentTarget;
-  var isOpen = wrap.classList.contains('tip-open');
-  // 다른 툴팁 모두 닫기
-  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
-  if(!isOpen) wrap.classList.add('tip-open');
 }
 // 외부 클릭/터치 시 툴팁 닫기
 document.addEventListener('click', function(){ document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); }); });
