@@ -218,11 +218,12 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 
 /* 등급 배지 */
 .grade-badge{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;padding:3px 8px;border-radius:7px;flex-shrink:0;min-width:28px;text-align:center}
-.grade-S{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.3)}
 .grade-A{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3)}
 .grade-B{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
 .grade-C{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
 .grade-D{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.grade-E{background:rgba(220,38,38,.15);color:#ef4444;border:1px solid rgba(220,38,38,.3)}
+.grade-F{background:rgba(127,29,29,.3);color:#fca5a5;border:1px solid rgba(220,38,38,.5)}
 .penalty-score{font-family:'Rajdhani',sans-serif;font-size:13px;color:rgba(255,255,255,.3);flex-shrink:0}
 .loading{color:rgba(52,211,153,.4);text-align:center;padding:40px 0;font-size:14px;position:relative;z-index:1}
 
@@ -274,6 +275,38 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
   <button class="apply-btn" id="applyBtn" onclick="applySelection()" disabled>선택한 시즌으로 분석 →</button>
 
   <hr class="divider">
+
+
+  <!-- 가중치 설정 -->
+  <div class="weight-panel">
+    <div class="weight-title">⚖️ 벌점 가중치 설정</div>
+    <div class="weight-grid">
+      <div class="weight-item">
+        <span class="weight-label">🏟️ Arena 미달 (1회)</span>
+        <div class="weight-ctrl">
+          <button class="weight-btn" onclick="changeWeight('arena',-1)">－</button>
+          <span class="weight-val" id="w_arena">1</span>
+          <button class="weight-btn" onclick="changeWeight('arena',1)">＋</button>
+        </div>
+      </div>
+      <div class="weight-item">
+        <span class="weight-label">🎯 공동미션 위반 (1회)</span>
+        <div class="weight-ctrl">
+          <button class="weight-btn" onclick="changeWeight('mission',-1)">－</button>
+          <span class="weight-val" id="w_mission">1</span>
+          <button class="weight-btn" onclick="changeWeight('mission',1)">＋</button>
+        </div>
+      </div>
+      <div class="weight-item">
+        <span class="weight-label">⚔️ GAR 미달 (1일)</span>
+        <div class="weight-ctrl">
+          <button class="weight-btn" onclick="changeWeight('gar',-1)">－</button>
+          <span class="weight-val" id="w_gar">1</span>
+          <button class="weight-btn" onclick="changeWeight('gar',1)">＋</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- 리포트 출력 -->
   <div class="report-area" id="reportArea">
@@ -422,7 +455,7 @@ function applySelection(){
 }
 
 var currentSort = 'total';
-var weights = {arena: 6, mission: 1, gar: 4};
+var weights = {arena: 1, mission: 1, gar: 1};
 
 function changeWeight(key, delta){
   weights[key] = Math.max(0, weights[key] + delta);
@@ -436,11 +469,12 @@ function calcPenalty(r){
 }
 
 function getGrade(penalty){
-  if(penalty === 0) return 'S';
-  if(penalty <= 5)  return 'A';
-  if(penalty <= 15) return 'B';
-  if(penalty <= 30) return 'C';
-  return 'D';
+  if(penalty <= 5)   return 'A';
+  if(penalty <= 15)  return 'B';
+  if(penalty <= 30)  return 'C';
+  if(penalty <= 60)  return 'D';
+  if(penalty <= 100) return 'E';
+  return 'F';
 }
 
 function rerenderWithWeights(){
