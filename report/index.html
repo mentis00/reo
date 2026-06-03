@@ -637,32 +637,63 @@ function toggleTxtReport(){
     panel.classList.remove('active');
     btn.classList.remove('active');
   } else {
-    // 리포트 생성
     var viol = window._viol || [];
     if(!viol.length){ alert('먼저 분석을 실행해주세요.'); return; }
-    // 현재 정렬 기준으로 소트
     var sorted = viol.slice().sort(function(a,b){ return calcPenalty(b)-calcPenalty(a); });
-    var today = new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\. /g,'-').replace('.','');
+
+    // 선택 시즌 정보
+    var seasonParts = [];
+    (window._arenaData||[]).forEach(function(f){
+      (f.seasons||[]).forEach(function(s){
+        var d = s.seasonStart||s.season||'';
+        if(d) seasonParts.push('Arena ' + arenaDateRange(d.replace(/_.*$/,'')));
+      });
+    });
+    (window._garData||[]).forEach(function(f){
+      (f.seasons||[]).forEach(function(s){
+        var d = s.seasonStart||s.season||'';
+        if(d) seasonParts.push('GAR ' + garDateRange(d.replace(/_.*$/,'')));
+      });
+    });
+
     var lines = [];
-    lines.push('REO 성과 리포트  ' + today);
-    lines.push('─'.repeat(36));
+    var SEP = '─'.repeat(40);
+    lines.push('REO 시즌 분석표');
+    lines.push(seasonParts.join('  |  '));
+    lines.push(SEP);
+    lines.push(' #   이름                      벌점  등급');
+    lines.push(SEP);
+
     sorted.forEach(function(r, i){
-      var name = r.mergedNames ? r.mergedNames.join(' / ') : r.name;
+      var name = r.mergedNames ? r.mergedNames.join('/') : r.name;
       var penalty = calcPenalty(r);
       var grade = getGrade(penalty);
-      // 칸 맞추기
       var rank = String(i+1).padStart(2,' ');
-      var namePad = name.padEnd(20,' ');
-      lines.push(rank + '  ' + namePad + penalty + '점  ' + grade);
+      // 이름 고정폭: 한글 2바이트 감안해서 표시폭 계산
+      var nameFixed = padName(name, 24);
+      var penaltyStr = String(penalty+'점').padStart(5,' ');
+      lines.push(rank + '   ' + nameFixed + penaltyStr + '  ' + grade);
     });
-    lines.push('─'.repeat(36));
-    lines.push('위반자 ' + sorted.length + '명');
+
+    lines.push(SEP);
+    lines.push('위반자 ' + sorted.length + '명  |  총 벌점 ' + sorted.reduce(function(s,r){ return s+calcPenalty(r); },0) + '점');
     document.getElementById('txtReportPre').textContent = lines.join('\n');
     panel.classList.add('active');
     btn.classList.add('active');
-    // 패널로 스크롤
     setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
   }
+}
+
+// 한글 포함 문자열 고정폭 패딩
+function padName(str, targetWidth){
+  var width = 0;
+  for(var i=0;i<str.length;i++){
+    var code = str.charCodeAt(i);
+    // 한글/한자/전각: 2칸, 나머지: 1칸
+    width += (code >= 0x1100) ? 2 : 1;
+  }
+  var pad = Math.max(0, targetWidth - width);
+  return str + ' '.repeat(pad);
 }
 
 function copyTxtReport(){
