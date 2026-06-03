@@ -143,13 +143,12 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 /* 툴팁 */
 .tip-wrap{position:relative;display:inline-block}
 .tip-box{
-  display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
+  display:none;position:fixed;
   background:#0d1f2d;border:1px solid rgba(255,255,255,.15);border-radius:10px;
-  padding:10px 13px;min-width:200px;max-width:280px;z-index:100;
-  white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);
+  padding:10px 13px;min-width:180px;max-width:260px;z-index:1000;
+  white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.7);
 }
-.tip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#0d1f2d;}
-.tip-wrap:hover .tip-box,.tip-wrap.tip-open .tip-box{display:block}
+.tip-wrap.tip-open .tip-box{display:block}
 .tip-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .tip-row:last-child{border-bottom:0}
 .tip-season{color:rgba(255,255,255,.5);font-size:11px;flex-shrink:0}
@@ -792,9 +791,44 @@ function toggleTip(e){
   var wrap=e.currentTarget;
   var isOpen=wrap.classList.contains('tip-open');
   document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); });
-  if(!isOpen) wrap.classList.add('tip-open');
+  if(!isOpen){
+    wrap.classList.add('tip-open');
+    positionTip(wrap);
+  }
 }
+
+function positionTip(wrap){
+  var box = wrap.querySelector('.tip-box');
+  if(!box) return;
+  var rect = wrap.getBoundingClientRect();
+  var vw = window.innerWidth;
+  var tipW = box.offsetWidth || 220;
+  var tipH = box.offsetHeight || 80;
+  // 기본: 배지 위 중앙
+  var left = rect.left + rect.width/2 - tipW/2;
+  var top  = rect.top - tipH - 8;
+  // 뷰포트 경계 보정
+  if(left < 8) left = 8;
+  if(left + tipW > vw - 8) left = vw - tipW - 8;
+  if(top < 8) top = rect.bottom + 8; // 위에 공간 없으면 아래로
+  box.style.left = left + 'px';
+  box.style.top  = top  + 'px';
+}
+
 document.addEventListener('click', function(){ document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ el.classList.remove('tip-open'); }); });
+document.addEventListener('mouseover', function(e){
+  var wrap = e.target.closest ? e.target.closest('.tip-wrap') : null;
+  if(!wrap) return;
+  document.querySelectorAll('.tip-wrap.tip-open').forEach(function(el){ if(el!==wrap) el.classList.remove('tip-open'); });
+  wrap.classList.add('tip-open');
+  positionTip(wrap);
+});
+document.addEventListener('mouseout', function(e){
+  var wrap = e.target.closest ? e.target.closest('.tip-wrap') : null;
+  if(!wrap) return;
+  var rel = e.relatedTarget;
+  if(!rel || !wrap.contains(rel)) wrap.classList.remove('tip-open');
+});
 </script>
 <script>(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();</script>
 </body>
