@@ -654,6 +654,7 @@ function confirmMerge(){
   dst.arenaFailScores=(dst.arenaFailScores||[]).concat(src.arenaFailScores||[]);
   dst.arenaSeasonDetail=(dst.arenaSeasonDetail||[]).concat(src.arenaSeasonDetail||[]);
   dst.missionViol+=src.missionViol;
+  dst.missionDetail=(dst.missionDetail||[]).concat(src.missionDetail||[]);
   dst.garFail+=src.garFail;
   dst.garTotal+=src.garTotal;
   dst.garFailScores=(dst.garFailScores||[]).concat(src.garFailScores||[]);
