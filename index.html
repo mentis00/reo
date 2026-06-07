@@ -19,6 +19,11 @@ active_event: arena   # arena / gar / kvk / none
 
     * { margin:0; padding:0; box-sizing:border-box; }
 
+    html {
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
+
     body {
       background: #080c14;
       font-family: 'Noto Sans KR', sans-serif;
@@ -215,12 +220,12 @@ active_event: arena   # arena / gar / kvk / none
     }
     .btn-archive:hover { background: rgba(30,58,95,0.9); }
 
-    .event-card.arena .btn-current { background: rgba(192,132,252,0.12); border: 1px solid rgba(192,132,252,0.3); color: #e9d5ff; }
-    .event-card.arena .btn-current:hover { background: rgba(192,132,252,0.22); }
-    .event-card.gar   .btn-current { background: rgba(251,146,60,0.12);  border: 1px solid rgba(251,146,60,0.3);  color: #fed7aa; }
-    .event-card.gar   .btn-current:hover { background: rgba(251,146,60,0.22); }
-    .event-card.kvk   .btn-current { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3);  color: #fef08a; }
-    .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.22); }
+    .event-card.arena .btn-current { background: rgba(192,132,252,0.25); border: 1px solid rgba(192,132,252,0.6); color: #fff; font-size:14px; padding:9px 20px; }
+    .event-card.arena .btn-current:hover { background: rgba(192,132,252,0.40); }
+    .event-card.gar   .btn-current { background: rgba(251,146,60,0.25);  border: 1px solid rgba(251,146,60,0.6);  color: #fff; font-size:14px; padding:9px 20px; }
+    .event-card.gar   .btn-current:hover { background: rgba(251,146,60,0.40); }
+    .event-card.kvk   .btn-current { background: rgba(251,191,36,0.25);  border: 1px solid rgba(251,191,36,0.6);  color: #fff; font-size:14px; padding:9px 20px; }
+    .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.40); }
 
     .event-card.report::before { background: linear-gradient(180deg, #34d399, #0891b2); }
     .event-card.report .event-name { color: #6ee7b7; }
