@@ -183,6 +183,7 @@ active_event: arena   # arena / gar / kvk / none
       width: 6px; height: 6px;
       border-radius: 50%;
       animation: pulse 1.6s ease-in-out infinite;
+      flex-shrink: 0;
     }
     .event-card.arena .live-dot { background: #c4b5fd; }
     .event-card.gar   .live-dot { background: #fb923c; }
@@ -220,12 +221,12 @@ active_event: arena   # arena / gar / kvk / none
     }
     .btn-archive:hover { background: rgba(30,58,95,0.9); }
 
-    .event-card.arena .btn-current { background: rgba(192,132,252,0.25); border: 1px solid rgba(192,132,252,0.6); color: #fff; font-size:14px; padding:9px 20px; }
-    .event-card.arena .btn-current:hover { background: rgba(192,132,252,0.40); }
-    .event-card.gar   .btn-current { background: rgba(251,146,60,0.25);  border: 1px solid rgba(251,146,60,0.6);  color: #fff; font-size:14px; padding:9px 20px; }
-    .event-card.gar   .btn-current:hover { background: rgba(251,146,60,0.40); }
-    .event-card.kvk   .btn-current { background: rgba(251,191,36,0.25);  border: 1px solid rgba(251,191,36,0.6);  color: #fff; font-size:14px; padding:9px 20px; }
-    .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.40); }
+    .event-card.arena .btn-current { background: rgba(192,132,252,0.15); border: 1px solid rgba(192,132,252,0.4); color: #c4b5fd; }
+    .event-card.arena .btn-current:hover { background: rgba(192,132,252,0.25); }
+    .event-card.gar   .btn-current { background: rgba(251,146,60,0.15);  border: 1px solid rgba(251,146,60,0.4);  color: #fb923c; }
+    .event-card.gar   .btn-current:hover { background: rgba(251,146,60,0.25); }
+    .event-card.kvk   .btn-current { background: rgba(251,191,36,0.15);  border: 1px solid rgba(251,191,36,0.4);  color: #fbbf24; }
+    .event-card.kvk   .btn-current:hover { background: rgba(251,191,36,0.25); }
 
     .event-card.report::before { background: linear-gradient(180deg, #34d399, #0891b2); }
     .event-card.report .event-name { color: #6ee7b7; }
@@ -275,7 +276,7 @@ active_event: arena   # arena / gar / kvk / none
         </div>
         <div class="btn-group">
           {% if page.active_event == 'arena' %}
-          <a class="btn btn-current" href="{{ '/arena/' | relative_url }}">▶ 현재시즌</a>
+          <a class="btn btn-current" href="{{ '/arena/' | relative_url }}"><span class="live-dot"></span>현재시즌</a>
           {% endif %}
           <a class="btn btn-archive" href="{{ '/arena/archive/' | relative_url }}">📁 지난시즌</a>
         </div>
@@ -293,7 +294,7 @@ active_event: arena   # arena / gar / kvk / none
         </div>
         <div class="btn-group">
           {% if page.active_event == 'gar' %}
-          <a class="btn btn-current" href="{{ '/gar/' | relative_url }}">▶ 현재시즌</a>
+          <a class="btn btn-current" href="{{ '/gar/' | relative_url }}"><span class="live-dot"></span>현재시즌</a>
           {% endif %}
           <a class="btn btn-archive" href="{{ '/gar/archive/' | relative_url }}">📁 지난시즌</a>
         </div>
@@ -311,7 +312,7 @@ active_event: arena   # arena / gar / kvk / none
         </div>
         <div class="btn-group">
           {% if page.active_event == 'kvk' %}
-          <a class="btn btn-current" href="{{ '/kvk/' | relative_url }}">▶ 현재시즌</a>
+          <a class="btn btn-current" href="{{ '/kvk/' | relative_url }}"><span class="live-dot"></span>현재시즌</a>
           {% endif %}
           <a class="btn btn-archive" href="{{ '/kvk/archive/' | relative_url }}">📁 지난시즌</a>
         </div>
