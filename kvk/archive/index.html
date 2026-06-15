@@ -319,80 +319,146 @@ title: REO KVK Archive
       {% endif %}
     {% endfor %}
 
-    <div class="section-title">📄 시즌 기록</div>
-    <div class="season-grid">
-      {% if file_count > 0 %}
-        {% assign is_first = true %}
+    {% assign s4_cutoff = '2026-06-15' %}
+    {% assign s4_pages = '' %}
+    {% assign s3_pages = '' %}
+    {% assign s4_statics = '' %}
+    {% assign s3_statics = '' %}
 
-        {% for file in page_files_sorted %}
-          {% if file.url contains base_path %}
-            {% assign rest = file.url | remove_first: base_path %}
-            {% assign parts = rest | split: '/' %}
-            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              {% assign fname = file.name | replace: '.html', '' %}
-              {% assign date_parts = fname | split: '_' %}
-              {% if date_parts.size >= 2 %}
-                {% assign d_start = date_parts[0] %}
-                {% assign d_end = date_parts[1] %}
-              {% else %}
-                {% assign d_start = fname %}
-                {% assign d_end = '' %}
-              {% endif %}
-              <div class="season-card{% if is_first %} latest{% endif %}">
-                <div class="card-icon">⚔️</div>
-                <div class="card-body">
-                  <div class="card-dates">
-                    {{ d_start }}
-                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
-                  </div>
-                  <div class="card-sub">KINGDOM DUEL SEASON</div>
-                </div>
-                <div class="card-badges">
-                  {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a>
-                </div>
-              </div>
-              {% assign is_first = false %}
-            {% endif %}
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign fname = file.name | replace: '.html', '' %}
+          {% assign date_parts = fname | split: '_' %}
+          {% assign d_start = date_parts[0] %}
+          {% if d_start >= s4_cutoff %}
+            {% assign s4_pages = s4_pages | append: '|' | append: file.url %}
+          {% else %}
+            {% assign s3_pages = s3_pages | append: '|' | append: file.url %}
           {% endif %}
-        {% endfor %}
-
-        {% for file in static_files_sorted %}
-          {% if file.path contains base_path %}
-            {% assign rest = file.path | remove_first: base_path %}
-            {% assign parts = rest | split: '/' %}
-            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              {% assign fname = file.name | replace: '.html', '' %}
-              {% assign date_parts = fname | split: '_' %}
-              {% if date_parts.size >= 2 %}
-                {% assign d_start = date_parts[0] %}
-                {% assign d_end = date_parts[1] %}
-              {% else %}
-                {% assign d_start = fname %}
-                {% assign d_end = '' %}
-              {% endif %}
-              <div class="season-card{% if is_first %} latest{% endif %}">
-                <div class="card-icon">⚔️</div>
-                <div class="card-body">
-                  <div class="card-dates">
-                    {{ d_start }}
-                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
-                  </div>
-                  <div class="card-sub">KINGDOM DUEL SEASON</div>
-                </div>
-                <div class="card-badges">
-                  {% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <a class="badge-view" href="{{ file.path | relative_url }}">보기 →</a>
-                </div>
-              </div>
-              {% assign is_first = false %}
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        <div class="empty">아직 저장된 기록이 없습니다.</div>
+        {% endif %}
       {% endif %}
-    </div>
+    {% endfor %}
+
+    {% for file in static_files_sorted %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign fname = file.name | replace: '.html', '' %}
+          {% assign date_parts = fname | split: '_' %}
+          {% assign d_start = date_parts[0] %}
+          {% if d_start >= s4_cutoff %}
+            {% assign s4_statics = s4_statics | append: '|' | append: file.path %}
+          {% else %}
+            {% assign s3_statics = s3_statics | append: '|' | append: file.path %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign s4_page_arr = s4_pages | split: '|' | where_exp: "f", "f != ''" %}
+    {% assign s3_page_arr = s3_pages | split: '|' | where_exp: "f", "f != ''" %}
+    {% assign s4_static_arr = s4_statics | split: '|' | where_exp: "f", "f != ''" %}
+    {% assign s3_static_arr = s3_statics | split: '|' | where_exp: "f", "f != ''" %}
+
+    {% assign has_s4 = false %}
+    {% if s4_page_arr.size > 0 or s4_static_arr.size > 0 %}{% assign has_s4 = true %}{% endif %}
+    {% assign has_s3 = false %}
+    {% if s3_page_arr.size > 0 or s3_static_arr.size > 0 %}{% assign has_s3 = true %}{% endif %}
+
+    {% if has_s4 == false and has_s3 == false %}
+      <div class="section-title">📄 시즌 기록</div>
+      <div class="season-grid"><div class="empty">아직 저장된 기록이 없습니다.</div></div>
+    {% endif %}
+
+    {% if has_s4 %}
+      <div class="section-title">🌊 시즌 4 · 해일의 분노</div>
+      <div class="season-grid">
+        {% assign is_first = true %}
+        {% for furl in s4_page_arr %}
+          {% for file in page_files_sorted %}
+            {% if file.url == furl %}
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% assign d_start = date_parts[0] %}{% assign d_end = date_parts[1] %}
+              <div class="season-card{% if is_first %} latest{% endif %}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">{% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}<a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a></div>
+              </div>
+              {% assign is_first = false %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for fpath in s4_static_arr %}
+          {% for file in static_files_sorted %}
+            {% if file.path == fpath %}
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% assign d_start = date_parts[0] %}{% assign d_end = date_parts[1] %}
+              <div class="season-card{% if is_first %} latest{% endif %}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">{% if is_first %}<span class="badge-latest">LATEST</span>{% endif %}<a class="badge-view" href="{{ file.path | relative_url }}">보기 →</a></div>
+              </div>
+              {% assign is_first = false %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if has_s3 %}
+      <div class="section-title" style="margin-top:{% if has_s4 %}28px{% else %}0{% endif %}">🗂️ 시즌 3</div>
+      <div class="season-grid">
+        {% assign is_first = true %}
+        {% for furl in s3_page_arr %}
+          {% for file in page_files_sorted %}
+            {% if file.url == furl %}
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% assign d_start = date_parts[0] %}{% assign d_end = date_parts[1] %}
+              <div class="season-card{% if is_first and has_s4 == false %} latest{% endif %}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">{% if is_first and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}<a class="badge-view" href="{{ file.url | relative_url }}">보기 →</a></div>
+              </div>
+              {% assign is_first = false %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for fpath in s3_static_arr %}
+          {% for file in static_files_sorted %}
+            {% if file.path == fpath %}
+              {% assign fname = file.name | replace: '.html', '' %}
+              {% assign date_parts = fname | split: '_' %}
+              {% assign d_start = date_parts[0] %}{% assign d_end = date_parts[1] %}
+              <div class="season-card{% if is_first and has_s4 == false %} latest{% endif %}">
+                <div class="card-icon">⚔️</div>
+                <div class="card-body">
+                  <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                  <div class="card-sub">KINGDOM DUEL SEASON</div>
+                </div>
+                <div class="card-badges">{% if is_first and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}<a class="badge-view" href="{{ file.path | relative_url }}">보기 →</a></div>
+              </div>
+              {% assign is_first = false %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
     <div class="footer">총 <strong>{{ file_count }}</strong>개 시즌 기록</div>
   </div>
