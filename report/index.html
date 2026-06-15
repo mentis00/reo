@@ -92,8 +92,11 @@ body{background:#0a1a12;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 .chk-lbl.al{color:#c4b5fd}
 .chk-lbl.gl{color:#fb923c}
 .no-data{font-size:13px;color:rgba(255,255,255,0.2);padding:8px 0}
-.season-group-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.05);margin-top:6px}
+.season-group-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:8px 0 4px;border-top:1px solid rgba(255,255,255,0.05);margin-top:6px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;-webkit-user-select:none}
 .season-group-label:first-child{border-top:0;margin-top:0;padding-top:2px}
+.season-group-label:hover{color:rgba(255,255,255,0.38)}
+.season-group-arrow{font-size:9px;transition:transform .2s;display:inline-block}
+.season-group-items.collapsed{display:none}
 .apply-btn{
   display:block;width:100%;
   background:linear-gradient(135deg,#059669,#0d9488);
@@ -342,6 +345,14 @@ function onChkChange(){
 var S4_CUTOFF = '2026-06-15';
 var SEASON_LABELS = {s4:'🌊 시즌 4', s3:'🗂️ 시즌 3'};
 
+function toggleSeasonGroup(label){
+  var items = label.nextElementSibling;
+  if(!items) return;
+  var collapsed = items.classList.toggle('collapsed');
+  var arrow = label.querySelector('.season-group-arrow');
+  if(arrow) arrow.style.transform = collapsed ? 'rotate(-90deg)' : '';
+}
+
 function buildSeasonList(paths, cls, labelFn){
   if(!paths.length) return '<div class="no-data">데이터 없음</div>';
   var sorted = paths.slice().sort().reverse();
@@ -352,11 +363,13 @@ function buildSeasonList(paths, cls, labelFn){
   if(s4.length) groups.push({label: SEASON_LABELS.s4, items: s4});
   if(s3.length) groups.push({label: SEASON_LABELS.s3, items: s3});
   groups.forEach(function(g){
-    html += '<div class="season-group-label">'+g.label+'</div>';
+    html += '<div class="season-group-label" onclick="toggleSeasonGroup(this)"><span>'+g.label+'</span><span class="season-group-arrow">▼</span></div>';
+    html += '<div class="season-group-items">';
     html += g.items.map(function(p){
       var d = extractStartDate(p);
       return '<label class="chk-item"><input type="checkbox" class="'+cls+'" data-path="'+p+'" onchange="onChkChange()"><span class="chk-lbl '+(cls==='arena-chk'?'al':'gl')+'">'+labelFn(d)+'</span></label>';
     }).join('');
+    html += '</div>';
   });
   return html;
 }
