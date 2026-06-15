@@ -39,11 +39,12 @@ active_event: none   # arena / gar / kvk / none
       position: fixed;
       top: -200px; left: 50%;
       transform: translateX(-50%);
-      width: 800px; height: 500px;
+      width: 900px; height: 560px;
       background: radial-gradient(ellipse,
-        rgba(139,92,246,0.06) 0%,
-        rgba(249,115,22,0.04) 40%,
-        transparent 70%);
+        rgba(14,165,233,0.07) 0%,
+        rgba(6,182,212,0.05) 35%,
+        rgba(139,92,246,0.03) 65%,
+        transparent 75%);
       pointer-events: none;
       z-index: 0;
     }
@@ -70,7 +71,7 @@ active_event: none   # arena / gar / kvk / none
       font-weight: 700;
       letter-spacing: 12px;
       line-height: 1;
-      background: linear-gradient(135deg, #e2d9f3 0%, #a78bfa 40%, #38bdf8 100%);
+      background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 40%, #06b6d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -233,6 +234,54 @@ active_event: none   # arena / gar / kvk / none
     .event-card.report .btn-report { background: rgba(52,211,153,0.10); border: 1px solid rgba(52,211,153,0.28); color: #6ee7b7; }
     .event-card.report:hover .btn-report { background: rgba(52,211,153,0.22); }
 
+    .season-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      margin-bottom: 28px;
+      background: rgba(6,182,212,0.05);
+      border: 1px solid rgba(6,182,212,0.15);
+      border-radius: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .season-banner-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .season-banner-text {
+      flex: 1;
+    }
+
+    .season-banner-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 2px;
+    }
+
+    .season-banner-period {
+      font-size: 11px;
+      color: rgba(56,189,248,0.4);
+      margin-top: 1px;
+    }
+
+    .season-banner-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(6,182,212,0.12);
+      color: #22d3ee;
+      border: 1px solid rgba(6,182,212,0.25);
+      white-space: nowrap;
+    }
+
     .footer {
       margin-top: 48px;
       padding-top: 20px;
@@ -260,6 +309,15 @@ active_event: none   # arena / gar / kvk / none
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-sub">Top Heroes · Guild</div>
+    </div>
+
+    <div class="season-banner">
+      <div class="season-banner-icon">🌊</div>
+      <div class="season-banner-text">
+        <div class="season-banner-name">SEASON 4 · 해일의 분노</div>
+        <div class="season-banner-period">2026.06.15 ~</div>
+      </div>
+      <span class="season-banner-badge">진행중</span>
     </div>
 
     <div class="events">
