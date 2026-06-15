@@ -434,30 +434,70 @@ title: REO Arena Archive
       {% endif %}
     {% endfor %}
 
+    {% assign s4_cutoff = '2026-06-15' %}
     {% assign folder_array = folder_string | split: '|' | sort | reverse %}
     {% assign folder_array_clean = folder_array | where_exp: "f", "f != ''" %}
 
-    {% if folder_array_clean.size > 0 %}
-      <div class="section-title">📁 시즌 기록</div>
-      <div class="folder-grid">
-        {% assign is_first_folder = true %}
-        {% for folder in folder_array %}
-          {% if folder != '' %}
+    {% assign s4_folders = '' %}
+    {% assign s3_folders = '' %}
+    {% for folder in folder_array_clean %}
+      {% assign date_parts = folder | split: '_' %}
+      {% assign d_start = date_parts[0] %}
+      {% if d_start >= s4_cutoff %}
+        {% assign s4_folders = s4_folders | append: '|' | append: folder %}
+      {% else %}
+        {% assign s3_folders = s3_folders | append: '|' | append: folder %}
+      {% endif %}
+    {% endfor %}
+    {% assign s4_folder_arr = s4_folders | split: '|' | where_exp: "f", "f != ''" %}
+    {% assign s3_folder_arr = s3_folders | split: '|' | where_exp: "f", "f != ''" %}
+
+    {% assign s4_file_arr = '' %}
+    {% assign s3_file_arr = '' %}
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign fname = file.name | replace: '.html', '' %}
+          {% assign date_parts = fname | split: '_' %}
+          {% assign d_start = date_parts[0] %}
+          {% if d_start >= s4_cutoff %}
+            {% assign s4_file_arr = s4_file_arr | append: '|' | append: file.url %}
+          {% else %}
+            {% assign s3_file_arr = s3_file_arr | append: '|' | append: file.url %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign has_s4 = false %}
+    {% if s4_folder_arr.size > 0 or s4_file_arr != '' %}{% assign has_s4 = true %}{% endif %}
+    {% assign has_s3 = false %}
+    {% if s3_folder_arr.size > 0 or s3_file_arr != '' %}{% assign has_s3 = true %}{% endif %}
+
+    {% if has_s4 == false and has_s3 == false %}
+      <div class="section-title">📄 시즌 기록</div>
+      <div class="season-grid">
+        <div class="empty">아직 저장된 기록이 없습니다.</div>
+      </div>
+    {% endif %}
+
+    {% if has_s4 %}
+      <div class="section-title">🌊 시즌 4 · 해일의 분노</div>
+      {% if s4_folder_arr.size > 0 %}
+        <div class="folder-grid">
+          {% assign is_first_folder = true %}
+          {% for folder in s4_folder_arr %}
             {% assign date_parts = folder | split: '_' %}
-            {% if date_parts.size >= 2 %}
-              {% assign d_start = date_parts[0] %}
-              {% assign d_end = date_parts[1] %}
-            {% else %}
-              {% assign d_start = folder %}
-              {% assign d_end = '' %}
-            {% endif %}
+            {% assign d_start = date_parts[0] %}
+            {% assign d_end = date_parts[1] %}
             <a class="folder-card{% if is_first_folder %} latest{% endif %}"
                href="{{ base_path | append: folder | append: '/' | relative_url }}">
               <div class="folder-icon">📁</div>
               <div class="folder-body">
                 <div class="folder-dates">
-                  {{ d_start }}
-                  {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  {{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
                 </div>
                 <div class="folder-sub">SEASON FOLDER</div>
               </div>
@@ -467,56 +507,96 @@ title: REO Arena Archive
               </div>
             </a>
             {% assign is_first_folder = false %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {% if file_count > 0 %}
-      <div class="section-title">📄 파일</div>
-      <div class="season-grid">
-        {% assign is_first_file = true %}
-        {% for file in page_files_sorted %}
-          {% if file.url contains base_path %}
-            {% assign rest = file.url | remove_first: base_path %}
-            {% assign parts = rest | split: '/' %}
-            {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
-              {% assign fname = file.name | replace: '.html', '' %}
-              {% assign date_parts = fname | split: '_' %}
-              {% if date_parts.size >= 2 %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% assign s4_file_list = s4_file_arr | split: '|' | where_exp: "f", "f != ''" %}
+      {% if s4_file_list.size > 0 %}
+        <div class="season-grid" style="margin-top:12px">
+          {% assign is_first_file = true %}
+          {% for furl in s4_file_list %}
+            {% for file in page_files_sorted %}
+              {% if file.url == furl %}
+                {% assign fname = file.name | replace: '.html', '' %}
+                {% assign date_parts = fname | split: '_' %}
                 {% assign d_start = date_parts[0] %}
                 {% assign d_end = date_parts[1] %}
-              {% else %}
-                {% assign d_start = fname %}
-                {% assign d_end = '' %}
-              {% endif %}
-              <a class="season-card{% if is_first_file %} latest{% endif %}"
-                 href="{{ file.url | relative_url }}">
-                <div class="card-icon">📄</div>
-                <div class="card-body">
-                  <div class="card-dates">
-                    {{ d_start }}
-                    {% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                <a class="season-card{% if is_first_file %} latest{% endif %}"
+                   href="{{ file.url | relative_url }}">
+                  <div class="card-icon">📄</div>
+                  <div class="card-body">
+                    <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                    <div class="card-sub">GUILD ARENA SEASON</div>
                   </div>
-                  <div class="card-sub">GUILD ARENA SEASON</div>
-                </div>
-                <div class="card-badges">
-                  {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
-                  <span class="badge-view">보기 →</span>
-                </div>
-              </a>
-              {% assign is_first_file = false %}
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      </div>
+                  <div class="card-badges">
+                    {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
+                    <span class="badge-view">보기 →</span>
+                  </div>
+                </a>
+                {% assign is_first_file = false %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
     {% endif %}
 
-    {% if folder_array_clean.size == 0 and file_count == 0 %}
-      <div class="section-title">📄 시즌 기록</div>
-      <div class="season-grid">
-        <div class="empty">아직 저장된 기록이 없습니다.</div>
-      </div>
+    {% if has_s3 %}
+      <div class="section-title" style="margin-top:{% if has_s4 %}28px{% else %}0{% endif %}">🗂️ 시즌 3</div>
+      {% if s3_folder_arr.size > 0 %}
+        <div class="folder-grid">
+          {% assign is_first_folder = true %}
+          {% for folder in s3_folder_arr %}
+            {% assign date_parts = folder | split: '_' %}
+            {% assign d_start = date_parts[0] %}
+            {% assign d_end = date_parts[1] %}
+            <a class="folder-card{% if is_first_folder and has_s4 == false %} latest{% endif %}"
+               href="{{ base_path | append: folder | append: '/' | relative_url }}">
+              <div class="folder-icon">📁</div>
+              <div class="folder-body">
+                <div class="folder-dates">
+                  {{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                </div>
+                <div class="folder-sub">SEASON FOLDER</div>
+              </div>
+              <div class="folder-right">
+                {% if is_first_folder and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
+                <span class="badge-view">열기 →</span>
+              </div>
+            </a>
+            {% assign is_first_folder = false %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% assign s3_file_list = s3_file_arr | split: '|' | where_exp: "f", "f != ''" %}
+      {% if s3_file_list.size > 0 %}
+        <div class="season-grid" style="margin-top:12px">
+          {% assign is_first_file = true %}
+          {% for furl in s3_file_list %}
+            {% for file in page_files_sorted %}
+              {% if file.url == furl %}
+                {% assign fname = file.name | replace: '.html', '' %}
+                {% assign date_parts = fname | split: '_' %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+                <a class="season-card{% if is_first_file and has_s4 == false %} latest{% endif %}"
+                   href="{{ file.url | relative_url }}">
+                  <div class="card-icon">📄</div>
+                  <div class="card-body">
+                    <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                    <div class="card-sub">GUILD ARENA SEASON</div>
+                  </div>
+                  <div class="card-badges">
+                    {% if is_first_file and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
+                    <span class="badge-view">보기 →</span>
+                  </div>
+                </a>
+                {% assign is_first_file = false %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
     {% endif %}
 
     <div class="footer">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
