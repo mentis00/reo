@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Generator — REO</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:'Noto Sans KR',sans-serif;background:#07101e;color:#eef2ff;min-height:100vh;padding:20px}
+.wrap{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:540px minmax(0,1fr);gap:20px}
+.panel,.preview{background:rgba(14,22,44,.97);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
+.p-head{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08);font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:space-between}
+.p-body{padding:18px;display:flex;flex-direction:column;gap:14px}
+.section{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px}
+.sec-title{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.arena-t{color:#c084fc}.gar-t{color:#fb923c}.mission-t{color:#34d399}
+label{display:block;font-size:12px;color:#9fb8e0;margin-bottom:5px}
+input,select{width:100%;border:1px solid rgba(255,255,255,.09);background:#0c1428;color:#eef2ff;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;font-family:'Noto Sans KR',sans-serif}
+.btn{border:0;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap}
+.btn-p{background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff}
+.btn-a{background:rgba(192,132,252,.15);color:#c4b5fd;border:1px solid rgba(192,132,252,.3)}
+.btn-g{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
+.btn-s{background:#172343;color:#c8d8ff;border:1px solid rgba(255,255,255,.08)}
+.btn-d{background:#3a1620;color:#f87171;border:1px solid rgba(255,255,255,.08)}
+.btn-dl{background:linear-gradient(135deg,#059669,#0d9488);color:#fff}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px}
+.hint{font-size:11px;color:#6a80b0;line-height:1.6;margin-top:4px}
+.badge{font-size:11px;padding:3px 9px;border-radius:999px;background:#1a274b;color:#c8d8ff}
+.file-input{display:none}
+.divider{border:0;border-top:1px solid rgba(255,255,255,.06);margin:2px 0}
+/* 미션 멤버 테이블 */
+.mission-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.mission-table th{background:#14203d;padding:6px 8px;font-size:11px;text-align:left;position:sticky;top:0}
+.mission-table td{padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.mission-table-wrap{max-height:340px;overflow-y:auto;border:1px solid rgba(255,255,255,.08);border-radius:10px}
+.cnt-cell{display:flex;align-items:center;gap:6px}
+.cnt-btn{width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:#0c1428;color:#eef2ff;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.cnt-btn:hover{background:#1a2a4a}
+.cnt-val{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;width:22px;text-align:center;color:#fcd34d}
+.cnt-val.zero{color:rgba(255,255,255,.25)}
+/* 시즌 목록 */
+.season-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:8px 12px;font-size:12px}
+/* 프리뷰 */
+.preview-scroll{height:calc(100vh - 40px);overflow:auto;padding:20px;background:#06101c;position:sticky;top:0}
+.empty-msg{color:rgba(255,255,255,.2);text-align:center;padding:60px 20px;font-size:14px}
+/* 다운로드 패널 */
+.dl-box{background:rgba(5,150,105,.06);border:1px solid rgba(5,150,105,.2);border-radius:14px;padding:14px 16px}
+.dl-title{font-size:12px;font-weight:800;color:#34d399;letter-spacing:1px;margin-bottom:10px}
+/* 리포트 프리뷰 공통 */
+.rpt{font-family:'Noto Sans KR',sans-serif;color:#eef2ff}
+.rpt-h{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:10px}
+.rpt-guild{font-family:'Rajdhani',sans-serif;font-size:44px;font-weight:700;letter-spacing:8px;background:linear-gradient(135deg,#c084fc,#818cf8,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.rpt-meta{font-size:12px;color:rgba(255,255,255,.35);line-height:1.8;text-align:right}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{padding:7px 12px;border-radius:10px;font-size:11px;border:1px solid;display:flex;flex-direction:column;gap:2px}
+.chip.ac{background:rgba(192,132,252,.07);border-color:rgba(192,132,252,.25);color:#c4b5fd}
+.chip.gc{background:rgba(251,146,60,.07);border-color:rgba(251,146,60,.25);color:#fb923c}
+.chip .cl{font-size:9px;opacity:.55;letter-spacing:1px;font-weight:800}
+.chip .cv{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px;text-align:center}
+.stat .sv{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1}
+.stat .sl{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+/* 소트 버튼 */
+.sort-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.sort-btn{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#c8d8ff;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
+.sort-btn.active{background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.4);color:#c4b5fd}
+/* 멤버 행 */
+.rpt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.rpt-row{background:rgba(255,255,255,.025);border:1px solid rgba(255,80,80,.15);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;min-width:0;background:rgba(255,40,40,.04)}
+.rpt-no{font-family:'Rajdhani',sans-serif;font-size:11px;color:rgba(255,255,255,.2);width:18px;text-align:right;flex-shrink:0}
+.rpt-name{flex:1;font-size:13px;font-weight:700;color:#e2d9f3;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rpt-scores{display:flex;gap:5px;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.sc-badge{font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;white-space:nowrap;line-height:1.3}
+.sc-badge.arena-b{background:rgba(192,132,252,.12);color:#c4b5fd;border:1px solid rgba(192,132,252,.25)}
+.sc-badge.gar-b{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.25)}
+.sc-badge.mis-b{background:rgba(252,211,77,.12);color:#fcd34d;border:1px solid rgba(252,211,77,.25)}
+.rpt-viol{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;width:26px;text-align:center;flex-shrink:0;color:#f87171}
+.rpt-footer{margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:rgba(255,255,255,.2);text-align:right}
+@media(max-width:1200px){.wrap{grid-template-columns:1fr}.preview-scroll{height:auto;position:static}}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.rpt-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── 입력 패널 ── -->
+<section class="panel">
+  <div class="p-head">
+    <span>📊 Report Generator</span>
+    <span class="badge">REO</span>
+  </div>
+  <div class="p-body">
+
+    <!-- Arena -->
+    <div class="section">
+      <div class="sec-title arena-t">🏟️ Guild Arena</div>
+      <div class="btn-row">
+        <button class="btn btn-a" onclick="document.getElementById('arenaFile').click()">📂 JSON 불러오기</button>
+        <button class="btn btn-d" onclick="clearArena()">✕ 초기화</button>
+      </div>
+      <input class="file-input" id="arenaFile" type="file" accept=".json" multiple onchange="loadArenaFiles(this)">
+      <div id="arenaSeasonList" style="display:flex;flex-direction:column;gap:6px;margin-top:8px"></div>
+      <p id="arenaHint" class="hint">Arena JSON을 업로드하면 멤버 목록이 자동 생성됩니다.</p>
+    </div>
+
+    <!-- GAR -->
+    <div class="section">
+      <div class="sec-title gar-t">⚔️ Guild Arms Race</div>
+      <div class="btn-row">
+        <button class="btn btn-g" onclick="document.getElementById('garFile').click()">📂 JSON 추가</button>
+        <button class="btn btn-d" onclick="clearGar()">✕ 초기화</button>
+      </div>
+      <input class="file-input" id="garFile" type="file" accept=".json" multiple onchange="loadGarFiles(this)">
+      <div id="garSeasonList" style="display:flex;flex-direction:column;gap:6px;margin-top:8px"></div>
+      <p class="hint">여러 시즌 추가 가능. GAR JSON은 members[].days[] 구조여야 합니다.</p>
+    </div>
+
+    <!-- 공동미션 수동 입력 -->
+    <div class="section">
+      <div class="sec-title mission-t">🎯 공동미션 보유시간 위반</div>
+      <p class="hint" style="margin-bottom:8px">Arena JSON 업로드 후 멤버 목록이 표시됩니다. 각 멤버의 위반 횟수를 입력하세요 (30분 이상 보유 = 1회).</p>
+      <input id="missionSearch" type="text" placeholder="🔍 멤버 검색..." oninput="filterMissionTable(this.value)" style="margin-bottom:8px;display:none">
+      <div id="missionTableWrap">
+        <p class="hint" style="color:rgba(255,255,255,.2)">Arena JSON을 먼저 업로드해주세요.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 다운로드 -->
+    <div class="dl-box">
+      <div class="dl-title">⬇ 저장 (분리 저장)</div>
+      <div class="btn-row">
+        <button class="btn btn-dl" onclick="downloadArenaJson()">Arena JSON 저장</button>
+        <button class="btn btn-dl" onclick="downloadGarJson()">GAR JSON 저장</button>
+      </div>
+      <p class="hint" style="margin-top:8px">
+        • <b>Arena JSON</b> → <code>/report/arena-YYYY-MM-DD.json</code><br>
+        • <b>GAR JSON</b> → <code>/report/gar-YYYY-MM-DD.json</code><br>
+        각 파일을 GitHub의 <code>/report/</code> 폴더에 업로드하세요.
+      </p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="buildPreview()">👁 미리보기 갱신</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 미리보기 ── -->
+<section class="preview">
+  <div class="p-head" style="font-size:14px">
+    <span>📋 리포트 미리보기</span>
+    <span class="badge" id="previewBadge">데이터 없음</span>
+  </div>
+  <div class="preview-scroll" id="previewRoot">
+    <div class="empty-msg">Arena JSON을 업로드하면 분석이 표시됩니다.</div>
+  </div>
+</section>
+
+</div>
+
+<script>
+var arenaSeasons = [];  // [{season, seasonStart, seasonEnd, goalScore, members:[{name,score}]}]
+var garSeasons   = [];  // [{season, seasonStart, goalScore, members:[{name,days:[]}]}]
+var missionData  = {};  // {name: count}  위반 횟수
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── Arena ──
+function loadArenaFiles(inp){
+  var files = Array.from(inp.files); if(!files.length) return;
+  var pending = files.length;
+  files.forEach(function(f){
+    var r = new FileReader();
+    r.onload = function(e){
+      try{
+        var d = JSON.parse(e.target.result);
+        var key = d.season || d.seasonStart || f.name;
+        if(!arenaSeasons.find(function(s){ return (s.season||s.seasonStart)===key; })){
+          arenaSeasons.push(d);
+        }
+      }catch(err){ alert(f.name+' 파싱 오류'); }
+      if(--pending===0){ renderArenaList(); rebuildMissionTable(); buildPreview(); }
+    };
+    r.readAsText(f);
+  });
+  inp.value='';
+}
+function clearArena(){
+  arenaSeasons=[]; missionData={};
+  renderArenaList(); rebuildMissionTable(); buildPreview();
+}
+function renderArenaList(){
+  var box = $('arenaSeasonList');
+  box.innerHTML = arenaSeasons.map(function(s,i){
+    var lbl = seasonLabel(s, 'arena') || 'Arena '+(i+1);
+    var mc  = (s.members||[]).length;
+    return '<div class="season-item">'
+      +'<span style="color:#c4b5fd;flex:1;font-family:Rajdhani,sans-serif;font-size:14px;font-weight:700">🏟️ '+esc(lbl)+'</span>'
+      +'<span style="color:rgba(255,255,255,.3);font-size:11px">'+mc+'명</span>'
+      +'<button class="btn btn-d" style="padding:4px 8px;font-size:11px" onclick="removeArena('+i+')">✕</button>'
+      +'</div>';
+  }).join('');
+  $('arenaHint').style.display = arenaSeasons.length ? 'none' : 'block';
+}
+function removeArena(i){ arenaSeasons.splice(i,1); renderArenaList(); rebuildMissionTable(); buildPreview(); }
+
+// ── GAR ──
+function loadGarFiles(inp){
+  var files = Array.from(inp.files); if(!files.length) return;
+  var pending = files.length;
+  files.forEach(function(f){
+    var r = new FileReader();
+    r.onload = function(e){
+      try{
+        var d = JSON.parse(e.target.result);
+        var key = d.season || d.seasonStart || f.name;
+        if(!garSeasons.find(function(s){ return (s.season||s.seasonStart)===key; })){
+          garSeasons.push(d);
+        }
+      }catch(err){ alert(f.name+' 파싱 오류'); }
+      if(--pending===0){ renderGarList(); buildPreview(); }
+    };
+    r.readAsText(f);
+  });
+  inp.value='';
+}
+function clearGar(){ garSeasons=[]; renderGarList(); buildPreview(); }
+function renderGarList(){
+  var box = $('garSeasonList');
+  box.innerHTML = garSeasons.map(function(s,i){
+    var lbl = seasonLabel(s, 'gar') || 'GAR '+(i+1);
+    var mc  = (s.members||[]).length;
+    return '<div class="season-item">'
+      +'<span style="color:#fb923c;flex:1;font-family:Rajdhani,sans-serif;font-size:14px;font-weight:700">⚔️ '+esc(lbl)+'</span>'
+      +'<span style="color:rgba(255,255,255,.3);font-size:11px">'+mc+'명</span>'
+      +'<button class="btn btn-d" style="padding:4px 8px;font-size:11px" onclick="removeGar('+i+')">✕</button>'
+      +'</div>';
+  }).join('');
+}
+function removeGar(i){ garSeasons.splice(i,1); renderGarList(); buildPreview(); }
+
+// ── 공동미션 테이블 ──
+function getMemberList(){
+  var names = [];
+  // Arena 우선, 없으면 GAR에서 추출
+  var sources = arenaSeasons.length ? arenaSeasons : garSeasons;
+  sources.forEach(function(s){
+    (s.members||[]).forEach(function(m){
+      if(m.name && !names.includes(m.name)) names.push(m.name);
+    });
+  });
+  return names;
+}
+
+function rebuildMissionTable(){
+  var names = getMemberList();
+  var wrap = $('missionTableWrap');
+  if(!names.length){
+    wrap.innerHTML = '<p class="hint" style="color:rgba(255,255,255,.2)">Arena 또는 GAR JSON을 먼저 업로드해주세요.</p>';
+    return;
+  }
+  // 기존 값 유지, 새 멤버는 0으로
+  names.forEach(function(n){ if(!missionData.hasOwnProperty(n)) missionData[n]=0; });
+  // 없어진 멤버 제거
+  Object.keys(missionData).forEach(function(n){ if(!names.includes(n)) delete missionData[n]; });
+
+  var rows = names.map(function(name){
+    var v = missionData[name]||0;
+    return '<tr>'
+      +'<td style="font-size:13px;font-weight:700;color:#e2d9f3">'+esc(name)+'</td>'
+      +'<td><div class="cnt-cell">'
+      +'<button class="cnt-btn" onclick="changeMission(\''+escAttr(name)+'\',-1)">－</button>'
+      +'<span class="cnt-val'+(v===0?' zero':'')+'" id="mv_'+escId(name)+'">'+v+'</span>'
+      +'<button class="cnt-btn" onclick="changeMission(\''+escAttr(name)+'\',1)">＋</button>'
+      +'</div></td>'
+      +'<td style="font-size:11px;color:'+(v>0?'#f87171':'rgba(255,255,255,.25)')+'">'+
+        (v===0?'정상':v+'회 위반')+'</td>'
+      +'</tr>';
+  }).join('');
+
+  wrap.innerHTML = '<div class="mission-table-wrap">'
+    +'<table class="mission-table">'
+    +'<thead><tr><th>멤버</th><th style="width:120px">위반 횟수</th><th>상태</th></tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table></div>';
+
+  // 검색창 표시
+  var searchEl = $('missionSearch');
+  searchEl.style.display = 'block';
+  searchEl.value = '';
+}
+
+function filterMissionTable(q){
+  var keyword = q.trim().toLowerCase();
+  var rows = document.querySelectorAll('.mission-table tbody tr');
+  rows.forEach(function(row){
+    var name = row.cells[0] ? row.cells[0].textContent.toLowerCase() : '';
+    row.style.display = (!keyword || name.includes(keyword)) ? '' : 'none';
+  });
+}
+
+function escAttr(s){ return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function escId(s){ return s.replace(/[^a-zA-Z0-9가-힣]/g,'_'); }
+
+function changeMission(name, delta){
+  if(!missionData.hasOwnProperty(name)) missionData[name]=0;
+  missionData[name] = Math.max(0, (missionData[name]||0) + delta);
+  // 해당 셀만 업데이트
+  var el = document.getElementById('mv_'+escId(name));
+  if(el){
+    el.textContent = missionData[name];
+    el.className = 'cnt-val' + (missionData[name]===0?' zero':'');
+    el.parentElement.parentElement.parentElement.cells[2].style.color = missionData[name]>0?'#f87171':'rgba(255,255,255,.25)';
+    el.parentElement.parentElement.parentElement.cells[2].textContent = missionData[name]===0?'정상':missionData[name]+'회 위반';
+  }
+  buildPreview();
+}
+
+// ── 날짜 헬퍼 ──
+function parseDate(str){
+  var m = str.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return null;
+  return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+}
+function fmtDate(d){
+  var y=d.getFullYear(), mo=String(d.getMonth()+1).padStart(2,'0'), dd=String(d.getDate()).padStart(2,'0');
+  return y+'-'+mo+'-'+dd;
+}
+function addDays(d, n){ var r=new Date(d); r.setDate(r.getDate()+n); return r; }
+function seasonLabel(s, type){
+  // seasonStart 우선, 없으면 season 앞부분 추출
+  var start = s.seasonStart || (s.season||'').replace(/_.*$/,'');
+  if(!start) return s.season||'';
+  var d = parseDate(start);
+  if(!d) return start;
+  var end = fmtDate(addDays(d, type==='gar' ? 6 : 7));
+  return start + ' ~ ' + end;
+}
+
+// ── 데이터 계산 ──
+function calcReport(){
+  // Arena + GAR 멤버 합집합
+  var members = getMemberList();
+  // GAR에만 있는 멤버도 포함
+  garSeasons.forEach(function(s){
+    (s.members||[]).forEach(function(m){
+      if(m.name && !members.includes(m.name)) members.push(m.name);
+    });
+  });
+  if(!members.length) return [];
+
+  return members.map(function(name){
+    var r = {name:name, arenaFail:0, arenaTotal:0, arenaFailScores:[], missionViol:0, garFail:0, garTotal:0, garFailScores:[]};
+
+    // Arena: 참여한 시즌만 카운트
+    arenaSeasons.forEach(function(s){
+      var goal = Number(s.goalScore||7000);
+      var m = (s.members||[]).find(function(m){ return m.name===name; });
+      if(!m) return; // 미참여 시즌 제외
+      r.arenaTotal++;
+      if(Number(m.score||0) < goal){
+        r.arenaFail++;
+        r.arenaFailScores.push(Number(m.score||0));
+      }
+    });
+
+    // 공동미션
+    r.missionViol = missionData[name]||0;
+
+    // GAR: 참여한 시즌만 카운트
+    garSeasons.forEach(function(s){
+      var goal = Number(s.goalScore||1500000);
+      var m = (s.members||[]).find(function(m){ return m.name===name; });
+      if(!m) return; // 미참여 시즌 제외
+      var days = m.days||[0,0,0,0,0,0];
+      for(var d=0;d<6;d++){
+        r.garTotal++;
+        var sc = Number(days[d]||0);
+        if(sc < goal){
+          r.garFail++;
+          r.garFailScores.push(sc);
+        }
+      }
+    });
+
+    // 총 위반
+    r.totalViol = r.arenaFail + r.missionViol + r.garFail;
+    // 평균
+    r.arenaFailAvg = r.arenaFailScores.length ? Math.round(r.arenaFailScores.reduce(function(a,b){return a+b;},0)/r.arenaFailScores.length) : 0;
+    r.garFailAvg   = r.garFailScores.length   ? Math.round(r.garFailScores.reduce(function(a,b){return a+b;},0)/r.garFailScores.length)   : 0;
+
+    return r;
+  });
+}
+
+// ── 미리보기 ──
+var currentSort = 'total';
+function buildPreview(){
+  var hasData = arenaSeasons.length > 0 || garSeasons.length > 0;
+  if(!hasData){
+    $('previewRoot').innerHTML = '<div class="empty-msg">Arena 또는 GAR JSON을 업로드하면 분석이 표시됩니다.</div>';
+    $('previewBadge').textContent = '데이터 없음';
+    return;
+  }
+  var report = calcReport();
+  var violators = report.filter(function(r){ return r.totalViol > 0; });
+  $('previewBadge').textContent = '전체 '+report.length+'명 · 위반 '+violators.length+'명';
+  if(!violators.length){
+    $('previewRoot').innerHTML = '<div class="empty-msg" style="color:#34d399">✅ 위반자 없음</div>';
+    return;
+  }
+  $('previewRoot').innerHTML = renderReport(violators, report.length, currentSort);
+}
+
+function btnSort(key, active, label){
+  var cls = 'sort-btn' + (active===key ? ' active' : '');
+  return '<button class="' + cls + '" onclick="setSort(\'' + key + '\')">'+label+'</button>';
+}
+function renderReport(violators, totalCount, sortKey){
+  // 소트
+  var sorted = violators.slice().sort(function(a,b){
+    if(sortKey==='arena') return (b.arenaFail - a.arenaFail) || (b.totalViol - a.totalViol);
+    if(sortKey==='mission') return (b.missionViol - a.missionViol) || (b.totalViol - a.totalViol);
+    if(sortKey==='gar') return (b.garFail - a.garFail) || (b.totalViol - a.totalViol);
+    return b.totalViol - a.totalViol;
+  });
+
+  // 통계
+  var totalArenaFail   = violators.reduce(function(s,r){return s+r.arenaFail;},0);
+  var totalMissionViol = violators.reduce(function(s,r){return s+r.missionViol;},0);
+  var totalGarFail     = violators.reduce(function(s,r){return s+r.garFail;},0);
+
+  // 시즌 칩
+  var chips = '';
+  arenaSeasons.forEach(function(s){ chips += '<div class="chip ac"><span class="cl">ARENA</span><span class="cv">'+seasonLabel(s,'arena')+'</span></div>'; });
+  garSeasons.forEach(function(s){   chips += '<div class="chip gc"><span class="cl">GAR</span><span class="cv">'+seasonLabel(s,'gar')+'</span></div>'; });
+
+  // 행
+  var rows = sorted.map(function(r,i){
+    var badges = '';
+    if(arenaSeasons.length && r.arenaFail>0)
+      badges += '<span class="sc-badge arena-b">Arena '+r.arenaFail+'/'+r.arenaTotal+' 미달'+(r.arenaFailAvg?' · 평균 '+r.arenaFailAvg.toLocaleString():'')+'</span>';
+    if(r.missionViol>0)
+      badges += '<span class="sc-badge mis-b">공동미션 '+r.missionViol+'회</span>';
+    if(garSeasons.length && r.garFail>0)
+      badges += '<span class="sc-badge gar-b">GAR '+r.garFail+'/'+r.garTotal+'일 미달'+(r.garFailAvg?' · 평균 '+Math.round(r.garFailAvg/10000)+'만':'')+'</span>';
+
+    return '<div class="rpt-row">'
+      +'<span class="rpt-no">'+(i+1)+'</span>'
+      +'<span class="rpt-name">'+esc(r.name)+'</span>'
+      +'<div class="rpt-scores">'+badges+'</div>'
+      +'<span class="rpt-viol">'+r.totalViol+'</span>'
+      +'</div>';
+  }).join('');
+
+  var garTotalDays = garSeasons.length * 6;
+
+  return '<div class="rpt">'
+    +'<div class="rpt-h"><div class="rpt-guild">REO</div><div class="rpt-meta"><div style="font-size:14px;color:rgba(255,255,255,.6);font-weight:700">멤버 성과 분석</div><div>위반자 '+violators.length+'명 / 전체 '+totalCount+'명</div></div></div>'
+    +(chips?'<div class="chips">'+chips+'</div>':'')
+    +'<div class="stats">'
+    +(arenaSeasons.length?'<div class="stat"><div class="sv" style="color:#c4b5fd">'+totalArenaFail+'</div><div class="sl">Arena 미달 (총)</div></div>':'')
+    +'<div class="stat"><div class="sv" style="color:#fcd34d">'+totalMissionViol+'</div><div class="sl">공동미션 위반 (총)</div></div>'
+    +(garSeasons.length?'<div class="stat"><div class="sv" style="color:#fb923c">'+totalGarFail+'</div><div class="sl">GAR 미달 일수 (총)</div></div>':'')
+    +(garSeasons.length?'<div class="stat"><div class="sv" style="color:#38bdf8">'+garTotalDays+'</div><div class="sl">GAR 총 일수 기준</div></div>':'')
+    +'</div>'
+    +'<div class="sort-bar">'
+    +btnSort('total', sortKey, '전체 위반순')
+    +(arenaSeasons.length ? btnSort('arena', sortKey, 'Arena 미달순') : '')
+    +(arenaSeasons.length ? btnSort('mission', sortKey, '공동미션순') : '')
+    +(garSeasons.length   ? btnSort('gar',   sortKey, 'GAR 미달순')  : '')
+    +'</div>'
+    +'<div class="rpt-grid">'+rows+'</div>'
+    +'<div class="rpt-footer">REO #10472[REO]NOOK · '+new Date().toLocaleString('ko-KR')+'</div>'
+    +'</div>';
+}
+
+function setSort(key){ currentSort=key; buildPreview(); }
+
+// ── 저장 ──
+function downloadArenaJson(){
+  if(!arenaSeasons.length){ alert('Arena JSON이 없습니다.'); return; }
+  var goal = Number((arenaSeasons[0]||{}).goalScore||7000);
+
+  // 전체 멤버 목록 (모든 시즌 합집합)
+  var allNames = [];
+  arenaSeasons.forEach(function(s){
+    (s.members||[]).forEach(function(m){
+      if(m.name && !allNames.includes(m.name)) allNames.push(m.name);
+    });
+  });
+
+  var members = allNames.map(function(name){
+    var seasonScores = arenaSeasons.map(function(s){
+      var m = (s.members||[]).find(function(m){ return m.name===name; });
+      return {
+        season: s.season||s.seasonStart||'',
+        score: m ? Number(m.score||0) : null  // null = 미참여
+      };
+    });
+    return {
+      name: name,
+      seasonScores: seasonScores,
+      missionViol: missionData[name]||0
+    };
+  });
+
+  var out = {
+    type: 'arena-report',
+    generatedAt: new Date().toISOString(),
+    goalScore: goal,
+    seasons: arenaSeasons.map(function(s){ return {
+      season: s.season||s.seasonStart||'',
+      seasonStart: s.seasonStart||'',
+      seasonEnd: s.seasonEnd||''
+    }; }),
+    members: members
+  };
+  var startDate = (arenaSeasons[0].seasonStart||arenaSeasons[0].season||'').replace(/_.*$/,'');
+  dlFile('arena-'+(startDate||'data')+'.json', JSON.stringify(out,null,2));
+}
+
+function downloadGarJson(){
+  if(!garSeasons.length){ alert('GAR JSON이 없습니다.'); return; }
+  var goalScore = Number((garSeasons[0]||{}).goalScore||1500000);
+
+  // 전체 멤버 목록 (모든 시즌 합집합)
+  var allNames = [];
+  garSeasons.forEach(function(s){
+    (s.members||[]).forEach(function(m){
+      if(m.name && !allNames.includes(m.name)) allNames.push(m.name);
+    });
+  });
+
+  var members = allNames.map(function(name){
+    var seasonResults = garSeasons.map(function(s){
+      var goal = Number(s.goalScore||1500000);
+      var m = (s.members||[]).find(function(m){ return m.name===name; });
+      if(!m) return { season: s.season||s.seasonStart||'', participated: false, days: [] };
+      var days = (m.days||[0,0,0,0,0,0]).map(function(sc){ return Number(sc||0); });
+      return {
+        season: s.season||s.seasonStart||'',
+        participated: true,
+        days: days  // 6개 점수 그대로 저장
+      };
+    });
+    return { name: name, seasonResults: seasonResults };
+  });
+
+  var out = {
+    type: 'gar-report',
+    generatedAt: new Date().toISOString(),
+    goalScore: goalScore,
+    seasons: garSeasons.map(function(s){ return {
+      season: s.season||s.seasonStart||'',
+      seasonStart: s.seasonStart||''
+    }; }),
+    members: members
+  };
+  var startDate = (garSeasons[0].seasonStart||garSeasons[0].season||'').replace(/_.*$/,'');
+  dlFile('gar-'+(startDate||'data')+'.json', JSON.stringify(out,null,2));
+}
+
+function dlFile(name, content){
+  var b = new Blob([content],{type:'application/json;charset=utf-8'});
+  var a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name; a.click();
+}
+</script>
+</body>
+</html>
