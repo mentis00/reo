@@ -12,16 +12,22 @@ layout: null
 {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
 {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
 
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
   background:#0f0c1a;
-  font-family:'Noto Sans KR',sans-serif;
+  font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;
   padding:20px;
   color:#fff;
 }
+.guild-name{font-family:'Rajdhani',sans-serif!important}
+.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
+.lang-toggle button:hover{color:#fff}
+@media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
 
 .container{
   max-width:1100px;
@@ -86,11 +92,22 @@ body{
 }
 
 .event-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   font-size:14px;
   color:rgba(200,180,255,0.6);
-  letter-spacing:2px;
   text-transform:uppercase;
   margin-bottom:4px;
+}
+.event-label .arena-title,
+.event-label .archive-title-word{
+  letter-spacing:2px;
+}
+.lbl-dot{
+  margin:0;
+  letter-spacing:0;
+  flex:0 0 auto;
 }
 
 .archive-btn{
@@ -364,14 +381,15 @@ body{
 </head>
 
 <body>
+  <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
 <div class="container">
 
   <div class="header">
     <div class="guild-name">REO</div>
     <div class="header-right">
-      <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 지난시즌</a>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+      <div class="event-label" lang="en"><span class="arena-title">Guild Arena</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
+      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/" data-i18n="archiveBtn">📁 지난시즌</a>
+      <a class="archive-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
     </div>
   </div>
 
@@ -423,7 +441,7 @@ body{
   {% assign folder_array = folder_string | split:'|' | sort %}
 
   {% if folder_array.size > 1 %}
-    <div class="section-title">폴더</div>
+    <div class="section-title" data-i18n="folder">폴더</div>
     <div class="list">
       {% for folder in folder_array %}
         {% if folder != '' %}
@@ -438,7 +456,7 @@ body{
   {% endif %}
 
   {% if file_count > 0 %}
-    <div class="section-title">시즌 기록</div>
+    <div class="section-title" data-i18n="records">시즌 기록</div>
     <div class="list">
       {% for file in page_files_sorted %}
         {% if file.url contains page.url %}
@@ -452,7 +470,7 @@ body{
                 <div class="item-dates">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</div>
                 <div class="item-sub">GUILD ARENA SEASON</div>
               </div>
-              <span class="badge-view">보기 →</span>
+              <span class="badge-view" data-i18n="view">보기 →</span>
             </a>
           {% endif %}
         {% endif %}
@@ -461,7 +479,7 @@ body{
   {% endif %}
 
   {% if image_count > 0 %}
-    <div class="section-title">이미지</div>
+    <div class="section-title" data-i18n="images">이미지</div>
     <div class="image-grid">
       {% assign image_index = 0 %}
       {% for file in static_files_sorted %}
@@ -494,6 +512,24 @@ body{
   <img id="lightbox-img" alt="">
   <button class="lightbox-nav right" type="button" onclick="nextImage()">❯</button>
 </div>
+
+{% raw %}
+<script>
+(function(){
+  var DICT={
+    ko:{archiveBtn:"📁 지난시즌",home:"🏠 메인",folder:"폴더",records:"시즌 기록",images:"이미지",view:"보기 →"},
+    en:{archiveBtn:"📁 Archive",home:"🏠 Home",folder:"Folder",records:"Season Records",images:"Images",view:"View →"},
+    ja:{archiveBtn:"📁 過去シーズン",home:"🏠 ホーム",folder:"フォルダ",records:"シーズン記録",images:"画像",view:"見る →"},
+    zh:{archiveBtn:"📁 往期赛季",home:"🏠 主页",folder:"文件夹",records:"赛季记录",images:"图片",view:"查看 →"}
+  };
+  var SUP=['ko','en','ja','zh'];
+  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
+  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+})();
+</script>
+{% endraw %}
 
 <script>
 let galleryImages = [];
