@@ -16,7 +16,7 @@ title: REO Arena Archive
   {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
   {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
 
     html {
@@ -26,7 +26,7 @@ title: REO Arena Archive
 
     body {
       background:#0f0c1a;
-      font-family:'Noto Sans KR',sans-serif;
+      font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;
       padding:20px;
       color:#fff;
     }
@@ -385,15 +385,22 @@ title: REO Arena Archive
       color:#e9d5ff;
       border-color:rgba(192,132,252,0.45);
     }
+    .guild-name,.footer strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
+    .lang-toggle{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+    .lang-toggle button{border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+    .lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
+    .lang-toggle button:hover{color:#fff}
+    @media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
   </style>
 </head>
 <body>
+  <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
   <div class="container">
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
-        <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
-        <a class="nav-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+        <div class="event-label" data-i18n="archiveTitle">Guild Arena &nbsp;·&nbsp; Archive</div>
+        <a class="nav-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
       </div>
     </div>
 
@@ -477,14 +484,14 @@ title: REO Arena Archive
     {% if s3_folder_arr.size > 0 or s3_file_arr != '' %}{% assign has_s3 = true %}{% endif %}
 
     {% if has_s4 == false and has_s3 == false %}
-      <div class="section-title">📄 시즌 기록</div>
+      <div class="section-title" data-i18n="recordsTitle">📄 시즌 기록</div>
       <div class="season-grid">
-        <div class="empty">아직 저장된 기록이 없습니다.</div>
+        <div class="empty" data-i18n="empty">아직 저장된 기록이 없습니다.</div>
       </div>
     {% endif %}
 
     {% if has_s4 %}
-      <div class="section-title">🌊 시즌 4 · 해일의 분노</div>
+      <div class="section-title"><span data-i18n="season4">🌊 시즌 4 · 해일의 분노</span></div>
       {% if s4_folder_arr.size > 0 %}
         <div class="folder-grid">
           {% assign is_first_folder = true %}
@@ -503,7 +510,7 @@ title: REO Arena Archive
               </div>
               <div class="folder-right">
                 {% if is_first_folder %}<span class="badge-latest">LATEST</span>{% endif %}
-                <span class="badge-view">열기 →</span>
+                <span class="badge-view" data-i18n="open">열기 →</span>
               </div>
             </a>
             {% assign is_first_folder = false %}
@@ -530,7 +537,7 @@ title: REO Arena Archive
                   </div>
                   <div class="card-badges">
                     {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
-                    <span class="badge-view">보기 →</span>
+                    <span class="badge-view" data-i18n="view">보기 →</span>
                   </div>
                 </a>
                 {% assign is_first_file = false %}
@@ -542,7 +549,7 @@ title: REO Arena Archive
     {% endif %}
 
     {% if has_s3 %}
-      <div class="section-title" style="margin-top:{% if has_s4 %}28px{% else %}0{% endif %}">🗂️ 시즌 3</div>
+      <div class="section-title" style="margin-top:{% if has_s4 %}28px{% else %}0{% endif %}"><span data-i18n="season3">🗂️ 시즌 3</span></div>
       {% if s3_folder_arr.size > 0 %}
         <div class="folder-grid">
           {% assign is_first_folder = true %}
@@ -561,7 +568,7 @@ title: REO Arena Archive
               </div>
               <div class="folder-right">
                 {% if is_first_folder and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
-                <span class="badge-view">열기 →</span>
+                <span class="badge-view" data-i18n="open">열기 →</span>
               </div>
             </a>
             {% assign is_first_folder = false %}
@@ -588,7 +595,7 @@ title: REO Arena Archive
                   </div>
                   <div class="card-badges">
                     {% if is_first_file and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
-                    <span class="badge-view">보기 →</span>
+                    <span class="badge-view" data-i18n="view">보기 →</span>
                   </div>
                 </a>
                 {% assign is_first_file = false %}
@@ -599,9 +606,24 @@ title: REO Arena Archive
       {% endif %}
     {% endif %}
 
-    <div class="footer">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
+    <div class="footer" data-i18n="totalRecords" data-count="{{ folder_array_clean.size }}">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
   </div>
 
+  <script>
+  (function(){
+    var DICT={
+      ko:{archiveTitle:"Guild Arena &nbsp;·&nbsp; 아카이브",home:"🏠 메인",recordsTitle:"📄 시즌 기록",empty:"아직 저장된 기록이 없습니다.",season4:"🌊 시즌 4 · 해일의 분노",season3:"🗂️ 시즌 3",open:"열기 →",view:"보기 →",totalRecords:"총 <strong>{n}</strong>개 시즌 기록"},
+      en:{archiveTitle:"Guild Arena &nbsp;·&nbsp; Archive",home:"🏠 Home",recordsTitle:"📄 Season Records",empty:"No records saved yet.",season4:"🌊 Season 4 · Wrath of the Tides",season3:"🗂️ Season 3",open:"Open →",view:"View →",totalRecords:"<strong>{n}</strong> season records"},
+      ja:{archiveTitle:"Guild Arena &nbsp;·&nbsp; アーカイブ",home:"🏠 ホーム",recordsTitle:"📄 シーズン記録",empty:"まだ保存された記録がありません。",season4:"🌊 シーズン4 · 蒼潮の怒り",season3:"🗂️ シーズン3",open:"開く →",view:"見る →",totalRecords:"全 <strong>{n}</strong> シーズン記録"},
+      zh:{archiveTitle:"Guild Arena &nbsp;·&nbsp; 存档",home:"🏠 主页",recordsTitle:"📄 赛季记录",empty:"暂无保存的记录。",season4:"🌊 第4赛季 · 潮汐之怒",season3:"🗂️ 第3赛季",open:"打开 →",view:"查看 →",totalRecords:"共 <strong>{n}</strong> 个赛季记录"}
+    };
+    var SUP=['ko','en','ja','zh'];
+    function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+    function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(!d[k])return;var v=d[k];if(el.hasAttribute('data-count'))v=v.replace('{n}',el.getAttribute('data-count'));el.innerHTML=v;});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
+    var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+    document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+  })();
+  </script>
   <script>
   (function(){
     var last=0;
