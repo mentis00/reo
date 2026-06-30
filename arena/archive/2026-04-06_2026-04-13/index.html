@@ -92,13 +92,23 @@ body{
 }
 
 .event-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   font-size:14px;
   color:rgba(200,180,255,0.6);
-  letter-spacing:2px;
   text-transform:uppercase;
   margin-bottom:4px;
 }
-.lbl-dot{margin:0 6px;letter-spacing:0;}
+.event-label .arena-title,
+.event-label .archive-title-word{
+  letter-spacing:2px;
+}
+.lbl-dot{
+  margin:0;
+  letter-spacing:0;
+  flex:0 0 auto;
+}
 
 .archive-btn{
   display:inline-block;
@@ -377,7 +387,7 @@ body{
   <div class="header">
     <div class="guild-name">REO</div>
     <div class="header-right">
-      <div class="event-label">Guild Arena <span class="lbl-dot">·</span> Archive</div>
+      <div class="event-label" lang="en"><span class="arena-title">Guild Arena</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
       <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/" data-i18n="archiveBtn">📁 지난시즌</a>
       <a class="archive-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
     </div>
