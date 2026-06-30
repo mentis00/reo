@@ -205,6 +205,7 @@ title: REO Arena Archive
       color:rgba(180,130,255,0.5);
       font-size:14px;
     }
+    .d-nowrap { white-space:nowrap; }
 
     .card-sub {
       margin-top:3px;
@@ -367,7 +368,7 @@ title: REO Arena Archive
       .header { flex-direction:column; align-items:flex-start; }
       .header-right { text-align:left; align-items:flex-start; }
       .guild-name { font-size:36px; letter-spacing:4px; }
-      .card-dates, .folder-dates { font-size:15px; }
+      .card-dates, .folder-dates { font-size:15px; flex-wrap:wrap; }
       .card-sub, .folder-sub { font-size:12px; }
     }
 
@@ -399,7 +400,7 @@ title: REO Arena Archive
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
-        <div class="event-label" data-i18n="archiveTitle">Guild Arena &nbsp;·&nbsp; Archive</div>
+        <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
         <a class="nav-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
       </div>
     </div>
@@ -504,7 +505,7 @@ title: REO Arena Archive
               <div class="folder-icon">📁</div>
               <div class="folder-body">
                 <div class="folder-dates">
-                  {{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  <span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}
                 </div>
                 <div class="folder-sub">SEASON FOLDER</div>
               </div>
@@ -532,7 +533,7 @@ title: REO Arena Archive
                    href="{{ file.url | relative_url }}">
                   <div class="card-icon">📄</div>
                   <div class="card-body">
-                    <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                    <div class="card-dates"><span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}</div>
                     <div class="card-sub">GUILD ARENA SEASON</div>
                   </div>
                   <div class="card-badges">
@@ -562,7 +563,7 @@ title: REO Arena Archive
               <div class="folder-icon">📁</div>
               <div class="folder-body">
                 <div class="folder-dates">
-                  {{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}
+                  <span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}
                 </div>
                 <div class="folder-sub">SEASON FOLDER</div>
               </div>
@@ -590,7 +591,7 @@ title: REO Arena Archive
                    href="{{ file.url | relative_url }}">
                   <div class="card-icon">📄</div>
                   <div class="card-body">
-                    <div class="card-dates">{{ d_start }}{% if d_end != '' %}<span class="date-sep">→</span>{{ d_end }}{% endif %}</div>
+                    <div class="card-dates"><span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}</div>
                     <div class="card-sub">GUILD ARENA SEASON</div>
                   </div>
                   <div class="card-badges">
