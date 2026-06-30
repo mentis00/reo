@@ -3,697 +3,655 @@ layout: null
 title: REO Arena Archive
 ---
 
+{% assign base_path = '/arena/archive/' %}
+{% assign current_url = '/arena/' %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REO Archive</title>
-{% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}
-{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
-{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>{{ page.title }}</title>
+  {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}
+  {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
+  {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-*{margin:0;padding:0;box-sizing:border-box}
+    html {
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
+    }
 
-body{
-  background:#0f0c1a;
-  font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;
-  padding:20px;
-  color:#fff;
-}
-.guild-name{font-family:'Rajdhani',sans-serif!important}
-.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
-.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
-.lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
-.lang-toggle button:hover{color:#fff}
-@media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
+    body {
+      background:#0f0c1a;
+      font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;
+      padding:20px;
+      color:#fff;
+    }
 
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  background:linear-gradient(160deg,#1a1030 0%,#0f0c1a 50%,#0c1525 100%);
-  border:1px solid rgba(180,130,255,0.2);
-  border-radius:20px;
-  padding:36px 40px 44px;
-  position:relative;
-  overflow:hidden;
-}
+    .container {
+      max-width:1100px;
+      margin:0 auto;
+      background:linear-gradient(160deg,#1a1030 0%,#0f0c1a 50%,#0c1525 100%);
+      border:1px solid rgba(180,130,255,0.2);
+      border-radius:20px;
+      padding:36px 40px 44px;
+      position:relative;
+      overflow:hidden;
+    }
 
-.container::before{
-  content:'';
-  position:absolute;
-  top:-80px;
-  right:-80px;
-  width:300px;
-  height:300px;
-  background:radial-gradient(circle, rgba(130,80,255,0.15) 0%, transparent 70%);
-  pointer-events:none;
-}
+    .container::before {
+      content:'';
+      position:absolute;
+      top:-80px; right:-80px;
+      width:300px; height:300px;
+      background:radial-gradient(circle, rgba(130,80,255,0.15) 0%, transparent 70%);
+      pointer-events:none;
+    }
 
-.container::after{
-  content:'';
-  position:absolute;
-  bottom:-60px;
-  left:-60px;
-  width:250px;
-  height:250px;
-  background:radial-gradient(circle, rgba(60,160,255,0.1) 0%, transparent 70%);
-  pointer-events:none;
-}
+    .container::after {
+      content:'';
+      position:absolute;
+      bottom:-60px; left:-60px;
+      width:250px; height:250px;
+      background:radial-gradient(circle, rgba(60,160,255,0.1) 0%, transparent 70%);
+      pointer-events:none;
+    }
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:16px;
-  margin-bottom:20px;
-  border-bottom:1px solid rgba(180,130,255,0.2);
-  padding-bottom:16px;
-  position:relative;
-  z-index:1;
-}
+    .header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+      padding-bottom:20px;
+      border-bottom:1px solid rgba(180,130,255,0.2);
+      position:relative;
+      z-index:1;
+    }
 
-.guild-name{
-  font-family:'Rajdhani',sans-serif;
-  font-size:42px;
-  font-weight:700;
-  letter-spacing:6px;
-  background:linear-gradient(135deg,#c084fc,#818cf8,#38bdf8);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .guild-name {
+      font-family:'Rajdhani',sans-serif;
+      font-size:52px;
+      font-weight:700;
+      letter-spacing:8px;
+      background:linear-gradient(135deg,#c084fc,#818cf8,#38bdf8);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
 
-.header-right{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  align-items:flex-end;
-}
+    .header-right {
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:10px;
+    }
 
-.event-label{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-  color:rgba(200,180,255,0.6);
-  text-transform:uppercase;
-  margin-bottom:4px;
-}
-.event-label .arena-title,
-.event-label .archive-title-word{
-  letter-spacing:2px;
-}
-.lbl-dot{
-  margin:0;
-  letter-spacing:0;
-  flex:0 0 auto;
-}
+    .event-label {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      color:rgba(200,180,255,0.6);
+      text-transform:uppercase;
+    }
 
-.archive-btn{
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:700;
-  color:#7dd3fc;
-  background:rgba(30,58,95,0.7);
-  border:1px solid rgba(125,211,252,0.25);
-  text-decoration:none;
-  letter-spacing:0.5px;
-  transition:all .15s ease;
-}
+    .event-label .arena-title,
+    .event-label .archive-title-word {
+      letter-spacing:2px;
+    }
 
-.archive-btn:hover{
-  background:rgba(45,78,125,0.9);
-  transform:translateY(-1px);
-}
+    .lbl-dot {
+      margin:0;
+      letter-spacing:0;
+      flex:0 0 auto;
+    }
 
-.path{
-  font-size:18px;
-  font-weight:800;
-  margin-bottom:10px;
-  color:#c4b5fd;
-  word-break:break-word;
-  position:relative;
-  z-index:1;
-}
+    .nav-btn {
+      display:inline-block;
+      padding:7px 16px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      color:#7dd3fc;
+      background:rgba(30,58,95,0.7);
+      border:1px solid rgba(125,211,252,0.25);
+      text-decoration:none;
+      transition:all .15s ease;
+    }
 
-.section-title{
-  margin:20px 0 10px;
-  font-size:18px;
-  font-weight:900;
-  color:#f3e8ff;
-  position:relative;
-  z-index:1;
-}
+    .nav-btn:hover {
+      background:rgba(45,78,125,0.9);
+      transform:translateY(-1px);
+    }
 
-.list{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  position:relative;
-  z-index:1;
-}
+    .section-title {
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:rgba(200,180,255,0.5);
+      margin:0 0 14px;
+      position:relative;
+      z-index:1;
+    }
 
-.item{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(180,130,255,0.12);
-  border-radius:14px;
-  padding:16px 18px;
-  text-decoration:none;
-  color:#fff;
-  transition:all .18s ease;
-  position:relative;
-  overflow:hidden;
-  min-width:0;
-}
+    /* 카드 그리드 */
+    .season-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
+      margin-bottom:28px;
+    }
 
-.item::before{
-  content:'';
-  position:absolute;
-  left:0; top:0; bottom:0;
-  width:3px;
-  background:linear-gradient(180deg,#c084fc,#818cf8);
-  border-radius:3px 0 0 3px;
-  opacity:0.8;
-}
+    .season-card {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(180,130,255,0.12);
+      border-radius:14px;
+      padding:16px 18px;
+      text-decoration:none;
+      color:#fff;
+      transition:all .18s ease;
+      position:relative;
+      overflow:hidden;
+    }
 
-.item:hover{
-  background:rgba(180,130,255,0.08);
-  border-color:rgba(180,130,255,0.3);
-  transform:translateX(3px);
-  box-shadow:0 6px 20px rgba(130,80,255,0.15);
-}
+    .season-card::before {
+      content:'';
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:3px;
+      background:linear-gradient(180deg,#c084fc,#818cf8);
+      border-radius:3px 0 0 3px;
+      opacity:0.8;
+    }
 
-.icon{
-  font-size:22px;
-  flex-shrink:0;
-  width:36px;
-  height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(180,130,255,0.1);
-  border-radius:10px;
-}
+    .season-card:hover {
+      background:rgba(180,130,255,0.08);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(130,80,255,0.15);
+    }
 
-.item-body{
-  flex:1;
-  min-width:0;
-}
+    .season-card.latest {
+      border-color:rgba(192,132,252,0.35);
+      background:rgba(130,80,255,0.06);
+    }
 
-.item-dates{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-family:'Rajdhani',sans-serif;
-  font-size:17px;
-  font-weight:700;
-  color:#e2d9f3;
-  white-space:nowrap;
-}
+    .card-icon {
+      font-size:22px;
+      flex-shrink:0;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(180,130,255,0.1);
+      border-radius:10px;
+    }
 
-.date-sep{
-  color:rgba(180,130,255,0.5);
-  font-size:14px;
-}
+    .card-body {
+      flex:1;
+      min-width:0;
+    }
 
-.item-sub{
-  margin-top:3px;
-  font-size:12px;
-  color:rgba(180,160,255,0.45);
-  letter-spacing:0.5px;
-}
+    .card-dates {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
+      font-weight:700;
+      color:#e2d9f3;
+      white-space:nowrap;
+    }
 
-.badge-view{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  padding:5px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-  color:rgba(180,130,255,0.8);
-  background:rgba(180,130,255,0.08);
-  border:1px solid rgba(180,130,255,0.2);
-  transition:all .15s ease;
-  flex-shrink:0;
-}
+    .date-sep {
+      color:rgba(180,130,255,0.5);
+      font-size:14px;
+    }
+    .d-nowrap { white-space:nowrap; }
 
-.item:hover .badge-view{
-  background:rgba(180,130,255,0.18);
-  color:#c084fc;
-  border-color:rgba(180,130,255,0.4);
-}
+    .card-sub {
+      margin-top:3px;
+      font-size:12px !important;
+      color:rgba(180,160,255,0.45);
+      letter-spacing:0.5px;
+    }
 
-.image-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:14px;
-  position:relative;
-  z-index:1;
-}
+    .card-badges {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:5px;
+      flex-shrink:0;
+      min-width:72px;
+    }
 
-.image-item{
-  position:relative;
-  cursor:pointer;
-}
+    .badge-latest {
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      background:linear-gradient(135deg,#c084fc,#818cf8);
+      color:#fff;
+    }
 
-.image-item img{
-  width:100%;
-  height:170px;
-  object-fit:contain;
-  background:rgba(255,255,255,0.03);
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.08);
-  padding:6px;
-  transition:all .15s ease;
-}
+    .badge-view {
+      display:flex;
+      align-items:center;
+      gap:4px;
+      padding:5px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      color:rgba(180,130,255,0.8);
+      background:rgba(180,130,255,0.08);
+      border:1px solid rgba(180,130,255,0.2);
+      transition:all .15s ease;
+      white-space:nowrap;
+    }
 
-.image-item img:hover{
-  transform:scale(1.05);
-  border-color:rgba(180,130,255,0.28);
-}
+    .season-card:hover .badge-view {
+      background:rgba(180,130,255,0.18);
+      color:#c084fc;
+      border-color:rgba(180,130,255,0.4);
+    }
 
-.img-badge{
-  position:absolute;
-  top:8px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:6px 12px;
-  font-size:12px;
-  font-weight:800;
-  color:#fff;
-  background:rgba(30,30,40,0.3);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.2);
-  box-shadow:0 2px 10px rgba(0,0,0,0.35);
-  pointer-events:none;
-}
+    /* 폴더 그리드 (arena용) */
+    .folder-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
+      margin-bottom:28px;
+    }
 
-.lightbox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.92);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
+    .folder-card::before {
+      content:'';
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:3px;
+      background:linear-gradient(180deg,#c084fc,#818cf8);
+      border-radius:3px 0 0 3px;
+      opacity:0.8;
+    }
 
-.lightbox img{
-  max-width:88%;
-  max-height:88%;
-  object-fit:contain;
-  cursor:pointer;
-  transition:transform .22s ease, opacity .22s ease;
-}
+    .folder-card {
+      display:flex;
+      align-items:center;
+      gap:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(180,130,255,0.12);
+      border-radius:14px;
+      padding:16px 18px;
+      text-decoration:none;
+      color:#fff;
+      transition:all .18s ease;
+      position:relative;
+      overflow:hidden;
+    }
 
-.lightbox-nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:52px;
-  height:52px;
-  border:none;
-  border-radius:999px;
-  background:rgba(20,20,30,0.45);
-  color:#fff;
-  font-size:30px;
-  font-weight:700;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(255,255,255,0.12);
-  transition:all .15s ease;
-  -webkit-user-select:none;
-  user-select:none;
-  touch-action:manipulation;
-}
+    .folder-card:hover {
+      background:rgba(180,130,255,0.08);
+      border-color:rgba(180,130,255,0.3);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(130,80,255,0.12);
+    }
 
-.lightbox-nav:hover{
-  background:rgba(80,80,120,0.62);
-  border-color:rgba(180,130,255,0.35);
-}
+    .folder-card.latest {
+      border-color:rgba(192,132,252,0.35);
+      background:rgba(130,80,255,0.06);
+    }
 
-.lightbox-nav.left{ left:24px; }
-.lightbox-nav.right{ right:24px; }
+    .folder-icon {
+      font-size:22px;
+      flex-shrink:0;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(180,130,255,0.1);
+      border-radius:10px;
+    }
 
-.footer{
-  margin-top:24px;
-  padding-top:16px;
-  border-top:1px solid rgba(180,130,255,0.15);
-  color:rgba(200,180,255,0.45);
-  position:relative;
-  z-index:1;
-}
+    .folder-body {
+      flex:1;
+      min-width:0;
+    }
 
-@media(max-width:860px){
-  body{padding:12px}
-  .container{padding:22px 18px 28px}
-  .list{grid-template-columns:1fr}
-  .header{flex-direction:column;align-items:flex-start}
-  .header-right{text-align:left;align-items:flex-start}
-  .guild-name{font-size:36px;letter-spacing:4px}
-  .lightbox-nav{
-    width:44px;
-    height:44px;
-    font-size:24px;
-  }
-  .lightbox-nav.left{left:12px}
-  .lightbox-nav.right{right:12px}
-  .lightbox img{touch-action:none}
-  .image-item img{
-    height:200px;
-  }
-}
-</style>
+    .folder-dates {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Rajdhani',sans-serif;
+      font-size:17px;
+      font-weight:700;
+      color:#e2d9f3;
+    }
+
+    .folder-sub {
+      margin-top:3px;
+      font-size:12px !important;
+      color:rgba(180,160,255,0.45);
+      letter-spacing:0.5px;
+    }
+
+    .folder-right {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:5px;
+      flex-shrink:0;
+      min-width:72px;
+    }
+
+    .empty {
+      grid-column:1/-1;
+      text-align:center;
+      padding:40px 20px;
+      color:rgba(200,180,255,0.35);
+      font-size:14px;
+      border:1px dashed rgba(180,130,255,0.15);
+      border-radius:10px;
+    }
+
+    .footer {
+      margin-top:4px;
+      padding-top:16px;
+      border-top:1px solid rgba(180,130,255,0.15);
+      color:rgba(200,180,255,0.45);
+      font-size:13px;
+      position:relative;
+      z-index:1;
+    }
+
+    @media (max-width:860px) {
+      body { padding:12px; }
+      .container { padding:22px 18px 28px; }
+      .season-grid, .folder-grid { grid-template-columns:1fr; }
+      .header { flex-direction:column; align-items:flex-start; }
+      .header-right { text-align:left; align-items:flex-start; }
+      .guild-name { font-size:36px; letter-spacing:4px; }
+      .card-dates, .folder-dates { font-size:14px; }
+      .card-sub, .folder-sub { font-size:12px; }
+    }
+
+    .season-card:hover,
+    .folder-card:hover {
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      transform:translateX(3px);
+      opacity:1;
+    }
+
+    .season-card:hover .badge-view,
+    .folder-card:hover .badge-view {
+      background:rgba(192,132,252,0.22);
+      color:#e9d5ff;
+      border-color:rgba(192,132,252,0.45);
+    }
+    .guild-name,.footer strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
+    .lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+    .lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+    .lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
+    .lang-toggle button:hover{color:#fff}
+    @media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
+  </style>
 </head>
-
 <body>
   <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
-<div class="container">
-
-  <div class="header">
-    <div class="guild-name">REO</div>
-    <div class="header-right">
-      <div class="event-label" lang="en"><span class="arena-title">Guild Arena</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/" data-i18n="archiveBtn">📁 지난시즌</a>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
+  <div class="container">
+    <div class="header">
+      <div class="guild-name">REO</div>
+      <div class="header-right">
+        <div class="event-label" lang="en"><span class="arena-title">Guild Arena</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
+        <a class="nav-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
+      </div>
     </div>
+
+    {% assign page_files_sorted = site.pages | sort: "name" %}
+    {% assign static_files_sorted = site.static_files | sort: "name" %}
+    {% assign folder_string = '' %}
+    {% assign file_count = 0 %}
+
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for file in static_files_sorted %}
+      {% if file.path contains base_path %}
+        {% assign rest = file.path | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if parts.size > 1 and parts[0] != '' %}
+          {% assign token = '|' | append: parts[0] | append: '|' %}
+          {% unless folder_string contains token %}
+            {% assign folder_string = folder_string | append: token %}
+          {% endunless %}
+        {% endif %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign file_count = file_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign s4_cutoff = '2026-06-15' %}
+    {% assign folder_array = folder_string | split: '|' | sort | reverse %}
+    {% assign folder_array_clean = folder_array | where_exp: "f", "f != ''" %}
+
+    {% assign s4_folders = '' %}
+    {% assign s3_folders = '' %}
+    {% for folder in folder_array_clean %}
+      {% assign date_parts = folder | split: '_' %}
+      {% assign d_start = date_parts[0] %}
+      {% if d_start >= s4_cutoff %}
+        {% assign s4_folders = s4_folders | append: '|' | append: folder %}
+      {% else %}
+        {% assign s3_folders = s3_folders | append: '|' | append: folder %}
+      {% endif %}
+    {% endfor %}
+    {% assign s4_folder_arr = s4_folders | split: '|' | where_exp: "f", "f != ''" %}
+    {% assign s3_folder_arr = s3_folders | split: '|' | where_exp: "f", "f != ''" %}
+
+    {% assign s4_file_arr = '' %}
+    {% assign s3_file_arr = '' %}
+    {% for file in page_files_sorted %}
+      {% if file.url contains base_path %}
+        {% assign rest = file.url | remove_first: base_path %}
+        {% assign parts = rest | split: '/' %}
+        {% if file.name != 'index.html' and parts.size == 1 and rest != '' %}
+          {% assign fname = file.name | replace: '.html', '' %}
+          {% assign date_parts = fname | split: '_' %}
+          {% assign d_start = date_parts[0] %}
+          {% if d_start >= s4_cutoff %}
+            {% assign s4_file_arr = s4_file_arr | append: '|' | append: file.url %}
+          {% else %}
+            {% assign s3_file_arr = s3_file_arr | append: '|' | append: file.url %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign has_s4 = false %}
+    {% if s4_folder_arr.size > 0 or s4_file_arr != '' %}{% assign has_s4 = true %}{% endif %}
+    {% assign has_s3 = false %}
+    {% if s3_folder_arr.size > 0 or s3_file_arr != '' %}{% assign has_s3 = true %}{% endif %}
+
+    {% if has_s4 == false and has_s3 == false %}
+      <div class="section-title" data-i18n="recordsTitle">📄 시즌 기록</div>
+      <div class="season-grid">
+        <div class="empty" data-i18n="empty">아직 저장된 기록이 없습니다.</div>
+      </div>
+    {% endif %}
+
+    {% if has_s4 %}
+      <div class="section-title"><span data-i18n="season4">🌊 시즌 4 · 해일의 분노</span></div>
+      {% if s4_folder_arr.size > 0 %}
+        <div class="folder-grid">
+          {% assign is_first_folder = true %}
+          {% for folder in s4_folder_arr %}
+            {% assign date_parts = folder | split: '_' %}
+            {% assign d_start = date_parts[0] %}
+            {% assign d_end = date_parts[1] %}
+            <a class="folder-card{% if is_first_folder %} latest{% endif %}"
+               href="{{ base_path | append: folder | append: '/' | relative_url }}">
+              <div class="folder-icon">📁</div>
+              <div class="folder-body">
+                <div class="folder-dates">
+                  <span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}
+                </div>
+                <div class="folder-sub">SEASON FOLDER</div>
+              </div>
+              <div class="folder-right">
+                {% if is_first_folder %}<span class="badge-latest">LATEST</span>{% endif %}
+                <span class="badge-view" data-i18n="open">열기 →</span>
+              </div>
+            </a>
+            {% assign is_first_folder = false %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% assign s4_file_list = s4_file_arr | split: '|' | where_exp: "f", "f != ''" %}
+      {% if s4_file_list.size > 0 %}
+        <div class="season-grid" style="margin-top:12px">
+          {% assign is_first_file = true %}
+          {% for furl in s4_file_list %}
+            {% for file in page_files_sorted %}
+              {% if file.url == furl %}
+                {% assign fname = file.name | replace: '.html', '' %}
+                {% assign date_parts = fname | split: '_' %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+                <a class="season-card{% if is_first_file %} latest{% endif %}"
+                   href="{{ file.url | relative_url }}">
+                  <div class="card-icon">📄</div>
+                  <div class="card-body">
+                    <div class="card-dates"><span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}</div>
+                    <div class="card-sub">GUILD ARENA SEASON</div>
+                  </div>
+                  <div class="card-badges">
+                    {% if is_first_file %}<span class="badge-latest">LATEST</span>{% endif %}
+                    <span class="badge-view" data-i18n="view">보기 →</span>
+                  </div>
+                </a>
+                {% assign is_first_file = false %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if has_s3 %}
+      <div class="section-title" style="margin-top:{% if has_s4 %}28px{% else %}0{% endif %}"><span data-i18n="season3">🗂️ 시즌 3</span></div>
+      {% if s3_folder_arr.size > 0 %}
+        <div class="folder-grid">
+          {% assign is_first_folder = true %}
+          {% for folder in s3_folder_arr %}
+            {% assign date_parts = folder | split: '_' %}
+            {% assign d_start = date_parts[0] %}
+            {% assign d_end = date_parts[1] %}
+            <a class="folder-card{% if is_first_folder and has_s4 == false %} latest{% endif %}"
+               href="{{ base_path | append: folder | append: '/' | relative_url }}">
+              <div class="folder-icon">📁</div>
+              <div class="folder-body">
+                <div class="folder-dates">
+                  <span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}
+                </div>
+                <div class="folder-sub">SEASON FOLDER</div>
+              </div>
+              <div class="folder-right">
+                {% if is_first_folder and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
+                <span class="badge-view" data-i18n="open">열기 →</span>
+              </div>
+            </a>
+            {% assign is_first_folder = false %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% assign s3_file_list = s3_file_arr | split: '|' | where_exp: "f", "f != ''" %}
+      {% if s3_file_list.size > 0 %}
+        <div class="season-grid" style="margin-top:12px">
+          {% assign is_first_file = true %}
+          {% for furl in s3_file_list %}
+            {% for file in page_files_sorted %}
+              {% if file.url == furl %}
+                {% assign fname = file.name | replace: '.html', '' %}
+                {% assign date_parts = fname | split: '_' %}
+                {% assign d_start = date_parts[0] %}
+                {% assign d_end = date_parts[1] %}
+                <a class="season-card{% if is_first_file and has_s4 == false %} latest{% endif %}"
+                   href="{{ file.url | relative_url }}">
+                  <div class="card-icon">📄</div>
+                  <div class="card-body">
+                    <div class="card-dates"><span class="d-nowrap">{{ d_start }}</span>{% if d_end != '' %}<span class="date-sep">→</span><span class="d-nowrap">{{ d_end }}</span>{% endif %}</div>
+                    <div class="card-sub">GUILD ARENA SEASON</div>
+                  </div>
+                  <div class="card-badges">
+                    {% if is_first_file and has_s4 == false %}<span class="badge-latest">LATEST</span>{% endif %}
+                    <span class="badge-view" data-i18n="view">보기 →</span>
+                  </div>
+                </a>
+                {% assign is_first_file = false %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="footer" data-i18n="totalRecords" data-count="{{ folder_array_clean.size }}">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
   </div>
 
-  {% assign page_files_sorted = site.pages | sort:"name" %}
-  {% assign static_files_sorted = site.static_files | sort:"name" %}
-  {% assign folder_string = '' %}
-  {% assign image_count = 0 %}
-  {% assign file_count = 0 %}
-
-  {% for file in page_files_sorted %}
-    {% if file.url contains page.url %}
-      {% assign rest = file.url | remove_first: page.url %}
-      {% assign parts = rest | split:'/' %}
-
-      {% if parts.size > 1 and parts[0] != '' %}
-        {% assign token = '|' | append: parts[0] | append: '|' %}
-        {% unless folder_string contains token %}
-          {% assign folder_string = folder_string | append: token %}
-        {% endunless %}
-      {% endif %}
-
-      {% if parts.size == 1 and rest != '' and file.name != 'index.html' %}
-        {% assign file_count = file_count | plus:1 %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {% for file in static_files_sorted %}
-    {% if file.path contains page.url %}
-      {% assign rest = file.path | remove_first: page.url %}
-      {% assign parts = rest | split:'/' %}
-      {% assign ext = file.extname | downcase %}
-
-      {% if parts.size > 1 and parts[0] != '' %}
-        {% assign token = '|' | append: parts[0] | append: '|' %}
-        {% unless folder_string contains token %}
-          {% assign folder_string = folder_string | append: token %}
-        {% endunless %}
-      {% endif %}
-
-      {% if parts.size == 1 and rest != '' and file.name != 'index.html' %}
-        {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' or ext == '.gif' %}
-          {% assign image_count = image_count | plus:1 %}
-        {% endif %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {% assign folder_array = folder_string | split:'|' | sort %}
-
-  {% if folder_array.size > 1 %}
-    <div class="section-title" data-i18n="folder">폴더</div>
-    <div class="list">
-      {% for folder in folder_array %}
-        {% if folder != '' %}
-          <a class="item" href="{{ page.url | append: folder | append:'/' | relative_url }}">
-            <span class="icon">📁</span>
-            <span class="name">{{ folder }}</span>
-            <span class="meta">FOLDER</span>
-          </a>
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  {% if file_count > 0 %}
-    <div class="section-title" data-i18n="records">시즌 기록</div>
-    <div class="list">
-      {% for file in page_files_sorted %}
-        {% if file.url contains page.url %}
-          {% assign rest = file.url | remove_first: page.url %}
-          {% assign parts = rest | split:'/' %}
-
-          {% if parts.size == 1 and rest != '' and file.name != 'index.html' %}
-            <a class="item" href="{{ file.url | relative_url }}">
-              <div class="icon">📄</div>
-              <div class="item-body">
-                <div class="item-dates">{{ file.name | replace: '.html', '' | replace: '_', ' ~ ' }}</div>
-                <div class="item-sub">GUILD ARENA SEASON</div>
-              </div>
-              <span class="badge-view" data-i18n="view">보기 →</span>
-            </a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  {% if image_count > 0 %}
-    <div class="section-title" data-i18n="images">이미지</div>
-    <div class="image-grid">
-      {% assign image_index = 0 %}
-      {% for file in static_files_sorted %}
-        {% if file.path contains page.url %}
-          {% assign rest = file.path | remove_first: page.url %}
-          {% assign parts = rest | split:'/' %}
-          {% assign ext = file.extname | downcase %}
-
-          {% if parts.size == 1 and rest != '' %}
-            {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' or ext == '.gif' %}
-              <div class="image-item"
-                   data-index="{{ image_index }}"
-                   data-full="{{ file.path | absolute_url }}">
-                <img src="{{ file.path | relative_url }}" alt="">
-                <div class="img-badge">{{ file.name | split:' ' | first }}</div>
-              </div>
-              {% assign image_index = image_index | plus: 1 %}
-            {% endif %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
-  <div class="footer">REO Archive</div>
-</div>
-
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-nav left" type="button" onclick="prevImage()">❮</button>
-  <img id="lightbox-img" alt="">
-  <button class="lightbox-nav right" type="button" onclick="nextImage()">❯</button>
-</div>
-
-{% raw %}
+  {% raw %}
 <script>
-(function(){
-  var DICT={
-    ko:{archiveBtn:"📁 지난시즌",home:"🏠 메인",folder:"폴더",records:"시즌 기록",images:"이미지",view:"보기 →"},
-    en:{archiveBtn:"📁 Archive",home:"🏠 Home",folder:"Folder",records:"Season Records",images:"Images",view:"View →"},
-    ja:{archiveBtn:"📁 過去シーズン",home:"🏠 ホーム",folder:"フォルダ",records:"シーズン記録",images:"画像",view:"見る →"},
-    zh:{archiveBtn:"📁 往期赛季",home:"🏠 主页",folder:"文件夹",records:"赛季记录",images:"图片",view:"查看 →"}
-  };
-  var SUP=['ko','en','ja','zh'];
-  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
-  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
-  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
-  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
-})();
-</script>
+  (function(){
+    var DICT={
+      ko:{home:"🏠 메인",recordsTitle:"📄 시즌 기록",empty:"아직 저장된 기록이 없습니다.",season4:"🌊 시즌 4 · 해일의 분노",season3:"🗂️ 시즌 3",open:"열기 →",view:"보기 →",totalRecords:"총 <strong>{n}</strong>개 시즌 기록"},
+      en:{home:"🏠 Home",recordsTitle:"📄 Season Records",empty:"No records saved yet.",season4:"🌊 Season 4 · Wrath of the Tides",season3:"🗂️ Season 3",open:"Open →",view:"View →",totalRecords:"<strong>{n}</strong> season records"},
+      ja:{home:"🏠 ホーム",recordsTitle:"📄 シーズン記録",empty:"まだ保存された記録がありません。",season4:"🌊 シーズン4 · 蒼潮の怒り",season3:"🗂️ シーズン3",open:"開く →",view:"見る →",totalRecords:"全 <strong>{n}</strong> シーズン記録"},
+      zh:{home:"🏠 主页",recordsTitle:"📄 赛季记录",empty:"暂无保存的记录。",season4:"🌊 第4赛季 · 潮汐之怒",season3:"🗂️ 第3赛季",open:"打开 →",view:"查看 →",totalRecords:"共 <strong>{n}</strong> 个赛季记录"}
+    };
+    var SUP=['ko','en','ja','zh'];
+    function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+    function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(!d[k])return;var v=d[k];if(el.hasAttribute('data-count'))v=v.replace('{n}',el.getAttribute('data-count'));el.innerHTML=v;});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
+    var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+    document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+  })();
+  </script>
 {% endraw %}
-
-<script>
-let galleryImages = [];
-let currentImageIndex = 0;
-let touchStartX = 0;
-let touchEndX = 0;
-let suppressNextOpen = false;
-
-document.addEventListener('DOMContentLoaded', function () {
-  const items = Array.from(document.querySelectorAll('.image-item'));
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const navButtons = document.querySelectorAll('.lightbox-nav');
-
-  galleryImages = items.map(item => item.dataset.full);
-
-  items.forEach(item => {
-    item.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      if (suppressNextOpen) return;
-
-      const idx = parseInt(item.dataset.index, 10);
-      openImageByIndex(idx);
-    });
-  });
-
-  navButtons.forEach(btn => {
-    btn.addEventListener('touchend', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (btn.classList.contains('left')) {
-        prevImage();
-      } else if (btn.classList.contains('right')) {
-        nextImage();
-      }
-    }, { passive: false });
-  });
-
-  lightbox.addEventListener('click', function(e){
-    if (e.target === lightbox) {
-      closeImage(true);
-    }
-  });
-
-  lightboxImg.addEventListener('click', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    closeImage(true);
-  });
-
-  lightboxImg.addEventListener('touchstart', function(e){
-    touchStartX = e.changedTouches[0].clientX;
-    touchEndX = touchStartX;
-  }, { passive: true });
-
-  lightboxImg.addEventListener('touchmove', function(e){
-    touchEndX = e.changedTouches[0].clientX;
-  }, { passive: true });
-
-  lightboxImg.addEventListener('touchend', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    touchEndX = e.changedTouches[0].clientX;
-    handleSwipeOrClose();
-  }, { passive: false });
-});
-
-function openImageByIndex(index){
-  if (!galleryImages.length) return;
-  currentImageIndex = index;
-  const img = document.getElementById('lightbox-img');
-  img.src = galleryImages[currentImageIndex];
-  img.style.opacity = 1;
-  img.style.transform = 'translateX(0)';
-  document.getElementById('lightbox').style.display = 'flex';
-}
-
-function closeImage(fromTouch = false){
-  document.getElementById('lightbox').style.display = 'none';
-  if (fromTouch) {
-    suppressNextOpen = true;
-    setTimeout(() => {
-      suppressNextOpen = false;
-    }, 350);
-  }
-}
-
-function prevImage(){
-  if (!galleryImages.length) return;
-  slide(-1);
-}
-
-function nextImage(){
-  if (!galleryImages.length) return;
-  slide(1);
-}
-
-function slide(dir){
-  const img = document.getElementById('lightbox-img');
-
-  img.style.transform = dir > 0 ? 'translateX(-40px)' : 'translateX(40px)';
-  img.style.opacity = '0';
-
-  setTimeout(() => {
-    currentImageIndex = (currentImageIndex + dir + galleryImages.length) % galleryImages.length;
-    img.src = galleryImages[currentImageIndex];
-    img.style.transition = 'none';
-    img.style.transform = dir > 0 ? 'translateX(40px)' : 'translateX(-40px)';
-    img.style.opacity = '0';
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        img.style.transition = 'transform .22s ease, opacity .22s ease';
-        img.style.transform = 'translateX(0)';
-        img.style.opacity = '1';
-      });
-    });
-  }, 120);
-}
-
-function handleSwipeOrClose(){
-  const diff = touchEndX - touchStartX;
-
-  if (Math.abs(diff) < 30) {
-    closeImage(true);
-    return;
-  }
-
-  if (diff > 0) {
-    prevImage();
-  } else {
-    nextImage();
-  }
-}
-
-document.addEventListener('keydown', function(e){
-  const lightbox = document.getElementById('lightbox');
-  if (lightbox.style.display !== 'flex') return;
-
-  if (e.key === 'ArrowLeft') {
-    e.preventDefault();
-    prevImage();
-  } else if (e.key === 'ArrowRight') {
-    e.preventDefault();
-    nextImage();
-  } else if (e.key === 'Escape') {
-    e.preventDefault();
-    closeImage();
-  }
-});
-</script>
-
-<script>
-(function(){
-  var last=0;
-  document.addEventListener("touchend",function(e){
-    var now=Date.now();
-    if(now-last<300){e.preventDefault();}
-    last=now;
-  },{passive:false});
-})();
-</script>
+  <script>
+  (function(){
+    var last=0;
+    document.addEventListener("touchend",function(e){
+      var now=Date.now();
+      if(now-last<300){e.preventDefault();}
+      last=now;
+    },{passive:false});
+  })();
+  </script>
 </body>
 </html>
