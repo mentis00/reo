@@ -502,6 +502,7 @@ body{
   <button class="lightbox-nav right" type="button" onclick="nextImage()">❯</button>
 </div>
 
+{% raw %}
 <script>
 (function(){
   var DICT={
@@ -517,6 +518,7 @@ body{
   document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
 })();
 </script>
+{% endraw %}
 
 <script>
 let galleryImages = [];
