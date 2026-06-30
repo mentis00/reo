@@ -9,8 +9,8 @@ layout: null
 <title>REO Guild Arena</title>
 {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
 <style>
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;padding:20px;color:#fff}
 .no,.rank,.score,.guild-name,.total-score-value,.total strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
@@ -42,7 +42,7 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 .row{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:11px 14px;gap:10px;min-width:0}
 .row.top3{background:rgba(180,130,255,0.1);border-color:rgba(180,130,255,0.25)}
 .row.zero{background:rgba(255,80,80,0.05);border-color:rgba(255,80,80,0.15)}
-.no,.rank,.score{font-family:'Rajdhani',sans-serif}
+.no,.rank,.score{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
 .no{font-size:13px;font-weight:600;color:rgba(200,180,255,0.35);width:22px;text-align:right;flex-shrink:0}
 .rank{font-size:14px;font-weight:700;color:rgba(200,180,255,0.5);width:46px;text-align:center;flex-shrink:0}
 .rank.r1{color:#fbbf24}.rank.r2{color:#94a3b8}.rank.r3{color:#cd7c3a}
