@@ -91,12 +91,24 @@ title: REO Arena Archive
     }
 
     .event-label {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       font-size:14px;
       color:rgba(200,180,255,0.6);
-      letter-spacing:2px;
       text-transform:uppercase;
     }
-    .lbl-dot { margin:0 6px; letter-spacing:0; }
+
+    .event-label .arena-title,
+    .event-label .archive-title-word {
+      letter-spacing:2px;
+    }
+
+    .lbl-dot {
+      margin:0;
+      letter-spacing:0;
+      flex:0 0 auto;
+    }
 
     .nav-btn {
       display:inline-block;
@@ -404,7 +416,7 @@ title: REO Arena Archive
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
-        <div class="event-label">Guild Arena <span class="lbl-dot">·</span> Archive</div>
+        <div class="event-label"><span class="arena-title">Guild Arena</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
         <a class="nav-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
       </div>
     </div>
@@ -618,10 +630,10 @@ title: REO Arena Archive
 <script>
   (function(){
     var DICT={
-      ko:{archiveTitle:"Guild Arena &nbsp;·&nbsp; 아카이브",home:"🏠 메인",recordsTitle:"📄 시즌 기록",empty:"아직 저장된 기록이 없습니다.",season4:"🌊 시즌 4 · 해일의 분노",season3:"🗂️ 시즌 3",open:"열기 →",view:"보기 →",totalRecords:"총 <strong>{n}</strong>개 시즌 기록"},
-      en:{archiveTitle:"Guild Arena &nbsp;·&nbsp; Archive",home:"🏠 Home",recordsTitle:"📄 Season Records",empty:"No records saved yet.",season4:"🌊 Season 4 · Wrath of the Tides",season3:"🗂️ Season 3",open:"Open →",view:"View →",totalRecords:"<strong>{n}</strong> season records"},
-      ja:{archiveTitle:"Guild Arena &nbsp;·&nbsp; アーカイブ",home:"🏠 ホーム",recordsTitle:"📄 シーズン記録",empty:"まだ保存された記録がありません。",season4:"🌊 シーズン4 · 蒼潮の怒り",season3:"🗂️ シーズン3",open:"開く →",view:"見る →",totalRecords:"全 <strong>{n}</strong> シーズン記録"},
-      zh:{archiveTitle:"Guild Arena &nbsp;·&nbsp; 存档",home:"🏠 主页",recordsTitle:"📄 赛季记录",empty:"暂无保存的记录。",season4:"🌊 第4赛季 · 潮汐之怒",season3:"🗂️ 第3赛季",open:"打开 →",view:"查看 →",totalRecords:"共 <strong>{n}</strong> 个赛季记录"}
+      ko:{home:"🏠 메인",recordsTitle:"📄 시즌 기록",empty:"아직 저장된 기록이 없습니다.",season4:"🌊 시즌 4 · 해일의 분노",season3:"🗂️ 시즌 3",open:"열기 →",view:"보기 →",totalRecords:"총 <strong>{n}</strong>개 시즌 기록"},
+      en:{home:"🏠 Home",recordsTitle:"📄 Season Records",empty:"No records saved yet.",season4:"🌊 Season 4 · Wrath of the Tides",season3:"🗂️ Season 3",open:"Open →",view:"View →",totalRecords:"<strong>{n}</strong> season records"},
+      ja:{home:"🏠 ホーム",recordsTitle:"📄 シーズン記録",empty:"まだ保存された記録がありません。",season4:"🌊 シーズン4 · 蒼潮の怒り",season3:"🗂️ シーズン3",open:"開く →",view:"見る →",totalRecords:"全 <strong>{n}</strong> シーズン記録"},
+      zh:{home:"🏠 主页",recordsTitle:"📄 赛季记录",empty:"暂无保存的记录。",season4:"🌊 第4赛季 · 潮汐之怒",season3:"🗂️ 第3赛季",open:"打开 →",view:"查看 →",totalRecords:"共 <strong>{n}</strong> 个赛季记录"}
     };
     var SUP=['ko','en','ja','zh'];
     function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
