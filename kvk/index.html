@@ -9,10 +9,18 @@ layout: null
 <title>REO Kingdom Duel</title>
 {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{background:#090800;font-family:'Noto Sans KR',sans-serif;padding:20px;color:#fff}
+body{background:#090800;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;padding:20px;color:#fff}
+.no,.sc,.gname,.sval,.cnt strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
+.lbl-dot{margin:0;letter-spacing:0;flex:0 0 auto}
+.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle button.active{background:rgba(56,189,248,0.32);color:#fff}
+.lang-toggle button:hover{color:#fff}
+.elvl{display:inline-flex;align-items:center;gap:8px}
+@media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
 .wrap{max-width:1100px;margin:0 auto;background:linear-gradient(160deg,#1a1000 0%,#0e0c02 50%,#120e00 100%);border:1px solid rgba(245,158,11,0.25);border-radius:20px;padding:36px 40px 44px;position:relative;overflow:hidden}
 .wrap::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(245,158,11,0.16) 0%,transparent 70%);pointer-events:none}
 .wrap::after{content:'';position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(217,119,6,0.10) 0%,transparent 70%);pointer-events:none}
@@ -77,15 +85,16 @@ body{background:#090800;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 </head>
 <body>
 <div class="wrap">
-  <div class="header">
+  <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
+<div class="header">
     <div class="gname">REO</div>
     <div class="hright">
       <div>
         <div class="elvl">Kingdom Duel</div>
-        <div class="utime">최종 업데이트: <span></span></div>
+        <div class="utime"><span data-i18n="lastUpdate">최종 업데이트</span>: <span></span></div>
       </div>
       
-      <a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/">📁 지난시즌</a><a class="abtn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+      <a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/" data-i18n="archiveBtn">📁 지난시즌</a><a class="abtn" href="https://mentis00.github.io/reo/" data-i18n="homeBtn">🏠 메인</a>
     </div>
   </div>
   <div class="tbox">
@@ -93,28 +102,36 @@ body{background:#090800;font-family:'Noto Sans KR',sans-serif;padding:20px;color
       <span class="slbl" id="tLbl">🏆 ...</span>
       <span class="sval" id="tVal" style="color:#f59e0b;">...</span>
       <div class="ssub">
-        <span>0명 참여</span>
-        
+        <span data-i18n="participate" data-count="0">0명 참여</span>
+        <span id="bCntWrap">&nbsp;·&nbsp;<span id="bCnt" style="color:rgba(255,100,100,0.9);" data-i18n="belowGoal" data-below="0">목표점수 미달 0명</span></span>
       </div>
     </div>
   </div>
   
-  
+  <div class="rbox" id="ruleBox"><span>📌</span><span data-i18n="ruleText" data-goal="1,500,000">길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>1,500,000점</strong> 달성 바랍니다.</span></div>
   <div class="tabs" id="tabsWrap">
-    <button class="tab disabled" data-day="0" disabled>Day1 건설</button><button class="tab disabled" data-day="1" disabled>Day2 기술</button><button class="tab disabled" data-day="2" disabled>Day3 채집</button><button class="tab disabled" data-day="3" disabled>Day4 영웅</button><button class="tab disabled" data-day="4" disabled>Day5 훈련</button><button class="tab war-tab disabled" data-day="5" disabled>Day6 전쟁</button>
-    <button class="tab" data-day="all">전체 합산</button>
+    <button class="tab disabled" data-day="0" disabled>Day1</button><button class="tab disabled" data-day="1" disabled>Day2</button><button class="tab disabled" data-day="2" disabled>Day3</button><button class="tab disabled" data-day="3" disabled>Day4</button><button class="tab disabled" data-day="4" disabled>Day5</button><button class="tab war-tab disabled" data-day="5" disabled>Day6</button>
+    <button class="tab" data-day="all" data-i18n="totalSumTab">전체 합산</button>
   </div>
-  
+  <div class="fbar" id="fbar">
+    <button class="fbtn active" data-mode="all" data-i18n="filterAll">전체</button>
+    <button class="fbtn" data-mode="above" data-i18n="filterAbove">이상</button>
+    <button class="fbtn" data-mode="below" data-i18n="filterBelow">미만</button>
+  </div>
   <div class="grid"></div>
   <div class="foot">
-    <div class="cnt">총 멤버 <strong>0명</strong> &nbsp;|&nbsp; <span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span></div>
-    
+    <div class="cnt"><span data-i18n="totalMember" data-count="0">총 멤버 0명</span> &nbsp;|&nbsp; <span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span></div>
+    <div class="gnote" id="gnote" data-i18n="goalNote" data-goal="1,500,000">⚠️ 1,500,000점 미달성 시 주의</div>
   </div>
 </div>
 <script>
 (function(){
-var DL=["건설","기술","채집","영웅","훈련","전쟁"],DC=["#fbbf24","#60a5fa","#34d399","#f472b6","#38bdf8","#f87171"],goal=0,allSum=0,dsArr=[0,0,0,0,0,0];
+var DL=["건설","기술","채집","영웅","훈련","전쟁"],DC=["#fbbf24","#60a5fa","#34d399","#f472b6","#38bdf8","#f87171"],goal=1500000,allSum=0,dsArr=[0,0,0,0,0,0];
 var isArchive=false;
+var KVKI18N={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+function curLang(){var l=document.documentElement.getAttribute('lang')||'ko';return KVKI18N[l]?l:'en';}
+function tr(k){var d=KVKI18N[curLang()]||KVKI18N.en;return d[k]!=null?d[k]:k;}
+function trf(k,p){return tr(k).replace(/\{(\w+)\}/g,function(_,x){return (p&&p[x]!=null)?p[x]:'';});}
 var updateInput="";
 function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
@@ -152,14 +169,14 @@ function applyFilter(){
   if(gnote)gnote.style.display=isAll?'none':'';
   var di=isAll?-1:Number(cDay);
   if(isAll){
-    lbl.textContent='🏆 전체 합산';val.textContent=allSum.toLocaleString();val.style.color='#f59e0b';
+    lbl.textContent=tr('totalSum');val.textContent=allSum.toLocaleString();val.style.color='#f59e0b';
     cMode='all';
   }else{
-    lbl.textContent='🏆 Day'+(di+1)+' '+DL[di]+' 합계';
+    lbl.textContent='🏆 Day'+(di+1)+' '+tr('cat'+di);
     val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
     if(cnt&&goal>0&&di<5){
       var b2=0;rows.forEach(function(r){var d=JSON.parse(r.getAttribute('data-days')||'[]');if((Number(d[di])||0)<goal)b2++;});
-      cnt.textContent='목표점수 미달 '+b2+'명';
+      cnt.textContent=trf('belowGoal',{below:b2});
     }
   }
   var sorted=rows.slice().sort(function(a,b){
@@ -200,10 +217,24 @@ document.querySelectorAll('.fbtn').forEach(function(btn){
   });
 });
 applyFilter();
+window.__kvkApplyFilter=applyFilter;
 })();
 </script>
 <script>
 (function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();
 </script>
+{% raw %}
+<script>
+(function(){
+  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+  var SUP=['ko','en','ja','zh'];
+  function fmt(s,p){return s.replace(/\{(\w+)\}/g,function(_,k){return (p&&p[k]!=null)?p[k]:'';});}
+  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(!d[k])return;var p={};if(el.hasAttribute('data-count'))p.count=el.getAttribute('data-count');if(el.hasAttribute('data-goal'))p.goal=el.getAttribute('data-goal');if(el.hasAttribute('data-below'))p.below=el.getAttribute('data-below');el.innerHTML=fmt(d[k],p);});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}if(typeof window.__kvkApplyFilter==='function'){window.__kvkApplyFilter();}}
+  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+})();
+</script>
+{% endraw %}
 </body>
 </html>
