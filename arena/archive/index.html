@@ -609,7 +609,8 @@ title: REO Arena Archive
     <div class="footer" data-i18n="totalRecords" data-count="{{ folder_array_clean.size }}">총 <strong>{{ folder_array_clean.size }}</strong>개 시즌 기록</div>
   </div>
 
-  <script>
+  {% raw %}
+<script>
   (function(){
     var DICT={
       ko:{archiveTitle:"Guild Arena &nbsp;·&nbsp; 아카이브",home:"🏠 메인",recordsTitle:"📄 시즌 기록",empty:"아직 저장된 기록이 없습니다.",season4:"🌊 시즌 4 · 해일의 분노",season3:"🗂️ 시즌 3",open:"열기 →",view:"보기 →",totalRecords:"총 <strong>{n}</strong>개 시즌 기록"},
@@ -624,6 +625,7 @@ title: REO Arena Archive
     document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
   })();
   </script>
+{% endraw %}
   <script>
   (function(){
     var last=0;
