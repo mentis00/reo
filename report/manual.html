@@ -11,11 +11,11 @@ title: REO 가이드 — Guild Report
 {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}
 {% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}
 {% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
-body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-height:100vh;padding:20px}
+body{background:#07101e;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;color:#eef2ff;min-height:100vh;padding:20px}
 .wrap{max-width:800px;margin:0 auto}
 
 .hero{text-align:center;padding:44px 20px 32px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:36px;position:relative;}
@@ -82,22 +82,29 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
 @media(max-width:600px){
   .hero-guild{font-size:42px;letter-spacing:6px}
 }
+.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
+.lang-toggle button:hover{color:#fff}
+.lbl-dot{margin:0 4px;letter-spacing:0}
+@media(max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
 </style>
 </head>
 <body>
+<div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
 <div class="wrap">
 
   <div class="hero">
     <div class="hero-guild">REO</div>
-    <div class="hero-sub">Guild Report 이용 가이드</div>
-    <a class="hero-url" href="{{ '/report/' | relative_url }}">← Report 바로가기</a>
+    <div class="hero-sub" data-i18n="heroSub">Guild Report 이용 가이드</div>
+    <a class="hero-url" href="{{ '/report/' | relative_url }}" data-i18n="heroUrl">← Report 바로가기</a>
   </div>
 
   <div class="toc">
-    <div class="toc-title">목차</div>
+    <div class="toc-title" data-i18n="tocTitle">목차</div>
     <div class="toc-list">
-      <a class="toc-item" href="#report"><span class="toc-num">01</span>성과 리포트 사용법</a>
-      <a class="toc-item" href="#rules"><span class="toc-num">02</span>위반 기준 및 등급표</a>
+      <a class="toc-item" href="#report"><span class="toc-num">01</span><span data-i18n="toc1">성과 리포트 사용법</span></a>
+      <a class="toc-item" href="#rules"><span class="toc-num">02</span><span data-i18n="toc2">위반 기준 및 등급표</span></a>
     </div>
   </div>
 
@@ -105,22 +112,22 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
   <div class="section" id="report">
     <div class="section-header">
       <div class="section-num">01</div>
-      <div><div class="section-title">📊 성과 리포트 사용법</div></div>
+      <div><div class="section-title" data-i18n="sec1Title">📊 성과 리포트 사용법</div></div>
     </div>
 
     <div class="card c-report">
-      <div class="card-title">시즌 선택 및 분석</div>
+      <div class="card-title" data-i18n="c1Title">시즌 선택 및 분석</div>
       <div class="steps">
-        <div class="step"><div class="step-num report">1</div><div class="step-text">분석할 <b>Arena 시즌</b>을 체크박스로 선택 (복수 선택 가능)</div></div>
-        <div class="step"><div class="step-num report">2</div><div class="step-text">분석할 <b>GAR 시즌</b>을 체크박스로 선택 (복수 선택 가능)</div></div>
-        <div class="step"><div class="step-num report">3</div><div class="step-text"><b>선택한 시즌으로 분석 →</b> 버튼 클릭</div></div>
-        <div class="step"><div class="step-num report">4</div><div class="step-text">위반자 목록과 벌점/등급이 자동 표시됩니다</div></div>
+        <div class="step"><div class="step-num report">1</div><div class="step-text" data-i18n="c1s1">분석할 <b>Arena 시즌</b>을 체크박스로 선택 (복수 선택 가능)</div></div>
+        <div class="step"><div class="step-num report">2</div><div class="step-text" data-i18n="c1s2">분석할 <b>GAR 시즌</b>을 체크박스로 선택 (복수 선택 가능)</div></div>
+        <div class="step"><div class="step-num report">3</div><div class="step-text" data-i18n="c1s3"><b>선택한 시즌으로 분석 →</b> 버튼 클릭</div></div>
+        <div class="step"><div class="step-num report">4</div><div class="step-text" data-i18n="c1s4">위반자 목록과 벌점/등급이 자동 표시됩니다</div></div>
       </div>
     </div>
 
     <div class="card c-report">
-      <div class="card-title">⚖️ 가중치 설정</div>
-      <div class="card-body">
+      <div class="card-title" data-i18n="c2Title">⚖️ 가중치 설정</div>
+      <div class="card-body" data-i18n="c2Body">
         분석 결과 위 <b>벌점 가중치 설정</b>에서 항목별 점수를 조정할 수 있습니다.<br>
         <b>－ ＋ 버튼</b>으로 조정하면 벌점과 등급이 실시간으로 반영됩니다.<br><br>
         기본값 — Arena 미달 <b>1점</b> · 공동미션 위반 <b>1점</b> · GAR 미달 <b>1점</b>
@@ -128,8 +135,8 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
     </div>
 
     <div class="card c-report">
-      <div class="card-title">정렬 기능</div>
-      <div class="card-body">
+      <div class="card-title" data-i18n="c3Title">정렬 기능</div>
+      <div class="card-body" data-i18n="c3Body">
         <b>벌점순</b> — 벌점 높은 순 (기본값)<br>
         <b>위반횟수순</b> — 전체 위반 횟수 기준<br>
         <b>Arena 미달순</b> — Arena 미달 횟수 기준<br>
@@ -139,26 +146,26 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
     </div>
 
     <div class="card c-report">
-      <div class="card-title">툴팁 — 시즌별 상세 정보</div>
-      <div class="card-body">
+      <div class="card-title" data-i18n="c4Title">툴팁 — 시즌별 상세 정보</div>
+      <div class="card-body" data-i18n="c4Body">
         Arena / GAR / 공동미션 배지에 <b>마우스오버(PC)</b> 또는 <b>터치(모바일)</b>하면<br>
         시즌별 점수와 달성 여부를 확인할 수 있습니다.
       </div>
     </div>
 
     <div class="card c-info">
-      <div class="card-title">🔗 멤버 합치기 — 닉네임 변경 대응</div>
+      <div class="card-title" data-i18n="c5Title">🔗 멤버 합치기 — 닉네임 변경 대응</div>
       <div class="steps">
-        <div class="step"><div class="step-num info">1</div><div class="step-text">합칠 멤버 카드의 <b>🔗 버튼</b> 클릭</div></div>
-        <div class="step"><div class="step-num info">2</div><div class="step-text">주황색으로 변한 <b>대상 카드</b> 클릭</div></div>
-        <div class="step"><div class="step-num info">3</div><div class="step-text">팝업에서 <b>합치기</b> 확인 → 위반 기록 합산됩니다</div></div>
+        <div class="step"><div class="step-num info">1</div><div class="step-text" data-i18n="c5s1">합칠 멤버 카드의 <b>🔗 버튼</b> 클릭</div></div>
+        <div class="step"><div class="step-num info">2</div><div class="step-text" data-i18n="c5s2">주황색으로 변한 <b>대상 카드</b> 클릭</div></div>
+        <div class="step"><div class="step-num info">3</div><div class="step-text" data-i18n="c5s3">팝업에서 <b>합치기</b> 확인 → 위반 기록 합산됩니다</div></div>
       </div>
-      <div class="tip-box-m">분리하려면 합쳐진 카드의 <b>✕ 분리</b> 버튼을 누르면 됩니다.</div>
+      <div class="tip-box-m" data-i18n="c5tip">분리하려면 합쳐진 카드의 <b>✕ 분리</b> 버튼을 누르면 됩니다.</div>
     </div>
 
     <div class="card c-report">
-      <div class="card-title">📋 REPORT — 분석표 내보내기</div>
-      <div class="card-body">
+      <div class="card-title" data-i18n="c6Title">📋 REPORT — 분석표 내보내기</div>
+      <div class="card-body" data-i18n="c6Body">
         <b>REPORT 버튼</b>을 누르면 표 형식의 분석표가 표시됩니다.<br>
         <b>상위 N명 필터</b> — 전체 / 10명 / 20명 / 30명 / 50명 선택 가능<br>
         <b>복사 버튼</b> — 텍스트 형식으로 클립보드에 저장
@@ -170,12 +177,12 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
   <div class="section" id="rules">
     <div class="section-header">
       <div class="section-num">02</div>
-      <div><div class="section-title">위반 기준 및 등급표</div></div>
+      <div><div class="section-title" data-i18n="sec2Title">위반 기준 및 등급표</div></div>
     </div>
 
     <div class="card c-warn">
-      <div class="card-title">위반 기준</div>
-      <div class="card-body">
+      <div class="card-title" data-i18n="c7Title">위반 기준</div>
+      <div class="card-body" data-i18n="c7Body">
         🏟️ <b>Arena 점수 미달</b> — 시즌 종료 시 7,000점 미만<br>
         🎯 <b>공동미션 보유시간</b> — 30분 이상 보유 시 위반<br>
         ⚔️ <b>GAR 일별 미달</b> — 하루 150만점 미만
@@ -183,28 +190,43 @@ body{background:#07101e;font-family:'Noto Sans KR',sans-serif;color:#eef2ff;min-
     </div>
 
     <div class="card c-info">
-      <div class="card-title">등급 기준 (벌점 합산 · 기본 가중치 기준)</div>
+      <div class="card-title" data-i18n="c8Title">등급 기준 (벌점 합산 · 기본 가중치 기준)</div>
       <table class="grade-table">
-        <thead><tr><th>등급</th><th>벌점</th><th>상태</th></tr></thead>
+        <thead><tr><th data-i18n="thGrade">등급</th><th data-i18n="thPenalty">벌점</th><th data-i18n="thStatus">상태</th></tr></thead>
         <tbody>
-          <tr><td><span class="gb gS">S</span></td><td>0점</td><td>위반 없음 ✨</td></tr>
-          <tr><td><span class="gb gA">A</span></td><td>1 ~ 5점</td><td>경미한 위반</td></tr>
-          <tr><td><span class="gb gB">B</span></td><td>6 ~ 15점</td><td>주의 필요</td></tr>
-          <tr><td><span class="gb gC">C</span></td><td>16 ~ 30점</td><td>경고 수준</td></tr>
-          <tr><td><span class="gb gD">D</span></td><td>31 ~ 60점</td><td>위험 수준</td></tr>
-          <tr><td><span class="gb gE">E</span></td><td>61 ~ 100점</td><td>심각한 위반</td></tr>
-          <tr><td><span class="gb gF">F</span></td><td>101점 이상</td><td>최고 위반 🚨</td></tr>
+          <tr><td><span class="gb gS">S</span></td><td data-i18n="gradeS_p">0점</td><td data-i18n="gradeS_s">위반 없음 ✨</td></tr>
+          <tr><td><span class="gb gA">A</span></td><td data-i18n="gradeA_p">1 ~ 5점</td><td data-i18n="gradeA_s">경미한 위반</td></tr>
+          <tr><td><span class="gb gB">B</span></td><td data-i18n="gradeB_p">6 ~ 15점</td><td data-i18n="gradeB_s">주의 필요</td></tr>
+          <tr><td><span class="gb gC">C</span></td><td data-i18n="gradeC_p">16 ~ 30점</td><td data-i18n="gradeC_s">경고 수준</td></tr>
+          <tr><td><span class="gb gD">D</span></td><td data-i18n="gradeD_p">31 ~ 60점</td><td data-i18n="gradeD_s">위험 수준</td></tr>
+          <tr><td><span class="gb gE">E</span></td><td data-i18n="gradeE_p">61 ~ 100점</td><td data-i18n="gradeE_s">심각한 위반</td></tr>
+          <tr><td><span class="gb gF">F</span></td><td data-i18n="gradeF_p">101점 이상</td><td data-i18n="gradeF_s">최고 위반 🚨</td></tr>
         </tbody>
       </table>
-      <div class="tip-box-m">가중치 변경 시 벌점 범위가 달라질 수 있습니다.</div>
+      <div class="tip-box-m" data-i18n="c8tip">가중치 변경 시 벌점 범위가 달라질 수 있습니다.</div>
     </div>
   </div>
 
   <div class="footer">
-    REO #10472[REO]NOOK · Top Heroes Guild<br>
-    <a href="{{ '/report/' | relative_url }}">← Report로 돌아가기</a>
+    <span lang="en">REO #10472[REO]NOOK · Top Heroes Guild</span><br>
+    <a href="{{ '/report/' | relative_url }}" data-i18n="footerBack">← Report로 돌아가기</a>
   </div>
 
 </div>
+{% raw %}
+<script>
+(function(){
+  var DICT={"ko": {"heroSub": "Guild Report 이용 가이드", "heroUrl": "← Report 바로가기", "tocTitle": "목차", "toc1": "성과 리포트 사용법", "toc2": "위반 기준 및 등급표", "sec1Title": "📊 성과 리포트 사용법", "c1Title": "시즌 선택 및 분석", "c1s1": "분석할 <b>Arena 시즌</b>을 체크박스로 선택 (복수 선택 가능)", "c1s2": "분석할 <b>GAR 시즌</b>을 체크박스로 선택 (복수 선택 가능)", "c1s3": "<b>선택한 시즌으로 분석 →</b> 버튼 클릭", "c1s4": "위반자 목록과 벌점/등급이 자동 표시됩니다", "c2Title": "⚖️ 가중치 설정", "c2Body": "분석 결과 위 <b>벌점 가중치 설정</b>에서 항목별 점수를 조정할 수 있습니다.<br><b>－ ＋ 버튼</b>으로 조정하면 벌점과 등급이 실시간으로 반영됩니다.<br><br>기본값 — Arena 미달 <b>1점</b> · 공동미션 위반 <b>1점</b> · GAR 미달 <b>1점</b>", "c3Title": "정렬 기능", "c3Body": "<b>벌점순</b> — 벌점 높은 순 (기본값)<br><b>위반횟수순</b> — 전체 위반 횟수 기준<br><b>Arena 미달순</b> — Arena 미달 횟수 기준<br><b>공동미션순</b> — 공동미션 위반 횟수 기준<br><b>GAR 미달순</b> — GAR 미달 일수 기준", "c4Title": "툴팁 — 시즌별 상세 정보", "c4Body": "Arena / GAR / 공동미션 배지에 <b>마우스오버(PC)</b> 또는 <b>터치(모바일)</b>하면<br>시즌별 점수와 달성 여부를 확인할 수 있습니다.", "c5Title": "🔗 멤버 합치기 — 닉네임 변경 대응", "c5s1": "합칠 멤버 카드의 <b>🔗 버튼</b> 클릭", "c5s2": "주황색으로 변한 <b>대상 카드</b> 클릭", "c5s3": "팝업에서 <b>합치기</b> 확인 → 위반 기록 합산됩니다", "c5tip": "분리하려면 합쳐진 카드의 <b>✕ 분리</b> 버튼을 누르면 됩니다.", "c6Title": "📋 REPORT — 분석표 내보내기", "c6Body": "<b>REPORT 버튼</b>을 누르면 표 형식의 분석표가 표시됩니다.<br><b>상위 N명 필터</b> — 전체 / 10명 / 20명 / 30명 / 50명 선택 가능<br><b>복사 버튼</b> — 텍스트 형식으로 클립보드에 저장", "sec2Title": "위반 기준 및 등급표", "c7Title": "위반 기준", "c7Body": "🏟️ <b>Arena 점수 미달</b> — 시즌 종료 시 7,000점 미만<br>🎯 <b>공동미션 보유시간</b> — 30분 이상 보유 시 위반<br>⚔️ <b>GAR 일별 미달</b> — 하루 150만점 미만", "c8Title": "등급 기준 (벌점 합산 · 기본 가중치 기준)", "thGrade": "등급", "thPenalty": "벌점", "thStatus": "상태", "gradeS_p": "0점", "gradeS_s": "위반 없음 ✨", "gradeA_p": "1 ~ 5점", "gradeA_s": "경미한 위반", "gradeB_p": "6 ~ 15점", "gradeB_s": "주의 필요", "gradeC_p": "16 ~ 30점", "gradeC_s": "경고 수준", "gradeD_p": "31 ~ 60점", "gradeD_s": "위험 수준", "gradeE_p": "61 ~ 100점", "gradeE_s": "심각한 위반", "gradeF_p": "101점 이상", "gradeF_s": "최고 위반 🚨", "footerBack": "← Report로 돌아가기", "c8tip": "가중치 변경 시 벌점 범위가 달라질 수 있습니다."}, "en": {"heroSub": "Guild Report User Guide", "heroUrl": "← Go to Report", "tocTitle": "Contents", "toc1": "How to Use the Report", "toc2": "Violation Criteria & Grades", "sec1Title": "📊 How to Use the Report", "c1Title": "Season Selection & Analysis", "c1s1": "Select the <b>Arena seasons</b> to analyze via checkboxes (multiple allowed)", "c1s2": "Select the <b>GAR seasons</b> to analyze via checkboxes (multiple allowed)", "c1s3": "Click the <b>Analyze Selected Seasons →</b> button", "c1s4": "The violator list with penalties/grades is shown automatically", "c2Title": "⚖️ Weight Settings", "c2Body": "In <b>Penalty Weight Settings</b> above the results, you can adjust the score per item.<br>Adjusting with the <b>－ ＋ buttons</b> updates penalties and grades in real time.<br><br>Default — Arena miss <b>1 pt</b> · Joint mission violation <b>1 pt</b> · GAR miss <b>1 pt</b>", "c3Title": "Sorting", "c3Body": "<b>By Penalty</b> — Highest penalty first (default)<br><b>By Violations</b> — Total violation count<br><b>By Arena Miss</b> — Arena miss count<br><b>By Joint Mission</b> — Joint mission violation count<br><b>By GAR Miss</b> — GAR miss days", "c4Title": "Tooltip — Season Details", "c4Body": "Hover (PC) or touch (mobile) the Arena / GAR / Joint Mission badges<br>to view per-season scores and achievement status.", "c5Title": "🔗 Merge Members — Handling Name Changes", "c5s1": "Click the <b>🔗 button</b> on the member card to merge", "c5s2": "Click the <b>target card</b> that turned orange", "c5s3": "Confirm <b>Merge</b> in the popup → violation records are combined", "c5tip": "To separate, press the <b>✕ Split</b> button on the merged card.", "c6Title": "📋 REPORT — Export Table", "c6Body": "Click the <b>REPORT button</b> to display a table-format report.<br><b>Top N filter</b> — All / 10 / 20 / 30 / 50<br><b>Copy button</b> — Save to clipboard as text", "sec2Title": "Violation Criteria & Grades", "c7Title": "Violation Criteria", "c7Body": "🏟️ <b>Arena score miss</b> — Below 7,000 pts at season end<br>🎯 <b>Joint mission hold time</b> — Violation if held 30+ min<br>⚔️ <b>GAR daily miss</b> — Below 1.5M pts per day", "c8Title": "Grade Criteria (Total Penalty · Default Weights)", "thGrade": "Grade", "thPenalty": "Penalty", "thStatus": "Status", "gradeS_p": "0 pts", "gradeS_s": "No violations ✨", "gradeA_p": "1 – 5 pts", "gradeA_s": "Minor violation", "gradeB_p": "6 – 15 pts", "gradeB_s": "Caution needed", "gradeC_p": "16 – 30 pts", "gradeC_s": "Warning level", "gradeD_p": "31 – 60 pts", "gradeD_s": "Danger level", "gradeE_p": "61 – 100 pts", "gradeE_s": "Serious violation", "gradeF_p": "101+ pts", "gradeF_s": "Max violation 🚨", "footerBack": "← Back to Report", "c8tip": "Penalty ranges may change when weights are adjusted."}, "ja": {"heroSub": "Guild Report 利用ガイド", "heroUrl": "← Reportへ", "tocTitle": "目次", "toc1": "成績レポートの使い方", "toc2": "違反基準と等級表", "sec1Title": "📊 成績レポートの使い方", "c1Title": "シーズン選択と分析", "c1s1": "分析する <b>Arenaシーズン</b> をチェックボックスで選択（複数選択可）", "c1s2": "分析する <b>GARシーズン</b> をチェックボックスで選択（複数選択可）", "c1s3": "<b>選択したシーズンで分析 →</b> ボタンをクリック", "c1s4": "違反者リストと罰点・等級が自動表示されます", "c2Title": "⚖️ 重み設定", "c2Body": "分析結果の上の <b>罰点の重み設定</b> で項目別のスコアを調整できます。<br><b>－ ＋ ボタン</b> で調整すると罰点と等級がリアルタイムで反映されます。<br><br>初期値 — Arena未達 <b>1点</b> · 共同ミッション違反 <b>1点</b> · GAR未達 <b>1点</b>", "c3Title": "並べ替え機能", "c3Body": "<b>罰点順</b> — 罰点の高い順（初期値）<br><b>違反回数順</b> — 全違反回数基準<br><b>Arena未達順</b> — Arena未達回数基準<br><b>共同ミッション順</b> — 共同ミッション違反回数基準<br><b>GAR未達順</b> — GAR未達日数基準", "c4Title": "ツールチップ — シーズン別詳細", "c4Body": "Arena / GAR / 共同ミッションのバッジに <b>マウスオーバー（PC）</b> または <b>タッチ（モバイル）</b> すると<br>シーズン別のスコアと達成可否を確認できます。", "c5Title": "🔗 メンバー統合 — 名前変更対応", "c5s1": "統合するメンバーカードの <b>🔗 ボタン</b> をクリック", "c5s2": "オレンジ色に変わった <b>対象カード</b> をクリック", "c5s3": "ポップアップで <b>統合</b> を確認 → 違反記録が合算されます", "c5tip": "分離するには統合されたカードの <b>✕ 分離</b> ボタンを押します。", "c6Title": "📋 REPORT — 分析表のエクスポート", "c6Body": "<b>REPORTボタン</b> を押すと表形式の分析表が表示されます。<br><b>上位N人フィルター</b> — 全体 / 10人 / 20人 / 30人 / 50人 選択可<br><b>コピーボタン</b> — テキスト形式でクリップボードに保存", "sec2Title": "違反基準と等級表", "c7Title": "違反基準", "c7Body": "🏟️ <b>Arenaスコア未達</b> — シーズン終了時に7,000点未満<br>🎯 <b>共同ミッション保有時間</b> — 30分以上保有で違反<br>⚔️ <b>GAR日別未達</b> — 1日150万点未満", "c8Title": "等級基準（罰点合算 · 初期重み基準）", "thGrade": "等級", "thPenalty": "罰点", "thStatus": "状態", "gradeS_p": "0点", "gradeS_s": "違反なし ✨", "gradeA_p": "1〜5点", "gradeA_s": "軽微な違反", "gradeB_p": "6〜15点", "gradeB_s": "注意が必要", "gradeC_p": "16〜30点", "gradeC_s": "警告レベル", "gradeD_p": "31〜60点", "gradeD_s": "危険レベル", "gradeE_p": "61〜100点", "gradeE_s": "深刻な違反", "gradeF_p": "101点以上", "gradeF_s": "最高違反 🚨", "footerBack": "← Reportに戻る", "c8tip": "重みを変更すると罰点の範囲が変わる場合があります。"}, "zh": {"heroSub": "Guild Report 使用指南", "heroUrl": "← 前往 Report", "tocTitle": "目录", "toc1": "成绩报告使用方法", "toc2": "违规标准与等级表", "sec1Title": "📊 成绩报告使用方法", "c1Title": "赛季选择与分析", "c1s1": "通过复选框选择要分析的 <b>Arena 赛季</b>（可多选）", "c1s2": "通过复选框选择要分析的 <b>GAR 赛季</b>（可多选）", "c1s3": "点击 <b>分析所选赛季 →</b> 按钮", "c1s4": "违规者列表与罚分/等级会自动显示", "c2Title": "⚖️ 权重设置", "c2Body": "在结果上方的 <b>罚分权重设置</b> 中可调整各项分数。<br>用 <b>－ ＋ 按钮</b> 调整后，罚分与等级会实时更新。<br><br>默认 — Arena 未达 <b>1分</b> · 共同任务违规 <b>1分</b> · GAR 未达 <b>1分</b>", "c3Title": "排序功能", "c3Body": "<b>按罚分</b> — 罚分从高到低（默认）<br><b>按违规次数</b> — 总违规次数<br><b>按 Arena 未达</b> — Arena 未达次数<br><b>按共同任务</b> — 共同任务违规次数<br><b>按 GAR 未达</b> — GAR 未达天数", "c4Title": "提示框 — 各赛季详情", "c4Body": "将鼠标悬停（PC）或触摸（移动端）Arena / GAR / 共同任务徽章<br>即可查看各赛季分数与达成情况。", "c5Title": "🔗 合并成员 — 应对改名", "c5s1": "点击要合并成员卡片上的 <b>🔗 按钮</b>", "c5s2": "点击变为橙色的 <b>目标卡片</b>", "c5s3": "在弹窗中确认 <b>合并</b> → 违规记录将被合算", "c5tip": "如需分离，点击已合并卡片上的 <b>✕ 分离</b> 按钮即可。", "c6Title": "📋 REPORT — 导出分析表", "c6Body": "点击 <b>REPORT 按钮</b> 显示表格形式的分析表。<br><b>前 N 名筛选</b> — 全部 / 10 / 20 / 30 / 50<br><b>复制按钮</b> — 以文本形式保存到剪贴板", "sec2Title": "违规标准与等级表", "c7Title": "违规标准", "c7Body": "🏟️ <b>Arena 分数未达</b> — 赛季结束时低于 7,000 分<br>🎯 <b>共同任务持有时间</b> — 持有 30 分钟以上即违规<br>⚔️ <b>GAR 每日未达</b> — 每天低于 150 万分", "c8Title": "等级标准（罚分合算 · 默认权重）", "thGrade": "等级", "thPenalty": "罚分", "thStatus": "状态", "gradeS_p": "0分", "gradeS_s": "无违规 ✨", "gradeA_p": "1 ~ 5 分", "gradeA_s": "轻微违规", "gradeB_p": "6 ~ 15 分", "gradeB_s": "需要注意", "gradeC_p": "16 ~ 30 分", "gradeC_s": "警告级别", "gradeD_p": "31 ~ 60 分", "gradeD_s": "危险级别", "gradeE_p": "61 ~ 100 分", "gradeE_s": "严重违规", "gradeF_p": "101 分以上", "gradeF_s": "最高违规 🚨", "footerBack": "← 返回 Report", "c8tip": "调整权重时，罚分范围可能会变化。"}};
+  var SUP=['ko','en','ja','zh'];
+  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(d[k]!=null)el.innerHTML=d[k];});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
+  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+})();
+</script>
+{% endraw %}
+<script>
+(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();
+</script>
 </body>
 </html>
