@@ -96,6 +96,7 @@ title: REO Arena Archive
       letter-spacing:2px;
       text-transform:uppercase;
     }
+    .lbl-dot { margin:0 6px; letter-spacing:0; }
 
     .nav-btn {
       display:inline-block;
@@ -220,6 +221,7 @@ title: REO Arena Archive
       align-items:flex-end;
       gap:5px;
       flex-shrink:0;
+      min-width:72px;
     }
 
     .badge-latest {
@@ -244,6 +246,7 @@ title: REO Arena Archive
       background:rgba(180,130,255,0.08);
       border:1px solid rgba(180,130,255,0.2);
       transition:all .15s ease;
+      white-space:nowrap;
     }
 
     .season-card:hover .badge-view {
@@ -339,6 +342,7 @@ title: REO Arena Archive
       align-items:flex-end;
       gap:5px;
       flex-shrink:0;
+      min-width:72px;
     }
 
     .empty {
@@ -368,7 +372,7 @@ title: REO Arena Archive
       .header { flex-direction:column; align-items:flex-start; }
       .header-right { text-align:left; align-items:flex-start; }
       .guild-name { font-size:36px; letter-spacing:4px; }
-      .card-dates, .folder-dates { font-size:15px; flex-wrap:wrap; }
+      .card-dates, .folder-dates { font-size:14px; }
       .card-sub, .folder-sub { font-size:12px; }
     }
 
@@ -387,8 +391,8 @@ title: REO Arena Archive
       border-color:rgba(192,132,252,0.45);
     }
     .guild-name,.footer strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
-    .lang-toggle{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
-    .lang-toggle button{border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+    .lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+    .lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
     .lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
     .lang-toggle button:hover{color:#fff}
     @media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
@@ -400,7 +404,7 @@ title: REO Arena Archive
     <div class="header">
       <div class="guild-name">REO</div>
       <div class="header-right">
-        <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
+        <div class="event-label">Guild Arena <span class="lbl-dot">·</span> Archive</div>
         <a class="nav-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
       </div>
     </div>
