@@ -23,8 +23,8 @@ body{
   color:#fff;
 }
 .guild-name{font-family:'Rajdhani',sans-serif!important}
-.lang-toggle{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
-.lang-toggle button{border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
 .lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
 .lang-toggle button:hover{color:#fff}
 @media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
@@ -98,6 +98,7 @@ body{
   text-transform:uppercase;
   margin-bottom:4px;
 }
+.lbl-dot{margin:0 6px;letter-spacing:0;}
 
 .archive-btn{
   display:inline-block;
@@ -376,7 +377,7 @@ body{
   <div class="header">
     <div class="guild-name">REO</div>
     <div class="header-right">
-      <div class="event-label">Guild Arena &nbsp;·&nbsp; Archive</div>
+      <div class="event-label">Guild Arena <span class="lbl-dot">·</span> Archive</div>
       <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/" data-i18n="archiveBtn">📁 지난시즌</a>
       <a class="archive-btn" href="https://mentis00.github.io/reo/" data-i18n="home">🏠 메인</a>
     </div>
