@@ -10,9 +10,15 @@ layout: null
 {% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
 <style>
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color:#fff}
+body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;padding:20px;color:#fff}
+.no,.rank,.score,.guild-name,.total-score-value,.total strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
+.lang-toggle{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle button.active{background:rgba(139,92,246,0.30);color:#fff}
+.lang-toggle button:hover{color:#fff}
+@media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
 .container{max-width:1100px;margin:0 auto;background:linear-gradient(160deg,#1a1030 0%,#0f0c1a 50%,#0c1525 100%);border:1px solid rgba(180,130,255,0.2);border-radius:20px;padding:36px 40px 44px;position:relative;overflow:hidden}
 .container::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle, rgba(130,80,255,0.15) 0%, transparent 70%);pointer-events:none}
 .container::after{content:'';position:absolute;bottom:-60px;left:-60px;width:250px;height:250px;background:radial-gradient(circle, rgba(60,160,255,0.1) 0%, transparent 70%);pointer-events:none}
@@ -54,30 +60,31 @@ body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 </style>
 </head>
 <body>
+<div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
 <div class="container">
   <div class="header">
     <div class="guild-name">REO</div>
     <div class="header-right">
       <div>
         <div class="event-label">Guild Arena</div>
-        <div class="update-time">최종 업데이트: <span>06-30 15:05</span></div>
+        <div class="update-time"><span data-i18n="lastUpdate">최종 업데이트</span>: <span>06-30 15:05</span></div>
       </div>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/arena/archive/">📁 지난시즌</a>
-      <a class="archive-btn" href="https://mentis00.github.io/reo/">🏠 메인</a>
+      <a class="archive-btn" data-i18n="archiveBtn" href="https://mentis00.github.io/reo/arena/archive/">📁 지난시즌</a>
+      <a class="archive-btn" data-i18n="homeBtn" href="https://mentis00.github.io/reo/">🏠 메인</a>
     </div>
   </div>
   <div class="total-score-box">
     <div>
-      <div class="total-score-label">🏆 길드 총 합계 점수</div>
+      <div class="total-score-label" data-i18n="totalScoreLabel">🏆 길드 총 합계 점수</div>
       <div class="total-score-value">385,502</div>
-      <div class="total-score-sub">95명 참여 &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);">목표점수 미달 84명</span></div>
+      <div class="total-score-sub"><span data-i18n="participate" data-count="95">95명 참여</span> &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);" data-i18n="belowGoal" data-below="84">목표점수 미달 84명</span></div>
     </div>
   </div>
-  <div class="rule-box"><span>📌</span><span>길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 <strong>7,000점</strong> 달성 바랍니다.</span></div>
+  <div class="rule-box"><span>📌</span><span data-i18n="ruleText" data-goal="7,000">길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 <strong>7,000점</strong> 달성 바랍니다.</span></div>
   <div class="filter-bar">
-    <button class="filter-btn active" data-mode="all">전체</button>
-    <button class="filter-btn" data-mode="above">이상</button>
-    <button class="filter-btn" data-mode="below">미만</button>
+    <button class="filter-btn active" data-mode="all" data-i18n="filterAll">전체</button>
+    <button class="filter-btn" data-mode="above" data-i18n="filterAbove">이상</button>
+    <button class="filter-btn" data-mode="below" data-i18n="filterBelow">미만</button>
   </div>
   <div class="grid">
 <div class="row top3" data-score="14352">
@@ -748,8 +755,8 @@ body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 
   </div>
   <div class="footer">
-    <div class="total">총 멤버 <strong>95명</strong> &nbsp;|&nbsp; Day 2 / 7</div>
-    <div class="goal-note">⚠️ 7,000점 미달성 시 주의</div>
+    <div class="total"><span data-i18n="totalMember" data-count="95">총 멤버 95명</span> &nbsp;|&nbsp; <span data-i18n="day" data-day="2">Day 2 / 7</span></div>
+    <div class="goal-note" data-i18n="goalNote" data-goal="7,000">⚠️ 7,000점 미달성 시 주의</div>
   </div>
 </div>
 <script>
@@ -780,5 +787,18 @@ body{background:#0f0c1a;font-family:'Noto Sans KR',sans-serif;padding:20px;color
 <script>
 (function(){var last=0;document.addEventListener("touchend",function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();
 </script>
+{% raw %}
+<script>
+(function(){
+  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","archiveTitle":"Guild Arena &nbsp;·&nbsp; 아카이브","serverNote":"(서버 기준)","totalScoreLabel":"🏆 길드 총 합계 점수","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","day":"Day {day} / 7"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","archiveTitle":"Guild Arena &nbsp;·&nbsp; Archive","serverNote":"(server value)","totalScoreLabel":"🏆 Guild Total Score","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} points during the Guild Arena event.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","day":"Day {day} / 7"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","archiveTitle":"Guild Arena &nbsp;·&nbsp; アーカイブ","serverNote":"(サーバー基準)","totalScoreLabel":"🏆 ギルド合計スコア","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Guild Arena イベント中、各メンバーは最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","day":"Day {day} / 7"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","archiveTitle":"Guild Arena &nbsp;·&nbsp; 存档","serverNote":"(服务器数据)","totalScoreLabel":"🏆 公会总积分","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：进行 Guild Arena 活动时，每位成员请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","day":"Day {day} / 7"}};
+  var SUP=['ko','en','ja','zh'];
+  function fmt(s,p){return s.replace(/\{(\w+)\}/g,function(_,k){return (p&&p[k]!=null)?p[k]:'';});}
+  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var key=el.getAttribute('data-i18n');if(!d[key])return;var p={};if(el.hasAttribute('data-count'))p.count=el.getAttribute('data-count');if(el.hasAttribute('data-goal'))p.goal=el.getAttribute('data-goal');if(el.hasAttribute('data-below'))p.below=el.getAttribute('data-below');if(el.hasAttribute('data-day'))p.day=el.getAttribute('data-day');el.innerHTML=fmt(d[key],p);});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}}
+  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+})();
+</script>
+{% endraw %}
 </body>
 </html>
