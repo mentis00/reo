@@ -25,7 +25,9 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 .header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(180,130,255,0.2)}
 .guild-name{font-family:'Rajdhani',sans-serif;font-size:52px;font-weight:700;letter-spacing:8px;background:linear-gradient(135deg,#c084fc,#818cf8,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .header-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.event-label{font-size:14px;color:rgba(200,180,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.event-label{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:rgba(200,180,255,0.6);text-transform:uppercase;margin-bottom:4px}
+.event-label .arena-title,.event-label .archive-title-word{letter-spacing:2px}
+.lbl-dot{margin:0;letter-spacing:0;flex:0 0 auto}
 .update-time{font-size:14px;color:rgba(200,180,255,0.7)}
 .update-time span{color:#c4b5fd;font-weight:700;font-size:15px}
 .archive-btn{display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none;letter-spacing:0.5px;transition:background .2s}
@@ -66,8 +68,8 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
     <div class="guild-name">REO</div>
     <div class="header-right">
       <div>
-        <div class="event-label">Guild Arena</div>
-        <div class="update-time"><span data-i18n="lastUpdate">최종 업데이트</span>: <span>06-30 15:05</span></div>
+        <div class="event-label">GUILD ARENA</div>
+        <div class="update-time"><span data-i18n="lastUpdate">최종 업데이트</span>: <span>07-01 15:05</span></div>
       </div>
       <a class="archive-btn" data-i18n="archiveBtn" href="https://mentis00.github.io/reo/arena/archive/">📁 지난시즌</a>
       <a class="archive-btn" data-i18n="homeBtn" href="https://mentis00.github.io/reo/">🏠 메인</a>
@@ -76,8 +78,8 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
   <div class="total-score-box">
     <div>
       <div class="total-score-label" data-i18n="totalScoreLabel">🏆 길드 총 합계 점수</div>
-      <div class="total-score-value">385,502</div>
-      <div class="total-score-sub"><span data-i18n="participate" data-count="95">95명 참여</span> &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);" data-i18n="belowGoal" data-below="84">목표점수 미달 84명</span></div>
+      <div class="total-score-value">693,306</div>
+      <div class="total-score-sub"><span data-i18n="participate" data-count="95">95명 참여</span> &nbsp;·&nbsp; <span style="color:rgba(255,120,120,0.8);" data-i18n="belowGoal" data-below="54">목표점수 미달 54명</span></div>
     </div>
   </div>
   <div class="rule-box"><span>📌</span><span data-i18n="ruleText" data-goal="7,000">길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 <strong>7,000점</strong> 달성 바랍니다.</span></div>
@@ -87,675 +89,675 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
     <button class="filter-btn" data-mode="below" data-i18n="filterBelow">미만</button>
   </div>
   <div class="grid">
-<div class="row top3" data-score="14352">
+<div class="row top3" data-score="21146">
   <span class="no">1</span>
-  <span class="rank r1">#1</span>
-  <span class="name">ꜰᴍＳＯＮＧ🌹🌷</span>
-  <span class="score high">14,352</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row top3" data-score="12006">
-  <span class="no">2</span>
-  <span class="rank r3">#3</span>
-  <span class="name">JIN진</span>
-  <span class="score high">12,006</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="10519">
-  <span class="no">3</span>
-  <span class="rank ">#7</span>
-  <span class="name">xxx</span>
-  <span class="score high">10,519</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="10350">
-  <span class="no">4</span>
-  <span class="rank ">#9</span>
-  <span class="name">COS🐏</span>
-  <span class="score high">10,350</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="9624">
-  <span class="no">5</span>
-  <span class="rank ">#12</span>
-  <span class="name">NaNashi名無し</span>
-  <span class="score high">9,624</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="9246">
-  <span class="no">6</span>
-  <span class="rank ">#15</span>
-  <span class="name">zzĐÚcdzz</span>
-  <span class="score high">9,246</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="8855">
-  <span class="no">7</span>
-  <span class="rank ">#17</span>
-  <span class="name">red</span>
-  <span class="score high">8,855</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="8785">
-  <span class="no">8</span>
-  <span class="rank ">#19</span>
-  <span class="name">Koyo🍒</span>
-  <span class="score high">8,785</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="8211">
-  <span class="no">9</span>
-  <span class="rank ">#24</span>
-  <span class="name">manaki</span>
-  <span class="score high">8,211</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="8014">
-  <span class="no">10</span>
-  <span class="rank ">#28</span>
+  <span class="rank r2">#2</span>
   <span class="name">FARMER</span>
-  <span class="score high">8,014</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">21,146</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="7863">
+<div class="row" data-score="18998">
+  <span class="no">2</span>
+  <span class="rank ">#6</span>
+  <span class="name">ꜰᴍＳＯＮＧ🌹🌷</span>
+  <span class="score high">18,998</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="17664">
+  <span class="no">3</span>
+  <span class="rank ">#11</span>
+  <span class="name">COS🐏</span>
+  <span class="score high">17,664</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="16935">
+  <span class="no">4</span>
+  <span class="rank ">#14</span>
+  <span class="name">NaNashi名無し</span>
+  <span class="score high">16,935</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="16215">
+  <span class="no">5</span>
+  <span class="rank ">#17</span>
+  <span class="name">JIN진</span>
+  <span class="score high">16,215</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="15865">
+  <span class="no">6</span>
+  <span class="rank ">#18</span>
+  <span class="name">xxx</span>
+  <span class="score high">15,865</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="15799">
+  <span class="no">7</span>
+  <span class="rank ">#20</span>
+  <span class="name">PEPEぺぺ</span>
+  <span class="score high">15,799</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="15410">
+  <span class="no">8</span>
+  <span class="rank ">#21</span>
+  <span class="name">red</span>
+  <span class="score high">15,410</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="15180">
+  <span class="no">9</span>
+  <span class="rank ">#22</span>
+  <span class="name">zzĐÚcdzz</span>
+  <span class="score high">15,180</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="15042">
+  <span class="no">10</span>
+  <span class="rank ">#23</span>
+  <span class="name">nano lua</span>
+  <span class="score high">15,042</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="14175">
   <span class="no">11</span>
-  <span class="rank ">#30</span>
+  <span class="rank ">#24</span>
   <span class="name">YOU_ゆう</span>
-  <span class="score high">7,863</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">14,175</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6795">
+<div class="row" data-score="13489">
   <span class="no">12</span>
-  <span class="rank ">#37</span>
-  <span class="name">Gayo🍒</span>
-  <span class="score ">6,795</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#27</span>
+  <span class="name">HJjjjJH🍀</span>
+  <span class="score high">13,489</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6654">
+<div class="row" data-score="12420">
   <span class="no">13</span>
-  <span class="rank ">#38</span>
-  <span class="name">Satori</span>
-  <span class="score ">6,654</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#35</span>
+  <span class="name">Ellen_🦇</span>
+  <span class="score high">12,420</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6622">
+<div class="row" data-score="12338">
   <span class="no">14</span>
-  <span class="rank ">#39</span>
-  <span class="name">YaY 얍</span>
-  <span class="score ">6,622</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#36</span>
+  <span class="name">cho 초초</span>
+  <span class="score high">12,338</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6514">
+<div class="row" data-score="11592">
   <span class="no">15</span>
   <span class="rank ">#41</span>
-  <span class="name">Lucas</span>
-  <span class="score ">6,514</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">💕💕💕💕💕</span>
+  <span class="score high">11,592</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6240">
+<div class="row" data-score="11245">
   <span class="no">16</span>
   <span class="rank ">#45</span>
-  <span class="name">Tess🍖</span>
-  <span class="score ">6,240</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">Gayo🍒</span>
+  <span class="score high">11,245</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6171">
+<div class="row" data-score="11239">
   <span class="no">17</span>
-  <span class="rank ">#48</span>
+  <span class="rank ">#47</span>
   <span class="name">HoHo_LiM</span>
-  <span class="score ">6,171</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">11,239</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6141">
+<div class="row" data-score="10902">
   <span class="no">18</span>
-  <span class="rank ">#49</span>
-  <span class="name">Ellen_🦇</span>
-  <span class="score ">6,141</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#52</span>
+  <span class="name">ᴘʀɪɴᴄᴇꜱꜱ김깽</span>
+  <span class="score high">10,902</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="6081">
+<div class="row" data-score="10346">
   <span class="no">19</span>
-  <span class="rank ">#51</span>
-  <span class="name">CHICKEN</span>
-  <span class="score ">6,081</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#56</span>
+  <span class="name">神崎澄</span>
+  <span class="score high">10,346</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="5899">
+<div class="row" data-score="10203">
   <span class="no">20</span>
-  <span class="rank ">#55</span>
-  <span class="name">HJjjjJH🍀</span>
-  <span class="score ">5,899</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#60</span>
+  <span class="name">Lucas</span>
+  <span class="score high">10,203</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="5796">
+<div class="row" data-score="10011">
   <span class="no">21</span>
-  <span class="rank ">#57</span>
-  <span class="name">ᴺⁱᶜʰᵒᵒ니콜ଳ</span>
-  <span class="score ">5,796</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="5577">
-  <span class="no">22</span>
-  <span class="rank ">#64</span>
+  <span class="rank ">#62</span>
   <span class="name">PoP Heroes</span>
-  <span class="score ">5,577</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">10,011</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="5518">
+<div class="row" data-score="9999">
+  <span class="no">22</span>
+  <span class="rank ">#63</span>
+  <span class="name">Satori</span>
+  <span class="score high">9,999</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="9899">
   <span class="no">23</span>
-  <span class="rank ">#67</span>
-  <span class="name">jason치로</span>
-  <span class="score ">5,518</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#64</span>
+  <span class="name">YaY 얍</span>
+  <span class="score high">9,899</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="5497">
+<div class="row" data-score="9655">
   <span class="no">24</span>
   <span class="rank ">#68</span>
-  <span class="name">PEPEぺぺ</span>
-  <span class="score ">5,497</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="5470">
-  <span class="no">25</span>
-  <span class="rank ">#70</span>
-  <span class="name">Ruby💞루피</span>
-  <span class="score ">5,470</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="5312">
-  <span class="no">26</span>
-  <span class="rank ">#72</span>
-  <span class="name">apple_공주</span>
-  <span class="score ">5,312</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="5276">
-  <span class="no">27</span>
-  <span class="rank ">#74</span>
   <span class="name">JOY🎵</span>
-  <span class="score ">5,276</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">9,655</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="5136">
-  <span class="no">28</span>
+<div class="row" data-score="9308">
+  <span class="no">25</span>
+  <span class="rank ">#74</span>
+  <span class="name">Tess🍖</span>
+  <span class="score high">9,308</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="9130">
+  <span class="no">26</span>
+  <span class="rank ">#76</span>
+  <span class="name">Koyo🍒</span>
+  <span class="score high">9,130</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="9067">
+  <span class="no">27</span>
   <span class="rank ">#78</span>
   <span class="name">Mama Raz</span>
-  <span class="score ">5,136</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">9,067</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4830">
+<div class="row" data-score="8724">
+  <span class="no">28</span>
+  <span class="rank ">#80</span>
+  <span class="name">yoon 💎</span>
+  <span class="score high">8,724</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="8616">
   <span class="no">29</span>
-  <span class="rank ">#86</span>
-  <span class="name">Dong_동삼집</span>
-  <span class="score ">4,830</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="4761">
-  <span class="no">30</span>
-  <span class="rank ">#88</span>
-  <span class="name">ᴘʀɪɴᴄᴇꜱꜱ김깽</span>
-  <span class="score ">4,761</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="4721">
-  <span class="no">31</span>
-  <span class="rank ">#90</span>
-  <span class="name">Aphrodite</span>
-  <span class="score ">4,721</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="4618">
-  <span class="no">32</span>
-  <span class="rank ">#95</span>
+  <span class="rank ">#82</span>
   <span class="name">Maese</span>
-  <span class="score ">4,618</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">8,616</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4552">
+<div class="row" data-score="8211">
+  <span class="no">30</span>
+  <span class="rank ">#89</span>
+  <span class="name">Vendetta 벤</span>
+  <span class="score high">8,211</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="8073">
+  <span class="no">31</span>
+  <span class="rank ">#93</span>
+  <span class="name">장첸 zzang</span>
+  <span class="score high">8,073</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="8071">
+  <span class="no">32</span>
+  <span class="rank ">#94</span>
+  <span class="name">jason치로</span>
+  <span class="score high">8,071</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="7968">
   <span class="no">33</span>
   <span class="rank ">#96</span>
-  <span class="name">Mayo🍒</span>
-  <span class="score ">4,552</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">Bell</span>
+  <span class="score high">7,968</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4484">
+<div class="row" data-score="7935">
   <span class="no">34</span>
-  <span class="rank ">#99</span>
-  <span class="name">Burger</span>
-  <span class="score ">4,484</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#97</span>
+  <span class="name">ᴺⁱᶜʰᵒᵒ니콜ᳵ</span>
+  <span class="score high">7,935</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4477">
+<div class="row" data-score="7781">
   <span class="no">35</span>
   <span class="rank ">#100</span>
-  <span class="name">yoon 💎</span>
-  <span class="score ">4,477</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">CHICKEN</span>
+  <span class="score high">7,781</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4461">
+<div class="row" data-score="7762">
   <span class="no">36</span>
   <span class="rank ">#101</span>
-  <span class="name">cho 초초</span>
-  <span class="score ">4,461</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">🔪Stabby🔪</span>
+  <span class="score high">7,762</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4306">
+<div class="row" data-score="7391">
   <span class="no">37</span>
-  <span class="rank ">#104</span>
-  <span class="name">Miffy</span>
-  <span class="score ">4,306</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#107</span>
+  <span class="name">Ice Tea🍹</span>
+  <span class="score high">7,391</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4202">
+<div class="row" data-score="7314">
   <span class="no">38</span>
-  <span class="rank ">#109</span>
-  <span class="name">ゆき💙Yuki💙</span>
-  <span class="score ">4,202</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#108</span>
+  <span class="name">WhiteCat🐾</span>
+  <span class="score high">7,314</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="4174">
+<div class="row" data-score="7135">
   <span class="no">39</span>
-  <span class="rank ">#110</span>
-  <span class="name">Bell</span>
-  <span class="score ">4,174</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="4071">
-  <span class="no">40</span>
-  <span class="rank ">#113</span>
-  <span class="name">Vendetta 벤</span>
-  <span class="score ">4,071</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="4071">
-  <span class="no">41</span>
-  <span class="rank ">#114</span>
-  <span class="name">영불리_YOYO</span>
-  <span class="score ">4,071</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="3964">
-  <span class="no">42</span>
-  <span class="rank ">#119</span>
+  <span class="rank ">#112</span>
   <span class="name">키라리♡kirari</span>
-  <span class="score ">3,964</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score high">7,135</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3933">
-  <span class="no">43</span>
-  <span class="rank ">#120</span>
+<div class="row" data-score="7092">
+  <span class="no">40</span>
+  <span class="rank ">#114</span>
+  <span class="name">Ylis일리스</span>
+  <span class="score high">7,092</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="7032">
+  <span class="no">41</span>
+  <span class="rank ">#116</span>
+  <span class="name">Dayo🍒</span>
+  <span class="score high">7,032</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="6900">
+  <span class="no">42</span>
+  <span class="rank ">#121</span>
   <span class="name">Cort</span>
-  <span class="score ">3,933</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">6,900</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3691">
-  <span class="no">44</span>
-  <span class="rank ">#128</span>
-  <span class="name">jjing</span>
-  <span class="score ">3,691</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="3657">
-  <span class="no">45</span>
-  <span class="rank ">#129</span>
+<div class="row" data-score="6693">
+  <span class="no">43</span>
+  <span class="rank ">#123</span>
   <span class="name">Tarik</span>
-  <span class="score ">3,657</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">6,693</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3595">
+<div class="row" data-score="6650">
+  <span class="no">44</span>
+  <span class="rank ">#126</span>
+  <span class="name">ゆき💙Yuki💙</span>
+  <span class="score ">6,650</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="6486">
+  <span class="no">45</span>
+  <span class="rank ">#128</span>
+  <span class="name">мιиgкα</span>
+  <span class="score ">6,486</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="6417">
   <span class="no">46</span>
   <span class="rank ">#131</span>
-  <span class="name">Ice Tea🍹</span>
-  <span class="score ">3,595</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">Dong_동삼집</span>
+  <span class="score ">6,417</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3518">
+<div class="row" data-score="6346">
   <span class="no">47</span>
   <span class="rank ">#134</span>
-  <span class="name">Agnes</span>
-  <span class="score ">3,518</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">Burger</span>
+  <span class="score ">6,346</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3414">
+<div class="row" data-score="6345">
   <span class="no">48</span>
-  <span class="rank ">#137</span>
-  <span class="name">Ylis일리스</span>
-  <span class="score ">3,414</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#135</span>
+  <span class="name">apple_공주</span>
+  <span class="score ">6,345</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3346">
+<div class="row" data-score="6331">
   <span class="no">49</span>
+  <span class="rank ">#136</span>
+  <span class="name">Ruby💞루피</span>
+  <span class="score ">6,331</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="6244">
+  <span class="no">50</span>
   <span class="rank ">#138</span>
   <span class="name">체리cherry🍒</span>
-  <span class="score ">3,346</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">6,244</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3312">
-  <span class="no">50</span>
-  <span class="rank ">#140</span>
-  <span class="name">장첸 zzang</span>
-  <span class="score ">3,312</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="3241">
+<div class="row" data-score="6210">
   <span class="no">51</span>
-  <span class="rank ">#146</span>
-  <span class="name">Soda 솜사탕</span>
-  <span class="score ">3,241</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#140</span>
+  <span class="name">hebssiba79</span>
+  <span class="score ">6,210</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="3103">
+<div class="row" data-score="6201">
   <span class="no">52</span>
-  <span class="rank ">#155</span>
-  <span class="name">神崎澄</span>
-  <span class="score ">3,103</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="3102">
-  <span class="no">53</span>
-  <span class="rank ">#156</span>
-  <span class="name">NSAIDs미노브이</span>
-  <span class="score ">3,102</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="3001">
-  <span class="no">54</span>
-  <span class="rank ">#162</span>
-  <span class="name">Teto디노니논</span>
-  <span class="score ">3,001</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2965">
-  <span class="no">55</span>
-  <span class="rank ">#166</span>
-  <span class="name">sang 상한가</span>
-  <span class="score ">2,965</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2931">
-  <span class="no">56</span>
-  <span class="rank ">#169</span>
-  <span class="name">하츄핑</span>
-  <span class="score ">2,931</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2926">
-  <span class="no">57</span>
-  <span class="rank ">#171</span>
+  <span class="rank ">#142</span>
   <span class="name">Apii😇</span>
-  <span class="score ">2,926</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">6,201</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2898">
-  <span class="no">58</span>
-  <span class="rank ">#172</span>
-  <span class="name">WhiteCat🐾</span>
-  <span class="score ">2,898</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2897">
-  <span class="no">59</span>
-  <span class="rank ">#173</span>
+<div class="row" data-score="6105">
+  <span class="no">53</span>
+  <span class="rank ">#143</span>
   <span class="name">Luffy</span>
-  <span class="score ">2,897</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">6,105</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2893">
-  <span class="no">60</span>
-  <span class="rank ">#174</span>
-  <span class="name">kb park</span>
-  <span class="score ">2,893</span>
-  <span class="updated">06-30 15:05</span>
+<div class="row" data-score="6103">
+  <span class="no">54</span>
+  <span class="rank ">#145</span>
+  <span class="name">Mayo🍒</span>
+  <span class="score ">6,103</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2794">
-  <span class="no">61</span>
-  <span class="rank ">#179</span>
-  <span class="name">🫧Celli 🫧</span>
-  <span class="score ">2,794</span>
-  <span class="updated">06-30 15:05</span>
+<div class="row" data-score="5827">
+  <span class="no">55</span>
+  <span class="rank ">#147</span>
+  <span class="name">jjing</span>
+  <span class="score ">5,827</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2725">
-  <span class="no">62</span>
-  <span class="rank ">#180</span>
-  <span class="name">Andy5909</span>
-  <span class="score ">2,725</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2691">
-  <span class="no">63</span>
-  <span class="rank ">#182</span>
-  <span class="name">💕💕💕💕💕</span>
-  <span class="score ">2,691</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="2691">
-  <span class="no">64</span>
-  <span class="rank ">#183</span>
+<div class="row" data-score="5796">
+  <span class="no">56</span>
+  <span class="rank ">#148</span>
   <span class="name">Nbybi</span>
-  <span class="score ">2,691</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">5,796</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2676">
+<div class="row" data-score="5754">
+  <span class="no">57</span>
+  <span class="rank ">#150</span>
+  <span class="name">Aphrodite</span>
+  <span class="score ">5,754</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5686">
+  <span class="no">58</span>
+  <span class="rank ">#154</span>
+  <span class="name">Miffy</span>
+  <span class="score ">5,686</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5550">
+  <span class="no">59</span>
+  <span class="rank ">#161</span>
+  <span class="name">Soda 솜사탕</span>
+  <span class="score ">5,550</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5381">
+  <span class="no">60</span>
+  <span class="rank ">#163</span>
+  <span class="name">Teto디노니논</span>
+  <span class="score ">5,381</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5273">
+  <span class="no">61</span>
+  <span class="rank ">#166</span>
+  <span class="name">냥코</span>
+  <span class="score ">5,273</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5194">
+  <span class="no">62</span>
+  <span class="rank ">#168</span>
+  <span class="name">yon_욘욘</span>
+  <span class="score ">5,194</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5175">
+  <span class="no">63</span>
+  <span class="rank ">#169</span>
+  <span class="name">Fisher</span>
+  <span class="score ">5,175</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="5069">
+  <span class="no">64</span>
+  <span class="rank ">#175</span>
+  <span class="name">sang 상한가</span>
+  <span class="score ">5,069</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="4863">
   <span class="no">65</span>
-  <span class="rank ">#184</span>
-  <span class="name">YT</span>
-  <span class="score ">2,676</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#182</span>
+  <span class="name">Agnes</span>
+  <span class="score ">4,863</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2612">
+<div class="row" data-score="4829">
   <span class="no">66</span>
-  <span class="rank ">#190</span>
-  <span class="name">Sekiden</span>
-  <span class="score ">2,612</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#183</span>
+  <span class="name">영불리_YOYO</span>
+  <span class="score ">4,829</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2447">
+<div class="row" data-score="4700">
   <span class="no">67</span>
-  <span class="rank ">#199</span>
-  <span class="name">Dayo🍒</span>
-  <span class="score ">2,447</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#186</span>
+  <span class="name">YT</span>
+  <span class="score ">4,700</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2378">
+<div class="row" data-score="4137">
   <span class="no">68</span>
-  <span class="rank ">#203</span>
-  <span class="name">ⒷⒺⓁⓁⒾⓄⓃ</span>
-  <span class="score ">2,378</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#205</span>
+  <span class="name">ulssy_얼씨군요</span>
+  <span class="score ">4,137</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2241">
+<div class="row" data-score="4137">
   <span class="no">69</span>
-  <span class="rank ">#208</span>
-  <span class="name">Meeshka</span>
-  <span class="score ">2,241</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#206</span>
+  <span class="name">하츄핑</span>
+  <span class="score ">4,137</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2208">
+<div class="row" data-score="4036">
   <span class="no">70</span>
-  <span class="rank ">#211</span>
-  <span class="name">V25</span>
-  <span class="score ">2,208</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#210</span>
+  <span class="name">kb park</span>
+  <span class="score ">4,036</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2208">
+<div class="row" data-score="4000">
   <span class="no">71</span>
   <span class="rank ">#212</span>
-  <span class="name">Black_리무바이</span>
-  <span class="score ">2,208</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="name">Meeshka</span>
+  <span class="score ">4,000</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2067">
+<div class="row" data-score="3829">
   <span class="no">72</span>
-  <span class="rank ">#226</span>
-  <span class="name">냥코</span>
-  <span class="score ">2,067</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#217</span>
+  <span class="name">Andy5909</span>
+  <span class="score ">3,829</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2066">
+<div class="row" data-score="3791">
   <span class="no">73</span>
-  <span class="rank ">#227</span>
-  <span class="name">𝕜𝕠𝕞𝕪🐼</span>
-  <span class="score ">2,066</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#220</span>
+  <span class="name">NSAIDs미노브이</span>
+  <span class="score ">3,791</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="2066">
+<div class="row" data-score="3760">
   <span class="no">74</span>
-  <span class="rank ">#228</span>
-  <span class="name">aki_あき</span>
-  <span class="score ">2,066</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1897">
-  <span class="no">75</span>
-  <span class="rank ">#233</span>
-  <span class="name">Romariense</span>
-  <span class="score ">1,897</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1897">
-  <span class="no">76</span>
-  <span class="rank ">#234</span>
+  <span class="rank ">#222</span>
   <span class="name">Danbi</span>
-  <span class="score ">1,897</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">3,760</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1894">
-  <span class="no">77</span>
-  <span class="rank ">#235</span>
-  <span class="name">leez_이자하</span>
-  <span class="score ">1,894</span>
-  <span class="updated">06-30 15:05</span>
+<div class="row" data-score="3754">
+  <span class="no">75</span>
+  <span class="rank ">#224</span>
+  <span class="name">Sekiden</span>
+  <span class="score ">3,754</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1794">
-  <span class="no">78</span>
-  <span class="rank ">#239</span>
-  <span class="name">мιиgкα</span>
-  <span class="score ">1,794</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1792">
-  <span class="no">79</span>
-  <span class="rank ">#240</span>
+<div class="row" data-score="3687">
+  <span class="no">76</span>
+  <span class="rank ">#226</span>
   <span class="name">chris</span>
-  <span class="score ">1,792</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">3,687</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1724">
-  <span class="no">80</span>
-  <span class="rank ">#246</span>
-  <span class="name">Hayo🍒</span>
-  <span class="score ">1,724</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1723">
-  <span class="no">81</span>
-  <span class="rank ">#248</span>
-  <span class="name">ʚTanakaɞ</span>
-  <span class="score ">1,723</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1550">
-  <span class="no">82</span>
-  <span class="rank ">#253</span>
-  <span class="name">san、オーク</span>
-  <span class="score ">1,550</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1483">
-  <span class="no">83</span>
-  <span class="rank ">#258</span>
+<div class="row" data-score="3553">
+  <span class="no">77</span>
+  <span class="rank ">#229</span>
   <span class="name">sweetNlow</span>
-  <span class="score ">1,483</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">3,553</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1310">
+<div class="row" data-score="3276">
+  <span class="no">78</span>
+  <span class="rank ">#241</span>
+  <span class="name">Hayo🍒</span>
+  <span class="score ">3,276</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="3273">
+  <span class="no">79</span>
+  <span class="rank ">#242</span>
+  <span class="name">san、オーク</span>
+  <span class="score ">3,273</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="3173">
+  <span class="no">80</span>
+  <span class="rank ">#245</span>
+  <span class="name">Romariense</span>
+  <span class="score ">3,173</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2932">
+  <span class="no">81</span>
+  <span class="rank ">#249</span>
+  <span class="name">Black_리무바이</span>
+  <span class="score ">2,932</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2928">
+  <span class="no">82</span>
+  <span class="rank ">#250</span>
+  <span class="name">leez_이자하</span>
+  <span class="score ">2,928</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2927">
+  <span class="no">83</span>
+  <span class="rank ">#251</span>
+  <span class="name">aki_あき</span>
+  <span class="score ">2,927</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2898">
   <span class="no">84</span>
-  <span class="rank ">#267</span>
-  <span class="name">ulssy_얼씨군요</span>
-  <span class="score ">1,310</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="rank ">#252</span>
+  <span class="name">V25</span>
+  <span class="score ">2,898</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1276">
+<div class="row" data-score="2896">
   <span class="no">85</span>
-  <span class="rank ">#270</span>
+  <span class="rank ">#253</span>
   <span class="name">Shooshi</span>
-  <span class="score ">1,276</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">2,896</span>
+  <span class="updated">07-01 15:05</span>
 </div>
-<div class="row" data-score="1206">
+<div class="row" data-score="2550">
   <span class="no">86</span>
-  <span class="rank ">#273</span>
+  <span class="rank ">#267</span>
+  <span class="name">ⒷⒺⓁⓁⒾⓄⓃ</span>
+  <span class="score ">2,550</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2344">
+  <span class="no">87</span>
+  <span class="rank ">#271</span>
   <span class="name">Manjo_0</span>
-  <span class="score ">1,206</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="score ">2,344</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2239">
+  <span class="no">88</span>
+  <span class="rank ">#274</span>
+  <span class="name">ʚTanakaɞ</span>
+  <span class="score ">2,239</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2238">
+  <span class="no">89</span>
+  <span class="rank ">#275</span>
+  <span class="name">𝕜𝕠𝕞𝕪🐼</span>
+  <span class="score ">2,238</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="2100">
+  <span class="no">90</span>
+  <span class="rank ">#283</span>
+  <span class="name">Uhhhokay</span>
+  <span class="score ">2,100</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="1863">
+  <span class="no">91</span>
+  <span class="rank ">#287</span>
+  <span class="name">할v🔥🔥🔥</span>
+  <span class="score ">1,863</span>
+  <span class="updated">07-01 15:05</span>
+</div>
+<div class="row" data-score="1376">
+  <span class="no">92</span>
+  <span class="rank ">#296</span>
+  <span class="name">선배_sunbae</span>
+  <span class="score ">1,376</span>
+  <span class="updated">07-01 15:05</span>
 </div>
 <div class="row" data-score="1104">
-  <span class="no">87</span>
-  <span class="rank ">#277</span>
+  <span class="no">93</span>
+  <span class="rank ">#301</span>
   <span class="name">린_RIN</span>
   <span class="score ">1,104</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="1104">
-  <span class="no">88</span>
-  <span class="rank ">#278</span>
-  <span class="name">Fisher</span>
-  <span class="score ">1,104</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="688">
-  <span class="no">89</span>
-  <span class="rank ">#292</span>
-  <span class="name">선배_sunbae</span>
-  <span class="score ">688</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row" data-score="551">
-  <span class="no">90</span>
-  <span class="rank ">#297</span>
-  <span class="name">Uhhhokay</span>
-  <span class="score ">551</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row top3" data-score="0">
-  <span class="no">91</span>
-  <span class="rank ">#0</span>
-  <span class="name">할v🔥🔥🔥</span>
-  <span class="score zero-score">0</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row top3" data-score="0">
-  <span class="no">92</span>
-  <span class="rank ">#0</span>
-  <span class="name">hebssiba79</span>
-  <span class="score zero-score">0</span>
-  <span class="updated">06-30 15:05</span>
-</div>
-<div class="row top3" data-score="0">
-  <span class="no">93</span>
-  <span class="rank ">#0</span>
-  <span class="name">miyabi_みやび</span>
-  <span class="score zero-score">0</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="updated">07-01 15:05</span>
 </div>
 <div class="row top3" data-score="0">
   <span class="no">94</span>
   <span class="rank ">#0</span>
-  <span class="name">SHOT</span>
+  <span class="name">miyabi_みやび</span>
   <span class="score zero-score">0</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="updated">07-01 15:05</span>
 </div>
 <div class="row top3" data-score="0">
   <span class="no">95</span>
   <span class="rank ">#0</span>
-  <span class="name">yon_욘욘</span>
+  <span class="name">SHOT</span>
   <span class="score zero-score">0</span>
-  <span class="updated">06-30 15:05</span>
+  <span class="updated">07-01 15:05</span>
 </div>
 
   </div>
   <div class="footer">
-    <div class="total"><span data-i18n="totalMember" data-count="95">총 멤버 95명</span> &nbsp;|&nbsp; <span data-i18n="day" data-day="2">Day 2 / 7</span></div>
+    <div class="total"><span data-i18n="totalMember" data-count="95">총 멤버 95명</span> &nbsp;|&nbsp; <span data-i18n="day" data-day="3">Day 3 / 7</span></div>
     <div class="goal-note" data-i18n="goalNote" data-goal="7,000">⚠️ 7,000점 미달성 시 주의</div>
   </div>
 </div>
@@ -790,7 +792,7 @@ body{background:#0f0c1a;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 {% raw %}
 <script>
 (function(){
-  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","archiveTitle":"Guild Arena &nbsp;·&nbsp; 아카이브","serverNote":"(서버 기준)","totalScoreLabel":"🏆 길드 총 합계 점수","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","day":"Day {day} / 7"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","archiveTitle":"Guild Arena &nbsp;·&nbsp; Archive","serverNote":"(server value)","totalScoreLabel":"🏆 Guild Total Score","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} points during the Guild Arena event.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","day":"Day {day} / 7"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","archiveTitle":"Guild Arena &nbsp;·&nbsp; アーカイブ","serverNote":"(サーバー基準)","totalScoreLabel":"🏆 ギルド合計スコア","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Guild Arena イベント中、各メンバーは最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","day":"Day {day} / 7"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","archiveTitle":"Guild Arena &nbsp;·&nbsp; 存档","serverNote":"(服务器数据)","totalScoreLabel":"🏆 公会总积分","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：进行 Guild Arena 活动时，每位成员请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","day":"Day {day} / 7"}};
+  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalScoreLabel":"🏆 길드 총 합계 점수","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 길드 아레나(Guild Arena) 이벤트 진행 시 최소 개인점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","day":"Day {day} / 7"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalScoreLabel":"🏆 Guild Total Score","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} points during the Guild Arena event.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","day":"Day {day} / 7"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalScoreLabel":"🏆 ギルド合計スコア","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Guild Arena イベント中、各メンバーは最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","day":"Day {day} / 7"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalScoreLabel":"🏆 公会总积分","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：进行 Guild Arena 活动时，每位成员请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","day":"Day {day} / 7"}};
   var SUP=['ko','en','ja','zh'];
   function fmt(s,p){return s.replace(/\{(\w+)\}/g,function(_,k){return (p&&p[k]!=null)?p[k]:'';});}
   function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
