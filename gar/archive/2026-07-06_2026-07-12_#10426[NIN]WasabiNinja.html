@@ -1,0 +1,733 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>REO GAR – 2026-07-06 ~ 2026-07-12</title>
+{% if site.analytics.ga %}{% include analytics-ga.html %}{% endif %}{% if site.analytics.cf %}{% include analytics-cf.html %}{% endif %}{% if site.analytics.umami %}{% include analytics-umami.html %}{% endif %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&family=Rajdhani:wght@600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:#080e1c;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC',sans-serif;padding:20px;color:#fff}
+.no,.sc,.gname,.sval,.cnt strong{font-family:'Rajdhani',sans-serif!important;font-variant-numeric:tabular-nums}
+.lbl-dot{margin:0;letter-spacing:0;flex:0 0 auto}
+.lang-toggle{touch-action:manipulation;position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:4px;background:rgba(16,24,48,0.82);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:4px;backdrop-filter:blur(6px)}
+.lang-toggle button{touch-action:manipulation;border:0;background:transparent;color:rgba(220,225,245,0.55);font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s}
+.lang-toggle button.active{background:rgba(249,115,22,0.32);color:#fff}
+.lang-toggle button:hover{color:#fff}
+.elvl{display:inline-flex;align-items:center;gap:8px}
+@media (max-width:540px){.lang-toggle{top:8px;right:8px}.lang-toggle button{padding:5px 8px;font-size:11px}}
+.wrap{max-width:1100px;margin:0 auto;background:linear-gradient(160deg,#150e28 0%,#0b0e1c 50%,#0c1420 100%);border:1px solid rgba(255,140,60,0.2);border-radius:20px;padding:36px 40px 44px;position:relative;overflow:hidden}
+.wrap::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(249,115,22,0.12) 0%,transparent 70%);pointer-events:none}
+.wrap::after{content:'';position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);pointer-events:none}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(255,140,60,0.2)}
+.gname{font-family:'Rajdhani',sans-serif;font-size:52px;font-weight:700;letter-spacing:8px;background:linear-gradient(135deg,#fb923c,#f97316,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hright{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.elvl{font-size:14px;color:rgba(255,180,120,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.utime{font-size:14px;color:rgba(255,180,120,0.7)}
+.utime span{color:#fb923c;font-weight:700;font-size:15px}
+.abtn{display:inline-block;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:700;color:#7dd3fc;background:rgba(30,58,95,0.7);border:1px solid rgba(125,211,252,0.25);text-decoration:none}
+.abtn:hover{background:rgba(30,58,95,1)}
+.pbd{display:inline-block;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:700;color:#fcd34d;background:rgba(255,200,80,0.08);border:1px solid rgba(255,200,80,0.2)}
+.tbox{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.25);border-radius:14px;padding:16px 22px;margin-bottom:18px}
+.dsrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.dsi{display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:8px 12px;min-width:76px;cursor:pointer;transition:.15s}
+.dsi.active{background:rgba(249,115,22,0.15);border-color:rgba(249,115,22,0.4)}
+.dsi .dsn{font-size:11px;color:rgba(255,180,120,0.55)}
+.dsi .dsv{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700}
+.srow{display:flex;flex-direction:column;gap:6px}
+.slbl{font-size:13px;color:rgba(255,180,120,0.6);letter-spacing:1px}
+.sval{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;color:#f97316;line-height:1.1}
+.ssub{font-size:13px;color:rgba(255,180,120,0.5)}
+.rbox{background:rgba(255,200,80,0.07);border:1px solid rgba(255,200,80,0.25);border-radius:10px;padding:13px 20px;margin-bottom:18px;font-size:15px;color:#fcd34d;display:flex;align-items:center;gap:8px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tab{border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#e8e3ff;padding:7px 13px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer}
+.tab.active{background:rgba(249,115,22,0.20);border-color:rgba(249,115,22,0.45);color:#fb923c}
+.tab.disabled,.tab:disabled{opacity:0.28;cursor:not-allowed;pointer-events:none}
+.fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.fbtn{border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:#e8e3ff;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer}
+.fbtn.active{background:rgba(249,115,22,0.20);border-color:rgba(249,115,22,0.45)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.row{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:11px 14px;gap:10px;min-width:0}
+.row.zero{background:rgba(255,80,80,0.05);border-color:rgba(255,80,80,0.15)}
+.no{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:rgba(255,180,120,0.35);width:22px;text-align:right;flex-shrink:0}
+.nm{flex:1;font-size:16px;font-weight:700;color:#f0e8e0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sc{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fb923c;text-align:right;flex-shrink:0;min-width:64px}
+.sc.high{color:#34d399}
+.sc.zs{color:rgba(255,100,100,0.6)}
+.mini{display:flex;gap:3px;flex-shrink:0}
+.dot{width:28px;height:28px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,.06);gap:1px}
+.dot.has{background:rgba(249,115,22,0.08);border-color:rgba(249,115,22,0.2)}
+.dn{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#fb923c}
+.dv{font-size:8px}
+.foot{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,140,60,0.15);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cnt{font-size:14px;color:rgba(255,180,120,0.45)}
+.cnt strong{color:rgba(255,180,120,0.8);font-family:'Rajdhani',sans-serif;font-size:17px}
+.gnote{font-size:14px;color:rgba(252,211,77,0.6)}
+.vsbox{background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:14px;padding:16px 22px;margin-bottom:18px}
+.vshdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.vstitle{font-size:13px;color:rgba(56,189,248,0.7);letter-spacing:1px;font-weight:700}
+.vsresult{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px}
+.vsgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.vsday{display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 4px}
+.vsday.win{background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3)}
+.vsday.lose{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2)}
+.vsday.draw{background:rgba(255,200,80,0.08);border-color:rgba(255,200,80,0.2)}
+.vsday.pending{opacity:0.5}
+.vsdlbl{font-size:10px;color:rgba(56,189,248,0.6);font-weight:700}
+.vsdname{font-size:9px;color:rgba(255,255,255,0.35)}
+.vsscores{display:flex;flex-direction:column;align-items:center;gap:1px;width:100%}
+.vsus{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#34d399}
+.vsopp{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#f87171}
+.vsbadge{font-size:10px;font-weight:800;padding:2px 6px;border-radius:999px;margin-top:2px}
+.vsbadge.win{background:rgba(52,211,153,0.2);color:#34d399}
+.vsbadge.lose{background:rgba(255,80,80,0.2);color:#f87171}
+.vsbadge.draw{background:rgba(255,200,80,0.2);color:#fcd34d}
+.vsbadge.pending{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35)}
+@media(max-width:860px){body{padding:12px}.wrap{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.hright{text-align:left;align-items:flex-start}.gname{font-size:36px;letter-spacing:4px}.mini{display:none}.dsi{min-width:60px;padding:6px 8px}.vsgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}.vsgrid{grid-template-columns:repeat(6,1fr)!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
+<div class="header">
+    <div class="gname">REO</div>
+    <div class="hright">
+      <div>
+        <div class="elvl" lang="en"><span class="arena-title">Guild Arms Race</span><span class="lbl-dot">·</span><span class="archive-title-word">Archive</span></div>
+        <div class="utime"><span data-i18n="lastUpdate">최종 업데이트</span>: <span>07-12 10:47</span></div>
+      </div>
+      <span class="pbd">📅 2026-07-06 ~ 2026-07-12</span>
+      <a class="abtn" href="https://mentis00.github.io/reo/gar/archive/" data-i18n="archiveBtn">📁 지난시즌</a><a class="abtn" href="https://mentis00.github.io/reo/" data-i18n="homeBtn">🏠 메인</a>
+    </div>
+  </div>
+  <div class="tbox">
+    <div class="srow">
+      <span class="slbl" id="tLbl">🏆 전체 합산</span>
+      <span class="sval" id="tVal" style="color:#f97316;">4,003,491,100</span>
+      <div class="ssub">
+        <span data-i18n="participate" data-count="95">95명 참여</span>
+        <span id="bCntWrap">&nbsp;·&nbsp;<span id="bCnt" style="color:rgba(255,100,100,0.9);" data-i18n="belowGoal" data-below="1">목표점수 미달 1명</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="vsbox"><div class="vshdr"><span class="vstitle">⚔️ #10472[REO]NOOK vs #10426[NIN]Wasabi Ninja</span><span class="vsresult"><span style="color:#34d399;">6<span data-i18n="win">승</span></span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">0<span data-i18n="lose">패</span></span></span></div><div class="vsgrid"><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day1</span><span class="vsdname" data-i18n="cat0">건설</span><div class="vsscores"><span class="vsus">894M</span><span class="vsopp">884M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day2</span><span class="vsdname" data-i18n="cat1">기술</span><div class="vsscores"><span class="vsus">873M</span><span class="vsopp">801M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day3</span><span class="vsdname" data-i18n="cat2">채집</span><div class="vsscores"><span class="vsus">969M</span><span class="vsopp">837M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day4</span><span class="vsdname" data-i18n="cat3">영웅</span><div class="vsscores"><span class="vsus">461M</span><span class="vsopp">351M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day5</span><span class="vsdname" data-i18n="cat4">훈련</span><div class="vsscores"><span class="vsus">300M</span><span class="vsopp">256M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div><div class="vsday" style="background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3);"><span class="vsdlbl">Day6</span><span class="vsdname" data-i18n="cat5">전쟁</span><div class="vsscores"><span class="vsus">503M</span><span class="vsopp">502M</span></div><span class="vsbadge" style="color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.3);" data-i18n="win">승</span></div></div></div>
+  <div class="rbox" id="ruleBox"><span>📌</span><span data-i18n="ruleText" data-goal="1,500,000">길드 규칙: 길드 군비(Guild Arms Race) 이벤트 진행 시 최소 개인 일일점수 <strong>1,500,000점</strong> 달성 바랍니다.</span></div>
+  <div class="tabs" id="tabsWrap">
+    <button class="tab" data-day="0">Day1</button><button class="tab" data-day="1">Day2</button><button class="tab" data-day="2">Day3</button><button class="tab" data-day="3">Day4</button><button class="tab" data-day="4">Day5</button><button class="tab" data-day="5">Day6</button>
+    <button class="tab active" data-day="all" data-i18n="totalSumTab">전체 합산</button>
+  </div>
+  <div class="fbar" id="fbar">
+    <button class="fbtn active" data-mode="all" data-i18n="filterAll">전체</button>
+    <button class="fbtn" data-mode="above" data-i18n="filterAbove">이상</button>
+    <button class="fbtn" data-mode="below" data-i18n="filterBelow">미만</button>
+  </div>
+  <div class="grid"><div class="row" data-score="145153434" data-days='[47328031,38778656,27195926,14450531,8815517,8584773]'>
+  <span class="no">1</span>
+  <span class="nm">ꜰᴍＳＯＮＧ🌹🌷</span>
+  <span class="sc high">145,153,434</span>
+</div>
+<div class="row" data-score="115070799" data-days='[32985191,25427006,23113802,9436622,14357426,9750752]'>
+  <span class="no">2</span>
+  <span class="nm">FARMER</span>
+  <span class="sc high">115,070,799</span>
+</div>
+<div class="row" data-score="114690353" data-days='[25032733,34871989,25115428,10976795,8503713,10189695]'>
+  <span class="no">3</span>
+  <span class="nm">cho 초초</span>
+  <span class="sc high">114,690,353</span>
+</div>
+<div class="row" data-score="110251735" data-days='[16737932,43888434,12571353,16383459,10184187,10486370]'>
+  <span class="no">4</span>
+  <span class="nm">PEPEぺぺ</span>
+  <span class="sc high">110,251,735</span>
+</div>
+<div class="row" data-score="98516531" data-days='[31067896,21048507,19960701,8765402,3474774,14199251]'>
+  <span class="no">5</span>
+  <span class="nm">red</span>
+  <span class="sc high">98,516,531</span>
+</div>
+<div class="row" data-score="81046876" data-days='[9797213,49432505,6300845,6031510,1715450,7769353]'>
+  <span class="no">6</span>
+  <span class="nm">Ylis일리스</span>
+  <span class="sc high">81,046,876</span>
+</div>
+<div class="row" data-score="77144263" data-days='[12793473,31976029,15029261,2017668,4685269,10642563]'>
+  <span class="no">7</span>
+  <span class="nm">神崎澄</span>
+  <span class="sc high">77,144,263</span>
+</div>
+<div class="row" data-score="76661370" data-days='[17403709,5055786,13941139,11750463,5889812,22620461]'>
+  <span class="no">8</span>
+  <span class="nm">하츄핑</span>
+  <span class="sc high">76,661,370</span>
+</div>
+<div class="row" data-score="71023729" data-days='[21494851,23443805,12646938,6816152,1910070,4711913]'>
+  <span class="no">9</span>
+  <span class="nm">Maese</span>
+  <span class="sc high">71,023,729</span>
+</div>
+<div class="row" data-score="70367432" data-days='[13900916,18265028,18818383,6921043,4014346,8447716]'>
+  <span class="no">10</span>
+  <span class="nm">Mama Raz</span>
+  <span class="sc high">70,367,432</span>
+</div>
+<div class="row" data-score="70235516" data-days='[20265336,17202391,12875577,5655344,2852771,11384097]'>
+  <span class="no">11</span>
+  <span class="nm">JIN진</span>
+  <span class="sc high">70,235,516</span>
+</div>
+<div class="row" data-score="66390538" data-days='[23754918,8911592,22833013,2140716,4286159,4464140]'>
+  <span class="no">12</span>
+  <span class="nm">愛希manak</span>
+  <span class="sc high">66,390,538</span>
+</div>
+<div class="row" data-score="65623535" data-days='[15364095,23619920,13529768,4841445,4081364,4186943]'>
+  <span class="no">13</span>
+  <span class="nm">sang 상한가</span>
+  <span class="sc high">65,623,535</span>
+</div>
+<div class="row" data-score="64306192" data-days='[17844092,21126107,9718607,7179647,1541776,6895963]'>
+  <span class="no">14</span>
+  <span class="nm">hebssiba79</span>
+  <span class="sc high">64,306,192</span>
+</div>
+<div class="row" data-score="61215490" data-days='[5338162,20748425,10980030,7430484,3528377,13190012]'>
+  <span class="no">15</span>
+  <span class="nm">aki_あき</span>
+  <span class="sc high">61,215,490</span>
+</div>
+<div class="row" data-score="59843508" data-days='[12686933,16001473,17927231,5571172,3524159,4132540]'>
+  <span class="no">16</span>
+  <span class="nm">Tarik</span>
+  <span class="sc high">59,843,508</span>
+</div>
+<div class="row" data-score="59224956" data-days='[8672235,10024701,14430203,9198151,11241710,5657956]'>
+  <span class="no">17</span>
+  <span class="nm">ʚTanakaɞ</span>
+  <span class="sc high">59,224,956</span>
+</div>
+<div class="row" data-score="58468530" data-days='[9229491,21039358,13666393,6970852,1946118,5616318]'>
+  <span class="no">18</span>
+  <span class="nm">Nbybi</span>
+  <span class="sc high">58,468,530</span>
+</div>
+<div class="row" data-score="58246324" data-days='[10220673,5053966,15518669,2645172,2424993,22382851]'>
+  <span class="no">19</span>
+  <span class="nm">ᴘʀɪɴᴄᴇꜱꜱ김깽</span>
+  <span class="sc high">58,246,324</span>
+</div>
+<div class="row" data-score="57142703" data-days='[17055318,10745099,15755895,6100509,2177332,5308550]'>
+  <span class="no">20</span>
+  <span class="nm">YaY 얍</span>
+  <span class="sc high">57,142,703</span>
+</div>
+<div class="row" data-score="56050752" data-days='[13814942,8614089,13401304,10521044,3410769,6288604]'>
+  <span class="no">21</span>
+  <span class="nm">Soda 솜사탕</span>
+  <span class="sc high">56,050,752</span>
+</div>
+<div class="row" data-score="55425990" data-days='[10575700,19615301,14562022,5217530,2621878,2833559]'>
+  <span class="no">22</span>
+  <span class="nm">Apii😇</span>
+  <span class="sc high">55,425,990</span>
+</div>
+<div class="row" data-score="55255942" data-days='[17421827,13765241,7808592,3806806,2569551,9883925]'>
+  <span class="no">23</span>
+  <span class="nm">NaNashi名無し</span>
+  <span class="sc high">55,255,942</span>
+</div>
+<div class="row" data-score="54776872" data-days='[22613151,1699027,22455639,1887829,1828945,4292281]'>
+  <span class="no">24</span>
+  <span class="nm">HJjjjJH🍀</span>
+  <span class="sc high">54,776,872</span>
+</div>
+<div class="row" data-score="54250490" data-days='[5057935,6077551,16514991,12267081,4060400,10272532]'>
+  <span class="no">25</span>
+  <span class="nm">Cort</span>
+  <span class="sc high">54,250,490</span>
+</div>
+<div class="row" data-score="53067163" data-days='[11717985,12109531,11858973,2168088,8152781,7059805]'>
+  <span class="no">26</span>
+  <span class="nm">Danbi</span>
+  <span class="sc high">53,067,163</span>
+</div>
+<div class="row" data-score="52602538" data-days='[22149272,7659041,9964883,5502166,4006298,3320878]'>
+  <span class="no">27</span>
+  <span class="nm">zzĐÚcdzz</span>
+  <span class="sc high">52,602,538</span>
+</div>
+<div class="row" data-score="49169079" data-days='[14658361,8335660,12698256,6552122,3721534,3203146]'>
+  <span class="no">28</span>
+  <span class="nm">린_RIN</span>
+  <span class="sc high">49,169,079</span>
+</div>
+<div class="row" data-score="49084314" data-days='[16362265,10106283,12445102,2520214,2660090,4990360]'>
+  <span class="no">29</span>
+  <span class="nm">CHICKEN</span>
+  <span class="sc high">49,084,314</span>
+</div>
+<div class="row" data-score="48464388" data-days='[2126619,14450453,11477426,8815313,2940734,8653843]'>
+  <span class="no">30</span>
+  <span class="nm">Burger</span>
+  <span class="sc high">48,464,388</span>
+</div>
+<div class="row" data-score="48272720" data-days='[14411804,6162016,11010144,9758201,1870679,5059876]'>
+  <span class="no">31</span>
+  <span class="nm">yoon 💎</span>
+  <span class="sc high">48,272,720</span>
+</div>
+<div class="row" data-score="47523625" data-days='[18891914,4118976,14693585,5008246,1692632,3118272]'>
+  <span class="no">32</span>
+  <span class="nm">🔪Stabby🔪</span>
+  <span class="sc high">47,523,625</span>
+</div>
+<div class="row" data-score="45570516" data-days='[2681439,17093401,15935585,1775479,1780151,6304461]'>
+  <span class="no">33</span>
+  <span class="nm">HoHo_LiM</span>
+  <span class="sc high">45,570,516</span>
+</div>
+<div class="row" data-score="45494514" data-days='[27195438,6267696,6277984,1581240,1511690,2660466]'>
+  <span class="no">34</span>
+  <span class="nm">키라리♡kirari</span>
+  <span class="sc high">45,494,514</span>
+</div>
+<div class="row" data-score="44953209" data-days='[6020921,12041312,12793847,4298462,2256624,7542043]'>
+  <span class="no">35</span>
+  <span class="nm">jason치로</span>
+  <span class="sc high">44,953,209</span>
+</div>
+<div class="row" data-score="44346476" data-days='[19507249,7970596,6339412,6067927,919,4460373]'>
+  <span class="no">36</span>
+  <span class="nm">Satori</span>
+  <span class="sc high">44,346,476</span>
+</div>
+<div class="row" data-score="44314652" data-days='[7244502,11013108,11739807,5427158,3959815,4930262]'>
+  <span class="no">37</span>
+  <span class="nm">ゆき💙Yuki💙</span>
+  <span class="sc high">44,314,652</span>
+</div>
+<div class="row" data-score="43754819" data-days='[2115444,14725779,14041707,5689615,1602198,5580076]'>
+  <span class="no">38</span>
+  <span class="nm">Vendetta 벤</span>
+  <span class="sc high">43,754,819</span>
+</div>
+<div class="row" data-score="43487692" data-days='[16316596,5317491,10008729,4162740,2516188,5165948]'>
+  <span class="no">39</span>
+  <span class="nm">Aphrodite</span>
+  <span class="sc high">43,487,692</span>
+</div>
+<div class="row" data-score="42345724" data-days='[12284394,7220217,8861578,2502640,2915165,8561730]'>
+  <span class="no">40</span>
+  <span class="nm">Dong_동삼집</span>
+  <span class="sc high">42,345,724</span>
+</div>
+<div class="row" data-score="41110458" data-days='[3631602,23078765,3878510,3753321,3233829,3534431]'>
+  <span class="no">41</span>
+  <span class="nm">Koyo🍒</span>
+  <span class="sc high">41,110,458</span>
+</div>
+<div class="row" data-score="40852082" data-days='[11186427,9129572,9140569,4549966,3609907,3235641]'>
+  <span class="no">42</span>
+  <span class="nm">jjing</span>
+  <span class="sc high">40,852,082</span>
+</div>
+<div class="row" data-score="39900725" data-days='[14037534,6092198,10713804,1585272,2333434,5138483]'>
+  <span class="no">43</span>
+  <span class="nm">Dayo🍒</span>
+  <span class="sc high">39,900,725</span>
+</div>
+<div class="row" data-score="39083748" data-days='[6045191,8228782,13750863,2370716,1722521,6965675]'>
+  <span class="no">44</span>
+  <span class="nm">장첸 zzang</span>
+  <span class="sc high">39,083,748</span>
+</div>
+<div class="row" data-score="39016430" data-days='[14606849,7064792,7382991,4388969,2477240,3095589]'>
+  <span class="no">45</span>
+  <span class="nm">leez_이자하</span>
+  <span class="sc high">39,016,430</span>
+</div>
+<div class="row" data-score="37956149" data-days='[11875374,1691121,16131942,2232599,1766224,4258889]'>
+  <span class="no">46</span>
+  <span class="nm">WhiteCat🐾</span>
+  <span class="sc high">37,956,149</span>
+</div>
+<div class="row" data-score="37366802" data-days='[7523127,7102192,9180704,5449606,2460607,5650566]'>
+  <span class="no">47</span>
+  <span class="nm">YOU_ゆう</span>
+  <span class="sc high">37,366,802</span>
+</div>
+<div class="row" data-score="37305967" data-days='[2389087,12567294,11271245,1584346,2323200,7170795]'>
+  <span class="no">48</span>
+  <span class="nm">COS🐏</span>
+  <span class="sc high">37,305,967</span>
+</div>
+<div class="row" data-score="37031717" data-days='[1842093,6840988,10275902,6033777,4843005,7195952]'>
+  <span class="no">49</span>
+  <span class="nm">Bayo🍒</span>
+  <span class="sc high">37,031,717</span>
+</div>
+<div class="row" data-score="36403634" data-days='[3644554,4819083,13086104,6826966,1695556,6331371]'>
+  <span class="no">50</span>
+  <span class="nm">Ruby💞루피</span>
+  <span class="sc high">36,403,634</span>
+</div>
+<div class="row" data-score="36080712" data-days='[4567169,11571706,4840068,3985414,1610100,9506255]'>
+  <span class="no">51</span>
+  <span class="nm">Shooshi</span>
+  <span class="sc high">36,080,712</span>
+</div>
+<div class="row" data-score="35623890" data-days='[10939610,6311324,15191303,0,1350742,1830911]'>
+  <span class="no">52</span>
+  <span class="nm">V25</span>
+  <span class="sc high">35,623,890</span>
+</div>
+<div class="row" data-score="35470662" data-days='[3457821,10076303,8253827,3704143,5053535,4925033]'>
+  <span class="no">53</span>
+  <span class="nm">Uhhhhokay</span>
+  <span class="sc high">35,470,662</span>
+</div>
+<div class="row" data-score="35287097" data-days='[5136152,7520402,8218066,6347316,1761082,6304079]'>
+  <span class="no">54</span>
+  <span class="nm">Ellen_🦇</span>
+  <span class="sc high">35,287,097</span>
+</div>
+<div class="row" data-score="32492686" data-days='[2087600,1414685,11416909,10526007,2459277,4588208]'>
+  <span class="no">55</span>
+  <span class="nm">Tess🍖</span>
+  <span class="sc high">32,492,686</span>
+</div>
+<div class="row" data-score="32225457" data-days='[2915623,2503480,15792995,2631772,1806510,6575077]'>
+  <span class="no">56</span>
+  <span class="nm">Mayo🍒</span>
+  <span class="sc high">32,225,457</span>
+</div>
+<div class="row" data-score="32016498" data-days='[4538093,2096567,19255670,1829646,2284796,2011726]'>
+  <span class="no">57</span>
+  <span class="nm">Agnes</span>
+  <span class="sc high">32,016,498</span>
+</div>
+<div class="row" data-score="31760910" data-days='[8573743,3658635,4977204,7019011,1043670,6488647]'>
+  <span class="no">58</span>
+  <span class="nm">xxx</span>
+  <span class="sc high">31,760,910</span>
+</div>
+<div class="row" data-score="31068215" data-days='[3637706,5906713,6733421,2703641,9891080,2195654]'>
+  <span class="no">59</span>
+  <span class="nm">Fisher</span>
+  <span class="sc high">31,068,215</span>
+</div>
+<div class="row" data-score="30673590" data-days='[11014634,2602418,3908460,5464003,3270220,4413855]'>
+  <span class="no">60</span>
+  <span class="nm">할v🔥🔥🔥</span>
+  <span class="sc high">30,673,590</span>
+</div>
+<div class="row" data-score="30587132" data-days='[12124688,1878723,6153975,2190511,6519185,1720050]'>
+  <span class="no">61</span>
+  <span class="nm">영불리_YOYO</span>
+  <span class="sc high">30,587,132</span>
+</div>
+<div class="row" data-score="30308826" data-days='[2276133,1549303,6063362,11691070,5347515,3381443]'>
+  <span class="no">62</span>
+  <span class="nm">Meeshka</span>
+  <span class="sc high">30,308,826</span>
+</div>
+<div class="row" data-score="30270080" data-days='[8772183,2399512,5509436,5276399,3385076,4927474]'>
+  <span class="no">63</span>
+  <span class="nm">san、オーク</span>
+  <span class="sc high">30,270,080</span>
+</div>
+<div class="row" data-score="30249340" data-days='[10275208,5430913,4055959,3692640,3357106,3437514]'>
+  <span class="no">64</span>
+  <span class="nm">Luffy</span>
+  <span class="sc high">30,249,340</span>
+</div>
+<div class="row" data-score="29806910" data-days='[3306029,3380936,10683486,6128694,2245198,4062567]'>
+  <span class="no">65</span>
+  <span class="nm">Teto디노니논</span>
+  <span class="sc high">29,806,910</span>
+</div>
+<div class="row" data-score="29200943" data-days='[2416726,805137,8047147,7051220,3876386,7004327]'>
+  <span class="no">66</span>
+  <span class="nm">SKY🐳💙</span>
+  <span class="sc high">29,200,943</span>
+</div>
+<div class="row" data-score="28866712" data-days='[3686472,1901265,10046638,5267567,1720225,6244545]'>
+  <span class="no">67</span>
+  <span class="nm">JOY🎵</span>
+  <span class="sc high">28,866,712</span>
+</div>
+<div class="row" data-score="28416244" data-days='[13111208,3994064,3603019,2001571,1730131,3976251]'>
+  <span class="no">68</span>
+  <span class="nm">체리cherry🍒</span>
+  <span class="sc high">28,416,244</span>
+</div>
+<div class="row" data-score="27108539" data-days='[4032038,2099478,11797442,1725341,3637349,3816891]'>
+  <span class="no">69</span>
+  <span class="nm">Lucas</span>
+  <span class="sc high">27,108,539</span>
+</div>
+<div class="row" data-score="26585538" data-days='[1880082,2120117,14193557,1672671,1910087,4809024]'>
+  <span class="no">70</span>
+  <span class="nm">Hayo🍒</span>
+  <span class="sc high">26,585,538</span>
+</div>
+<div class="row" data-score="25699519" data-days='[1711589,3100747,4250374,2863624,11602189,2170996]'>
+  <span class="no">71</span>
+  <span class="nm">ᴺⁱᶜʰᵒᵒ니콜ଳ</span>
+  <span class="sc high">25,699,519</span>
+</div>
+<div class="row" data-score="23851281" data-days='[1930304,1655424,9961850,4434838,1520673,4348192]'>
+  <span class="no">72</span>
+  <span class="nm">apple_공주</span>
+  <span class="sc high">23,851,281</span>
+</div>
+<div class="row" data-score="23572337" data-days='[2641253,3124394,11368617,1663472,2102251,2672350]'>
+  <span class="no">73</span>
+  <span class="nm">냥코</span>
+  <span class="sc high">23,572,337</span>
+</div>
+<div class="row" data-score="22937246" data-days='[3934977,3097635,6289971,3113043,3341115,3160505]'>
+  <span class="no">74</span>
+  <span class="nm">Miffy</span>
+  <span class="sc high">22,937,246</span>
+</div>
+<div class="row" data-score="22195702" data-days='[1949238,4605394,6639629,3086588,3482587,2432266]'>
+  <span class="no">75</span>
+  <span class="nm">Ice Tea🍹</span>
+  <span class="sc high">22,195,702</span>
+</div>
+<div class="row" data-score="22096267" data-days='[2500423,3818809,4986171,5123808,2061405,3605651]'>
+  <span class="no">76</span>
+  <span class="nm">Xeladriel</span>
+  <span class="sc high">22,096,267</span>
+</div>
+<div class="row" data-score="22018859" data-days='[6032764,4022147,2569484,4844560,2904817,1645087]'>
+  <span class="no">77</span>
+  <span class="nm">Bell</span>
+  <span class="sc high">22,018,859</span>
+</div>
+<div class="row" data-score="21474791" data-days='[5174056,4472663,3630247,4345265,1690038,2162522]'>
+  <span class="no">78</span>
+  <span class="nm">chris</span>
+  <span class="sc high">21,474,791</span>
+</div>
+<div class="row" data-score="19543185" data-days='[3441153,3444242,6610410,2235236,1463244,2348900]'>
+  <span class="no">79</span>
+  <span class="nm">yon_욘욘</span>
+  <span class="sc high">19,543,185</span>
+</div>
+<div class="row" data-score="19409989" data-days='[3659544,1629976,7432977,3271170,2044763,1371559]'>
+  <span class="no">80</span>
+  <span class="nm">kb park</span>
+  <span class="sc high">19,409,989</span>
+</div>
+<div class="row" data-score="19311398" data-days='[5807335,1947815,3977831,3208642,1866074,2503701]'>
+  <span class="no">81</span>
+  <span class="nm">ulssy_얼씨군요</span>
+  <span class="sc high">19,311,398</span>
+</div>
+<div class="row" data-score="19245496" data-days='[4673137,3992068,3979732,3073000,1584200,1943359]'>
+  <span class="no">82</span>
+  <span class="nm">PoP Heroes</span>
+  <span class="sc high">19,245,496</span>
+</div>
+<div class="row" data-score="18855854" data-days='[2190322,1981793,6355111,4490625,1187455,2650548]'>
+  <span class="no">83</span>
+  <span class="nm">sweetNlow</span>
+  <span class="sc high">18,855,854</span>
+</div>
+<div class="row" data-score="18142736" data-days='[2042171,4146500,6986981,1732146,1480562,1754376]'>
+  <span class="no">84</span>
+  <span class="nm">𝕜𝕠𝕞𝕪🐼</span>
+  <span class="sc high">18,142,736</span>
+</div>
+<div class="row" data-score="17557804" data-days='[2486206,2212360,3538738,5564336,1895195,1860969]'>
+  <span class="no">85</span>
+  <span class="nm">선배_sunbae</span>
+  <span class="sc high">17,557,804</span>
+</div>
+<div class="row" data-score="16332362" data-days='[3493180,1750322,4606982,4698960,1782846,72]'>
+  <span class="no">86</span>
+  <span class="nm">Sekiden</span>
+  <span class="sc high">16,332,362</span>
+</div>
+<div class="row" data-score="15619854" data-days='[1110628,2096060,4821574,1519722,1764141,4307729]'>
+  <span class="no">87</span>
+  <span class="nm">Andy5909</span>
+  <span class="sc high">15,619,854</span>
+</div>
+<div class="row" data-score="14638176" data-days='[1625242,1708323,5358731,1937172,1904662,2104046]'>
+  <span class="no">88</span>
+  <span class="nm">мιиgкα</span>
+  <span class="sc high">14,638,176</span>
+</div>
+<div class="row" data-score="14238173" data-days='[2936113,1787306,2300285,3290000,1742752,2181717]'>
+  <span class="no">89</span>
+  <span class="nm">YT</span>
+  <span class="sc high">14,238,173</span>
+</div>
+<div class="row" data-score="12678648" data-days='[1860709,2323801,3429589,2849122,1248001,967426]'>
+  <span class="no">90</span>
+  <span class="nm">Black_리무바이</span>
+  <span class="sc high">12,678,648</span>
+</div>
+<div class="row" data-score="12563477" data-days='[2762849,1988197,182974,1604169,1563244,4462044]'>
+  <span class="no">91</span>
+  <span class="nm">NSAIDs미노브이</span>
+  <span class="sc high">12,563,477</span>
+</div>
+<div class="row" data-score="11325600" data-days='[1182356,4807817,3611075,897320,606938,220094]'>
+  <span class="no">92</span>
+  <span class="nm">Manjo_0</span>
+  <span class="sc high">11,325,600</span>
+</div>
+<div class="row" data-score="11212778" data-days='[1651258,2458797,3678530,1501225,159312,1763656]'>
+  <span class="no">93</span>
+  <span class="nm">Romariense</span>
+  <span class="sc high">11,212,778</span>
+</div>
+<div class="row" data-score="10006586" data-days='[478099,106261,2882611,3955840,1132992,1450783]'>
+  <span class="no">94</span>
+  <span class="nm">SHOT</span>
+  <span class="sc high">10,006,586</span>
+</div>
+<div class="row zero" data-score="0" data-days='[0,0,0,0,0,0]'>
+  <span class="no">95</span>
+  <span class="nm">miyabi_みやび</span>
+  <span class="sc zs">0</span>
+</div>
+</div>
+  <div class="foot">
+    <div class="cnt"><span data-i18n="totalMember" data-count="95">총 멤버 95명</span></div>
+    <div class="gnote" id="gnote" data-i18n="goalNote" data-goal="1,500,000">⚠️ 1,500,000점 미달성 시 주의</div>
+  </div>
+</div>
+<script>
+(function(){
+var DL=["건설","기술","채집","영웅","훈련","전쟁"],DC=["#fb923c","#facc15","#34d399","#a78bfa","#38bdf8","#f472b6"],goal=1500000,allSum=4003491100,dsArr=[894946618,873138865,969823780,461801096,300090613,503690128];
+var isArchive=true;
+var GARI18N={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 길드 군비(Guild Arms Race) 이벤트 진행 시 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Guild Arms Race event.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Guild Arms Race イベント中、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：进行 Guild Arms Race 活动时，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+function curLang(){var l=document.documentElement.getAttribute('lang')||'ko';return GARI18N[l]?l:'en';}
+function tr(k){var d=GARI18N[curLang()]||GARI18N.en;return d[k]!=null?d[k]:k;}
+function trf(k,p){return tr(k).replace(/\{(\w+)\}/g,function(_,x){return (p&&p[x]!=null)?p[x]:'';});}
+// 최종업데이트 시간 기준 Day 계산 (시스템 시간 X)
+// 11시 이후 → 당일 Day / 11시 이전 → 전날 Day / 월11시 이전·일요일 → null
+var updateInput="2026-07-12 10:47:10";
+function getUpdateDay(){
+  var d=updateInput?new Date(updateInput):null;
+  if(!d||isNaN(d.getTime()))return null;
+  var dow=d.getDay()===0?7:d.getDay();
+  var before11=d.getHours()<11;
+  if(dow===7&&before11)return{num:6,idx:5};
+  if(dow===7)return null;
+  var eff=before11?dow-1:dow;
+  if(eff<=0||eff>6)return null;
+  return{num:eff,idx:eff-1};
+}
+var updateDay=isArchive?null:getUpdateDay();
+var cDay=updateDay?String(updateDay.idx):'all';
+var cMode='all';
+// 초기 탭 활성화
+document.querySelectorAll('.tab').forEach(function(b){
+  b.classList.toggle('active',b.getAttribute('data-day')===cDay);
+});
+// 푸터 Day 정보 표시
+var dayInfoEl=document.getElementById('dayInfoText');
+if(dayInfoEl){
+  dayInfoEl.textContent=updateDay?'Day '+updateDay.num+' / 6':'';
+  if(!updateDay)dayInfoEl.style.display='none';
+}
+function applyFilter(){
+  var isAll=cDay==='all';
+  var rows=Array.from(document.querySelectorAll('[data-days]'));
+  var lbl=document.getElementById('tLbl'),val=document.getElementById('tVal');
+  var cntWrap=document.getElementById('bCntWrap'),cnt=document.getElementById('bCnt');
+  var fbar=document.getElementById('fbar');
+  var ruleBox=document.getElementById('ruleBox'),gnote=document.getElementById('gnote');
+  var grid=document.querySelector('.grid');
+  // fbar 숨김/표시
+  if(fbar)fbar.style.display=isAll?'none':'';
+  // 미달+분리자 숨김/표시
+  if(cntWrap)cntWrap.style.display=isAll?'none':'';
+  // 규칙박스·미달주의 숨김/표시
+  if(ruleBox)ruleBox.style.display=isAll?'none':'';
+  if(gnote)gnote.style.display=isAll?'none':'';
+  var di=isAll?-1:Number(cDay);
+  if(isAll){
+    lbl.textContent=tr('totalSum');val.textContent=allSum.toLocaleString();val.style.color='#f97316';
+    cMode='all';
+  }else{
+    lbl.textContent='🏆 Day'+(di+1)+' '+tr('cat'+di);
+    val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
+    if(cnt&&goal>0){
+      var b2=0;rows.forEach(function(r){var d=JSON.parse(r.getAttribute('data-days')||'[]');if((Number(d[di])||0)<goal)b2++;});
+      cnt.textContent=trf('belowGoal',{below:b2});
+    }
+  }
+  // 탭별 점수 기준으로 행 재정렬
+  var sorted=rows.slice().sort(function(a,b){
+    var da=JSON.parse(a.getAttribute('data-days')||'[]');
+    var db=JSON.parse(b.getAttribute('data-days')||'[]');
+    var sa=isAll?Number(a.getAttribute('data-score')||0):Number(da[di]||0);
+    var sb=isAll?Number(b.getAttribute('data-score')||0):Number(db[di]||0);
+    return sb-sa;
+  });
+  if(grid){sorted.forEach(function(r){grid.appendChild(r);});}
+  // 순위 번호 및 점수/스타일 갱신
+  var rank=1;
+  sorted.forEach(function(row){
+    var days=JSON.parse(row.getAttribute('data-days')||'[]');
+    var tot=Number(row.getAttribute('data-score')||0);
+    var sv=isAll?tot:Number(days[di]||0);
+    var modeOk=isAll||cMode==='all'||(goal>0&&cMode==='above'&&sv>=goal)||(goal>0&&cMode==='below'&&sv<goal);
+    row.style.display=modeOk?'':'none';
+    var noEl=row.querySelector('.no');
+    if(noEl&&modeOk){noEl.textContent=rank++;} 
+    var se=row.querySelector('.sc');
+    if(se){
+      se.textContent=sv.toLocaleString();
+      se.className='sc'+(isAll?' high':goal>0?(sv>=goal?' high':sv===0?' zs':''):' high');
+    }
+  });
+}
+document.querySelectorAll('.tab').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    if(btn.disabled||btn.classList.contains('disabled')) return;
+    document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');cDay=btn.getAttribute('data-day');applyFilter();
+  });
+});
+document.querySelectorAll('.fbtn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');cMode=btn.getAttribute('data-mode');applyFilter();
+  });
+});
+applyFilter(); // 초기 적용
+window.__garApplyFilter=applyFilter;
+})();
+</script>
+<script>
+(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();
+</script>
+{% raw %}
+<script>
+(function(){
+  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 길드 군비(Guild Arms Race) 이벤트 진행 시 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Guild Arms Race event.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Guild Arms Race イベント中、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：进行 Guild Arms Race 活动时，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+  var SUP=['ko','en','ja','zh'];
+  function fmt(s,p){return s.replace(/\{(\w+)\}/g,function(_,k){return (p&&p[k]!=null)?p[k]:'';});}
+  function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
+  function apply(lang){var d=DICT[lang]||DICT.en;document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(!d[k])return;var p={};if(el.hasAttribute('data-count'))p.count=el.getAttribute('data-count');if(el.hasAttribute('data-goal'))p.goal=el.getAttribute('data-goal');if(el.hasAttribute('data-below'))p.below=el.getAttribute('data-below');el.innerHTML=fmt(d[k],p);});var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});}if(typeof window.__garApplyFilter==='function'){window.__garApplyFilter();}}
+  var cur=pick();function setLang(l){cur=l;try{localStorage.setItem('reo_lang',l);}catch(e){}apply(l);}
+  document.addEventListener('DOMContentLoaded',function(){apply(cur);var tg=document.getElementById('langToggle');if(tg){tg.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});}});
+})();
+</script>
+{% endraw %}
+</body>
+</html>
