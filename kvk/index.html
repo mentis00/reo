@@ -51,6 +51,8 @@ body{background:#090800;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;position:relative;z-index:1}
 .row{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:11px 14px;gap:10px;min-width:0}
 .row.zero{background:rgba(255,80,80,0.05);border-color:rgba(255,80,80,0.15)}
+.row.unranked{opacity:0.5}
+.sc.unranked{color:rgba(255,255,255,0.3);font-size:13px;font-style:italic}
 .no{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:rgba(255,220,120,0.35);width:22px;text-align:right;flex-shrink:0}
 .nm{flex:1;font-size:16px;font-weight:700;color:#fff9e6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .sc{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fbbf24;text-align:right;flex-shrink:0;min-width:64px}
@@ -64,7 +66,7 @@ body{background:#090800;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 .vshdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .vstitle{font-size:13px;color:rgba(56,189,248,0.7);letter-spacing:1px;font-weight:700}
 .vsresult{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px}
-.vsgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.vsgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .vsday{display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 4px}
 .vsday.win{background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3)}
 .vsday.lose{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2)}
@@ -80,18 +82,49 @@ body{background:#090800;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
 .vsbadge.draw{background:rgba(255,200,80,0.2);color:#fcd34d}
 .vsbadge.pending{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35)}
 @media(max-width:860px){body{padding:12px}.wrap{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.hright{text-align:left;align-items:flex-start}.gname{font-size:36px;letter-spacing:4px}.vsgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}.vsgrid{grid-template-columns:repeat(6,1fr)!important}}
+@media(max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}.vsgrid{grid-template-columns:repeat(7,1fr)!important}}
+.ktbox{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px 22px;margin-bottom:18px;position:relative;z-index:1}
+.kttitle{font-size:13px;color:rgba(196,181,253,0.8);letter-spacing:1px;font-weight:700;margin-bottom:12px}
+.ktrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}
+.ktrow.total{margin-top:10px;padding-top:12px;border-top:1px dashed rgba(139,92,246,0.25);font-size:13px;font-weight:800}
+.ktrow.total .ktday{color:#c4b5fd;width:auto;white-space:nowrap;margin-right:2px}
+.ktrow.total .ktnum{font-size:15px}
+.ktrow.total .ktbar{height:13px}
+.ktlead{margin-top:8px;font-size:12px;font-weight:700;text-align:right}
+.ktlead.us{color:#60a5fa}
+.ktlead.opp{color:#f87171}
+.ktlead.draw{color:#fcd34d;text-align:center}
+.ktday{width:44px;flex-shrink:0;color:rgba(196,181,253,0.6);font-weight:700}
+.ktbarwrap{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
+.ktnum{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;flex-shrink:0;min-width:64px}
+.ktnum.us{color:#60a5fa;text-align:right}
+.ktnum.opp{color:#f87171;text-align:left}
+.ktbar{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;display:flex}
+.ktbarus{background:linear-gradient(90deg,#3b82f6,#60a5fa);height:100%}
+.ktbaropp{background:linear-gradient(90deg,#f87171,#ef4444);height:100%}
+.ktempty{color:rgba(255,255,255,0.25);font-style:italic}
+.t100box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 22px;margin-bottom:18px;position:relative;z-index:1}
+.t100title{font-size:13px;letter-spacing:1px;font-weight:700;margin-bottom:10px}
+.t100list{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.t100row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;font-size:12px;background:rgba(255,255,255,0.02)}
+.t100row.own{background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3)}
+.t100row.us{background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.22)}
+.t100row.opp{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.18)}
+.t100rank{width:30px;flex-shrink:0;text-align:right;color:rgba(255,255,255,0.4);font-family:'Rajdhani',sans-serif;font-weight:700}
+.t100tag{color:#7dd3fc;flex-shrink:0}
+.t100name{flex:1;color:#fff9e6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.t100pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:#fbbf24;flex-shrink:0}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="lang-toggle" id="langToggle"><button data-lang="ko">한</button><button data-lang="en">EN</button><button data-lang="ja">日</button><button data-lang="zh">中</button></div>
 <div class="header">
-    <div class="gname">REO</div>
+    <div class="gname">REO<span style="font-size:22px;letter-spacing:3px;opacity:0.6;margin-left:12px;">#10472</span></div>
     <div class="hright">
       <div>
         <div class="elvl">Kingdom Duel</div>
-        <div class="utime"><span data-i18n="lastUpdate">최종 업데이트</span>: <span></span></div>
+        <div class="utime"><span data-i18n="lastUpdate">최종 업데이트</span>: <span>07-22 10:00</span></div>
       </div>
       
       <a class="abtn" href="https://mentis00.github.io/reo/kvk/archive/" data-i18n="archiveBtn">📁 지난시즌</a><a class="abtn" href="https://mentis00.github.io/reo/" data-i18n="homeBtn">🏠 메인</a>
@@ -99,107 +132,3645 @@ body{background:#090800;font-family:'Noto Sans KR','Noto Sans JP','Noto Sans SC'
   </div>
   <div class="tbox">
     <div class="srow">
-      <span class="slbl" id="tLbl">🏆 ...</span>
-      <span class="sval" id="tVal" style="color:#f59e0b;">...</span>
+      <span class="slbl" id="tLbl">...<span id="rankBadge"></span></span>
+      <span class="sval" id="tVal" style="color:#fbbf24;">...</span>
       <div class="ssub">
-        <span data-i18n="participate" data-count="0">0명 참여</span>
-        <span id="bCntWrap">&nbsp;·&nbsp;<span id="bCnt" style="color:rgba(255,100,100,0.9);" data-i18n="belowGoal" data-below="0">목표점수 미달 0명</span></span>
+        <span id="confirmCnt" data-count="17">top100 확인 17명</span>
+        
       </div>
     </div>
   </div>
+  <div style="font-size:12px;color:rgba(255,220,120,0.35);margin:-8px 0 14px;" data-i18n="top100Note">※ 개인 랭킹은 왕국 전체 top100까지만 확인 가능하여 목록에 없는 길드원은 순위권 밖으로 표시됩니다.</div>
+  <div class="vsbox"><div class="vshdr"><span class="vstitle">🏰 #10472 vs #10460</span><span class="vsresult"><span style="color:#34d399;">0<span data-i18n="win">승</span></span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">2<span data-i18n="lose">패</span></span></span></div><div class="vsgrid"><div class="vsday" style="background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2);"><span class="vsdlbl">Day1</span><span class="vsdname" data-i18n="cat0">건설</span><div class="vsscores"><span class="vsus">5,291M</span><span class="vsopp">5,397M</span></div><span class="vsbadge" style="color:#f87171;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);" data-i18n="lose">패</span></div><div class="vsday" style="background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2);"><span class="vsdlbl">Day2</span><span class="vsdname" data-i18n="cat1">기술</span><div class="vsscores"><span class="vsus">3,902M</span><span class="vsopp">4,179M</span></div><span class="vsbadge" style="color:#f87171;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);" data-i18n="lose">패</span></div><div class="vsday" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);"><span class="vsdlbl">Day3</span><span class="vsdname" data-i18n="cat2">채집</span><div class="vsscores"><span class="vsus">—</span><span class="vsopp">—</span></div><span class="vsbadge" style="color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);" data-i18n="wait">대기</span></div><div class="vsday" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);"><span class="vsdlbl">Day4</span><span class="vsdname" data-i18n="cat3">영웅</span><div class="vsscores"><span class="vsus">—</span><span class="vsopp">—</span></div><span class="vsbadge" style="color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);" data-i18n="wait">대기</span></div><div class="vsday" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);"><span class="vsdlbl">Day5</span><span class="vsdname" data-i18n="cat4">훈련</span><div class="vsscores"><span class="vsus">—</span><span class="vsopp">—</span></div><span class="vsbadge" style="color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);" data-i18n="wait">대기</span></div><div class="vsday" style="background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2);"><span class="vsdlbl">누적</span><span class="vsdname">총점</span><div class="vsscores"><span class="vsus">9,192M</span><span class="vsopp">9,576M</span></div><span class="vsbadge" style="color:#f87171;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.2);" data-i18n="lose">패</span></div><div class="vsday" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);"><span class="vsdlbl">⚔️</span><span class="vsdname">전쟁</span><div class="vsscores"><span class="vsus">—</span><span class="vsopp">—</span></div><span class="vsbadge" style="color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);" data-i18n="wait">대기</span></div></div></div>
+  <div class="ktbox"><div class="kttitle"><span data-i18n="kingdomTotalTitle">⚖️ 날짜별 왕국 총점 비교</span> #10472 vs #10460</div><div class="ktrow">
+      <span class="ktday">Day1</span>
+      <div class="ktbarwrap">
+        <span class="ktnum us">5,290,635,959</span>
+        <div class="ktbar"><div class="ktbarus" style="width:50%;"></div><div class="ktbaropp" style="width:50%;"></div></div>
+        <span class="ktnum opp">5,396,829,936</span>
+      </div>
+    </div><div class="ktrow">
+      <span class="ktday">Day2</span>
+      <div class="ktbarwrap">
+        <span class="ktnum us">3,901,569,962</span>
+        <div class="ktbar"><div class="ktbarus" style="width:48%;"></div><div class="ktbaropp" style="width:52%;"></div></div>
+        <span class="ktnum opp">4,179,487,237</span>
+      </div>
+    </div><div class="ktrow"><span class="ktday">Day3</span><span class="ktempty"><span data-i18n="ktEmpty">미입력</span></span></div><div class="ktrow"><span class="ktday">Day4</span><span class="ktempty"><span data-i18n="ktEmpty">미입력</span></span></div><div class="ktrow"><span class="ktday">Day5</span><span class="ktempty"><span data-i18n="ktEmpty">미입력</span></span></div><div class="ktrow total">
+      <span class="ktday"><span data-i18n="ktTotalLabel">총 포인트</span> (2일 합산)</span>
+      <div class="ktbarwrap">
+        <span class="ktnum us">9,192,205,921</span>
+        <div class="ktbar"><div class="ktbarus" style="width:49%;"></div><div class="ktbaropp" style="width:51%;"></div></div>
+        <span class="ktnum opp">9,576,317,173</span>
+      </div>
+    </div><div class="ktlead opp">🔶 #10460 <span data-i18n="leadSuffix">우세</span> (+384,111,252)</div></div>
+  <div class="" data-top100-day="0" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100IndivDayLabel">🏅 개인 랭킹 TOP100</span> (Day1)</div><div class="t100list"><div class="t100row us">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">Ratatoskr</span>
+      <span class="t100pts">109,824,777</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Lãnh Chúa_W8n10</span>
+      <span class="t100pts">101,205,351</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Jd nhỏ</span>
+      <span class="t100pts">80,350,711</span>
+    </div><div class="t100row us">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">Jammin</span>
+      <span class="t100pts">76,155,863</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">sparrow🐤</span>
+      <span class="t100pts">73,806,848</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Xe đạp 2</span>
+      <span class="t100pts">73,784,780</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">初四</span>
+      <span class="t100pts">56,854,356</span>
+    </div><div class="t100row us">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Maii♡•ﾟ?</span>
+      <span class="t100pts">55,940,297</span>
+    </div><div class="t100row us">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">ROOK✨</span>
+      <span class="t100pts">55,061,600</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Jhimcamp</span>
+      <span class="t100pts">54,432,245</span>
+    </div><div class="t100row us">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">yozora 밤하늘</span>
+      <span class="t100pts">48,165,429</span>
+    </div><div class="t100row own">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FM SONG🌹🌷</span>
+      <span class="t100pts">47,794,864</span>
+    </div><div class="t100row us">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10472 [RoR]</span>
+      <span class="t100name">Hi im Long</span>
+      <span class="t100pts">41,213,850</span>
+    </div><div class="t100row own">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FARMER</span>
+      <span class="t100pts">39,877,892</span>
+    </div><div class="t100row us">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">FamilyMart</span>
+      <span class="t100pts">39,784,023</span>
+    </div><div class="t100row us">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Oscar</span>
+      <span class="t100pts">39,588,373</span>
+    </div><div class="t100row us">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">✨ナティ✨</span>
+      <span class="t100pts">38,445,335</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Farzaa</span>
+      <span class="t100pts">38,043,532</span>
+    </div><div class="t100row us">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10472 [Drf]</span>
+      <span class="t100name">Pawn</span>
+      <span class="t100pts">36,163,667</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10460 [ZEN]</span>
+      <span class="t100name">short</span>
+      <span class="t100pts">32,318,392</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Chelny🔥</span>
+      <span class="t100pts">31,764,515</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">TG</span>
+      <span class="t100pts">31,324,050</span>
+    </div><div class="t100row us">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Ᏼeppa</span>
+      <span class="t100pts">30,905,203</span>
+    </div><div class="t100row own">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">장첸 zzang🍎</span>
+      <span class="t100pts">29,976,089</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">DonNik</span>
+      <span class="t100pts">28,516,381</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">にっしー</span>
+      <span class="t100pts">28,265,419</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">dummy</span>
+      <span class="t100pts">27,807,338</span>
+    </div><div class="t100row us">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Miaou</span>
+      <span class="t100pts">27,545,766</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10460 [MTF]</span>
+      <span class="t100name">香香</span>
+      <span class="t100pts">27,307,677</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [dem]</span>
+      <span class="t100name">Bombastic</span>
+      <span class="t100pts">27,233,066</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10460 [IJU]</span>
+      <span class="t100name">桃</span>
+      <span class="t100pts">26,920,600</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Zett</span>
+      <span class="t100pts">26,873,611</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">CG</span>
+      <span class="t100pts">26,053,369</span>
+    </div><div class="t100row us">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10472 [Fam]</span>
+      <span class="t100name">Haal</span>
+      <span class="t100pts">25,907,287</span>
+    </div><div class="t100row us">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Flarion</span>
+      <span class="t100pts">25,415,625</span>
+    </div><div class="t100row us">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">syt□e✨</span>
+      <span class="t100pts">24,719,839</span>
+    </div><div class="t100row own">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">cho 초초</span>
+      <span class="t100pts">24,698,296</span>
+    </div><div class="t100row us">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">해바라기🌻</span>
+      <span class="t100pts">24,665,518</span>
+    </div><div class="t100row us">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10472 [Fam]</span>
+      <span class="t100name">Blossom</span>
+      <span class="t100pts">24,250,794</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Ducmanh</span>
+      <span class="t100pts">24,247,781</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Xe đạp</span>
+      <span class="t100pts">24,005,942</span>
+    </div><div class="t100row us">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">wichk</span>
+      <span class="t100pts">23,991,993</span>
+    </div><div class="t100row us">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">🍌banana🍌</span>
+      <span class="t100pts">23,974,113</span>
+    </div><div class="t100row us">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Swaýn</span>
+      <span class="t100pts">23,709,727</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Vi_</span>
+      <span class="t100pts">23,692,901</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Esmeralda</span>
+      <span class="t100pts">23,423,694</span>
+    </div><div class="t100row own">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">leez_이자하🍎</span>
+      <span class="t100pts">23,185,476</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">PewPewPie</span>
+      <span class="t100pts">23,082,437</span>
+    </div><div class="t100row own">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">red</span>
+      <span class="t100pts">22,963,776</span>
+    </div><div class="t100row us">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">cún</span>
+      <span class="t100pts">22,553,113</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">CLAM</span>
+      <span class="t100pts">22,549,293</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Gatto</span>
+      <span class="t100pts">22,422,613</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">ghost</span>
+      <span class="t100pts">22,141,307</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">FireKat🐱</span>
+      <span class="t100pts">22,118,330</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Tulipss</span>
+      <span class="t100pts">21,621,369</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Nazgul M</span>
+      <span class="t100pts">21,414,238</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">peach🔪</span>
+      <span class="t100pts">21,311,735</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Slagatha</span>
+      <span class="t100pts">21,296,884</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Venovesa</span>
+      <span class="t100pts">21,283,808</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10460 [ZEN]</span>
+      <span class="t100name">SantaClaus</span>
+      <span class="t100pts">21,117,387</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">GNTR</span>
+      <span class="t100pts">21,104,716</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">ahle</span>
+      <span class="t100pts">20,936,267</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10460 [MTF]</span>
+      <span class="t100name">Innojade</span>
+      <span class="t100pts">20,764,732</span>
+    </div><div class="t100row us">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">🌸NATY🌸</span>
+      <span class="t100pts">20,627,110</span>
+    </div><div class="t100row us">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">KongSin</span>
+      <span class="t100pts">20,568,410</span>
+    </div><div class="t100row us">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10472 [SQD]</span>
+      <span class="t100name">Artemis🌙</span>
+      <span class="t100pts">20,559,667</span>
+    </div><div class="t100row us">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Siiiuuuu</span>
+      <span class="t100pts">20,484,369</span>
+    </div><div class="t100row own">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">yon_욘욘</span>
+      <span class="t100pts">20,480,903</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Messias</span>
+      <span class="t100pts">20,204,665</span>
+    </div><div class="t100row own">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">神崎澄</span>
+      <span class="t100pts">20,157,952</span>
+    </div><div class="t100row own">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">NaNashi名無し</span>
+      <span class="t100pts">20,144,881</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10460 [MVP]</span>
+      <span class="t100name">🕊️</span>
+      <span class="t100pts">20,063,693</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">bacovia</span>
+      <span class="t100pts">20,015,493</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Le Rain</span>
+      <span class="t100pts">19,948,135</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Sidino</span>
+      <span class="t100pts">19,823,905</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10460 [MTF]</span>
+      <span class="t100name">chocolate</span>
+      <span class="t100pts">19,617,052</span>
+    </div><div class="t100row us">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">QuênMấtRồi</span>
+      <span class="t100pts">19,257,345</span>
+    </div><div class="t100row us">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Orion</span>
+      <span class="t100pts">19,039,437</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10460 [SPx]</span>
+      <span class="t100name">BlairWitch</span>
+      <span class="t100pts">18,982,262</span>
+    </div><div class="t100row us">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">cake🍰</span>
+      <span class="t100pts">18,934,724</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10460 [IJU]</span>
+      <span class="t100name">梅もっち〜</span>
+      <span class="t100pts">18,857,079</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Darkshadow</span>
+      <span class="t100pts">18,841,521</span>
+    </div><div class="t100row us">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">HYUNDAI</span>
+      <span class="t100pts">18,683,332</span>
+    </div><div class="t100row us">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">Oden♪</span>
+      <span class="t100pts">18,608,268</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Lem</span>
+      <span class="t100pts">18,587,691</span>
+    </div><div class="t100row us">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">子犬</span>
+      <span class="t100pts">18,565,038</span>
+    </div><div class="t100row own">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Mama Raz</span>
+      <span class="t100pts">18,339,960</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Oggy</span>
+      <span class="t100pts">18,265,223</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">初一</span>
+      <span class="t100pts">18,123,709</span>
+    </div><div class="t100row us">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">Minnie🐹</span>
+      <span class="t100pts">18,001,745</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Bibi💞</span>
+      <span class="t100pts">17,874,781</span>
+    </div><div class="t100row us">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">mono97</span>
+      <span class="t100pts">17,696,834</span>
+    </div><div class="t100row own">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Maese</span>
+      <span class="t100pts">17,695,680</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Hulcky</span>
+      <span class="t100pts">17,616,873</span>
+    </div><div class="t100row us">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10472 [Fam]</span>
+      <span class="t100name">BlackBunny</span>
+      <span class="t100pts">17,562,902</span>
+    </div><div class="t100row own">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">JIN진</span>
+      <span class="t100pts">17,535,172</span>
+    </div><div class="t100row us">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Liuliu</span>
+      <span class="t100pts">17,403,705</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">どぅーあ</span>
+      <span class="t100pts">17,360,310</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">E3_Zod</span>
+      <span class="t100pts">17,347,469</span>
+    </div><div class="t100row us">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10472 [ECO]</span>
+      <span class="t100name">Gấugâugâu</span>
+      <span class="t100pts">17,331,462</span>
+    </div></div></div></div><div class="" data-top100-day="1" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100IndivDayLabel">🏅 개인 랭킹 TOP100</span> (Day2)</div><div class="t100list"><div class="t100row own">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FM SONG🌹🌷</span>
+      <span class="t100pts">101,654,071</span>
+    </div><div class="t100row us">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">Ratatoskr</span>
+      <span class="t100pts">67,726,111</span>
+    </div><div class="t100row us">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Oscar</span>
+      <span class="t100pts">49,547,381</span>
+    </div><div class="t100row us">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Maii♡•ﾟ?</span>
+      <span class="t100pts">46,096,131</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Thorax</span>
+      <span class="t100pts">45,332,038</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Jd nhỏ</span>
+      <span class="t100pts">43,264,516</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Jhimcamp</span>
+      <span class="t100pts">43,038,830</span>
+    </div><div class="t100row us">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">Shimnei🐼</span>
+      <span class="t100pts">42,968,270</span>
+    </div><div class="t100row us">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">manana</span>
+      <span class="t100pts">39,861,905</span>
+    </div><div class="t100row us">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">shaun愛</span>
+      <span class="t100pts">35,484,527</span>
+    </div><div class="t100row us">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">🍓</span>
+      <span class="t100pts">35,186,647</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">DonNik</span>
+      <span class="t100pts">33,292,994</span>
+    </div><div class="t100row us">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">YAY!</span>
+      <span class="t100pts">31,704,874</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Fatino</span>
+      <span class="t100pts">28,965,789</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">FireKat🐱</span>
+      <span class="t100pts">28,153,580</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Esmeralda</span>
+      <span class="t100pts">27,431,609</span>
+    </div><div class="t100row us">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">참이슬</span>
+      <span class="t100pts">27,261,775</span>
+    </div><div class="t100row own">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Ylis일리스</span>
+      <span class="t100pts">26,430,690</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">NoYashNo</span>
+      <span class="t100pts">26,010,201</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Legolas🏹</span>
+      <span class="t100pts">25,953,364</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Nayr</span>
+      <span class="t100pts">25,610,734</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">酒</span>
+      <span class="t100pts">25,424,198</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Moony🌙</span>
+      <span class="t100pts">25,386,144</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Messias</span>
+      <span class="t100pts">25,199,214</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">MUFASA</span>
+      <span class="t100pts">25,197,009</span>
+    </div><div class="t100row us">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Orion</span>
+      <span class="t100pts">25,031,280</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Koko</span>
+      <span class="t100pts">24,210,522</span>
+    </div><div class="t100row us">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">WANG Soju</span>
+      <span class="t100pts">24,112,156</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Farzaa</span>
+      <span class="t100pts">24,044,192</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Unhinged</span>
+      <span class="t100pts">23,382,537</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">Muffin🧁</span>
+      <span class="t100pts">22,631,454</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">ahle</span>
+      <span class="t100pts">22,496,922</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Rickyrozay</span>
+      <span class="t100pts">22,397,451</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Tulipss</span>
+      <span class="t100pts">22,253,625</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Fred</span>
+      <span class="t100pts">21,954,343</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Le Rain</span>
+      <span class="t100pts">21,303,860</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Lord Show</span>
+      <span class="t100pts">21,202,826</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">OW_Li</span>
+      <span class="t100pts">21,190,079</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10460 [420]</span>
+      <span class="t100name">Ladysea</span>
+      <span class="t100pts">21,044,529</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10460 [MTF]</span>
+      <span class="t100name">Dukemon</span>
+      <span class="t100pts">20,825,514</span>
+    </div><div class="t100row own">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FARMER</span>
+      <span class="t100pts">20,714,195</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">Oscar🐱🔥</span>
+      <span class="t100pts">20,691,030</span>
+    </div><div class="t100row own">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">장첸 zzang</span>
+      <span class="t100pts">20,595,380</span>
+    </div><div class="t100row own">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">마나키</span>
+      <span class="t100pts">20,593,103</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">初一</span>
+      <span class="t100pts">20,446,721</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">peach🎏</span>
+      <span class="t100pts">20,324,356</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Blessed</span>
+      <span class="t100pts">20,314,011</span>
+    </div><div class="t100row own">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">神崎澄</span>
+      <span class="t100pts">20,142,794</span>
+    </div><div class="t100row us">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10472 [SLG]</span>
+      <span class="t100name">AMOR</span>
+      <span class="t100pts">19,626,240</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Nyxterra</span>
+      <span class="t100pts">19,146,453</span>
+    </div><div class="t100row us">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Ᏼeppa</span>
+      <span class="t100pts">19,108,676</span>
+    </div><div class="t100row us">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">yozora 밤하늘</span>
+      <span class="t100pts">18,562,491</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10460 </span>
+      <span class="t100name">MENTARO🍀</span>
+      <span class="t100pts">18,541,864</span>
+    </div><div class="t100row us">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10472 [Fam]</span>
+      <span class="t100name">🧜</span>
+      <span class="t100pts">18,497,504</span>
+    </div><div class="t100row us">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10472 [Drf]</span>
+      <span class="t100name">Fentanest</span>
+      <span class="t100pts">18,423,772</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [ZEN]</span>
+      <span class="t100name">short</span>
+      <span class="t100pts">18,203,146</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">liv3</span>
+      <span class="t100pts">17,808,179</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">ghost</span>
+      <span class="t100pts">17,586,158</span>
+    </div><div class="t100row us">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10472 [SLG]</span>
+      <span class="t100name">Gadgetson</span>
+      <span class="t100pts">17,493,698</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Mialia</span>
+      <span class="t100pts">17,307,755</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10460 [ZEN]</span>
+      <span class="t100name">πr²</span>
+      <span class="t100pts">17,274,039</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10460 [IJU]</span>
+      <span class="t100name">梅もっち〜</span>
+      <span class="t100pts">16,838,883</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">RIPKO</span>
+      <span class="t100pts">16,736,882</span>
+    </div><div class="t100row us">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">neppa8787</span>
+      <span class="t100pts">16,633,681</span>
+    </div><div class="t100row us">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10472 [SLG]</span>
+      <span class="t100name">晴天Qing</span>
+      <span class="t100pts">16,482,435</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Kitler</span>
+      <span class="t100pts">16,390,093</span>
+    </div><div class="t100row us">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">No money</span>
+      <span class="t100pts">16,369,487</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">mugunghwa</span>
+      <span class="t100pts">16,352,402</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Valak</span>
+      <span class="t100pts">16,130,336</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Hungry</span>
+      <span class="t100pts">16,094,359</span>
+    </div><div class="t100row own">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">aki_あき</span>
+      <span class="t100pts">16,013,164</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Vi_</span>
+      <span class="t100pts">16,008,522</span>
+    </div><div class="t100row own">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">cho 초초</span>
+      <span class="t100pts">15,862,673</span>
+    </div><div class="t100row us">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Lottie🌸</span>
+      <span class="t100pts">15,542,018</span>
+    </div><div class="t100row us">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10472 [MAX]</span>
+      <span class="t100name">Kratox</span>
+      <span class="t100pts">15,500,313</span>
+    </div><div class="t100row us">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">鬼島津〆ゆっけ</span>
+      <span class="t100pts">15,461,960</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">CG</span>
+      <span class="t100pts">15,188,020</span>
+    </div><div class="t100row us">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">Wasabi</span>
+      <span class="t100pts">15,088,069</span>
+    </div><div class="t100row us">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">TG</span>
+      <span class="t100pts">14,942,031</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Bonk Choy</span>
+      <span class="t100pts">14,844,615</span>
+    </div><div class="t100row us">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">🌸NATY🌸</span>
+      <span class="t100pts">14,569,018</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">👑PoKN👑</span>
+      <span class="t100pts">14,545,737</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Amel jr</span>
+      <span class="t100pts">14,507,262</span>
+    </div><div class="t100row us">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">해바라기🌻</span>
+      <span class="t100pts">14,264,637</span>
+    </div><div class="t100row us">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Sky 천마</span>
+      <span class="t100pts">14,195,369</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">Samuel🐶</span>
+      <span class="t100pts">14,168,924</span>
+    </div><div class="t100row us">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Shaka♡•ﾟ?</span>
+      <span class="t100pts">14,153,062</span>
+    </div><div class="t100row own">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">JIN진</span>
+      <span class="t100pts">14,013,342</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Bibi💞</span>
+      <span class="t100pts">13,809,383</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">yuugi</span>
+      <span class="t100pts">13,799,182</span>
+    </div><div class="t100row us">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Pomi🍀</span>
+      <span class="t100pts">13,701,345</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Whalnie</span>
+      <span class="t100pts">13,645,728</span>
+    </div><div class="t100row own">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Vendetta 벤</span>
+      <span class="t100pts">13,553,473</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Mr J</span>
+      <span class="t100pts">13,539,244</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10460 [MVP]</span>
+      <span class="t100name">Haskarita</span>
+      <span class="t100pts">13,436,955</span>
+    </div><div class="t100row own">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Maese</span>
+      <span class="t100pts">13,340,828</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">JoKeR🤡</span>
+      <span class="t100pts">13,290,624</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">FloutRex</span>
+      <span class="t100pts">13,261,546</span>
+    </div><div class="t100row own">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Tarik</span>
+      <span class="t100pts">13,179,811</span>
+    </div><div class="t100row us">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Robin</span>
+      <span class="t100pts">13,134,100</span>
+    </div></div></div></div><div class="" data-top100-day="preptotal" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100IndivTotalTitle">🏆 개인 총점 랭킹 TOP100 (누적)</span></div><div class="t100list"><div class="t100row us">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">Ratatoskr</span>
+      <span class="t100pts">184,029,851</span>
+    </div><div class="t100row own">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FM SONG🌹🌷</span>
+      <span class="t100pts">162,291,153</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Jd nhỏ</span>
+      <span class="t100pts">124,878,711</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Lãnh Chúa_W8n10</span>
+      <span class="t100pts">112,395,340</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Jhimcamp</span>
+      <span class="t100pts">108,798,157</span>
+    </div><div class="t100row us">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Maii♡•ﾟ?</span>
+      <span class="t100pts">108,556,279</span>
+    </div><div class="t100row us">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Oscar</span>
+      <span class="t100pts">97,967,167</span>
+    </div><div class="t100row us">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">Jammin</span>
+      <span class="t100pts">86,235,625</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">sparrow🐤</span>
+      <span class="t100pts">78,932,442</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10460 [FMZ]</span>
+      <span class="t100name">Xe đạp 2</span>
+      <span class="t100pts">73,822,580</span>
+    </div><div class="t100row us">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">yozora 밤하늘</span>
+      <span class="t100pts">71,162,342</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Farzaa</span>
+      <span class="t100pts">68,710,740</span>
+    </div><div class="t100row own">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">FARMER</span>
+      <span class="t100pts">67,527,365</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">DonNik</span>
+      <span class="t100pts">65,841,105</span>
+    </div><div class="t100row us">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">ROOK✨</span>
+      <span class="t100pts">62,114,618</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Esmeralda</span>
+      <span class="t100pts">58,515,981</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10460 [JMa]</span>
+      <span class="t100name">初四</span>
+      <span class="t100pts">56,901,456</span>
+    </div><div class="t100row own">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">장첸 zzang</span>
+      <span class="t100pts">55,377,886</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">FireKat🐱</span>
+      <span class="t100pts">55,082,497</span>
+    </div><div class="t100row us">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Ᏼeppa</span>
+      <span class="t100pts">54,845,047</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Thorax</span>
+      <span class="t100pts">54,599,759</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">manana</span>
+      <span class="t100pts">54,097,398</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Messias</span>
+      <span class="t100pts">52,520,988</span>
+    </div><div class="t100row us">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">shaun愛</span>
+      <span class="t100pts">52,479,994</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10460 [ZEN]</span>
+      <span class="t100name">short</span>
+      <span class="t100pts">52,210,645</span>
+    </div><div class="t100row us">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Orion</span>
+      <span class="t100pts">52,194,225</span>
+    </div><div class="t100row us">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">TG</span>
+      <span class="t100pts">49,680,009</span>
+    </div><div class="t100row us">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">해바라기🌻</span>
+      <span class="t100pts">49,568,919</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Legolas🏹</span>
+      <span class="t100pts">49,537,342</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Tulipss</span>
+      <span class="t100pts">48,806,399</span>
+    </div><div class="t100row us">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Miaou</span>
+      <span class="t100pts">48,214,390</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Vi_</span>
+      <span class="t100pts">47,881,123</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">peach🎏</span>
+      <span class="t100pts">47,538,167</span>
+    </div><div class="t100row own">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">cho 초초</span>
+      <span class="t100pts">47,248,505</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">ghost</span>
+      <span class="t100pts">47,244,709</span>
+    </div><div class="t100row us">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">FamilyMart</span>
+      <span class="t100pts">47,036,964</span>
+    </div><div class="t100row us">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">酒</span>
+      <span class="t100pts">46,920,018</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">ahle</span>
+      <span class="t100pts">46,919,795</span>
+    </div><div class="t100row us">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Flarion</span>
+      <span class="t100pts">46,030,199</span>
+    </div><div class="t100row us">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">WANG Soju</span>
+      <span class="t100pts">45,990,332</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Fatino</span>
+      <span class="t100pts">45,950,592</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">CG</span>
+      <span class="t100pts">45,908,311</span>
+    </div><div class="t100row own">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">神崎澄</span>
+      <span class="t100pts">45,808,723</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">初一</span>
+      <span class="t100pts">45,330,937</span>
+    </div><div class="t100row us">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Swaýn</span>
+      <span class="t100pts">45,024,699</span>
+    </div><div class="t100row us">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">🌸NATY🌸</span>
+      <span class="t100pts">43,467,017</span>
+    </div><div class="t100row us">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">YAY!</span>
+      <span class="t100pts">43,438,958</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">CLAM</span>
+      <span class="t100pts">43,431,752</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10460 [ARC]</span>
+      <span class="t100name">MUFASA</span>
+      <span class="t100pts">43,205,549</span>
+    </div><div class="t100row us">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">Shimnei🐼</span>
+      <span class="t100pts">42,968,604</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Zett</span>
+      <span class="t100pts">42,748,216</span>
+    </div><div class="t100row us">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10472 [MOV]</span>
+      <span class="t100name">✨ナティ✨</span>
+      <span class="t100pts">42,634,847</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10460 [IJU]</span>
+      <span class="t100name">梅もっち〜</span>
+      <span class="t100pts">41,795,730</span>
+    </div><div class="t100row own">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">red</span>
+      <span class="t100pts">41,632,937</span>
+    </div><div class="t100row own">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Ylis일리스</span>
+      <span class="t100pts">41,585,367</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">NoYashNo</span>
+      <span class="t100pts">41,569,419</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Ducmanh</span>
+      <span class="t100pts">41,515,256</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Koko</span>
+      <span class="t100pts">41,462,344</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Blessed</span>
+      <span class="t100pts">41,310,026</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Le Rain</span>
+      <span class="t100pts">41,251,995</span>
+    </div><div class="t100row us">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10472 [RoR]</span>
+      <span class="t100name">Hi im Long</span>
+      <span class="t100pts">41,213,850</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">PK</span>
+      <span class="t100pts">40,920,671</span>
+    </div><div class="t100row own">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">leez_이자하</span>
+      <span class="t100pts">40,880,344</span>
+    </div><div class="t100row us">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">syt□e✨</span>
+      <span class="t100pts">40,659,133</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Lord Show</span>
+      <span class="t100pts">40,606,857</span>
+    </div><div class="t100row us">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10472 [Drf]</span>
+      <span class="t100name">Pawn</span>
+      <span class="t100pts">40,198,398</span>
+    </div><div class="t100row us">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">No money</span>
+      <span class="t100pts">40,017,034</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Unhinged</span>
+      <span class="t100pts">39,593,872</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Nazgul M</span>
+      <span class="t100pts">39,467,386</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">PewPewPie</span>
+      <span class="t100pts">38,033,920</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">OW_Li</span>
+      <span class="t100pts">37,836,338</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10460 [HPJ]</span>
+      <span class="t100name">にっしー</span>
+      <span class="t100pts">37,689,962</span>
+    </div><div class="t100row us">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Siiiuuuu</span>
+      <span class="t100pts">37,459,610</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10460 [PAC]</span>
+      <span class="t100name">Slagatha</span>
+      <span class="t100pts">37,004,637</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">Nayr</span>
+      <span class="t100pts">36,746,014</span>
+    </div><div class="t100row us">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10472 [CRM]</span>
+      <span class="t100name">cún</span>
+      <span class="t100pts">36,536,620</span>
+    </div><div class="t100row own">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">JIN진</span>
+      <span class="t100pts">36,250,144</span>
+    </div><div class="t100row us">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10472 [Fam]</span>
+      <span class="t100name">Haal</span>
+      <span class="t100pts">36,199,396</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Rickyrozay</span>
+      <span class="t100pts">36,121,069</span>
+    </div><div class="t100row us">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">Sky 천마</span>
+      <span class="t100pts">36,065,133</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10460 [IJU]</span>
+      <span class="t100name">桃</span>
+      <span class="t100pts">35,989,911</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Bibi💞</span>
+      <span class="t100pts">35,886,207</span>
+    </div><div class="t100row us">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">QuênMấtRồi</span>
+      <span class="t100pts">35,820,811</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Chelny🔥</span>
+      <span class="t100pts">35,702,102</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">E3_Zod</span>
+      <span class="t100pts">35,654,134</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">GNTR</span>
+      <span class="t100pts">35,582,742</span>
+    </div><div class="t100row us">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10472 [NGK]</span>
+      <span class="t100name">鬼島津〆ゆっけ</span>
+      <span class="t100pts">35,414,319</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Oggy</span>
+      <span class="t100pts">35,389,802</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">dummy</span>
+      <span class="t100pts">35,319,978</span>
+    </div><div class="t100row us">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10472 [Bee]</span>
+      <span class="t100name">🍓</span>
+      <span class="t100pts">35,197,228</span>
+    </div><div class="t100row us">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10472 [FOX]</span>
+      <span class="t100name">참이슬</span>
+      <span class="t100pts">35,099,553</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10460 </span>
+      <span class="t100name">MENTARO🍀</span>
+      <span class="t100pts">34,738,296</span>
+    </div><div class="t100row own">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Maese</span>
+      <span class="t100pts">34,717,349</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10460 [BIG]</span>
+      <span class="t100name">yuugi</span>
+      <span class="t100pts">34,595,134</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Sidino</span>
+      <span class="t100pts">34,316,707</span>
+    </div><div class="t100row own">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10472 [REO]</span>
+      <span class="t100name">Mama Raz</span>
+      <span class="t100pts">34,290,129</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Valak</span>
+      <span class="t100pts">34,257,242</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Nyxterra</span>
+      <span class="t100pts">34,253,399</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10460 [NMA]</span>
+      <span class="t100name">Venovesa</span>
+      <span class="t100pts">34,011,797</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10460 [MOB]</span>
+      <span class="t100name">Bonk Choy</span>
+      <span class="t100pts">33,965,817</span>
+    </div></div></div></div>
+  <div class="" data-top100-day="0" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100GuildDayLabel">🛡️ 길드 랭킹 TOP100</span> (Day1)</div><div class="t100list"><div class="t100row us">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10472 [FOX]🦊🦊🦊</span>
+      <span class="t100name"></span>
+      <span class="t100pts">997,236,554</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10460 [BIG]Family</span>
+      <span class="t100name"></span>
+      <span class="t100pts">929,733,518</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10460 [MOB]The Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">880,604,805</span>
+    </div><div class="t100row own">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10472 [REO]NOOK</span>
+      <span class="t100name"></span>
+      <span class="t100pts">758,764,073</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [NMA]Nightmare</span>
+      <span class="t100name"></span>
+      <span class="t100pts">713,882,384</span>
+    </div><div class="t100row us">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10472 [CRM]Crimson</span>
+      <span class="t100name"></span>
+      <span class="t100pts">570,636,405</span>
+    </div><div class="t100row us">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10472 [MOV]MOV</span>
+      <span class="t100name"></span>
+      <span class="t100pts">417,963,859</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10460 [PAC]Pacifica</span>
+      <span class="t100name"></span>
+      <span class="t100pts">372,501,464</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10460 [HPJ]Home Town</span>
+      <span class="t100name"></span>
+      <span class="t100pts">363,572,694</span>
+    </div><div class="t100row us">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10472 [NGK]のんびりギルド仮</span>
+      <span class="t100name"></span>
+      <span class="t100pts">351,573,283</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10460 [ARC]Ascension</span>
+      <span class="t100name"></span>
+      <span class="t100pts">284,965,884</span>
+    </div><div class="t100row us">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10472 [ECO]P∧ND0R∧</span>
+      <span class="t100name"></span>
+      <span class="t100pts">279,133,489</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10460 [MVP]RISING</span>
+      <span class="t100name"></span>
+      <span class="t100pts">267,772,920</span>
+    </div><div class="t100row us">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10472 [SLG]Super Lazy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">243,958,676</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10460 [ZEN]0ExodusNomads</span>
+      <span class="t100name"></span>
+      <span class="t100pts">224,669,114</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10460 [SPx]Phoenix Order</span>
+      <span class="t100name"></span>
+      <span class="t100pts">224,306,210</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10460 [MTF]Forever One</span>
+      <span class="t100name"></span>
+      <span class="t100pts">214,896,468</span>
+    </div><div class="t100row us">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10472 [PHP]PhantomPaws🐾</span>
+      <span class="t100name"></span>
+      <span class="t100pts">211,447,831</span>
+    </div><div class="t100row us">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10472 [MAX]MAD SUPERNOVA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">202,696,666</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10460 [TBU]Rangerej33</span>
+      <span class="t100name"></span>
+      <span class="t100pts">195,157,524</span>
+    </div><div class="t100row us">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10472 [Fam]Familia</span>
+      <span class="t100name"></span>
+      <span class="t100pts">165,100,154</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [Drf]Drifter</span>
+      <span class="t100name"></span>
+      <span class="t100pts">136,045,139</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10460 [IJU]Unwind</span>
+      <span class="t100name"></span>
+      <span class="t100pts">134,935,914</span>
+    </div><div class="t100row us">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10472 [HKM]HakunaMatata</span>
+      <span class="t100name"></span>
+      <span class="t100pts">125,673,677</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10460 [JMa]SAKURA NEXUS</span>
+      <span class="t100name"></span>
+      <span class="t100pts">122,945,320</span>
+    </div><div class="t100row us">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10472 [THH]Thiên Hạ Hội</span>
+      <span class="t100name"></span>
+      <span class="t100pts">122,691,262</span>
+    </div><div class="t100row us">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10472 [SQD]The Squadrant</span>
+      <span class="t100name"></span>
+      <span class="t100pts">119,768,016</span>
+    </div><div class="t100row us">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10472 [Bee]BASARA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">118,652,813</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10460 [FMZ]JPN home base</span>
+      <span class="t100name"></span>
+      <span class="t100pts">95,979,362</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [dem]demon</span>
+      <span class="t100name"></span>
+      <span class="t100pts">93,669,202</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10460 [420]Blunt Force</span>
+      <span class="t100name"></span>
+      <span class="t100pts">91,557,960</span>
+    </div><div class="t100row us">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10472 [GYM]ジム</span>
+      <span class="t100name"></span>
+      <span class="t100pts">87,106,327</span>
+    </div><div class="t100row us">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10472 [RoR]Ring of Roses</span>
+      <span class="t100name"></span>
+      <span class="t100pts">63,352,937</span>
+    </div><div class="t100row us">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10472 [CAT]Nameneko</span>
+      <span class="t100name"></span>
+      <span class="t100pts">50,266,148</span>
+    </div><div class="t100row us">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10472 [TPS]Tempest</span>
+      <span class="t100name"></span>
+      <span class="t100pts">39,313,096</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10460 [SKY]Sea Of Stars</span>
+      <span class="t100name"></span>
+      <span class="t100pts">33,499,077</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10460 [HLY]Sweet home</span>
+      <span class="t100name"></span>
+      <span class="t100pts">32,330,048</span>
+    </div><div class="t100row us">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10472 [FoX]FOX Farm</span>
+      <span class="t100name"></span>
+      <span class="t100pts">30,488,589</span>
+    </div><div class="t100row us">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10472 [GER]Sturmwölfe</span>
+      <span class="t100name"></span>
+      <span class="t100pts">29,487,076</span>
+    </div><div class="t100row us">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10472 [NFY]Night Fury</span>
+      <span class="t100name"></span>
+      <span class="t100pts">26,589,081</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10460 [DSB]disbanded</span>
+      <span class="t100name"></span>
+      <span class="t100pts">23,095,398</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10460 [GLG]Golden Lion</span>
+      <span class="t100name"></span>
+      <span class="t100pts">19,016,517</span>
+    </div><div class="t100row us">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10472 [CIO]RioxCún</span>
+      <span class="t100name"></span>
+      <span class="t100pts">17,733,001</span>
+    </div><div class="t100row us">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10472 [ACE]Kindergarten🤟</span>
+      <span class="t100name"></span>
+      <span class="t100pts">15,353,197</span>
+    </div><div class="t100row us">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10472 [Che]Cheese</span>
+      <span class="t100name"></span>
+      <span class="t100pts">14,033,797</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10460 [MOB]Baby Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">13,716,322</span>
+    </div><div class="t100row us">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10472 [FDM]freedom</span>
+      <span class="t100name"></span>
+      <span class="t100pts">10,265,249</span>
+    </div><div class="t100row us">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10472 [AKR]ANTI KORUPSI</span>
+      <span class="t100name"></span>
+      <span class="t100pts">9,237,044</span>
+    </div><div class="t100row us">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10472 [jwZ]SnwFlkaz34</span>
+      <span class="t100name"></span>
+      <span class="t100pts">9,059,766</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10460 [Joy]VIP</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,514,746</span>
+    </div><div class="t100row us">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10472 [The]Serene Vow</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,215,720</span>
+    </div><div class="t100row us">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10472 [GUN]Iron Legacy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,166,348</span>
+    </div><div class="t100row us">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10472 [LKy]Leaguezw02</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,870,885</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10460 [MYM]MeetYourMakers</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,130,320</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10460 [USA1]Activate Fun</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,093,242</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [ROK]Hwarang</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,020,836</span>
+    </div><div class="t100row us">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10472 [REB]The Rebels</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,923,711</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10460 [non]nobody</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,696,603</span>
+    </div><div class="t100row us">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10472 [kig]bjksdbvs</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,490,286</span>
+    </div><div class="t100row us">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10472 [Puu]🌸🌸🌸🌸</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,969,726</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10460 [MAO]MANÁOS</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,669,395</span>
+    </div><div class="t100row us">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10472 [Rfw]DaBossZD75</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,648,735</span>
+    </div><div class="t100row us">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10472 [Dea]LoneRsyT00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,476,756</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10460 [TMH]Trúc Mộc Hiên</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,366,369</span>
+    </div><div class="t100row us">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10472 [DST]man</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,965,716</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10460 [NOK]NewOmegaKings</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,822,094</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10460 [RIC]FighterkF29</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,762,617</span>
+    </div><div class="t100row us">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10472 [clc]Kight of light</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,730,458</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10460 [RPZ]Moo</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,487,348</span>
+    </div><div class="t100row us">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10472 [B4B]B4BYL0N</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,081,140</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10460 [LoS]LordsOfSpring</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,956,646</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10460 [886]咕咕雞</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,774,141</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10460 [TFR]Team France</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,764,195</span>
+    </div><div class="t100row us">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10472 [rgr]ShadowMr00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,652,104</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10460 [ajs]absjsjsjsksj</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,624,046</span>
+    </div><div class="t100row us">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10472 [FDT]FigDaisyTulip</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,578,555</span>
+    </div><div class="t100row us">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10472 [PND]Pindorama</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,323,568</span>
+    </div><div class="t100row us">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10472 [oAM]LeagueMW08</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,275,948</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10460 [Mtf]Mt Fuji</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,267,622</span>
+    </div><div class="t100row us">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10472 [BBQ]Tèn Ten</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,181,848</span>
+    </div><div class="t100row us">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10472 [IVd]ShadowMJ56</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,100,800</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [hi1]shadowknights</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,003,282</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10460 [dfr]dragoonland</span>
+      <span class="t100name"></span>
+      <span class="t100pts">999,145</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10460 [MRG]Merged</span>
+      <span class="t100name"></span>
+      <span class="t100pts">973,215</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10460 [wHP]Titan</span>
+      <span class="t100name"></span>
+      <span class="t100pts">816,997</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10460 [THA]Thai</span>
+      <span class="t100name"></span>
+      <span class="t100pts">761,770</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10460 [Ewc]DaBosspf79</span>
+      <span class="t100name"></span>
+      <span class="t100pts">737,941</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10460 [UKR]Бандерштат</span>
+      <span class="t100name"></span>
+      <span class="t100pts">724,107</span>
+    </div><div class="t100row us">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10472 [JSu]SnwFlkHp01</span>
+      <span class="t100name"></span>
+      <span class="t100pts">716,747</span>
+    </div><div class="t100row us">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10472 [Gri]Griff</span>
+      <span class="t100name"></span>
+      <span class="t100pts">680,955</span>
+    </div><div class="t100row us">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10472 [xTK]LegionBP98</span>
+      <span class="t100name"></span>
+      <span class="t100pts">679,384</span>
+    </div><div class="t100row us">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10472 [Dda]Die da</span>
+      <span class="t100name"></span>
+      <span class="t100pts">638,115</span>
+    </div><div class="t100row us">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10472 [on3]only</span>
+      <span class="t100name"></span>
+      <span class="t100pts">602,817</span>
+    </div><div class="t100row us">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10472 [jYL]LeaguePb23</span>
+      <span class="t100name"></span>
+      <span class="t100pts">567,171</span>
+    </div><div class="t100row us">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10472 [Vi0]Việt Nam</span>
+      <span class="t100name"></span>
+      <span class="t100pts">554,284</span>
+    </div><div class="t100row us">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10472 [P0I]ポイ活</span>
+      <span class="t100name"></span>
+      <span class="t100pts">542,460</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10460 [BHK]Behindi kindi</span>
+      <span class="t100name"></span>
+      <span class="t100pts">531,596</span>
+    </div><div class="t100row us">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10472 [Niz]FighterlQ43</span>
+      <span class="t100name"></span>
+      <span class="t100pts">525,862</span>
+    </div><div class="t100row us">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10472 [oAS]TrialID58</span>
+      <span class="t100name"></span>
+      <span class="t100pts">523,952</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10460 [PBX]Poney boiteux</span>
+      <span class="t100name"></span>
+      <span class="t100pts">495,783</span>
+    </div></div></div></div><div class="" data-top100-day="1" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100GuildDayLabel">🛡️ 길드 랭킹 TOP100</span> (Day2)</div><div class="t100list"><div class="t100row opp">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10460 [MOB]The Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">891,957,804</span>
+    </div><div class="t100row us">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10472 [FOX]🦊🦊🦊</span>
+      <span class="t100name"></span>
+      <span class="t100pts">826,465,343</span>
+    </div><div class="t100row own">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10472 [REO]NOOK</span>
+      <span class="t100name"></span>
+      <span class="t100pts">675,875,823</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10460 [NMA]Nightmare</span>
+      <span class="t100name"></span>
+      <span class="t100pts">619,407,432</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [BIG]Family</span>
+      <span class="t100name"></span>
+      <span class="t100pts">477,235,444</span>
+    </div><div class="t100row us">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10472 [CRM]Crimson</span>
+      <span class="t100name"></span>
+      <span class="t100pts">334,314,991</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10460 [ARC]Ascension</span>
+      <span class="t100name"></span>
+      <span class="t100pts">317,024,467</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10460 [PAC]Pacifica</span>
+      <span class="t100name"></span>
+      <span class="t100pts">310,736,229</span>
+    </div><div class="t100row us">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10472 [NGK]のんびりギルド仮</span>
+      <span class="t100name"></span>
+      <span class="t100pts">251,202,588</span>
+    </div><div class="t100row us">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10472 [SLG]Super Lazy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">248,380,864</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10460 [HPJ]Home Town</span>
+      <span class="t100name"></span>
+      <span class="t100pts">247,289,756</span>
+    </div><div class="t100row us">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10472 [MOV]MOV</span>
+      <span class="t100name"></span>
+      <span class="t100pts">235,448,542</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10460 [MVP]RISING</span>
+      <span class="t100name"></span>
+      <span class="t100pts">205,283,881</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10460 [ZEN]0ExodusNomads</span>
+      <span class="t100name"></span>
+      <span class="t100pts">186,044,934</span>
+    </div><div class="t100row us">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10472 [ECO]PANDORA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">177,159,514</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10460 [MTF]Forever One</span>
+      <span class="t100name"></span>
+      <span class="t100pts">171,636,042</span>
+    </div><div class="t100row us">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10472 [PHP]PhantomPaws🐾</span>
+      <span class="t100name"></span>
+      <span class="t100pts">162,757,881</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10460 [SPx]Phoenix Order</span>
+      <span class="t100name"></span>
+      <span class="t100pts">155,198,738</span>
+    </div><div class="t100row us">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10472 [MAX]MAD SUPERNOVA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">151,844,801</span>
+    </div><div class="t100row us">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10472 [Bee]BASARA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">131,119,565</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10460 [TBU]Rangerej33</span>
+      <span class="t100name"></span>
+      <span class="t100pts">129,908,673</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [HKM]HakunaMatata</span>
+      <span class="t100name"></span>
+      <span class="t100pts">114,999,850</span>
+    </div><div class="t100row us">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10472 [Fam]Familia</span>
+      <span class="t100name"></span>
+      <span class="t100pts">98,395,476</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10460 [420]Blunt Force</span>
+      <span class="t100name"></span>
+      <span class="t100pts">92,995,250</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10460 [IJU]Unwind</span>
+      <span class="t100name"></span>
+      <span class="t100pts">81,055,003</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10460 [FMZ]JPN home base</span>
+      <span class="t100name"></span>
+      <span class="t100pts">80,116,141</span>
+    </div><div class="t100row us">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10472 [Drf]Drifter</span>
+      <span class="t100name"></span>
+      <span class="t100pts">76,973,805</span>
+    </div><div class="t100row us">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10472 [THH]Thiên Hạ Hội</span>
+      <span class="t100name"></span>
+      <span class="t100pts">72,875,144</span>
+    </div><div class="t100row us">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10472 [SQD]The Squadrant</span>
+      <span class="t100name"></span>
+      <span class="t100pts">67,367,861</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [JMa]SAKURA NEXUS</span>
+      <span class="t100name"></span>
+      <span class="t100pts">66,689,687</span>
+    </div><div class="t100row us">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10472 [GYM]ジム</span>
+      <span class="t100name"></span>
+      <span class="t100pts">51,823,831</span>
+    </div><div class="t100row us">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10472 [CAT]Nameneko</span>
+      <span class="t100name"></span>
+      <span class="t100pts">44,800,334</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10460 [dem]demon</span>
+      <span class="t100name"></span>
+      <span class="t100pts">37,504,789</span>
+    </div><div class="t100row us">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10472 [FoX]FOX Farm</span>
+      <span class="t100name"></span>
+      <span class="t100pts">29,996,202</span>
+    </div><div class="t100row us">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10472 [GER]Sturmwölfe</span>
+      <span class="t100name"></span>
+      <span class="t100pts">28,168,192</span>
+    </div><div class="t100row us">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10472 [TPS]Tempest</span>
+      <span class="t100name"></span>
+      <span class="t100pts">27,153,345</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10460 [SKY]Sea Of Stars</span>
+      <span class="t100name"></span>
+      <span class="t100pts">26,311,244</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10460 [HLY]Sweet home</span>
+      <span class="t100name"></span>
+      <span class="t100pts">20,358,830</span>
+    </div><div class="t100row us">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10472 [NFY]Night Fury</span>
+      <span class="t100name"></span>
+      <span class="t100pts">18,545,068</span>
+    </div><div class="t100row us">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10472 [Che]Cheese</span>
+      <span class="t100name"></span>
+      <span class="t100pts">12,832,993</span>
+    </div><div class="t100row us">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10472 [ACE]Kindergarten🤟</span>
+      <span class="t100name"></span>
+      <span class="t100pts">12,488,538</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10460 [DSB]disbanded</span>
+      <span class="t100name"></span>
+      <span class="t100pts">12,255,856</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10460 [non]nobody</span>
+      <span class="t100name"></span>
+      <span class="t100pts">10,568,319</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10460 [GLG]Golden Lion</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,299,165</span>
+    </div><div class="t100row us">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10472 [FDM]freedom</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,221,046</span>
+    </div><div class="t100row us">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10472 [AKR]ANTI KORUPSI</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,400,146</span>
+    </div><div class="t100row us">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10472 [GUN]Iron Legacy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,554,845</span>
+    </div><div class="t100row us">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10472 [RoR]Ring of Roses</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,530,392</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10460 [ROK]Hwarang</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,939,933</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10460 [BHK]Behindi kindi</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,683,359</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10460 [LoS]LordsOfSpring</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,683,180</span>
+    </div><div class="t100row us">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10472 [LKy]Leaguezw02</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,357,566</span>
+    </div><div class="t100row us">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10472 [CIO]RioxCún</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,322,775</span>
+    </div><div class="t100row us">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10472 [REB]The Rebels</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,215,243</span>
+    </div><div class="t100row us">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10472 [jwZ]SnwFlkaz34</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,215,056</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [MYM]MeetYourMakers</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,166,439</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10460 [TMH]Trúc Mộc Hiên</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,895,155</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10460 [UKR]Бандерштат</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,828,874</span>
+    </div><div class="t100row us">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10472 [Dea]LoneRsyT00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,686,840</span>
+    </div><div class="t100row us">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10472 [Rfw]DaBossZD75</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,637,568</span>
+    </div><div class="t100row us">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10472 [JSu]SnwFlkHp01</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,593,999</span>
+    </div><div class="t100row us">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10472 [kig]bjksdbvs</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,583,345</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10460 [GNZ]Guild NZ</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,515,937</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10460 [USA1]Activate Fun</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,275,133</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10460 [tGq]GloryWHN78</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,144,347</span>
+    </div><div class="t100row us">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10472 [VAL]VALOR</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,143,807</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10460 [zgp]GloryWLN76</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,111,622</span>
+    </div><div class="t100row us">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10472 [The]Serene Vow</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,097,462</span>
+    </div><div class="t100row us">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10472 [rgr]ShadowMr00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,087,048</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10460 [MRG]Merged</span>
+      <span class="t100name"></span>
+      <span class="t100pts">837,744</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10460 [RBC]Richtersgang</span>
+      <span class="t100name"></span>
+      <span class="t100pts">826,780</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10460 [RIC]FighterkF29</span>
+      <span class="t100name"></span>
+      <span class="t100pts">821,354</span>
+    </div><div class="t100row us">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10472 [NSu]SnwFlkxG05</span>
+      <span class="t100name"></span>
+      <span class="t100pts">816,097</span>
+    </div><div class="t100row us">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10472 [AwL]Fighterrz87</span>
+      <span class="t100name"></span>
+      <span class="t100pts">759,925</span>
+    </div><div class="t100row us">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10472 [TRV]Trâu Vàng</span>
+      <span class="t100name"></span>
+      <span class="t100pts">745,343</span>
+    </div><div class="t100row us">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10472 [PQA]다보스dF12</span>
+      <span class="t100name"></span>
+      <span class="t100pts">718,823</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10460 [hi1]shadowknights</span>
+      <span class="t100name"></span>
+      <span class="t100pts">712,297</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10460 [ajs]absjsjsjsksj</span>
+      <span class="t100name"></span>
+      <span class="t100pts">663,785</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10460 [PBX]Poney boiteux</span>
+      <span class="t100name"></span>
+      <span class="t100pts">601,218</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10460 [ZEH]SnwFlkuP57</span>
+      <span class="t100name"></span>
+      <span class="t100pts">600,486</span>
+    </div><div class="t100row us">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10472 [Max]Maximus</span>
+      <span class="t100name"></span>
+      <span class="t100pts">583,545</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [Aqp]Aqpmas</span>
+      <span class="t100name"></span>
+      <span class="t100pts">562,733</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10460 [VAC]VACcyne</span>
+      <span class="t100name"></span>
+      <span class="t100pts">500,287</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10460 [NOK]NewOmegaKings</span>
+      <span class="t100name"></span>
+      <span class="t100pts">480,676</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10460 [IYr]DaBossCx18</span>
+      <span class="t100name"></span>
+      <span class="t100pts">434,403</span>
+    </div><div class="t100row us">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10472 [xTK]LegionBP98</span>
+      <span class="t100name"></span>
+      <span class="t100pts">425,530</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10460 [TFR]Team France</span>
+      <span class="t100name"></span>
+      <span class="t100pts">413,952</span>
+    </div><div class="t100row us">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10472 [1232]隨意玩</span>
+      <span class="t100name"></span>
+      <span class="t100pts">408,235</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10460 [WWX]Cloud Lotus</span>
+      <span class="t100name"></span>
+      <span class="t100pts">405,828</span>
+    </div><div class="t100row us">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10472 [Puu]🌸🌸🌸🌸</span>
+      <span class="t100name"></span>
+      <span class="t100pts">387,150</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10460 [998]homhom</span>
+      <span class="t100name"></span>
+      <span class="t100pts">374,318</span>
+    </div><div class="t100row us">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10472 [oAM]LeagueMW08</span>
+      <span class="t100name"></span>
+      <span class="t100pts">373,904</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10460 [FEG]Free Explorers</span>
+      <span class="t100name"></span>
+      <span class="t100pts">373,273</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10460 [TAG]Star is born 9</span>
+      <span class="t100name"></span>
+      <span class="t100pts">371,181</span>
+    </div><div class="t100row us">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10472 [MRM]成也风云败也风云</span>
+      <span class="t100name"></span>
+      <span class="t100pts">366,201</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10460 [LtV]LoneRsRY95</span>
+      <span class="t100name"></span>
+      <span class="t100pts">356,415</span>
+    </div><div class="t100row us">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10472 [JAW]Raja Jawa</span>
+      <span class="t100name"></span>
+      <span class="t100pts">350,868</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10460 [DVH]Ỗ Nhím</span>
+      <span class="t100name"></span>
+      <span class="t100pts">341,135</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10460 [MOB]Baby Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">338,390</span>
+    </div><div class="t100row us">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10472 [TMP]The Tempest</span>
+      <span class="t100name"></span>
+      <span class="t100pts">308,675</span>
+    </div></div></div></div><div class="" data-top100-day="preptotal" style="display:none;"><div class="t100box"><div class="t100title"><span data-i18n="top100GuildTotalTitle">🛡️ 길드 총점 랭킹 TOP100 (누적)</span></div><div class="t100list"><div class="t100row us">
+      <span class="t100rank">1</span>
+      <span class="t100tag">10472 [FOX]🦊🦊🦊</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,223,546,710</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">2</span>
+      <span class="t100tag">10460 [MOB]The Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,070,959,542</span>
+    </div><div class="t100row own">
+      <span class="t100rank">3</span>
+      <span class="t100tag">10472 [REO]NOOK</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,745,719,932</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">4</span>
+      <span class="t100tag">10460 [BIG]Family</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,644,416,424</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">5</span>
+      <span class="t100tag">10460 [NMA]Nightmare</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,614,297,380</span>
+    </div><div class="t100row us">
+      <span class="t100rank">6</span>
+      <span class="t100tag">10472 [CRM]Crimson</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,072,112,833</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">7</span>
+      <span class="t100tag">10460 [PAC]Pacifica</span>
+      <span class="t100name"></span>
+      <span class="t100pts">824,162,563</span>
+    </div><div class="t100row us">
+      <span class="t100rank">8</span>
+      <span class="t100tag">10472 [MOV]MOV</span>
+      <span class="t100name"></span>
+      <span class="t100pts">748,590,997</span>
+    </div><div class="t100row us">
+      <span class="t100rank">9</span>
+      <span class="t100tag">10472 [NGK]のんびりギルド仮</span>
+      <span class="t100name"></span>
+      <span class="t100pts">726,451,027</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">10</span>
+      <span class="t100tag">10460 [HPJ]Home Town</span>
+      <span class="t100name"></span>
+      <span class="t100pts">720,470,937</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">11</span>
+      <span class="t100tag">10460 [ARC]Ascension</span>
+      <span class="t100name"></span>
+      <span class="t100pts">707,767,570</span>
+    </div><div class="t100row us">
+      <span class="t100rank">12</span>
+      <span class="t100tag">10472 [SLG]Super Lazy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">602,028,803</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">13</span>
+      <span class="t100tag">10460 [MVP]RISING</span>
+      <span class="t100name"></span>
+      <span class="t100pts">553,546,266</span>
+    </div><div class="t100row us">
+      <span class="t100rank">14</span>
+      <span class="t100tag">10472 [ECO]PANDORA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">517,818,331</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">15</span>
+      <span class="t100tag">10460 [ZEN]0ExodusNomads</span>
+      <span class="t100name"></span>
+      <span class="t100pts">468,920,367</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">16</span>
+      <span class="t100tag">10460 [SPx]Phoenix Order</span>
+      <span class="t100name"></span>
+      <span class="t100pts">457,428,734</span>
+    </div><div class="t100row us">
+      <span class="t100rank">17</span>
+      <span class="t100tag">10472 [PHP]PhantomPaws🐾</span>
+      <span class="t100name"></span>
+      <span class="t100pts">447,925,588</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">18</span>
+      <span class="t100tag">10460 [MTF]Forever One</span>
+      <span class="t100name"></span>
+      <span class="t100pts">438,337,422</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">19</span>
+      <span class="t100tag">10460 [TBU]Rangerej33</span>
+      <span class="t100name"></span>
+      <span class="t100pts">425,275,812</span>
+    </div><div class="t100row us">
+      <span class="t100rank">20</span>
+      <span class="t100tag">10472 [MAX]MAD SUPERNOVA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">424,150,535</span>
+    </div><div class="t100row us">
+      <span class="t100rank">21</span>
+      <span class="t100tag">10472 [Fam]Familia</span>
+      <span class="t100name"></span>
+      <span class="t100pts">297,753,447</span>
+    </div><div class="t100row us">
+      <span class="t100rank">22</span>
+      <span class="t100tag">10472 [HKM]HakunaMatata</span>
+      <span class="t100name"></span>
+      <span class="t100pts">287,291,353</span>
+    </div><div class="t100row us">
+      <span class="t100rank">23</span>
+      <span class="t100tag">10472 [Bee]BASARA</span>
+      <span class="t100name"></span>
+      <span class="t100pts">265,827,742</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">24</span>
+      <span class="t100tag">10460 [IJU]Unwind</span>
+      <span class="t100name"></span>
+      <span class="t100pts">256,554,314</span>
+    </div><div class="t100row us">
+      <span class="t100rank">25</span>
+      <span class="t100tag">10472 [THH]Thiên Hạ Hội</span>
+      <span class="t100name"></span>
+      <span class="t100pts">240,273,286</span>
+    </div><div class="t100row us">
+      <span class="t100rank">26</span>
+      <span class="t100tag">10472 [Drf]Drifter</span>
+      <span class="t100name"></span>
+      <span class="t100pts">231,542,403</span>
+    </div><div class="t100row us">
+      <span class="t100rank">27</span>
+      <span class="t100tag">10472 [SQD]The Squadrant</span>
+      <span class="t100name"></span>
+      <span class="t100pts">229,175,796</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">28</span>
+      <span class="t100tag">10460 [420]Blunt Force</span>
+      <span class="t100name"></span>
+      <span class="t100pts">216,514,137</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">29</span>
+      <span class="t100tag">10460 [JMa]SAKURA NEXUS</span>
+      <span class="t100name"></span>
+      <span class="t100pts">216,424,885</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">30</span>
+      <span class="t100tag">10460 [FMZ]JPN home base</span>
+      <span class="t100name"></span>
+      <span class="t100pts">209,060,856</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">31</span>
+      <span class="t100tag">10460 [dem]demon</span>
+      <span class="t100name"></span>
+      <span class="t100pts">146,858,161</span>
+    </div><div class="t100row us">
+      <span class="t100rank">32</span>
+      <span class="t100tag">10472 [GYM]ジム</span>
+      <span class="t100name"></span>
+      <span class="t100pts">144,360,707</span>
+    </div><div class="t100row us">
+      <span class="t100rank">33</span>
+      <span class="t100tag">10472 [CAT]Nameneko</span>
+      <span class="t100name"></span>
+      <span class="t100pts">118,963,910</span>
+    </div><div class="t100row us">
+      <span class="t100rank">34</span>
+      <span class="t100tag">10472 [TPS]Tempest</span>
+      <span class="t100name"></span>
+      <span class="t100pts">74,547,015</span>
+    </div><div class="t100row us">
+      <span class="t100rank">35</span>
+      <span class="t100tag">10472 [RoR]Ring of Roses</span>
+      <span class="t100name"></span>
+      <span class="t100pts">70,716,025</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">36</span>
+      <span class="t100tag">10460 [SKY]Sea Of Stars</span>
+      <span class="t100name"></span>
+      <span class="t100pts">67,972,859</span>
+    </div><div class="t100row us">
+      <span class="t100rank">37</span>
+      <span class="t100tag">10472 [GER]Sturmwölfe</span>
+      <span class="t100name"></span>
+      <span class="t100pts">67,647,955</span>
+    </div><div class="t100row us">
+      <span class="t100rank">38</span>
+      <span class="t100tag">10472 [FoX]FOX Farm</span>
+      <span class="t100name"></span>
+      <span class="t100pts">67,152,142</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">39</span>
+      <span class="t100tag">10460 [HLY]Sweet home</span>
+      <span class="t100name"></span>
+      <span class="t100pts">65,163,679</span>
+    </div><div class="t100row us">
+      <span class="t100rank">40</span>
+      <span class="t100tag">10472 [NFY]Night Fury</span>
+      <span class="t100name"></span>
+      <span class="t100pts">53,226,570</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">41</span>
+      <span class="t100tag">10460 [DSB]disbanded</span>
+      <span class="t100name"></span>
+      <span class="t100pts">39,684,741</span>
+    </div><div class="t100row us">
+      <span class="t100rank">42</span>
+      <span class="t100tag">10472 [Che]Cheese</span>
+      <span class="t100name"></span>
+      <span class="t100pts">32,513,821</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">43</span>
+      <span class="t100tag">10460 [GLG]Golden Lion</span>
+      <span class="t100name"></span>
+      <span class="t100pts">29,357,019</span>
+    </div><div class="t100row us">
+      <span class="t100rank">44</span>
+      <span class="t100tag">10472 [ACE]Kindergarten🤟</span>
+      <span class="t100name"></span>
+      <span class="t100pts">28,779,747</span>
+    </div><div class="t100row us">
+      <span class="t100rank">45</span>
+      <span class="t100tag">10472 [FDM]freedom</span>
+      <span class="t100name"></span>
+      <span class="t100pts">22,580,540</span>
+    </div><div class="t100row us">
+      <span class="t100rank">46</span>
+      <span class="t100tag">10472 [CIO]RioxCún</span>
+      <span class="t100name"></span>
+      <span class="t100pts">20,199,776</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">47</span>
+      <span class="t100tag">10460 [non]nobody</span>
+      <span class="t100name"></span>
+      <span class="t100pts">17,770,984</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">48</span>
+      <span class="t100tag">10460 [MOB]Baby Sopranos</span>
+      <span class="t100name"></span>
+      <span class="t100pts">15,145,685</span>
+    </div><div class="t100row us">
+      <span class="t100rank">49</span>
+      <span class="t100tag">10472 [jwZ]SnwFlkaz34</span>
+      <span class="t100name"></span>
+      <span class="t100pts">15,108,784</span>
+    </div><div class="t100row us">
+      <span class="t100rank">50</span>
+      <span class="t100tag">10472 [AKR]ANTI KORUPSI</span>
+      <span class="t100name"></span>
+      <span class="t100pts">14,467,869</span>
+    </div><div class="t100row us">
+      <span class="t100rank">51</span>
+      <span class="t100tag">10472 [GUN]Iron Legacy</span>
+      <span class="t100name"></span>
+      <span class="t100pts">12,770,401</span>
+    </div><div class="t100row us">
+      <span class="t100rank">52</span>
+      <span class="t100tag">10472 [LKy]Leaguezw02</span>
+      <span class="t100name"></span>
+      <span class="t100pts">11,679,893</span>
+    </div><div class="t100row us">
+      <span class="t100rank">53</span>
+      <span class="t100tag">10472 [The]Serene Vow</span>
+      <span class="t100name"></span>
+      <span class="t100pts">11,375,601</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">54</span>
+      <span class="t100tag">10460 [ROK]Hwarang</span>
+      <span class="t100name"></span>
+      <span class="t100pts">8,482,202</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">55</span>
+      <span class="t100tag">10460 [Joy]VIP</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,838,535</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">56</span>
+      <span class="t100tag">10460 [MYM]MeetYourMakers</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,503,185</span>
+    </div><div class="t100row us">
+      <span class="t100rank">57</span>
+      <span class="t100tag">10472 [Dea]LoneRsyT00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,389,417</span>
+    </div><div class="t100row us">
+      <span class="t100rank">58</span>
+      <span class="t100tag">10472 [REB]The Rebels</span>
+      <span class="t100name"></span>
+      <span class="t100pts">7,262,954</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">59</span>
+      <span class="t100tag">10460 [USA1]Activate Fun</span>
+      <span class="t100name"></span>
+      <span class="t100pts">6,416,975</span>
+    </div><div class="t100row us">
+      <span class="t100rank">60</span>
+      <span class="t100tag">10472 [kig]bjksdbvs</span>
+      <span class="t100name"></span>
+      <span class="t100pts">6,356,138</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">61</span>
+      <span class="t100tag">10460 [TMH]Trúc Mộc Hiên</span>
+      <span class="t100name"></span>
+      <span class="t100pts">6,278,914</span>
+    </div><div class="t100row us">
+      <span class="t100rank">62</span>
+      <span class="t100tag">10472 [Rfw]DaBossZD75</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,654,026</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">63</span>
+      <span class="t100tag">10460 [LoS]LordsOfSpring</span>
+      <span class="t100name"></span>
+      <span class="t100pts">5,388,394</span>
+    </div><div class="t100row us">
+      <span class="t100rank">64</span>
+      <span class="t100tag">10472 [Puu]🌸🌸🌸🌸</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,404,876</span>
+    </div><div class="t100row us">
+      <span class="t100rank">65</span>
+      <span class="t100tag">10472 [B4B]B4BYL0N</span>
+      <span class="t100name"></span>
+      <span class="t100pts">4,238,027</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">66</span>
+      <span class="t100tag">10460 [MAO]MANÁOS</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,754,388</span>
+    </div><div class="t100row us">
+      <span class="t100rank">67</span>
+      <span class="t100tag">10472 [DST]man</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,670,825</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">68</span>
+      <span class="t100tag">10460 [RIC]FighterkF29</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,584,971</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">69</span>
+      <span class="t100tag">10460 [NOK]NewOmegaKings</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,465,370</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">70</span>
+      <span class="t100tag">10460 [BHK]Behindi kindi</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,214,955</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">71</span>
+      <span class="t100tag">10460 [RPZ]Moo</span>
+      <span class="t100name"></span>
+      <span class="t100pts">3,200,176</span>
+    </div><div class="t100row us">
+      <span class="t100rank">72</span>
+      <span class="t100tag">10472 [clc]Kight of light</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,927,254</span>
+    </div><div class="t100row us">
+      <span class="t100rank">73</span>
+      <span class="t100tag">10472 [rgr]ShadowMr00</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,788,952</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">74</span>
+      <span class="t100tag">10460 [TFR]Team France</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,714,412</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">75</span>
+      <span class="t100tag">10460 [MRG]Merged</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,635,732</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">76</span>
+      <span class="t100tag">10460 [UKR]Бандерштат</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,552,981</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">77</span>
+      <span class="t100tag">10460 [ajs]absjsjsjsksj</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,421,431</span>
+    </div><div class="t100row us">
+      <span class="t100rank">78</span>
+      <span class="t100tag">10472 [JSu]SnwFlkHp01</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,411,942</span>
+    </div><div class="t100row us">
+      <span class="t100rank">79</span>
+      <span class="t100tag">10472 [oAS]TrialID58</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,159,917</span>
+    </div><div class="t100row us">
+      <span class="t100rank">80</span>
+      <span class="t100tag">10472 [PND]Pindorama</span>
+      <span class="t100name"></span>
+      <span class="t100pts">2,071,900</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">81</span>
+      <span class="t100tag">10460 [hi1]shadowknights</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,928,379</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">82</span>
+      <span class="t100tag">10460 [886]咕咕雞</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,815,220</span>
+    </div><div class="t100row us">
+      <span class="t100rank">83</span>
+      <span class="t100tag">10472 [oAM]LeagueMW08</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,699,852</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">84</span>
+      <span class="t100tag">10460 [tGq]GloryWHN78</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,697,441</span>
+    </div><div class="t100row us">
+      <span class="t100rank">85</span>
+      <span class="t100tag">10472 [FDT]FigDaisyTulip</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,646,699</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">86</span>
+      <span class="t100tag">10460 [ZEH]SnwFlkuP57</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,565,370</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">87</span>
+      <span class="t100tag">10460 [GNZ]Guild NZ</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,515,937</span>
+    </div><div class="t100row us">
+      <span class="t100rank">88</span>
+      <span class="t100tag">10472 [VAL]VALOR</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,514,799</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">89</span>
+      <span class="t100tag">10460 [Mtf]Mt Fuji</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,514,342</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">90</span>
+      <span class="t100tag">10460 [QAR]Annes revenge</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,368,996</span>
+    </div><div class="t100row us">
+      <span class="t100rank">91</span>
+      <span class="t100tag">10472 [BBQ]Tèn Ten</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,295,048</span>
+    </div><div class="t100row us">
+      <span class="t100rank">92</span>
+      <span class="t100tag">10472 [xTK]LegionBP98</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,184,914</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">93</span>
+      <span class="t100tag">10460 [zgp]GloryWLN76</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,148,866</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">94</span>
+      <span class="t100tag">10460 [dfr]dragoonland</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,124,255</span>
+    </div><div class="t100row us">
+      <span class="t100rank">95</span>
+      <span class="t100tag">10472 [IVd]ShadowMJ56</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,100,800</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">96</span>
+      <span class="t100tag">10460 [PBX]Poney boiteux</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,097,001</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">97</span>
+      <span class="t100tag">10460 [Ewc]DaBosspf79</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,045,459</span>
+    </div><div class="t100row us">
+      <span class="t100rank">98</span>
+      <span class="t100tag">10472 [MRM]成也风云败也风云</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,018,639</span>
+    </div><div class="t100row opp">
+      <span class="t100rank">99</span>
+      <span class="t100tag">10460 [RBC]Richtersgang</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,008,654</span>
+    </div><div class="t100row us">
+      <span class="t100rank">100</span>
+      <span class="t100tag">10472 [PQA]다보스dF12</span>
+      <span class="t100name"></span>
+      <span class="t100pts">1,000,943</span>
+    </div></div></div></div>
   
-  <div class="rbox" id="ruleBox"><span>📌</span><span data-i18n="ruleText" data-goal="1,500,000">길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>1,500,000점</strong> 달성 바랍니다.</span></div>
   <div class="tabs" id="tabsWrap">
-    <button class="tab disabled" data-day="0" disabled>Day1</button><button class="tab disabled" data-day="1" disabled>Day2</button><button class="tab disabled" data-day="2" disabled>Day3</button><button class="tab disabled" data-day="3" disabled>Day4</button><button class="tab disabled" data-day="4" disabled>Day5</button><button class="tab war-tab disabled" data-day="5" disabled>Day6</button>
-    <button class="tab" data-day="all" data-i18n="totalSumTab">전체 합산</button>
+    <button class="tab" data-day="0">Day1</button><button class="tab" data-day="1">Day2</button><button class="tab disabled" data-day="2" disabled>Day3</button><button class="tab disabled" data-day="3" disabled>Day4</button><button class="tab disabled" data-day="4" disabled>Day5</button>
+    <button class="tab" data-day="preptotal" data-i18n="prepTotalTab">준비단계 총점</button>
+    <button class="tab war-tab disabled" data-day="war" data-i18n="warTab" disabled>⚔️ 전쟁단계</button>
   </div>
-  <div class="fbar" id="fbar">
-    <button class="fbtn active" data-mode="all" data-i18n="filterAll">전체</button>
-    <button class="fbtn" data-mode="above" data-i18n="filterAbove">이상</button>
-    <button class="fbtn" data-mode="below" data-i18n="filterBelow">미만</button>
-  </div>
-  <div class="grid"></div>
+  
+  <div class="grid"><div class="row" data-score="162291153" data-days='[47794864,101654071,null,null,null]' data-prep='{"score":162291153,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">1</span>
+  <span class="nm">ꜰᴍＳＯＮＧ🌹🌷</span>
+  <span class="sc high">162,291,153</span>
+</div>
+<div class="row" data-score="67527365" data-days='[39877892,20714195,null,null,null]' data-prep='{"score":67527365,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">2</span>
+  <span class="nm">FARMER</span>
+  <span class="sc high">67,527,365</span>
+</div>
+<div class="row" data-score="55377886" data-days='[29976089,20595380,null,null,null]' data-prep='{"score":55377886,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">3</span>
+  <span class="nm">장첸 zzang</span>
+  <span class="sc high">55,377,886</span>
+</div>
+<div class="row" data-score="47248505" data-days='[24698296,15862673,null,null,null]' data-prep='{"score":47248505,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">4</span>
+  <span class="nm">cho 초초</span>
+  <span class="sc high">47,248,505</span>
+</div>
+<div class="row" data-score="45808723" data-days='[20157952,20142794,null,null,null]' data-prep='{"score":45808723,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">5</span>
+  <span class="nm">神崎澄</span>
+  <span class="sc high">45,808,723</span>
+</div>
+<div class="row" data-score="41632937" data-days='[22963776,null,null,null,null]' data-prep='{"score":41632937,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">6</span>
+  <span class="nm">red</span>
+  <span class="sc high">41,632,937</span>
+</div>
+<div class="row" data-score="41585367" data-days='[null,26430690,null,null,null]' data-prep='{"score":41585367,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">7</span>
+  <span class="nm">Ylis일리스</span>
+  <span class="sc high">41,585,367</span>
+</div>
+<div class="row" data-score="40880344" data-days='[23185476,null,null,null,null]' data-prep='{"score":40880344,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">8</span>
+  <span class="nm">leez_이자하</span>
+  <span class="sc high">40,880,344</span>
+</div>
+<div class="row" data-score="36250144" data-days='[17535172,14013342,null,null,null]' data-prep='{"score":36250144,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">9</span>
+  <span class="nm">JIN진</span>
+  <span class="sc high">36,250,144</span>
+</div>
+<div class="row" data-score="34717349" data-days='[17695680,13340828,null,null,null]' data-prep='{"score":34717349,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">10</span>
+  <span class="nm">Maese</span>
+  <span class="sc high">34,717,349</span>
+</div>
+<div class="row" data-score="34290129" data-days='[18339960,null,null,null,null]' data-prep='{"score":34290129,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">11</span>
+  <span class="nm">Mama Raz</span>
+  <span class="sc high">34,290,129</span>
+</div>
+<div class="row" data-score="20593103" data-days='[null,20593103,null,null,null]' data-prep='{"score":20593103,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">12</span>
+  <span class="nm">Manaki</span>
+  <span class="sc high">20,593,103</span>
+</div>
+<div class="row" data-score="20480903" data-days='[20480903,null,null,null,null]' data-prep='{"score":20480903,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">13</span>
+  <span class="nm">yon_욘욘</span>
+  <span class="sc high">20,480,903</span>
+</div>
+<div class="row" data-score="20144881" data-days='[20144881,null,null,null,null]' data-prep='{"score":20144881,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">14</span>
+  <span class="nm">NaNashi名無し</span>
+  <span class="sc high">20,144,881</span>
+</div>
+<div class="row" data-score="16013164" data-days='[null,16013164,null,null,null]' data-prep='{"score":16013164,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">15</span>
+  <span class="nm">aki_あき</span>
+  <span class="sc high">16,013,164</span>
+</div>
+<div class="row" data-score="13553473" data-days='[null,13553473,null,null,null]' data-prep='{"score":13553473,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">16</span>
+  <span class="nm">Vendetta 벤</span>
+  <span class="sc high">13,553,473</span>
+</div>
+<div class="row" data-score="13179811" data-days='[null,13179811,null,null,null]' data-prep='{"score":13179811,"known":true}' data-war='{"score":0,"known":false}'>
+  <span class="no">17</span>
+  <span class="nm">Tarik</span>
+  <span class="sc high">13,179,811</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">18</span>
+  <span class="nm">PEPEぺぺ</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">19</span>
+  <span class="nm">miyabi_みやび</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">20</span>
+  <span class="nm">Ellen_🦇</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">21</span>
+  <span class="nm">ᴘʀɪɴᴄᴇꜱꜱ김깽</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">22</span>
+  <span class="nm">Aphrodite</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">23</span>
+  <span class="nm">xxx</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">24</span>
+  <span class="nm">🫧Celli🫧</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">25</span>
+  <span class="nm">hebssiba79</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">26</span>
+  <span class="nm">sang 상한가</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">27</span>
+  <span class="nm">Apii😇</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">28</span>
+  <span class="nm">Satori</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">29</span>
+  <span class="nm">YaY 얍</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">30</span>
+  <span class="nm">키라리♡kirari</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">31</span>
+  <span class="nm">Agnes</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">32</span>
+  <span class="nm">Soda 솜사탕</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">33</span>
+  <span class="nm">Nbybi</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">34</span>
+  <span class="nm">yoon 💎</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">35</span>
+  <span class="nm">YT</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">36</span>
+  <span class="nm">CHICKEN</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">37</span>
+  <span class="nm">ulssy_얼씨군요</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">38</span>
+  <span class="nm">zzĐÚcdzz</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">39</span>
+  <span class="nm">Dong_동삼집</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">40</span>
+  <span class="nm">apple_공주</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">41</span>
+  <span class="nm">Lucas</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">42</span>
+  <span class="nm">체리cherry🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">43</span>
+  <span class="nm">Ruby💞루피</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">44</span>
+  <span class="nm">ゆき💙Yuki💙</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">45</span>
+  <span class="nm">мιиgкα</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">46</span>
+  <span class="nm">Teto디노니논</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">47</span>
+  <span class="nm">Bell</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">48</span>
+  <span class="nm">jason치로</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">49</span>
+  <span class="nm">san、オーク</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">50</span>
+  <span class="nm">YOU_ゆう</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">51</span>
+  <span class="nm">선배_sunbae</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">52</span>
+  <span class="nm">HoHo_LiM</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">53</span>
+  <span class="nm">Andy5909</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">54</span>
+  <span class="nm">Shooshi</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">55</span>
+  <span class="nm">Meeshka</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">56</span>
+  <span class="nm">ᴺⁱᶜʰᵒᵒ니콜ଳ</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">57</span>
+  <span class="nm">Xeladriel</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">58</span>
+  <span class="nm">Sekiden</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">59</span>
+  <span class="nm">sweetNlow</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">60</span>
+  <span class="nm">chris</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">61</span>
+  <span class="nm">Fisher</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">62</span>
+  <span class="nm">Black_리무바이</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">63</span>
+  <span class="nm">냥코</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">64</span>
+  <span class="nm">WhiteCat🐾</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">65</span>
+  <span class="nm">jjing</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">66</span>
+  <span class="nm">PoP Heroes</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">67</span>
+  <span class="nm">HJjjjJH🍀</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">68</span>
+  <span class="nm">NSAIDs미노브이</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">69</span>
+  <span class="nm">영불리_YOYO</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">70</span>
+  <span class="nm">Uhhhhokay</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">71</span>
+  <span class="nm">kb park</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">72</span>
+  <span class="nm">린_RIN</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">73</span>
+  <span class="nm">Miffy</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">74</span>
+  <span class="nm">Manjo_0</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">75</span>
+  <span class="nm">Romariense</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">76</span>
+  <span class="nm">Luffy</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">77</span>
+  <span class="nm">ʚTanakaɞ</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">78</span>
+  <span class="nm">Cort</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">79</span>
+  <span class="nm">JanwooKoJa</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">80</span>
+  <span class="nm">Mayo🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">81</span>
+  <span class="nm">Dayo🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">82</span>
+  <span class="nm">잔우는못말려</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">83</span>
+  <span class="nm">할v🔥🔥🔥</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">84</span>
+  <span class="nm">COS🐏</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">85</span>
+  <span class="nm">V25</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">86</span>
+  <span class="nm">Tess🍖</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">87</span>
+  <span class="nm">Koyo🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">88</span>
+  <span class="nm">JOY🎵</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">89</span>
+  <span class="nm">Hayo🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">90</span>
+  <span class="nm">Bayo🍒</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">91</span>
+  <span class="nm">Burger</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">92</span>
+  <span class="nm">Ice Tea🍹</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">93</span>
+  <span class="nm">𝕜𝕠𝕞𝕪🐼</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">94</span>
+  <span class="nm">하츄핑</span>
+  <span class="sc high">0</span>
+</div>
+<div class="row unranked" data-score="0" data-days='[null,null,null,null,null]' data-prep='{"score":0,"known":false}' data-war='{"score":0,"known":false}'>
+  <span class="no">95</span>
+  <span class="nm">SHOT</span>
+  <span class="sc high">0</span>
+</div>
+</div>
   <div class="foot">
-    <div class="cnt"><span data-i18n="totalMember" data-count="0">총 멤버 0명</span> &nbsp;|&nbsp; <span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span></div>
-    <div class="gnote" id="gnote" data-i18n="goalNote" data-goal="1,500,000">⚠️ 1,500,000점 미달성 시 주의</div>
+    <div class="cnt"><span data-i18n="totalMember" data-count="95">총 멤버 95명</span> &nbsp;|&nbsp; <span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span></div>
+    
   </div>
 </div>
 <script>
 (function(){
-var DL=["건설","기술","채집","영웅","훈련","전쟁"],DC=["#fbbf24","#60a5fa","#34d399","#f472b6","#38bdf8","#f87171"],goal=1500000,allSum=0,dsArr=[0,0,0,0,0,0];
+var DL=["건설","기술","채집","영웅","훈련"],DC=["#fbbf24","#60a5fa","#34d399","#f472b6","#38bdf8"],WAR_COLOR="#f87171",goal=0,allSum=711575237,dsArr=[302850941,296093524,0,0,0],prepRefSum=598944465,warRefSum=0;
+var guildScores=[758764073,675875823,null,null,null],guildRanks=[4,3,null,null,null],guildPrepTotal={"score":1745719932,"rank":3},guildWar={"score":null,"rank":null};
 var isArchive=false;
-var KVKI18N={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+var KVKI18N={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","unranked":"미확인","officialTotal":"🏆 길드 합산 점수","refTotal":"🏆 확인된 인원 합산 (참고)","dayRefLbl":"Day{day} 확인된 인원 합계 (참고)","guildRankBadge":"왕국 {rank}위","confirmCount":"top100 확인 {count}명","top100Note":"※ 개인 랭킹은 왕국 전체 top100까지만 확인 가능하여 목록에 없는 길드원은 순위권 밖으로 표시됩니다.","prepTotalTab":"준비단계 총점","warTab":"⚔️ 전쟁단계","prepTotalConfirmed":"🏆 준비단계 총점 (확인)","prepTotalRef":"🏆 준비단계 참고합산 (Day1~5)","warConfirmed":"⚔️ 전쟁단계 (확인)","warNoData":"⚔️ 전쟁단계 (미입력)","kingdomTotalTitle":"⚖️ 날짜별 왕국 총점 비교","ktEmpty":"미입력","ktTotalLabel":"총 포인트","leadSuffix":"우세","leadDraw":"동률","top100IndivDailyTitle":"🏅 개인 랭킹 TOP100 (당일)","top100IndivTotalTitle":"🏆 개인 총점 랭킹 TOP100 (누적)","top100GuildDailyTitle":"🛡️ 길드 랭킹 TOP100 (당일)","top100GuildTotalTitle":"🛡️ 길드 총점 랭킹 TOP100 (누적)","top100IndivDayLabel":"🏅 개인 랭킹 TOP100","top100GuildDayLabel":"🛡️ 길드 랭킹 TOP100"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","unranked":"Unranked","officialTotal":"🏆 Guild Total Score","refTotal":"🏆 Confirmed Members Total (ref.)","dayRefLbl":"Day{day} Confirmed Total (ref.)","guildRankBadge":"Kingdom Rank #{rank}","confirmCount":"{count} in top100","top100Note":"※ Individual rank is only visible up to kingdom-wide top100; members outside it show as unranked.","prepTotalTab":"Prep Total","warTab":"⚔️ War Phase","prepTotalConfirmed":"🏆 Prep Phase Total (confirmed)","prepTotalRef":"🏆 Prep Phase Total (ref., Day1-5)","warConfirmed":"⚔️ War Phase (confirmed)","warNoData":"⚔️ War Phase (no data)","kingdomTotalTitle":"⚖️ Daily Kingdom Total Comparison","ktEmpty":"No data","ktTotalLabel":"Total Points","leadSuffix":"leading","leadDraw":"Tied","top100IndivDailyTitle":"🏅 Individual Ranking TOP100 (Daily)","top100IndivTotalTitle":"🏆 Individual Total Ranking TOP100 (Cumulative)","top100GuildDailyTitle":"🛡️ Guild Ranking TOP100 (Daily)","top100GuildTotalTitle":"🛡️ Guild Total Ranking TOP100 (Cumulative)","top100IndivDayLabel":"🏅 Individual Ranking TOP100","top100GuildDayLabel":"🛡️ Guild Ranking TOP100"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","unranked":"未確認","officialTotal":"🏆 ギルド合計スコア","refTotal":"🏆 確認済みメンバー合計（参考）","dayRefLbl":"Day{day} 確認済み合計（参考）","guildRankBadge":"王国 {rank}位","confirmCount":"top100内 {count}人","top100Note":"※ 個人ランキングは王国全体のtop100までしか確認できないため、圏外のメンバーは未確認と表示されます。","prepTotalTab":"準備段階総計","warTab":"⚔️ 戦争段階","prepTotalConfirmed":"🏆 準備段階総計（確認済み）","prepTotalRef":"🏆 準備段階参考合計（Day1-5）","warConfirmed":"⚔️ 戦争段階（確認済み）","warNoData":"⚔️ 戦争段階（未入力）","kingdomTotalTitle":"⚖️ 日別王国総ポイント比較","ktEmpty":"未入力","ktTotalLabel":"総ポイント","leadSuffix":"優勢","leadDraw":"同点","top100IndivDailyTitle":"🏅 個人ランキング TOP100（当日）","top100IndivTotalTitle":"🏆 個人総合ランキング TOP100（累計）","top100GuildDailyTitle":"🛡️ ギルドランキング TOP100（当日）","top100GuildTotalTitle":"🛡️ ギルド総合ランキング TOP100（累計）","top100IndivDayLabel":"🏅 個人ランキング TOP100","top100GuildDayLabel":"🛡️ ギルドランキング TOP100"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","unranked":"未上榜","officialTotal":"🏆 公会合计分数","refTotal":"🏆 已确认成员合计（参考）","dayRefLbl":"Day{day} 已确认合计（参考）","guildRankBadge":"王国第{rank}名","confirmCount":"top100内 {count}人","top100Note":"※ 个人排名只能查看王国全服top100，未上榜的成员将显示为未确认。","prepTotalTab":"准备阶段总分","warTab":"⚔️ 战争阶段","prepTotalConfirmed":"🏆 准备阶段总分（已确认）","prepTotalRef":"🏆 准备阶段参考合计（Day1-5）","warConfirmed":"⚔️ 战争阶段（已确认）","warNoData":"⚔️ 战争阶段（未录入）","kingdomTotalTitle":"⚖️ 每日王国总分对比","ktEmpty":"未录入","ktTotalLabel":"总积分","leadSuffix":"领先","leadDraw":"平局","top100IndivDailyTitle":"🏅 个人排名 TOP100（当日）","top100IndivTotalTitle":"🏆 个人总分排名 TOP100（累计）","top100GuildDailyTitle":"🛡️ 公会排名 TOP100（当日）","top100GuildTotalTitle":"🛡️ 公会总分排名 TOP100（累计）","top100IndivDayLabel":"🏅 个人排名 TOP100","top100GuildDayLabel":"🛡️ 公会排名 TOP100"}};
 function curLang(){var l=document.documentElement.getAttribute('lang')||'ko';return KVKI18N[l]?l:'en';}
 function tr(k){var d=KVKI18N[curLang()]||KVKI18N.en;return d[k]!=null?d[k]:k;}
 function trf(k,p){return tr(k).replace(/\{(\w+)\}/g,function(_,x){return (p&&p[x]!=null)?p[x]:'';});}
-var updateInput="";
+function guildLatestRank(){
+  if(guildWar&&guildWar.rank!=null)return guildWar.rank;
+  if(guildPrepTotal&&guildPrepTotal.rank!=null)return guildPrepTotal.rank;
+  var idxs=[0,1,2,3,4].filter(function(i){return guildRanks[i]!=null;});
+  return idxs.length?guildRanks[idxs[idxs.length-1]]:null;
+}
+function rankBadgeHtml(rank){return rank!=null?'<span style="margin-left:8px;color:#fbbf24;">🏰 '+trf('guildRankBadge',{rank:rank})+'</span>':'';}
+var updateInput="2026-07-22 10:00:00";
 function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
   if(!d||isNaN(d.getTime()))return null;
   var dow=d.getDay()===0?7:d.getDay();
-  var before11=d.getHours()<11;
-  if(dow===7&&before11)return{num:6,idx:5};
+  var beforeCutoff=(d.getHours()<10)||(d.getHours()===10&&d.getMinutes()<30);
+  if(dow===7&&beforeCutoff)return{phase:'war'};
   if(dow===7)return null;
-  var eff=before11?dow-1:dow;
-  if(eff<=0||eff>6)return null;
-  return{num:eff,idx:eff-1};
+  if(dow===6&&!beforeCutoff)return{phase:'war'};
+  var eff=beforeCutoff?dow-1:dow;
+  if(eff<=0||eff>5)return null;
+  return{phase:'prep',num:eff,idx:eff-1};
 }
 var updateDay=isArchive?null:getUpdateDay();
-var cDay=updateDay?String(updateDay.idx):'all';
+var cDay=updateDay?(updateDay.phase==='war'?'war':String(updateDay.idx)):'preptotal';
 var cMode='all';
 document.querySelectorAll('.tab').forEach(function(b){
   b.classList.toggle('active',b.getAttribute('data-day')===cDay);
 });
 var dayInfoEl=document.getElementById('dayInfoText');
 if(dayInfoEl){
-  dayInfoEl.textContent=updateDay?'Day '+updateDay.num+' / 6':'';
+  dayInfoEl.textContent=updateDay?(updateDay.phase==='war'?'전쟁단계':'Day '+updateDay.num+' / 5'):'';
   if(!updateDay)dayInfoEl.style.display='none';
+}
+function tabDisplay(tabKey){
+  if(tabKey==='all'){
+    var hasOff=(guildPrepTotal&&guildPrepTotal.score!=null)||guildScores.some(function(v){return v!=null;})||(guildWar&&guildWar.score!=null);
+    var prepScore=(guildPrepTotal&&guildPrepTotal.score!=null)?Number(guildPrepTotal.score):guildScores.reduce(function(s,v){return s+(v==null?0:Number(v));},0);
+    var warScore=(guildWar&&guildWar.score!=null)?Number(guildWar.score):0;
+    return {lbl:hasOff?tr('officialTotal'):tr('refTotal'), val:hasOff?(prepScore+warScore):allSum, color:'#f59e0b', rank:hasOff?guildLatestRank():null};
+  }
+  if(tabKey==='preptotal'){
+    var hasOff2=guildPrepTotal&&guildPrepTotal.score!=null;
+    return {lbl:hasOff2?tr('prepTotalConfirmed'):tr('prepTotalRef'), val:hasOff2?Number(guildPrepTotal.score):prepRefSum, color:'#fbbf24', rank:hasOff2?guildPrepTotal.rank:null};
+  }
+  if(tabKey==='war'){
+    var hasOff3=guildWar&&guildWar.score!=null;
+    return {lbl:hasOff3?tr('warConfirmed'):(warRefSum>0?tr('refTotal'):tr('warNoData')), val:hasOff3?Number(guildWar.score):warRefSum, color:WAR_COLOR, rank:hasOff3?guildWar.rank:null};
+  }
+  var di=Number(tabKey);
+  var gS=guildScores[di], gR=guildRanks[di];
+  if(gS!=null){
+    return {lbl:'🏆 Day'+(di+1)+' '+tr('cat'+di)+' '+(curLang()==='ko'?'길드 점수 (확인)':'(confirmed)'), val:Number(gS), color:DC[di], rank:gR};
+  }
+  return {lbl:'🏆 Day'+(di+1)+' '+tr('cat'+di)+' '+(curLang()==='ko'?'확인된 인원 합계 (참고)':'(reference)'), val:dsArr[di], color:DC[di], rank:null};
 }
 function applyFilter(){
   var isAll=cDay==='all';
+  var isDaily=/^[0-4]$/.test(cDay);
   var rows=Array.from(document.querySelectorAll('[data-days]'));
   var lbl=document.getElementById('tLbl'),val=document.getElementById('tVal');
   var cntWrap=document.getElementById('bCntWrap'),cnt=document.getElementById('bCnt');
   var fbar=document.getElementById('fbar');
   var ruleBox=document.getElementById('ruleBox'),gnote=document.getElementById('gnote');
   var grid=document.querySelector('.grid');
-  if(fbar)fbar.style.display=isAll?'none':'';
-  if(cntWrap)cntWrap.style.display=isAll?'none':'';
-  if(ruleBox)ruleBox.style.display=isAll?'none':'';
-  if(gnote)gnote.style.display=isAll?'none':'';
-  var di=isAll?-1:Number(cDay);
-  if(isAll){
-    lbl.textContent=tr('totalSum');val.textContent=allSum.toLocaleString();val.style.color='#f59e0b';
-    cMode='all';
-  }else{
-    lbl.textContent='🏆 Day'+(di+1)+' '+tr('cat'+di);
-    val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
-    if(cnt&&goal>0&&di<5){
-      var b2=0;rows.forEach(function(r){var d=JSON.parse(r.getAttribute('data-days')||'[]');if((Number(d[di])||0)<goal)b2++;});
-      cnt.textContent=trf('belowGoal',{below:b2});
-    }
+  var rankBadgeEl=document.getElementById('rankBadge'),confirmCntEl=document.getElementById('confirmCnt');
+  if(fbar)fbar.style.display=isDaily?'':'none';
+  if(cntWrap)cntWrap.style.display=isDaily?'':'none';
+  if(ruleBox)ruleBox.style.display=isDaily?'':'none';
+  if(gnote)gnote.style.display=isDaily?'':'none';
+  if(!isDaily)cMode='all';
+  document.querySelectorAll('[data-top100-day]').forEach(function(el){ el.style.display=(el.getAttribute('data-top100-day')===cDay)?'':'none'; });
+  var di=isDaily?Number(cDay):-1;
+  var d=tabDisplay(cDay);
+  lbl.textContent=d.lbl;val.textContent=d.val.toLocaleString();val.style.color=d.color;
+  if(rankBadgeEl)rankBadgeEl.innerHTML=rankBadgeHtml(d.rank);
+  if(cnt&&isDaily&&goal>0){
+    var b2=0;rows.forEach(function(r){var dd=JSON.parse(r.getAttribute('data-days')||'[]');if(dd[di]!=null&&Number(dd[di])<goal)b2++;});
+    cnt.textContent=trf('belowGoal',{below:b2});
+  }
+  function rowVal(row){
+    if(isAll)return{sv:Number(row.getAttribute('data-score')||0),unranked:false};
+    if(cDay==='preptotal'){var p=JSON.parse(row.getAttribute('data-prep')||'{}');return{sv:p.known?p.score:null,unranked:!p.known};}
+    if(cDay==='war'){var w=JSON.parse(row.getAttribute('data-war')||'{}');return{sv:w.known?w.score:null,unranked:!w.known};}
+    var da=JSON.parse(row.getAttribute('data-days')||'[]');
+    return{sv:da[di],unranked:da[di]==null};
+  }
+  if(confirmCntEl){
+    var cc=rows.filter(function(r){return !rowVal(r).unranked;}).length;
+    confirmCntEl.textContent=trf('confirmCount',{count:cc});
   }
   var sorted=rows.slice().sort(function(a,b){
-    var da=JSON.parse(a.getAttribute('data-days')||'[]');
-    var db=JSON.parse(b.getAttribute('data-days')||'[]');
-    var sa=isAll?Number(a.getAttribute('data-score')||0):Number(da[di]||0);
-    var sb=isAll?Number(b.getAttribute('data-score')||0):Number(db[di]||0);
+    var ra=rowVal(a),rb=rowVal(b);
+    var sa=ra.unranked?-1:Number(ra.sv);
+    var sb=rb.unranked?-1:Number(rb.sv);
     return sb-sa;
   });
   if(grid){sorted.forEach(function(r){grid.appendChild(r);});}
   var rank=1;
   sorted.forEach(function(row){
-    var days=JSON.parse(row.getAttribute('data-days')||'[]');
-    var tot=Number(row.getAttribute('data-score')||0);
-    var sv=isAll?tot:Number(days[di]||0);
-    var modeOk=isAll||cMode==='all'||(goal>0&&di<5&&cMode==='above'&&sv>=goal)||(goal>0&&di<5&&cMode==='below'&&sv<goal);
+    var rv=rowVal(row);
+    var sv=rv.sv,unranked=rv.unranked;
+    var modeOk=!isDaily||cMode==='all'||(!unranked&&goal>0&&cMode==='above'&&sv>=goal)||(!unranked&&goal>0&&cMode==='below'&&sv<goal);
     row.style.display=modeOk?'':'none';
+    row.classList.toggle('unranked',unranked);
     var noEl=row.querySelector('.no');
-    if(noEl&&modeOk){noEl.textContent=rank++;}
+    if(noEl&&modeOk){noEl.textContent=unranked?'-':rank++;}
     var se=row.querySelector('.sc');
     if(se){
-      se.textContent=sv.toLocaleString();
-      se.className='sc'+(isAll?' high':goal>0&&di<5?(sv>=goal?' high':sv===0?' zs':''):' high');
+      se.textContent=unranked?tr('unranked'):Number(sv).toLocaleString();
+      se.className='sc'+(unranked?' unranked':isAll?' high':isDaily&&goal>0?(sv>=goal?' high':sv===0?' zs':''):' high');
     }
   });
 }
@@ -226,7 +3797,7 @@ window.__kvkApplyFilter=applyFilter;
 {% raw %}
 <script>
 (function(){
-  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","cat5":"전쟁"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","cat5":"Conquest"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","cat5":"征服"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","cat5":"征服"}};
+  var DICT={"ko":{"lastUpdate":"최종 업데이트","archiveBtn":"📁 지난시즌","homeBtn":"🏠 메인","serverNote":"(서버 기준)","totalSum":"🏆 전체 합산","totalSumTab":"전체 합산","participate":"{count}명 참여","belowGoal":"목표점수 미달 {below}명","ruleText":"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.","filterAll":"전체","filterAbove":"이상","filterBelow":"미만","totalMember":"총 멤버 {count}명","goalNote":"⚠️ {goal}점 미달성 시 주의","win":"승","lose":"패","draw":"무","wait":"대기","cat0":"건설","cat1":"기술","cat2":"채집","cat3":"영웅","cat4":"훈련","unranked":"미확인","officialTotal":"🏆 길드 합산 점수","refTotal":"🏆 확인된 인원 합산 (참고)","dayRefLbl":"Day{day} 확인된 인원 합계 (참고)","guildRankBadge":"왕국 {rank}위","confirmCount":"top100 확인 {count}명","top100Note":"※ 개인 랭킹은 왕국 전체 top100까지만 확인 가능하여 목록에 없는 길드원은 순위권 밖으로 표시됩니다.","prepTotalTab":"준비단계 총점","warTab":"⚔️ 전쟁단계","prepTotalConfirmed":"🏆 준비단계 총점 (확인)","prepTotalRef":"🏆 준비단계 참고합산 (Day1~5)","warConfirmed":"⚔️ 전쟁단계 (확인)","warNoData":"⚔️ 전쟁단계 (미입력)","kingdomTotalTitle":"⚖️ 날짜별 왕국 총점 비교","ktEmpty":"미입력","ktTotalLabel":"총 포인트","leadSuffix":"우세","leadDraw":"동률","top100IndivDailyTitle":"🏅 개인 랭킹 TOP100 (당일)","top100IndivTotalTitle":"🏆 개인 총점 랭킹 TOP100 (누적)","top100GuildDailyTitle":"🛡️ 길드 랭킹 TOP100 (당일)","top100GuildTotalTitle":"🛡️ 길드 총점 랭킹 TOP100 (누적)","top100IndivDayLabel":"🏅 개인 랭킹 TOP100","top100GuildDayLabel":"🛡️ 길드 랭킹 TOP100"},"en":{"lastUpdate":"Last Update","archiveBtn":"📁 Archive","homeBtn":"🏠 Home","serverNote":"(server value)","totalSum":"🏆 Total","totalSumTab":"Total","participate":"{count} members","belowGoal":"{below} below goal","ruleText":"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.","filterAll":"All","filterAbove":"≥ Goal","filterBelow":"< Goal","totalMember":"Total {count} members","goalNote":"⚠️ Caution if below {goal} points","win":"W","lose":"L","draw":"D","wait":"—","cat0":"Building","cat1":"Tech","cat2":"Battle","cat3":"Hero","cat4":"Combat","unranked":"Unranked","officialTotal":"🏆 Guild Total Score","refTotal":"🏆 Confirmed Members Total (ref.)","dayRefLbl":"Day{day} Confirmed Total (ref.)","guildRankBadge":"Kingdom Rank #{rank}","confirmCount":"{count} in top100","top100Note":"※ Individual rank is only visible up to kingdom-wide top100; members outside it show as unranked.","prepTotalTab":"Prep Total","warTab":"⚔️ War Phase","prepTotalConfirmed":"🏆 Prep Phase Total (confirmed)","prepTotalRef":"🏆 Prep Phase Total (ref., Day1-5)","warConfirmed":"⚔️ War Phase (confirmed)","warNoData":"⚔️ War Phase (no data)","kingdomTotalTitle":"⚖️ Daily Kingdom Total Comparison","ktEmpty":"No data","ktTotalLabel":"Total Points","leadSuffix":"leading","leadDraw":"Tied","top100IndivDailyTitle":"🏅 Individual Ranking TOP100 (Daily)","top100IndivTotalTitle":"🏆 Individual Total Ranking TOP100 (Cumulative)","top100GuildDailyTitle":"🛡️ Guild Ranking TOP100 (Daily)","top100GuildTotalTitle":"🛡️ Guild Total Ranking TOP100 (Cumulative)","top100IndivDayLabel":"🏅 Individual Ranking TOP100","top100GuildDayLabel":"🛡️ Guild Ranking TOP100"},"ja":{"lastUpdate":"最終更新","archiveBtn":"📁 過去シーズン","homeBtn":"🏠 ホーム","serverNote":"(サーバー基準)","totalSum":"🏆 全体合計","totalSumTab":"全体合計","participate":"{count}人参加","belowGoal":"目標未達 {below}人","ruleText":"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。","filterAll":"全体","filterAbove":"以上","filterBelow":"未満","totalMember":"総メンバー {count}人","goalNote":"⚠️ {goal} ポイント未達成に注意","win":"勝","lose":"敗","draw":"分","wait":"—","cat0":"建設","cat1":"技術","cat2":"戦闘","cat3":"英雄","cat4":"備え","unranked":"未確認","officialTotal":"🏆 ギルド合計スコア","refTotal":"🏆 確認済みメンバー合計（参考）","dayRefLbl":"Day{day} 確認済み合計（参考）","guildRankBadge":"王国 {rank}位","confirmCount":"top100内 {count}人","top100Note":"※ 個人ランキングは王国全体のtop100までしか確認できないため、圏外のメンバーは未確認と表示されます。","prepTotalTab":"準備段階総計","warTab":"⚔️ 戦争段階","prepTotalConfirmed":"🏆 準備段階総計（確認済み）","prepTotalRef":"🏆 準備段階参考合計（Day1-5）","warConfirmed":"⚔️ 戦争段階（確認済み）","warNoData":"⚔️ 戦争段階（未入力）","kingdomTotalTitle":"⚖️ 日別王国総ポイント比較","ktEmpty":"未入力","ktTotalLabel":"総ポイント","leadSuffix":"優勢","leadDraw":"同点","top100IndivDailyTitle":"🏅 個人ランキング TOP100（当日）","top100IndivTotalTitle":"🏆 個人総合ランキング TOP100（累計）","top100GuildDailyTitle":"🛡️ ギルドランキング TOP100（当日）","top100GuildTotalTitle":"🛡️ ギルド総合ランキング TOP100（累計）","top100IndivDayLabel":"🏅 個人ランキング TOP100","top100GuildDayLabel":"🛡️ ギルドランキング TOP100"},"zh":{"lastUpdate":"最后更新","archiveBtn":"📁 往期赛季","homeBtn":"🏠 主页","serverNote":"(服务器数据)","totalSum":"🏆 总计","totalSumTab":"总计","participate":"{count}人参与","belowGoal":"未达目标 {below}人","ruleText":"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。","filterAll":"全部","filterAbove":"达标","filterBelow":"未达","totalMember":"共 {count} 名成员","goalNote":"⚠️ 未达 {goal} 分请注意","win":"胜","lose":"负","draw":"平","wait":"—","cat0":"建设","cat1":"科技","cat2":"战斗","cat3":"英雄","cat4":"备战","unranked":"未上榜","officialTotal":"🏆 公会合计分数","refTotal":"🏆 已确认成员合计（参考）","dayRefLbl":"Day{day} 已确认合计（参考）","guildRankBadge":"王国第{rank}名","confirmCount":"top100内 {count}人","top100Note":"※ 个人排名只能查看王国全服top100，未上榜的成员将显示为未确认。","prepTotalTab":"准备阶段总分","warTab":"⚔️ 战争阶段","prepTotalConfirmed":"🏆 准备阶段总分（已确认）","prepTotalRef":"🏆 准备阶段参考合计（Day1-5）","warConfirmed":"⚔️ 战争阶段（已确认）","warNoData":"⚔️ 战争阶段（未录入）","kingdomTotalTitle":"⚖️ 每日王国总分对比","ktEmpty":"未录入","ktTotalLabel":"总积分","leadSuffix":"领先","leadDraw":"平局","top100IndivDailyTitle":"🏅 个人排名 TOP100（当日）","top100IndivTotalTitle":"🏆 个人总分排名 TOP100（累计）","top100GuildDailyTitle":"🛡️ 公会排名 TOP100（当日）","top100GuildTotalTitle":"🛡️ 公会总分排名 TOP100（累计）","top100IndivDayLabel":"🏅 个人排名 TOP100","top100GuildDayLabel":"🛡️ 公会排名 TOP100"}};
   var SUP=['ko','en','ja','zh'];
   function fmt(s,p){return s.replace(/\{(\w+)\}/g,function(_,k){return (p&&p[k]!=null)?p[k]:'';});}
   function pick(){var saved=null;try{saved=localStorage.getItem('reo_lang');}catch(e){}if(saved&&SUP.indexOf(saved)>=0)return saved;var nav=(navigator.language||'en').toLowerCase();if(nav.indexOf('ko')===0)return'ko';if(nav.indexOf('ja')===0)return'ja';if(nav.indexOf('zh')===0)return'zh';return'en';}
