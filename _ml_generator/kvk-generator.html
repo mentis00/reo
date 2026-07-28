@@ -97,6 +97,8 @@
   .kvk-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
   .kvk-row { display:flex; align-items:center; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:11px 14px; gap:10px; min-width:0; }
   .kvk-row.zero { background:rgba(255,80,80,0.05); border-color:rgba(255,80,80,0.15); }
+  .kvk-row.unranked { opacity:0.5; }
+  .kvk-score.unranked { color:rgba(255,255,255,0.3); font-size:13px; font-style:italic; }
   .kvk-no    { font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:600; color:rgba(255,220,120,0.35); width:22px; text-align:right; flex-shrink:0; }
   .kvk-name  { flex:1; font-size:16px; font-weight:700; color:#fff9e6; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
   .kvk-score { font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:700; color:#fbbf24; text-align:right; flex-shrink:0; min-width:64px; }
@@ -112,7 +114,7 @@
   .kvk-vs-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
   .kvk-vs-title { font-size:13px; color:rgba(56,189,248,0.7); letter-spacing:1px; font-weight:700; }
   .kvk-vs-result { font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:700; letter-spacing:1px; }
-  .kvk-vs-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; }
+  .kvk-vs-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
   .kvk-vs-day { display:flex; flex-direction:column; align-items:center; gap:4px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:8px 4px; }
   .kvk-vs-day.win  { background:rgba(52,211,153,0.10); border-color:rgba(52,211,153,0.3); }
   .kvk-vs-day.lose { background:rgba(255,80,80,0.08); border-color:rgba(255,80,80,0.2); }
@@ -129,6 +131,41 @@
   .kvk-vs-badge.pending { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.35); }
   @media(max-width:860px){ .kvk-vs-grid{grid-template-columns:repeat(3,1fr);} }
 
+  /* 날짜별 왕국 총점 비교 */
+  .kvk-kt-box { background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.2); border-radius:14px; padding:16px 22px; margin-bottom:18px; }
+  .kvk-kt-title { font-size:13px; color:rgba(196,181,253,0.8); letter-spacing:1px; font-weight:700; margin-bottom:12px; }
+  .kvk-kt-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px; }
+  .kvk-kt-row.total { margin-top:10px; padding-top:12px; border-top:1px dashed rgba(139,92,246,0.25); font-size:13px; font-weight:800; }
+  .kvk-kt-row.total .kvk-kt-day { color:#c4b5fd; width:auto; white-space:nowrap; margin-right:2px; }
+  .kvk-kt-row.total .kvk-kt-num { font-size:15px; }
+  .kvk-kt-row.total .kvk-kt-bar { height:13px; }
+  .kvk-kt-lead { margin-top:8px; font-size:12px; font-weight:700; text-align:right; }
+  .kvk-kt-lead.us { color:#60a5fa; }
+  .kvk-kt-lead.opp { color:#f87171; }
+  .kvk-kt-lead.draw { color:#fcd34d; text-align:center; }
+  .kvk-kt-day { width:44px; flex-shrink:0; color:rgba(196,181,253,0.6); font-weight:700; }
+  .kvk-kt-bar-wrap { flex:1; display:flex; align-items:center; gap:8px; min-width:0; }
+  .kvk-kt-num { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:13px; flex-shrink:0; min-width:64px; }
+  .kvk-kt-num.us { color:#60a5fa; text-align:right; }
+  .kvk-kt-num.opp { color:#f87171; text-align:left; }
+  .kvk-kt-bar { flex:1; height:10px; border-radius:999px; background:rgba(255,255,255,0.06); overflow:hidden; display:flex; }
+  .kvk-kt-bar-us { background:linear-gradient(90deg,#3b82f6,#60a5fa); height:100%; }
+  .kvk-kt-bar-opp { background:linear-gradient(90deg,#f87171,#ef4444); height:100%; }
+  .kvk-kt-empty { color:rgba(255,255,255,0.25); font-style:italic; }
+
+  /* TOP100 랭킹 */
+  .kvk-top100-box { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:16px 22px; margin-bottom:18px; }
+  .kvk-top100-title { font-size:13px; letter-spacing:1px; font-weight:700; margin-bottom:10px; }
+  .kvk-top100-list { max-height:320px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; }
+  .kvk-t100-row { display:flex; align-items:center; gap:10px; padding:6px 10px; border-radius:8px; font-size:12px; background:rgba(255,255,255,0.02); }
+  .kvk-t100-row.own { background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); }
+  .kvk-t100-row.us { background:rgba(96,165,250,0.08); border:1px solid rgba(96,165,250,0.22); }
+  .kvk-t100-row.opp { background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.18); }
+  .kvk-t100-rank { width:30px; flex-shrink:0; text-align:right; color:rgba(255,255,255,0.4); font-family:'Rajdhani',sans-serif; font-weight:700; }
+  .kvk-t100-tag { color:#7dd3fc; flex-shrink:0; }
+  .kvk-t100-name { flex:1; color:#fff9e6; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+  .kvk-t100-pts { font-family:'Rajdhani',sans-serif; font-weight:700; color:#fbbf24; flex-shrink:0; }
+
   @media(max-width:860px){
     .kvk-wrap{padding:22px 18px 28px}
     .kvk-grid{grid-template-columns:1fr}
@@ -138,7 +175,7 @@
   }
   @media(max-width:860px) and (orientation:landscape){
     .kvk-grid{grid-template-columns:repeat(2,1fr)!important;}
-    .kvk-vs-grid{grid-template-columns:repeat(6,1fr)!important;}
+    .kvk-vs-grid{grid-template-columns:repeat(7,1fr)!important;}
   }
 </style>
 </head>
@@ -153,10 +190,7 @@
       </div>
     </div>
     <div class="body stack">
-      <div class="grid2">
-        <div><label>길드명</label><input id="guildName"></div>
-        <div><label>목표 점수 (일일 기준)</label><input id="goalScore" type="number" placeholder="일일 준비단계 목표점수"></div>
-      </div>
+      <div><label>길드명</label><input id="guildName"></div>
       <div class="grid2">
         <div><label>이벤트명</label><input value="Kingdom Duel" readonly style="opacity:0.7"></div>
         <div><label>최종 업데이트</label><input id="lastUpdateText" readonly></div>
@@ -176,6 +210,30 @@
       </div>
       <input class="file-input" id="jsonFileInput" type="file" accept=".json,application/json">
       <hr class="section-divider">
+      <!-- 길드 순위/공식 합산 섹션 -->
+      <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:14px;padding:14px 16px;">
+        <label style="font-size:14px;font-weight:800;color:#f59e0b;margin-bottom:10px;display:block;">🏆 우리 길드 순위/점수 (왕국 길드랭킹 기준)</label>
+        <label style="font-size:13px;color:#b7c2e6;margin-bottom:8px;display:block;">준비단계 Day별 길드 순위 · 점수</label>
+        <div style="display:flex;flex-direction:column;gap:6px;" id="guildDayRows"></div>
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr;gap:6px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px dashed rgba(245,158,11,0.2);">
+          <span style="font-size:12px;color:#fbbf24;font-weight:700;">준비단계<br>총점</span>
+          <input id="gPrepTotalRank" type="number" placeholder="순위" style="text-align:center;padding:6px 4px;">
+          <input id="gPrepTotalScore" type="number" placeholder="점수" style="text-align:center;padding:6px 4px;">
+        </div>
+        <div class="hint" style="margin-top:8px;">개인 랭킹은 top100 밖 길드원을 알 수 없으니, 왕국 길드랭킹(상위 100길드) 화면에서 직접 확인한 값을 입력하세요. 비워두면 확인된 인원 합산이 참고용으로 표시됩니다.</div>
+      </div>
+      <hr class="section-divider">
+      <!-- 전쟁단계 섹션 (별도 집계) -->
+      <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.18);border-radius:14px;padding:14px 16px;">
+        <label style="font-size:14px;font-weight:800;color:#f87171;margin-bottom:10px;display:block;">⚔️ 전쟁단계 (별도 집계)</label>
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr;gap:6px;align-items:center;">
+          <span style="font-size:12px;color:#f87171;font-weight:700;">길드<br>순위·점수</span>
+          <input id="gWarRank" type="number" placeholder="순위" style="text-align:center;padding:6px 4px;">
+          <input id="gWarScore" type="number" placeholder="점수" style="text-align:center;padding:6px 4px;">
+        </div>
+        <div class="hint" style="margin-top:8px;">전쟁단계는 준비단계(Day1~5)와 별도로 집계되는 왕국대결의 마지막 단계입니다. 길드원 개인 전쟁단계 순위/점수는 아래 표에서 입력하세요.</div>
+      </div>
+      <hr class="section-divider">
       <!-- 상대 왕국 섹션 -->
       <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:14px;padding:14px 16px;">
         <label style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:12px;display:block;">🏰 상대 왕국 기록</label>
@@ -183,8 +241,75 @@
           <label>상대 서버 번호 <span style="font-size:11px;color:rgba(255,255,255,0.3);">(# 생략 가능)</span></label>
           <input id="opponentName" placeholder="예) 10468">
         </div>
-        <label style="font-size:13px;color:#b7c2e6;margin-bottom:8px;display:block;">Day별 상대 점수 (M 단위) · 승패 선택</label>
+        <label style="font-size:13px;color:#b7c2e6;margin-bottom:8px;display:block;">준비단계 Day별 상대 점수 (M 단위) · 승패 선택</label>
         <div style="display:flex;flex-direction:column;gap:6px;" id="oppDayRows"></div>
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px dashed rgba(56,189,248,0.2);">
+          <span style="font-size:12px;color:#fbbf24;font-weight:700;">준비단계<br>총점</span>
+          <input id="oppPrepTotalScore" type="number" step="1" placeholder="0" style="text-align:center;padding:6px 4px;">
+          <button class="opp-prep-btn" data-val="win"  style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;cursor:pointer;">승</button>
+          <button class="opp-prep-btn" data-val="lose" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#f87171;cursor:pointer;">패</button>
+          <button class="opp-prep-btn" data-val="draw" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,200,80,0.1);border:1px solid rgba(255,200,80,0.3);color:#fcd34d;cursor:pointer;">무</button>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px dashed rgba(56,189,248,0.2);">
+          <span style="font-size:12px;color:#f87171;font-weight:700;">전쟁단계</span>
+          <input id="oppWarScore" type="number" step="1" placeholder="0" style="text-align:center;padding:6px 4px;">
+          <button class="opp-war-btn" data-val="win"  style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;cursor:pointer;">승</button>
+          <button class="opp-war-btn" data-val="lose" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#f87171;cursor:pointer;">패</button>
+          <button class="opp-war-btn" data-val="draw" style="padding:6px 4px;font-size:12px;font-weight:800;border-radius:8px;background:rgba(255,200,80,0.1);border:1px solid rgba(255,200,80,0.3);color:#fcd34d;cursor:pointer;">무</button>
+        </div>
+      </div>
+      <hr class="section-divider">
+      <!-- 날짜별 왕국 총점 비교 -->
+      <div style="background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.18);border-radius:14px;padding:14px 16px;">
+        <label style="font-size:14px;font-weight:800;color:#a78bfa;margin-bottom:10px;display:block;">⚖️ 날짜별 왕국 총점 비교</label>
+        <div style="display:flex;flex-direction:column;gap:6px;" id="ktRows"></div>
+        <div class="hint" style="margin-top:8px;">'총 포인트 비교' 화면에서 매일 확인한 양쪽 왕국 총점을 입력하세요. 준비단계 종료 후 총점이 낮은 왕국에서 전쟁단계(크로스 왕좌 쟁탈전)가 진행됩니다.</div>
+      </div>
+      <hr class="section-divider">
+      <!-- 개인 랭킹 TOP100 -->
+      <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:14px;padding:14px 16px;">
+        <label style="font-size:14px;font-weight:800;color:#f59e0b;margin-bottom:8px;display:block;">🏅 개인 랭킹 TOP100</label>
+        <div style="margin-bottom:8px;">
+          <label>적용할 구간</label>
+          <select id="top100IndivDaySel">
+            <option value="0">Day1</option>
+            <option value="1">Day2</option>
+            <option value="2">Day3</option>
+            <option value="3">Day4</option>
+            <option value="4">Day5</option>
+            <option value="total">준비단계 총점 (누적)</option>
+            <option value="war">⚔️ 전쟁단계</option>
+          </select>
+        </div>
+        <div class="hint" style="margin-bottom:8px;">한 줄에 한 명씩, 다음 형식으로 붙여넣으세요 (탭 또는 쉼표 구분):<br><code>순위,서버,길드태그,이름,점수</code> — 우리 길드면 맨 끝에 <code>,OUR</code> 추가<br>예) <code>10,10472,[REO],SONG,46173944,OUR</code><br>위에서 구간을 바꾸면 그 구간에 이미 저장된 데이터가 자동으로 불러와집니다.</div>
+        <textarea id="top100IndivInput" placeholder="1,10460,[BIG],Lãnh Chúa_W8n10,101205351&#10;2,10472,[CRM],Ratatoskr,93468885&#10;10,10472,[REO],SONG,46173944,OUR" style="min-height:90px;"></textarea>
+        <div class="btn-row" style="margin-top:8px;">
+          <button class="btn-secondary mini-btn" id="applyTop100IndivBtn">적용</button>
+          <span class="small" id="top100IndivCount" style="align-self:center;">0명 입력됨</span>
+        </div>
+      </div>
+      <hr class="section-divider">
+      <!-- 길드 랭킹 TOP100 -->
+      <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:14px;padding:14px 16px;">
+        <label style="font-size:14px;font-weight:800;color:#38bdf8;margin-bottom:8px;display:block;">🛡️ 길드 랭킹 TOP100</label>
+        <div style="margin-bottom:8px;">
+          <label>적용할 구간</label>
+          <select id="top100GuildDaySel">
+            <option value="0">Day1</option>
+            <option value="1">Day2</option>
+            <option value="2">Day3</option>
+            <option value="3">Day4</option>
+            <option value="4">Day5</option>
+            <option value="total">준비단계 총점 (누적)</option>
+            <option value="war">⚔️ 전쟁단계</option>
+          </select>
+        </div>
+        <div class="hint" style="margin-bottom:8px;">한 줄에 한 길드씩, 다음 형식으로 붙여넣으세요 (탭 또는 쉼표 구분):<br><code>순위,서버,길드태그,점수</code> — 우리 길드면 맨 끝에 <code>,OUR</code> 추가<br>예) <code>4,10472,[REO]NOOK,703719571,OUR</code><br>위에서 구간을 바꾸면 그 구간에 이미 저장된 데이터가 자동으로 불러와집니다.</div>
+        <textarea id="top100GuildInput" placeholder="1,10460,[FOX],854744047&#10;2,10460,[BIG]Family,818247802&#10;4,10472,[REO]NOOK,703719571,OUR" style="min-height:90px;"></textarea>
+        <div class="btn-row" style="margin-top:8px;">
+          <button class="btn-secondary mini-btn" id="applyTop100GuildBtn">적용</button>
+          <span class="small" id="top100GuildCount" style="align-self:center;">0개 길드 입력됨</span>
+        </div>
       </div>
       <hr class="section-divider">
       <div class="archive-box">
@@ -199,19 +324,20 @@
         <div class="hint" style="margin-top:8px;">파일명: <strong id="archiveFilenamePreview">시작일_종료일.html</strong> → <code>archive/</code> 폴더에 업로드하세요</div>
       </div>
       <textarea id="jsonBox" placeholder="JSON 붙여넣기 / 백업용"></textarea>
-      <div class="hint">목표점수는 <strong>준비단계(Day1~5) 일일 기준</strong>입니다. Day6(전쟁)은 별도 집계됩니다.<br>GitHub에서는 시작 시 같은 폴더의 kvk-data.json을 읽습니다.</div>
+      <div class="hint">준비단계(Day1~5)와 전쟁단계는 별도로 집계됩니다.<br>GitHub에서는 시작 시 같은 폴더의 kvk-data.json을 읽습니다.</div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th style="width:34px;">No</th>
               <th style="min-width:130px;">이름</th>
-              <th class="day-col-header" style="width:66px;">Day1<br>건설</th>
-              <th class="day-col-header" style="width:66px;">Day2<br>기술</th>
-              <th class="day-col-header" style="width:66px;">Day3<br>채집</th>
-              <th class="day-col-header" style="width:66px;">Day4<br>영웅</th>
-              <th class="day-col-header" style="width:66px;">Day5<br>훈련</th>
-              <th class="day-col-header" style="width:66px;color:#f87171;">Day6<br>전쟁</th>
+              <th class="day-col-header" style="width:78px;">Day1<br>건설</th>
+              <th class="day-col-header" style="width:78px;">Day2<br>기술</th>
+              <th class="day-col-header" style="width:78px;">Day3<br>채집</th>
+              <th class="day-col-header" style="width:78px;">Day4<br>영웅</th>
+              <th class="day-col-header" style="width:78px;">Day5<br>훈련</th>
+              <th class="day-col-header" style="width:78px;color:#fbbf24;">준비단계<br>총점</th>
+              <th class="day-col-header" style="width:78px;color:#f87171;">전쟁단계</th>
               <th style="width:72px;color:#34d399;">합산</th>
               <th style="width:78px;">업데이트</th>
               <th style="width:50px;">삭제</th>
@@ -231,15 +357,25 @@
 </div>
 
 <script>
-// KVK: Day1~5 준비단계, Day6 전쟁(정복)
-const DL = ['건설','기술','채집','영웅','훈련','전쟁'];
-const DC = ['#fbbf24','#60a5fa','#34d399','#f472b6','#38bdf8','#f87171'];
+// KVK: Day1~5 준비단계(각 일일 리셋), 전쟁단계는 별도 집계(누적/최종)
+const DL = ['건설','기술','채집','영웅','훈련'];
+const DC = ['#fbbf24','#60a5fa','#34d399','#f472b6','#38bdf8'];
+const WAR_LABEL = '전쟁';
+const WAR_COLOR = '#f87171';
 
 let state = {
   guildName:'', eventLabel:'Kingdom Duel', goalScore:0, totalMembers:0, updateInput:'',
   seasonStart:'', seasonEnd:'',
   kingdomNum:'', kingdomFullName:'',
-  opponent:'', opponentDays:[0,0,0,0,0,0], opponentResults:['','','','','',''],
+  opponent:'', opponentDays:[0,0,0,0,0], opponentResults:['','','','',''],
+  opponentPrepTotal:{score:null, result:''},
+  opponentWar:{score:0, result:''},
+  guildRanks:[null,null,null,null,null], guildScores:[null,null,null,null,null],
+  guildPrepTotal:{score:null, rank:null}, guildWar:{score:null, rank:null},
+  top100IndividualByDay:[[],[],[],[],[]], top100IndividualTotal:[],
+  top100GuildByDay:[[],[],[],[],[]], top100GuildTotal:[],
+  top100IndividualWar:[], top100GuildWar:[],
+  kingdomTotals:[{our:null,opp:null},{our:null,opp:null},{our:null,opp:null},{our:null,opp:null},{our:null,opp:null}],
   members:[],
 
 };
@@ -252,10 +388,10 @@ function fmtUpd(s){if(!s)return '';const d=new Date(s);if(isNaN(d))return s;retu
 /* ===== i18n helpers (KVK output) ===== */
 function kvkDict(){
   return {
-    ko:{lastUpdate:"최종 업데이트",archiveBtn:"📁 지난시즌",homeBtn:"🏠 메인",serverNote:"(서버 기준)",totalSum:"🏆 전체 합산",totalSumTab:"전체 합산",participate:"{count}명 참여",belowGoal:"목표점수 미달 {below}명",ruleText:"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.",filterAll:"전체",filterAbove:"이상",filterBelow:"미만",totalMember:"총 멤버 {count}명",goalNote:"⚠️ {goal}점 미달성 시 주의",win:"승",lose:"패",draw:"무",wait:"대기",cat0:"건설",cat1:"기술",cat2:"채집",cat3:"영웅",cat4:"훈련",cat5:"전쟁"},
-    en:{lastUpdate:"Last Update",archiveBtn:"📁 Archive",homeBtn:"🏠 Home",serverNote:"(server value)",totalSum:"🏆 Total",totalSumTab:"Total",participate:"{count} members",belowGoal:"{below} below goal",ruleText:"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.",filterAll:"All",filterAbove:"≥ Goal",filterBelow:"< Goal",totalMember:"Total {count} members",goalNote:"⚠️ Caution if below {goal} points",win:"W",lose:"L",draw:"D",wait:"—",cat0:"Building",cat1:"Tech",cat2:"Battle",cat3:"Hero",cat4:"Combat",cat5:"Conquest"},
-    ja:{lastUpdate:"最終更新",archiveBtn:"📁 過去シーズン",homeBtn:"🏠 ホーム",serverNote:"(サーバー基準)",totalSum:"🏆 全体合計",totalSumTab:"全体合計",participate:"{count}人参加",belowGoal:"目標未達 {below}人",ruleText:"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。",filterAll:"全体",filterAbove:"以上",filterBelow:"未満",totalMember:"総メンバー {count}人",goalNote:"⚠️ {goal} ポイント未達成に注意",win:"勝",lose:"敗",draw:"分",wait:"—",cat0:"建設",cat1:"技術",cat2:"戦闘",cat3:"英雄",cat4:"備え",cat5:"征服"},
-    zh:{lastUpdate:"最后更新",archiveBtn:"📁 往期赛季",homeBtn:"🏠 主页",serverNote:"(服务器数据)",totalSum:"🏆 总计",totalSumTab:"总计",participate:"{count}人参与",belowGoal:"未达目标 {below}人",ruleText:"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。",filterAll:"全部",filterAbove:"达标",filterBelow:"未达",totalMember:"共 {count} 名成员",goalNote:"⚠️ 未达 {goal} 分请注意",win:"胜",lose:"负",draw:"平",wait:"—",cat0:"建设",cat1:"科技",cat2:"战斗",cat3:"英雄",cat4:"备战",cat5:"征服"}
+    ko:{lastUpdate:"최종 업데이트",archiveBtn:"📁 지난시즌",homeBtn:"🏠 메인",serverNote:"(서버 기준)",totalSum:"🏆 전체 합산",totalSumTab:"전체 합산",participate:"{count}명 참여",belowGoal:"목표점수 미달 {below}명",ruleText:"길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 {goal}점 달성 바랍니다.",filterAll:"전체",filterAbove:"이상",filterBelow:"미만",totalMember:"총 멤버 {count}명",goalNote:"⚠️ {goal}점 미달성 시 주의",win:"승",lose:"패",draw:"무",wait:"대기",cat0:"건설",cat1:"기술",cat2:"채집",cat3:"영웅",cat4:"훈련",unranked:"미확인",officialTotal:"🏆 길드 합산 점수",refTotal:"🏆 확인된 인원 합산 (참고)",dayRefLbl:"Day{day} 확인된 인원 합계 (참고)",guildRankBadge:"왕국 {rank}위",confirmCount:"top100 확인 {count}명",top100Note:"※ 개인 랭킹은 왕국 전체 top100까지만 확인 가능하여 목록에 없는 길드원은 순위권 밖으로 표시됩니다.",prepTotalTab:"준비단계 총점",warTab:"⚔️ 전쟁단계",prepTotalConfirmed:"🏆 준비단계 총점 (확인)",prepTotalRef:"🏆 준비단계 참고합산 (Day1~5)",warConfirmed:"⚔️ 전쟁단계 (확인)",warNoData:"⚔️ 전쟁단계 (미입력)",kingdomTotalTitle:"⚖️ 날짜별 왕국 총점 비교",ktEmpty:"미입력",ktTotalLabel:"총 포인트",leadSuffix:"우세",leadDraw:"동률",top100IndivDailyTitle:"🏅 개인 랭킹 TOP100 (당일)",top100IndivTotalTitle:"🏆 개인 총점 랭킹 TOP100 (누적)",top100GuildDailyTitle:"🛡️ 길드 랭킹 TOP100 (당일)",top100GuildTotalTitle:"🛡️ 길드 총점 랭킹 TOP100 (누적)",top100IndivDayLabel:"🏅 개인 랭킹 TOP100",top100GuildDayLabel:"🛡️ 길드 랭킹 TOP100",top100IndivWarTitle:"⚔️ 개인 랭킹 TOP100 (전쟁단계)",top100GuildWarTitle:"⚔️ 길드 랭킹 TOP100 (전쟁단계)"},
+    en:{lastUpdate:"Last Update",archiveBtn:"📁 Archive",homeBtn:"🏠 Home",serverNote:"(server value)",totalSum:"🏆 Total",totalSumTab:"Total",participate:"{count} members",belowGoal:"{below} below goal",ruleText:"Guild Rule: Each member should reach at least {goal} daily points during the Kingdom Duel preparation phase.",filterAll:"All",filterAbove:"≥ Goal",filterBelow:"< Goal",totalMember:"Total {count} members",goalNote:"⚠️ Caution if below {goal} points",win:"W",lose:"L",draw:"D",wait:"—",cat0:"Building",cat1:"Tech",cat2:"Battle",cat3:"Hero",cat4:"Combat",unranked:"Unranked",officialTotal:"🏆 Guild Total Score",refTotal:"🏆 Confirmed Members Total (ref.)",dayRefLbl:"Day{day} Confirmed Total (ref.)",guildRankBadge:"Kingdom Rank #{rank}",confirmCount:"{count} in top100",top100Note:"※ Individual rank is only visible up to kingdom-wide top100; members outside it show as unranked.",prepTotalTab:"Prep Total",warTab:"⚔️ War Phase",prepTotalConfirmed:"🏆 Prep Phase Total (confirmed)",prepTotalRef:"🏆 Prep Phase Total (ref., Day1-5)",warConfirmed:"⚔️ War Phase (confirmed)",warNoData:"⚔️ War Phase (no data)",kingdomTotalTitle:"⚖️ Daily Kingdom Total Comparison",ktEmpty:"No data",ktTotalLabel:"Total Points",leadSuffix:"leading",leadDraw:"Tied",top100IndivDailyTitle:"🏅 Individual Ranking TOP100 (Daily)",top100IndivTotalTitle:"🏆 Individual Total Ranking TOP100 (Cumulative)",top100GuildDailyTitle:"🛡️ Guild Ranking TOP100 (Daily)",top100GuildTotalTitle:"🛡️ Guild Total Ranking TOP100 (Cumulative)",top100IndivDayLabel:"🏅 Individual Ranking TOP100",top100GuildDayLabel:"🛡️ Guild Ranking TOP100",top100IndivWarTitle:"⚔️ Individual Ranking TOP100 (War Phase)",top100GuildWarTitle:"⚔️ Guild Ranking TOP100 (War Phase)"},
+    ja:{lastUpdate:"最終更新",archiveBtn:"📁 過去シーズン",homeBtn:"🏠 ホーム",serverNote:"(サーバー基準)",totalSum:"🏆 全体合計",totalSumTab:"全体合計",participate:"{count}人参加",belowGoal:"目標未達 {below}人",ruleText:"ギルドルール：Kingdom Duel 準備段階で、各メンバーは1日最低 {goal} ポイントの達成をお願いします。",filterAll:"全体",filterAbove:"以上",filterBelow:"未満",totalMember:"総メンバー {count}人",goalNote:"⚠️ {goal} ポイント未達成に注意",win:"勝",lose:"敗",draw:"分",wait:"—",cat0:"建設",cat1:"技術",cat2:"戦闘",cat3:"英雄",cat4:"備え",unranked:"未確認",officialTotal:"🏆 ギルド合計スコア",refTotal:"🏆 確認済みメンバー合計（参考）",dayRefLbl:"Day{day} 確認済み合計（参考）",guildRankBadge:"王国 {rank}位",confirmCount:"top100内 {count}人",top100Note:"※ 個人ランキングは王国全体のtop100までしか確認できないため、圏外のメンバーは未確認と表示されます。",prepTotalTab:"準備段階総計",warTab:"⚔️ 戦争段階",prepTotalConfirmed:"🏆 準備段階総計（確認済み）",prepTotalRef:"🏆 準備段階参考合計（Day1-5）",warConfirmed:"⚔️ 戦争段階（確認済み）",warNoData:"⚔️ 戦争段階（未入力）",kingdomTotalTitle:"⚖️ 日別王国総ポイント比較",ktEmpty:"未入力",ktTotalLabel:"総ポイント",leadSuffix:"優勢",leadDraw:"同点",top100IndivDailyTitle:"🏅 個人ランキング TOP100（当日）",top100IndivTotalTitle:"🏆 個人総合ランキング TOP100（累計）",top100GuildDailyTitle:"🛡️ ギルドランキング TOP100（当日）",top100GuildTotalTitle:"🛡️ ギルド総合ランキング TOP100（累計）",top100IndivDayLabel:"🏅 個人ランキング TOP100",top100GuildDayLabel:"🛡️ ギルドランキング TOP100",top100IndivWarTitle:"⚔️ 個人ランキング TOP100（戦争段階）",top100GuildWarTitle:"⚔️ ギルドランキング TOP100（戦争段階）"},
+    zh:{lastUpdate:"最后更新",archiveBtn:"📁 往期赛季",homeBtn:"🏠 主页",serverNote:"(服务器数据)",totalSum:"🏆 总计",totalSumTab:"总计",participate:"{count}人参与",belowGoal:"未达目标 {below}人",ruleText:"公会规则：王国对决(Kingdom Duel) 准备阶段，每位成员每日请至少达到 {goal} 分。",filterAll:"全部",filterAbove:"达标",filterBelow:"未达",totalMember:"共 {count} 名成员",goalNote:"⚠️ 未达 {goal} 分请注意",win:"胜",lose:"负",draw:"平",wait:"—",cat0:"建设",cat1:"科技",cat2:"战斗",cat3:"英雄",cat4:"备战",unranked:"未上榜",officialTotal:"🏆 公会合计分数",refTotal:"🏆 已确认成员合计（参考）",dayRefLbl:"Day{day} 已确认合计（参考）",guildRankBadge:"王国第{rank}名",confirmCount:"top100内 {count}人",top100Note:"※ 个人排名只能查看王国全服top100，未上榜的成员将显示为未确认。",prepTotalTab:"准备阶段总分",warTab:"⚔️ 战争阶段",prepTotalConfirmed:"🏆 准备阶段总分（已确认）",prepTotalRef:"🏆 准备阶段参考合计（Day1-5）",warConfirmed:"⚔️ 战争阶段（已确认）",warNoData:"⚔️ 战争阶段（未录入）",kingdomTotalTitle:"⚖️ 每日王国总分对比",ktEmpty:"未录入",ktTotalLabel:"总积分",leadSuffix:"领先",leadDraw:"平局",top100IndivDailyTitle:"🏅 个人排名 TOP100（当日）",top100IndivTotalTitle:"🏆 个人总分排名 TOP100（累计）",top100GuildDailyTitle:"🛡️ 公会排名 TOP100（当日）",top100GuildTotalTitle:"🛡️ 公会总分排名 TOP100（累计）",top100IndivDayLabel:"🏅 个人排名 TOP100",top100GuildDayLabel:"🛡️ 公会排名 TOP100",top100IndivWarTitle:"⚔️ 个人排名 TOP100（战争阶段）",top100GuildWarTitle:"⚔️ 公会排名 TOP100（战争阶段）"}
   };
 }
 function kvkFontImport(){
@@ -289,28 +425,83 @@ function kvkRuntime(){
   "})();\n<\/script>\n{% endraw %}\n";
 }
 function esc(v){return String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");}
-function mTotal(m){return (m.days||[]).reduce((s,v)=>s+(Number(v)||0),0);}
+function mKnownCount(m){return (m.days||[]).filter(v=>v!=null).length;}
+function mPrepKnown(m){return !!(m.prepTotal&&m.prepTotal.score!=null)||mKnownCount(m)>0;}
+function mPrepScore(m){
+  if(m.prepTotal&&m.prepTotal.score!=null)return Number(m.prepTotal.score)||0;
+  return (m.days||[]).reduce((s,v)=>s+(v==null?0:(Number(v)||0)),0);
+}
+function mWarKnown(m){return !!(m.war&&m.war.score!=null);}
+function mWarScore(m){return mWarKnown(m)?(Number(m.war.score)||0):0;}
+function mTotal(m){return mPrepScore(m)+mWarScore(m);}
 function latestUpd(){const l=(state.members||[]).map(m=>m.updated).filter(Boolean);return l.length?l.sort().slice(-1)[0]:'';}
 
-// 요일 기반 Day 계산 (KVK: 월=Day1건설 ... 토=Day6전쟁)
+// 요일 기반 Day 계산 (KVK: 월=Day1건설 ... 금=Day5훈련, 토·일=전쟁단계)
 function getDayInfo(isoStr){
   const d=isoStr?new Date(isoStr):null;
   if(!d||isNaN(d.getTime())) return null;
   const dow=d.getDay()===0?7:d.getDay(); // 1=월...7=일
-  const before11=d.getHours()<11;
-  if(dow===7&&before11) return {num:6, idx:5, label:DL[5]};
+  const beforeCutoff=(d.getHours()<10)||(d.getHours()===10&&d.getMinutes()<30); // 하루 경계: 11:00~다음날 10:30
+  if(dow===7&&beforeCutoff) return {phase:'war'};
   if(dow===7) return null;
-  const effectiveDow=before11?dow-1:dow;
-  if(effectiveDow<=0||effectiveDow>6) return null;
-  return {num:effectiveDow, idx:effectiveDow-1, label:DL[effectiveDow-1]};
+  if(dow===6&&!beforeCutoff) return {phase:'war'};
+  const effectiveDow=beforeCutoff?dow-1:dow;
+  if(effectiveDow<=0||effectiveDow>5) return null;
+  return {phase:'prep', num:effectiveDow, idx:effectiveDow-1, label:DL[effectiveDow-1]};
 }
 
 function ensureDefaults(){
+  if(!Array.isArray(state.guildRanks))state.guildRanks=[null,null,null,null,null];
+  while(state.guildRanks.length<5)state.guildRanks.push(null);
+  state.guildRanks=state.guildRanks.slice(0,5).map(v=>(v===''||v===undefined||v===null)?null:Number(v));
+  if(!Array.isArray(state.guildScores))state.guildScores=[null,null,null,null,null];
+  while(state.guildScores.length<5)state.guildScores.push(null);
+  state.guildScores=state.guildScores.slice(0,5).map(v=>(v===''||v===undefined||v===null)?null:Number(v));
+  if(!state.guildPrepTotal||typeof state.guildPrepTotal!=='object')state.guildPrepTotal={score:null,rank:null};
+  state.guildPrepTotal.score=(state.guildPrepTotal.score===''||state.guildPrepTotal.score==null)?null:Number(state.guildPrepTotal.score);
+  state.guildPrepTotal.rank=(state.guildPrepTotal.rank===''||state.guildPrepTotal.rank==null)?null:Number(state.guildPrepTotal.rank);
+  if(!state.guildWar||typeof state.guildWar!=='object')state.guildWar={score:null,rank:null};
+  state.guildWar.score=(state.guildWar.score===''||state.guildWar.score==null)?null:Number(state.guildWar.score);
+  state.guildWar.rank=(state.guildWar.rank===''||state.guildWar.rank==null)?null:Number(state.guildWar.rank);
+  if(!Array.isArray(state.opponentDays))state.opponentDays=[0,0,0,0,0];
+  while(state.opponentDays.length<5)state.opponentDays.push(0);
+  state.opponentDays=state.opponentDays.slice(0,5);
+  if(!Array.isArray(state.opponentResults))state.opponentResults=['','','','',''];
+  while(state.opponentResults.length<5)state.opponentResults.push('');
+  state.opponentResults=state.opponentResults.slice(0,5);
+  if(!state.opponentPrepTotal||typeof state.opponentPrepTotal!=='object')state.opponentPrepTotal={score:null,result:''};
+  state.opponentPrepTotal.score=(state.opponentPrepTotal.score===''||state.opponentPrepTotal.score==null)?null:Number(state.opponentPrepTotal.score);
+  if(!state.opponentWar||typeof state.opponentWar!=='object')state.opponentWar={score:0,result:''};
+  if(!Array.isArray(state.top100IndividualByDay))state.top100IndividualByDay=[[],[],[],[],[]];
+  while(state.top100IndividualByDay.length<5)state.top100IndividualByDay.push([]);
+  state.top100IndividualByDay=state.top100IndividualByDay.slice(0,5).map(a=>Array.isArray(a)?a:[]);
+  if(!Array.isArray(state.top100IndividualTotal))state.top100IndividualTotal=[];
+  if(!Array.isArray(state.top100GuildByDay))state.top100GuildByDay=[[],[],[],[],[]];
+  while(state.top100GuildByDay.length<5)state.top100GuildByDay.push([]);
+  state.top100GuildByDay=state.top100GuildByDay.slice(0,5).map(a=>Array.isArray(a)?a:[]);
+  if(!Array.isArray(state.top100GuildTotal))state.top100GuildTotal=[];
+  if(!Array.isArray(state.top100IndividualWar))state.top100IndividualWar=[];
+  if(!Array.isArray(state.top100GuildWar))state.top100GuildWar=[];
+  if(!Array.isArray(state.kingdomTotals))state.kingdomTotals=[];
+  while(state.kingdomTotals.length<5)state.kingdomTotals.push({our:null,opp:null});
+  state.kingdomTotals=state.kingdomTotals.slice(0,5).map(d=>({
+    our:(!d||d.our===''||d.our==null)?null:Number(d.our),
+    opp:(!d||d.opp===''||d.opp==null)?null:Number(d.opp)
+  }));
   (state.members||[]).forEach(m=>{
     if(!m.updated)m.updated=state.updateInput||nowIso();
-    if(!Array.isArray(m.days))m.days=[0,0,0,0,0,0];
-    while(m.days.length<6)m.days.push(0);
-    m.days=m.days.slice(0,6).map(v=>Number(v)||0);
+    if(!Array.isArray(m.days))m.days=[null,null,null,null,null];
+    while(m.days.length<5)m.days.push(null);
+    m.days=m.days.slice(0,5).map(v=>(v===''||v===undefined||v===null)?null:Number(v));
+    if(!Array.isArray(m.ranks))m.ranks=[null,null,null,null,null];
+    while(m.ranks.length<5)m.ranks.push(null);
+    m.ranks=m.ranks.slice(0,5).map(v=>(v===''||v===undefined||v===null)?null:Number(v));
+    if(!m.prepTotal||typeof m.prepTotal!=='object')m.prepTotal={score:null,rank:null};
+    m.prepTotal.score=(m.prepTotal.score===''||m.prepTotal.score==null)?null:Number(m.prepTotal.score);
+    m.prepTotal.rank=(m.prepTotal.rank===''||m.prepTotal.rank==null)?null:Number(m.prepTotal.rank);
+    if(!m.war||typeof m.war!=='object')m.war={score:null,rank:null};
+    m.war.score=(m.war.score===''||m.war.score==null)?null:Number(m.war.score);
+    m.war.rank=(m.war.rank===''||m.war.rank==null)?null:Number(m.war.rank);
   });
 }
 function syncMeta(){
@@ -324,67 +515,277 @@ function sortMems(){
 function syncForm(){
   ensureDefaults();
   $('guildName').value=state.guildName||'';
-  $('goalScore').value=state.goalScore||'';
   $('archiveStart').value=state.seasonStart||'';
   $('archiveEnd').value=state.seasonEnd||'';
   $('kingdomNum').value=state.kingdomNum||'';
   $('opponentName').value=state.opponent||'';
-  [0,1,2,3,4,5].forEach(i=>{
+  [0,1,2,3,4].forEach(i=>{
+    const gr=$('gRank'+i), gs=$('gScore'+i);
+    if(gr) gr.value=(state.guildRanks||[])[i]==null?'':(state.guildRanks||[])[i];
+    if(gs) gs.value=(state.guildScores||[])[i]==null?'':(state.guildScores||[])[i];
+  });
+  if($('gPrepTotalRank')) $('gPrepTotalRank').value=state.guildPrepTotal&&state.guildPrepTotal.rank!=null?state.guildPrepTotal.rank:'';
+  if($('gPrepTotalScore')) $('gPrepTotalScore').value=state.guildPrepTotal&&state.guildPrepTotal.score!=null?state.guildPrepTotal.score:'';
+  if($('gWarRank')) $('gWarRank').value=state.guildWar&&state.guildWar.rank!=null?state.guildWar.rank:'';
+  if($('gWarScore')) $('gWarScore').value=state.guildWar&&state.guildWar.score!=null?state.guildWar.score:'';
+  [0,1,2,3,4].forEach(i=>{
     $('opp'+i).value=(state.opponentDays||[])[i]||'';
     updateOppBtnStyle(i,(state.opponentResults||[])[i]||'');
   });
+  if($('oppWarScore')) $('oppWarScore').value=state.opponentWar&&state.opponentWar.score?state.opponentWar.score:'';
+  updateOppWarBtnStyle(state.opponentWar&&state.opponentWar.result||'');
+  if($('oppPrepTotalScore')) $('oppPrepTotalScore').value=state.opponentPrepTotal&&state.opponentPrepTotal.score!=null?state.opponentPrepTotal.score:'';
+  updateOppPrepBtnStyle(state.opponentPrepTotal&&state.opponentPrepTotal.result||'');
+  [0,1,2,3,4].forEach(i=>{
+    const kt=(state.kingdomTotals||[])[i]||{our:null,opp:null};
+    const ko=$('ktOur'+i), kp=$('ktOpp'+i);
+    if(ko) ko.value=kt.our==null?'':kt.our;
+    if(kp) kp.value=kt.opp==null?'':kt.opp;
+  });
+  refreshTop100Panel('indiv');
+  refreshTop100Panel('guild');
 
   syncMeta();
   $('jsonBox').value=JSON.stringify(state,null,2);
 }
 function syncState(){
   state.guildName=$('guildName').value.trim();
-  state.goalScore=Number($('goalScore').value)||0;
+  state.goalScore=0;
   state.seasonStart=$('archiveStart').value;
   state.seasonEnd=$('archiveEnd').value;
   state.kingdomNum=addHash($('kingdomNum').value.trim());
   state.kingdomFullName='';
+  state.guildRanks=[0,1,2,3,4].map(i=>{const el=$('gRank'+i);const v=el?el.value:'';return v===''?null:(Number(v)||0);});
+  state.guildScores=[0,1,2,3,4].map(i=>{const el=$('gScore'+i);const v=el?el.value:'';return v===''?null:(Number(v)||0);});
+  state.guildPrepTotal={
+    rank:$('gPrepTotalRank')&&$('gPrepTotalRank').value!==''?Number($('gPrepTotalRank').value):null,
+    score:$('gPrepTotalScore')&&$('gPrepTotalScore').value!==''?Number($('gPrepTotalScore').value):null
+  };
+  state.guildWar={
+    rank:$('gWarRank')&&$('gWarRank').value!==''?Number($('gWarRank').value):null,
+    score:$('gWarScore')&&$('gWarScore').value!==''?Number($('gWarScore').value):null
+  };
   state.opponent=addHash($('opponentName').value.trim());
-  state.opponentDays=[0,1,2,3,4,5].map(i=>Number($('opp'+i).value)||0);
-  state.opponentResults=[0,1,2,3,4,5].map(i=>state.opponentResults[i]||'');
+  state.opponentDays=[0,1,2,3,4].map(i=>Number($('opp'+i).value)||0);
+  state.opponentResults=[0,1,2,3,4].map(i=>state.opponentResults[i]||'');
+  state.opponentWar={
+    score:$('oppWarScore')?(Number($('oppWarScore').value)||0):0,
+    result:(state.opponentWar&&state.opponentWar.result)||''
+  };
+  state.opponentPrepTotal={
+    score:$('oppPrepTotalScore')&&$('oppPrepTotalScore').value!==''?Number($('oppPrepTotalScore').value):null,
+    result:(state.opponentPrepTotal&&state.opponentPrepTotal.result)||''
+  };
+  state.kingdomTotals=[0,1,2,3,4].map(i=>{
+    const ko=$('ktOur'+i), kp=$('ktOpp'+i);
+    return {
+      our:ko&&ko.value!==''?Number(ko.value):null,
+      opp:kp&&kp.value!==''?Number(kp.value):null
+    };
+  });
 
   syncMeta();
   $('jsonBox').value=JSON.stringify(state,null,2);
   renderTable();renderPreview();
 }
 function updateMember(idx,field,value){
-  if(field==='day'){state.members[idx].days[value.di]=Number(value.v)||0;}
+  if(field==='day'){state.members[idx].days[value.di]=(value.v===''||value.v==null)?null:(Number(value.v)||0);}
+  else if(field==='rank'){
+    if(!Array.isArray(state.members[idx].ranks))state.members[idx].ranks=[null,null,null,null,null];
+    state.members[idx].ranks[value.di]=(value.v===''||value.v==null)?null:(Number(value.v)||0);
+  }
+  else if(field==='prepTotalScore'){
+    if(!state.members[idx].prepTotal)state.members[idx].prepTotal={score:null,rank:null};
+    state.members[idx].prepTotal.score=(value===''||value==null)?null:(Number(value)||0);
+  }
+  else if(field==='prepTotalRank'){
+    if(!state.members[idx].prepTotal)state.members[idx].prepTotal={score:null,rank:null};
+    state.members[idx].prepTotal.rank=(value===''||value==null)?null:(Number(value)||0);
+  }
+  else if(field==='warScore'){
+    if(!state.members[idx].war)state.members[idx].war={score:null,rank:null};
+    state.members[idx].war.score=(value===''||value==null)?null:(Number(value)||0);
+  }
+  else if(field==='warRank'){
+    if(!state.members[idx].war)state.members[idx].war={score:null,rank:null};
+    state.members[idx].war.rank=(value===''||value==null)?null:(Number(value)||0);
+  }
   else{state.members[idx][field]=value;}
   state.members[idx].updated=nowIso();
   syncState();
 }
-function addMember(){state.members.push({name:'New Member',days:[0,0,0,0,0,0],updated:nowIso()});syncState();}
+function addMember(){state.members.push({name:'New Member',days:[null,null,null,null,null],ranks:[null,null,null,null,null],prepTotal:{score:null,rank:null},war:{score:null,rank:null},updated:nowIso()});syncState();}
 function deleteMember(idx){if(!confirm('이 길드원을 삭제할까요?'))return;state.members.splice(idx,1);syncState();}
 
 function renderTable(){
   sortMems();
-  $('memberTable').innerHTML=state.members.map((m,i)=>`<tr>
+  $('memberTable').innerHTML=state.members.map((m,i)=>{
+    const days=m.days||[null,null,null,null,null];
+    const ranks=m.ranks||[null,null,null,null,null];
+    const pt=m.prepTotal||{score:null,rank:null};
+    const wr=m.war||{score:null,rank:null};
+    return `<tr>
     <td>${i+1}</td>
     <td><input class="name-input" value="${esc(m.name??'')}" onchange="updateMember(${i},'name',this.value)"></td>
-    ${(m.days||[0,0,0,0,0,0]).map((v,di)=>`<td><input class="day-input" type="number" value="${v}" onchange="updateMember(${i},'day',{di:${di},v:this.value})" style="${di===5?'color:#f87171;':''}"  ></td>`).join('')}
-    <td style="color:#34d399;font-weight:800;font-family:'Rajdhani',sans-serif;font-size:14px;">${mTotal(m).toLocaleString()}</td>
+    ${days.map((v,di)=>`<td style="padding:4px 3px;">
+      <input class="rank-input" type="number" placeholder="등수" value="${ranks[di]==null?'':ranks[di]}" onchange="updateMember(${i},'rank',{di:${di},v:this.value})" style="width:100%;margin-bottom:3px;padding:5px 6px;font-size:11px;color:#7dd3fc;">
+      <input class="day-input" type="number" placeholder="점수" value="${v==null?'':v}" onchange="updateMember(${i},'day',{di:${di},v:this.value})" style="width:100%;padding:5px 6px;font-size:11px;">
+    </td>`).join('')}
+    <td style="padding:4px 3px;">
+      <input class="rank-input" type="number" placeholder="등수" value="${pt.rank==null?'':pt.rank}" onchange="updateMember(${i},'prepTotalRank',this.value)" style="width:100%;margin-bottom:3px;padding:5px 6px;font-size:11px;color:#7dd3fc;">
+      <input class="day-input" type="number" placeholder="점수" value="${pt.score==null?'':pt.score}" onchange="updateMember(${i},'prepTotalScore',this.value)" style="width:100%;padding:5px 6px;font-size:11px;color:#fbbf24;">
+    </td>
+    <td style="padding:4px 3px;">
+      <input class="rank-input" type="number" placeholder="등수" value="${wr.rank==null?'':wr.rank}" onchange="updateMember(${i},'warRank',this.value)" style="width:100%;margin-bottom:3px;padding:5px 6px;font-size:11px;color:#7dd3fc;">
+      <input class="day-input" type="number" placeholder="점수" value="${wr.score==null?'':wr.score}" onchange="updateMember(${i},'warScore',this.value)" style="width:100%;padding:5px 6px;font-size:11px;color:#f87171;">
+    </td>
+    <td style="color:#34d399;font-weight:800;font-family:'Rajdhani',sans-serif;font-size:13px;">${mTotal(m).toLocaleString()}<br><span style="font-size:9px;color:rgba(255,255,255,0.35);font-weight:400;font-family:'Noto Sans KR',sans-serif;">${mKnownCount(m)}/5일 확인</span></td>
     <td class="small">${esc(fmtUpd(m.updated||state.updateInput))}</td>
     <td><button class="btn-danger mini-btn" onclick="deleteMember(${i})">삭제</button></td>
-  </tr>`).join('');
+  </tr>`;
+  }).join('');
 }
 
 /* ── 미리보기 렌더 ── */
+function guildPrepKnown(){return !!(state.guildPrepTotal&&state.guildPrepTotal.score!=null)||(state.guildScores||[]).some(v=>v!=null);}
+function guildPrepScore(){if(state.guildPrepTotal&&state.guildPrepTotal.score!=null)return Number(state.guildPrepTotal.score)||0;return (state.guildScores||[]).reduce((s,v)=>s+(v==null?0:(Number(v)||0)),0);}
+function guildWarKnown(){return !!(state.guildWar&&state.guildWar.score!=null);}
+function guildWarScoreVal(){return guildWarKnown()?(Number(state.guildWar.score)||0):0;}
+function guildGrandTotal(){return guildPrepScore()+guildWarScoreVal();}
+function guildHasAnyOfficial(){return guildPrepKnown()||guildWarKnown();}
+function guildLatestRank(){
+  if(state.guildWar&&state.guildWar.rank!=null)return state.guildWar.rank;
+  if(state.guildPrepTotal&&state.guildPrepTotal.rank!=null)return state.guildPrepTotal.rank;
+  const idxs=[0,1,2,3,4].filter(i=>(state.guildRanks||[])[i]!=null);
+  return idxs.length?state.guildRanks[idxs[idxs.length-1]]:null;
+}
+
+const KT_CLS_PREVIEW={box:'kvk-kt-box',title:'kvk-kt-title',row:'kvk-kt-row',day:'kvk-kt-day',barwrap:'kvk-kt-bar-wrap',num:'kvk-kt-num',bar:'kvk-kt-bar',barus:'kvk-kt-bar-us',baropp:'kvk-kt-bar-opp',empty:'kvk-kt-empty',lead:'kvk-kt-lead'};
+const KT_CLS_STATIC={box:'ktbox',title:'kttitle',row:'ktrow',day:'ktday',barwrap:'ktbarwrap',num:'ktnum',bar:'ktbar',barus:'ktbarus',baropp:'ktbaropp',empty:'ktempty',lead:'ktlead'};
+const T100_CLS_PREVIEW={box:'kvk-top100-box',title:'kvk-top100-title',list:'kvk-top100-list',row:'kvk-t100-row',rank:'kvk-t100-rank',tag:'kvk-t100-tag',name:'kvk-t100-name',pts:'kvk-t100-pts'};
+const T100_CLS_STATIC={box:'t100box',title:'t100title',list:'t100list',row:'t100row',rank:'t100rank',tag:'t100tag',name:'t100name',pts:'t100pts'};
+
+function sumKingdomTotal(){
+  // 왕국 총점 비교 점수는 날짜별로 리셋되는 그날의 점수이므로,
+  // 실제 "총점"은 지금까지 입력된 Day들의 점수를 전부 더한 값이다.
+  const kt=state.kingdomTotals||[];
+  let ourSum=0, oppSum=0, count=0;
+  kt.forEach(d=>{
+    if(d&&d.our!=null&&d.opp!=null){ ourSum+=Number(d.our); oppSum+=Number(d.opp); count++; }
+  });
+  if(count===0) return null;
+  return {our:ourSum, opp:oppSum, count};
+}
+
+function buildKtBoxHtml(cls, i18n){
+  const kt=state.kingdomTotals||[];
+  if(!kt.some(d=>d&&d.our!=null&&d.opp!=null)) return '';
+  const emptyLbl=i18n?`<span data-i18n="ktEmpty">미입력</span>`:'미입력';
+  const rows=kt.map((d,i)=>{
+    if(!d||d.our==null||d.opp==null){
+      return `<div class="${cls.row}"><span class="${cls.day}">Day${i+1}</span><span class="${cls.empty}">${emptyLbl}</span></div>`;
+    }
+    const tot=(d.our+d.opp)||1;
+    const usPct=Math.round(d.our/tot*100);
+    return `<div class="${cls.row}">
+      <span class="${cls.day}">Day${i+1}</span>
+      <div class="${cls.barwrap}">
+        <span class="${cls.num} us">${d.our.toLocaleString()}</span>
+        <div class="${cls.bar}"><div class="${cls.barus}" style="width:${usPct}%;"></div><div class="${cls.baropp}" style="width:${100-usPct}%;"></div></div>
+        <span class="${cls.num} opp">${d.opp.toLocaleString()}</span>
+      </div>
+    </div>`;
+  }).join('');
+  const latest=sumKingdomTotal();
+  let totalRow='', leadRow='';
+  if(latest){
+    const tot=(latest.our+latest.opp)||1;
+    const usPct=Math.round(latest.our/tot*100);
+    const totalLbl=i18n?`<span data-i18n="ktTotalLabel">총 포인트</span>`:'총 포인트';
+    totalRow=`<div class="${cls.row} total">
+      <span class="${cls.day}">${totalLbl}</span>
+      <div class="${cls.barwrap}">
+        <span class="${cls.num} us">${latest.our.toLocaleString()}</span>
+        <div class="${cls.bar}"><div class="${cls.barus}" style="width:${usPct}%;"></div><div class="${cls.baropp}" style="width:${100-usPct}%;"></div></div>
+        <span class="${cls.num} opp">${latest.opp.toLocaleString()}</span>
+      </div>
+    </div>`;
+    const diff=Math.abs(latest.our-latest.opp).toLocaleString();
+    if(latest.our>latest.opp){
+      const suffix=i18n?`<span data-i18n="leadSuffix">우세</span>`:'우세';
+      leadRow=`<div class="${cls.lead} us">🔷 ${esc(state.kingdomNum||'우리 왕국')} ${suffix} (+${diff})</div>`;
+    }else if(latest.our<latest.opp){
+      const suffix=i18n?`<span data-i18n="leadSuffix">우세</span>`:'우세';
+      leadRow=`<div class="${cls.lead} opp">🔶 ${esc(state.opponent||'상대 왕국')} ${suffix} (+${diff})</div>`;
+    }else{
+      const drawLbl=i18n?`<span data-i18n="leadDraw">동률</span>`:'동률';
+      leadRow=`<div class="${cls.lead} draw">${drawLbl}</div>`;
+    }
+  }
+  const titleBase=i18n?`<span data-i18n="kingdomTotalTitle">⚖️ 날짜별 왕국 총점 비교</span>`:'⚖️ 날짜별 왕국 총점 비교';
+  const title=`${titleBase}${state.kingdomNum?' '+esc(state.kingdomNum):''}${state.opponent?' vs '+esc(state.opponent):''}`;
+  return `<div class="${cls.box}"><div class="${cls.title}">${title}</div>${rows}${totalRow}${leadRow}</div>`;
+}
+
+function normNum(s){return String(s||'').replace('#','').trim();}
+
+function buildTop100Html(list, hasName, cls, title, i18nKey, suffix){
+  if(!list||!list.length) return '';
+  const titleHtml=(i18nKey?`<span data-i18n="${i18nKey}">${esc(title)}</span>`:esc(title))+(suffix?' '+esc(suffix):'');
+  const ourNum=normNum(state.kingdomNum);
+  const oppNum=normNum(state.opponent);
+  const rows=list.map(r=>{
+    const tagPart=`${r.server?esc(r.server)+' ':''}${esc(r.guildTag||'')}`;
+    const rServer=normNum(r.server);
+    const side=r.own?'own':(ourNum&&rServer===ourNum?'us':(oppNum&&rServer===oppNum?'opp':''));
+    return `<div class="${cls.row}${side?' '+side:''}">
+      <span class="${cls.rank}">${r.rank}</span>
+      <span class="${cls.tag}">${tagPart}</span>
+      <span class="${cls.name}">${hasName?esc(r.name||''):''}</span>
+      <span class="${cls.pts}">${(r.points||0).toLocaleString()}</span>
+    </div>`;
+  }).join('');
+  return `<div class="${cls.box}"><div class="${cls.title}">${titleHtml}</div><div class="${cls.list}">${rows}</div></div>`;
+}
+
+function buildTop100TabbedHtml(cls, byDay, totalArr, hasName, baseTitle, i18nBaseKey, totalTitle, i18nTotalKey, wrapClass, initDay, warArr, warTitle, i18nWarKey){
+  let html='';
+  for(let i=0;i<5;i++){
+    const inner=buildTop100Html(byDay[i]||[], hasName, cls, baseTitle, i18nBaseKey, `(Day${i+1})`);
+    if(!inner) continue;
+    const shown=String(i)===initDay;
+    html+=`<div class="${wrapClass}" data-top100-day="${i}"${shown?'':' style="display:none;"'}>${inner}</div>`;
+  }
+  const totalInner=buildTop100Html(totalArr||[], hasName, cls, totalTitle, i18nTotalKey);
+  if(totalInner){
+    const shown=initDay==='preptotal';
+    html+=`<div class="${wrapClass}" data-top100-day="preptotal"${shown?'':' style="display:none;"'}>${totalInner}</div>`;
+  }
+  const warInner=buildTop100Html(warArr||[], hasName, cls, warTitle||'', i18nWarKey);
+  if(warInner){
+    const shown=initDay==='war';
+    html+=`<div class="${wrapClass}" data-top100-day="war"${shown?'':' style="display:none;"'}>${warInner}</div>`;
+  }
+  return html;
+}
+
 function renderPreview(){
   sortMems();
   const goal=Number(state.goalScore||0);
-  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[0,0,0,0,0,0])],no:i+1}));
+  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[null,null,null,null,null])],prepTotal:{...(m.prepTotal||{score:null,rank:null})},war:{...(m.war||{score:null,rank:null})},no:i+1}));
   const allSum=sorted.reduce((s,m)=>s+mTotal(m),0);
-  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
+  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(m.days[i]==null?0:(Number(m.days[i])||0)),0));
+  const prepRefSum=dsArr.reduce((a,b)=>a+b,0);
+  const warRefSum=sorted.reduce((s,m)=>s+(mWarKnown(m)?mWarScore(m):0),0);
 
   const rows=sorted.map(m=>{
     const days=m.days; const tot=mTotal(m);
+    const prepKnown=mPrepKnown(m), warKnown=mWarKnown(m);
     const scoreClass=goal>0?(tot>=goal*5?' high':tot===0?' zero-score':''):' high';
-    return `<div class="kvk-row${tot===0?' zero':''}" data-score="${tot}" data-days='${JSON.stringify(days)}'>
+    const rowState=(!prepKnown&&!warKnown)?' unranked':(tot===0?' zero':'');
+    const prepData=JSON.stringify({score:mPrepScore(m),known:prepKnown});
+    const warData=JSON.stringify({score:mWarScore(m),known:warKnown});
+    return `<div class="kvk-row${rowState}" data-score="${tot}" data-days='${JSON.stringify(days)}' data-prep='${prepData}' data-war='${warData}'>
       <span class="kvk-no">${m.no}</span>
       <span class="kvk-name">${esc(m.name)}</span>
       <span class="kvk-score${scoreClass}">${tot.toLocaleString()}</span>
@@ -393,47 +794,108 @@ function renderPreview(){
 
   const todayInfo=getDayInfo(state.updateInput||null);
 
-  // 상대 왕국 vs 박스
+  // 상대 왕국 vs 박스 (Day1~5는 왕국 총점 기반 자동 승패, 전쟁단계는 별도)
   function buildVsHtml(){
     const opp=state.opponent||'';
     if(!opp) return '';
-    const oppDays=(state.opponentDays||[0,0,0,0,0,0]);
-    const oppResults=(state.opponentResults||['','','','','','']);
+    const oppWar=state.opponentWar||{score:0,result:''};
     const resultLabel={win:'승',lose:'패',draw:'무','':'대기'};
     const textColor={win:'#34d399',lose:'#f87171',draw:'#fcd34d','':'rgba(255,255,255,0.3)'};
     const bgColor={win:'rgba(52,211,153,0.10)',lose:'rgba(255,80,80,0.08)',draw:'rgba(255,200,80,0.08)','':'rgba(255,255,255,0.03)'};
     const bdColor={win:'rgba(52,211,153,0.3)',lose:'rgba(255,80,80,0.2)',draw:'rgba(255,200,80,0.2)','':'rgba(255,255,255,0.06)'};
     function fmtM(v){return (v&&Number(v)>0)?Number(v).toLocaleString()+'M':'—';}
+    function fmtKM(v){return v!=null?Math.round(v/1000000).toLocaleString()+'M':'—';}
+    function ktResult(our,o){if(our==null||o==null)return '';if(our>o)return 'win';if(our<o)return 'lose';return 'draw';}
+    const kt=state.kingdomTotals||[];
     let wins=0,loses=0,draws=0;
-    oppResults.forEach(r=>{if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
-    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?Math.floor(s/1000000):0;});
+    kt.forEach(d=>{const r=ktResult(d&&d.our,d&&d.opp);if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
+    if(oppWar.result==='win')wins++;else if(oppWar.result==='lose')loses++;else if(oppWar.result==='draw')draws++;
     const dayCols=DL.map((l,i)=>{
-      const r=oppResults[i]||'';
+      const d=kt[i]||{our:null,opp:null};
+      const r=ktResult(d.our,d.opp);
       return `<div class="kvk-vs-day" style="background:${bgColor[r]};border-color:${bdColor[r]};">
         <span class="kvk-vs-dlbl">Day${i+1}</span>
         <span class="kvk-vs-dname">${l}</span>
         <div class="kvk-vs-scores">
-          <span class="kvk-vs-us">${usDaysM[i]?Number(usDaysM[i]).toLocaleString()+'M':'—'}</span>
-          <span class="kvk-vs-opp">${fmtM(oppDays[i])}</span>
+          <span class="kvk-vs-us">${fmtKM(d.our)}</span>
+          <span class="kvk-vs-opp">${fmtKM(d.opp)}</span>
         </div>
         <span class="kvk-vs-badge" style="color:${textColor[r]};background:${bgColor[r]};border:1px solid ${bdColor[r]};">${resultLabel[r]}</span>
       </div>`;
     }).join('');
+    const latest=sumKingdomTotal();
+    const totR=latest?ktResult(latest.our,latest.opp):'';
+    const totCol=`<div class="kvk-vs-day" style="background:${bgColor[totR]};border-color:${bdColor[totR]};">
+        <span class="kvk-vs-dlbl">누적</span>
+        <span class="kvk-vs-dname">총점</span>
+        <div class="kvk-vs-scores">
+          <span class="kvk-vs-us">${latest?fmtKM(latest.our):'—'}</span>
+          <span class="kvk-vs-opp">${latest?fmtKM(latest.opp):'—'}</span>
+        </div>
+        <span class="kvk-vs-badge" style="color:${textColor[totR]};background:${bgColor[totR]};border:1px solid ${bdColor[totR]};">${resultLabel[totR]}</span>
+      </div>`;
+    const warR=oppWar.result||'';
+    const usWarM=warRefSum>0?Math.floor((guildWarKnown()?guildWarScoreVal():warRefSum)/1000000):0;
+    const warCol=`<div class="kvk-vs-day" style="background:${bgColor[warR]};border-color:${bdColor[warR]};">
+        <span class="kvk-vs-dlbl">전쟁</span>
+        <span class="kvk-vs-dname">${WAR_LABEL}</span>
+        <div class="kvk-vs-scores">
+          <span class="kvk-vs-us">${usWarM?Number(usWarM).toLocaleString()+'M':'—'}</span>
+          <span class="kvk-vs-opp">${fmtM(oppWar.score)}</span>
+        </div>
+        <span class="kvk-vs-badge" style="color:${textColor[warR]};background:${bgColor[warR]};border:1px solid ${bdColor[warR]};">${resultLabel[warR]}</span>
+      </div>`;
     const resultStr='<span style="color:#34d399;">'+wins+'승</span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">'+loses+'패</span>'+(draws>0?' <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#fcd34d;">'+draws+'무</span>':'');
     return `<div class="kvk-vs-box">
       <div class="kvk-vs-header">
         <span class="kvk-vs-title">🏰 ${state.kingdomNum?esc(state.kingdomNum)+' vs ':''} ${esc(opp)}</span>
         <span class="kvk-vs-result">${resultStr}</span>
       </div>
-      <div class="kvk-vs-grid">${dayCols}</div>
+      <div class="kvk-vs-grid">${dayCols}${totCol}${warCol}</div>
     </div>`;
   }
 
-  const initDay=todayInfo?String(todayInfo.idx):'all';
-  const initDaySum=todayInfo?sorted.reduce((s,m)=>s+(Number(m.days[todayInfo.idx])||0),0):allSum;
-  const initLbl=todayInfo?`🏆 Day${todayInfo.num} ${todayInfo.label} 합계`:'🏆 전체 합산';
-  const initColor=todayInfo?DC[todayInfo.idx]:'#f59e0b';
-  const dayInfoText=todayInfo?`Day ${todayInfo.num} / 6`:'';
+  // 탭 표시값 계산 (all / 0~4 / preptotal / war)
+  function tabDisplay(tabKey){
+    if(tabKey==='all'){
+      const hasOff=guildHasAnyOfficial();
+      return {
+        lbl: hasOff?'🏆 길드 합산 점수':'🏆 확인된 인원 합산 (참고)',
+        val: hasOff?guildGrandTotal():allSum,
+        color:'#f59e0b',
+        rank: hasOff?guildLatestRank():null
+      };
+    }
+    if(tabKey==='preptotal'){
+      const hasOff=state.guildPrepTotal&&state.guildPrepTotal.score!=null;
+      return {
+        lbl: hasOff?'🏆 준비단계 총점 (확인)':'🏆 준비단계 참고합산 (Day1~5)',
+        val: hasOff?Number(state.guildPrepTotal.score):prepRefSum,
+        color:'#fbbf24',
+        rank: hasOff?state.guildPrepTotal.rank:null
+      };
+    }
+    if(tabKey==='war'){
+      const hasOff=guildWarKnown();
+      return {
+        lbl: hasOff?'⚔️ 전쟁단계 (확인)':(warRefSum>0?'⚔️ 확인된 인원 참고합산 (전쟁단계)':'⚔️ 전쟁단계 (미입력)'),
+        val: hasOff?guildWarScoreVal():warRefSum,
+        color: WAR_COLOR,
+        rank: hasOff?state.guildWar.rank:null
+      };
+    }
+    const di=Number(tabKey);
+    const gS=(state.guildScores||[])[di], gR=(state.guildRanks||[])[di];
+    if(gS!=null){
+      return {lbl:`🏆 Day${di+1} ${DL[di]} 길드 점수 (확인)`, val:Number(gS), color:DC[di], rank:gR};
+    }
+    return {lbl:`🏆 Day${di+1} ${DL[di]} 확인된 인원 합계 (참고)`, val:dsArr[di], color:DC[di], rank:null};
+  }
+  function rankBadgeHtml(rank){return rank!=null?`<span style="margin-left:8px;color:#fbbf24;">🏰 왕국 ${esc(rank)}위</span>`:'';}
+
+  const initDay=todayInfo?(todayInfo.phase==='war'?'war':String(todayInfo.idx)):(guildWarKnown()||sorted.some(m=>mWarKnown(m))?'war':'preptotal');
+  const initD=tabDisplay(initDay);
+  const dayInfoText=todayInfo?(todayInfo.phase==='war'?'전쟁단계':`Day ${todayInfo.num} / 5`):'';
 
   $('previewRoot').innerHTML=`<div class="kvk-wrap">
     <div class="kvk-header">
@@ -449,19 +911,24 @@ function renderPreview(){
     </div>
     <div class="kvk-total-box">
       <div class="kvk-sum-row">
-        <span class="kvk-sum-lbl" id="pTotalLbl">${initLbl}</span>
-        <span class="kvk-sum-val" id="pTotalVal" style="color:${initColor};">${initDaySum.toLocaleString()}</span>
+        <span class="kvk-sum-lbl" id="pTotalLbl">${initD.lbl}<span id="pRankBadge">${rankBadgeHtml(initD.rank)}</span></span>
+        <span class="kvk-sum-val" id="pTotalVal" style="color:${initD.color};">${initD.val.toLocaleString()}</span>
         <div class="kvk-sum-sub">
-          <span>${sorted.length}명 참여</span>
-          ${goal>0?`<span id="pBelowWrap">&nbsp;·&nbsp;<span id="pBelowCnt" style="color:rgba(255,100,100,0.9);">목표점수 미달 ${initDay==='all'?0:sorted.filter(m=>(Number(m.days[Number(initDay)])||0)<goal).length}명</span></span>`:''}
+          <span id="pConfirmCnt">top100 확인 ${sorted.filter(m=>mKnownCount(m)>0).length}명</span>
+          ${goal>0?`<span id="pBelowWrap">&nbsp;·&nbsp;<span id="pBelowCnt" style="color:rgba(255,100,100,0.9);">목표점수 미달 ${/^[0-4]$/.test(initDay)?sorted.filter(m=>{const v=m.days[Number(initDay)];return v!=null&&v<goal;}).length:0}명</span></span>`:''}
         </div>
       </div>
     </div>
+    <div style="font-size:12px;color:rgba(255,220,120,0.35);margin:-8px 0 14px;">ℹ️ 개인 랭킹은 왕국 전체 top100까지만 확인 가능합니다. 목록에 없으면 미확인으로 표시됩니다.</div>
     ${buildVsHtml()}
+    ${buildKtBoxHtml(KT_CLS_PREVIEW)}
+    ${buildTop100TabbedHtml(T100_CLS_PREVIEW, state.top100IndividualByDay, state.top100IndividualTotal, true, '🏅 개인 랭킹 TOP100', null, '🏆 개인 총점 랭킹 TOP100 (누적)', null, '', initDay, state.top100IndividualWar, '⚔️ 개인 랭킹 TOP100 (전쟁단계)', null)}
+    ${buildTop100TabbedHtml(T100_CLS_PREVIEW, state.top100GuildByDay, state.top100GuildTotal, false, '🛡️ 길드 랭킹 TOP100', null, '🛡️ 길드 총점 랭킹 TOP100 (누적)', null, '', initDay, state.top100GuildWar, '⚔️ 길드 랭킹 TOP100 (전쟁단계)', null)}
     ${goal>0?`<div class="kvk-rule-box" id="pRuleBox"><span>📌</span><span>길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
     <div class="kvk-tabs">
-      ${DL.map((l,i)=>{const empty=sorted.every(m=>(Number(m.days[i])||0)===0);return `<button class="kvk-tab${i===5?' war-tab':''}${initDay===String(i)?' active':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
-      <button class="kvk-tab${initDay==='all'?' active':''}" data-day="all">전체 합산</button>
+      ${DL.map((l,i)=>{const empty=sorted.every(m=>m.days[i]==null);return `<button class="kvk-tab${initDay===String(i)?' active':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1} ${l}</button>`;}).join('')}
+      <button class="kvk-tab${initDay==='preptotal'?' active':''}${!guildPrepKnown()&&sorted.every(m=>!mPrepKnown(m))?' disabled':''}" data-day="preptotal"${!guildPrepKnown()&&sorted.every(m=>!mPrepKnown(m))?' disabled':''}>준비단계 총점</button>
+      <button class="kvk-tab war-tab${initDay==='war'?' active':''}${!guildWarKnown()&&sorted.every(m=>!mWarKnown(m))?' disabled':''}" data-day="war"${!guildWarKnown()&&sorted.every(m=>!mWarKnown(m))?' disabled':''}>⚔️ 전쟁단계</button>
     </div>
     ${goal>0?`<div class="kvk-fbar" id="pFbar">
       <button class="kvk-fbtn active" data-mode="all">전체</button>
@@ -478,7 +945,6 @@ function renderPreview(){
 
   // 미리보기 인터랙션
   let cDay=initDay, cMode='all';
-  const dsArr2=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
 
   function applyPrev(){
     const allRows=Array.from(document.querySelectorAll('#pGrid [data-days]'));
@@ -488,47 +954,61 @@ function renderPreview(){
     const fbar=$('pFbar');
     const ruleBox=$('pRuleBox'), gnote=$('pGnote');
     const isAll=cDay==='all';
-    const di=isAll?-1:Number(cDay);
+    const isDaily=/^[0-4]$/.test(cDay);
+    const di=isDaily?Number(cDay):-1;
 
-    if(fbar) fbar.style.display=isAll?'none':'';
-    if(belowWrap) belowWrap.style.display=isAll?'none':'';
-    if(ruleBox) ruleBox.style.display=isAll?'none':'';
-    if(gnote) gnote.style.display=isAll?'none':'';
+    if(fbar) fbar.style.display=isDaily?'':'none';
+    if(belowWrap) belowWrap.style.display=isDaily?'':'none';
+    if(ruleBox) ruleBox.style.display=isDaily?'':'none';
+    if(gnote) gnote.style.display=isDaily?'':'none';
+    if(!isDaily) cMode='all';
+    document.querySelectorAll('#previewRoot [data-top100-day]').forEach(el=>{ el.style.display=(el.dataset.top100Day===cDay)?'':'none'; });
 
-    if(isAll){
-      lbl.textContent='🏆 전체 합산'; val.textContent=allSum.toLocaleString(); val.style.color='#f59e0b';
-      cMode='all';
-    } else {
-      lbl.textContent=`🏆 Day${di+1} ${DL[di]} 합계`;
-      val.textContent=dsArr2[di].toLocaleString(); val.style.color=DC[di];
-      if(cntEl&&goal>0&&di<5){
-        cntEl.textContent=`목표점수 미달 ${sorted.filter(m=>(Number(m.days[di])||0)<goal).length}명`;
-      }
+    const rankBadgeEl=$('pRankBadge'), confirmCntEl=$('pConfirmCnt');
+    const d=tabDisplay(cDay);
+    lbl.textContent=d.lbl;
+    val.textContent=d.val.toLocaleString(); val.style.color=d.color;
+    if(rankBadgeEl) rankBadgeEl.innerHTML=rankBadgeHtml(d.rank);
+    if(cntEl&&isDaily&&goal>0){
+      cntEl.textContent=`목표점수 미달 ${sorted.filter(m=>{const v=m.days[di];return v!=null&&v<goal;}).length}명`;
+    }
+    if(confirmCntEl){
+      let cc;
+      if(isAll) cc=sorted.filter(m=>mKnownCount(m)>0||mWarKnown(m)).length;
+      else if(cDay==='preptotal') cc=sorted.filter(m=>mPrepKnown(m)).length;
+      else if(cDay==='war') cc=sorted.filter(m=>mWarKnown(m)).length;
+      else cc=sorted.filter(m=>m.days[di]!=null).length;
+      confirmCntEl.textContent=`top100 확인 ${cc}명`;
     }
 
-    // 탭별 점수 기준 재정렬
+    // 탭별 점수 기준 재정렬 (미확인=null 은 맨 뒤로)
+    function rowVal(row){
+      if(isAll) return {sv:Number(row.dataset.score||0), unranked:false};
+      if(cDay==='preptotal'){const p=JSON.parse(row.dataset.prep||'{}');return {sv:p.known?p.score:null, unranked:!p.known};}
+      if(cDay==='war'){const w=JSON.parse(row.dataset.war||'{}');return {sv:w.known?w.score:null, unranked:!w.known};}
+      const da=JSON.parse(row.dataset.days||'[]');
+      return {sv:da[di], unranked:da[di]==null};
+    }
     const sortedRows=allRows.slice().sort((a,b)=>{
-      const da=JSON.parse(a.dataset.days||'[]');
-      const db=JSON.parse(b.dataset.days||'[]');
-      const sa=isAll?Number(a.dataset.score||0):Number(da[di]||0);
-      const sb=isAll?Number(b.dataset.score||0):Number(db[di]||0);
+      const ra=rowVal(a), rb=rowVal(b);
+      const sa=ra.unranked?-1:Number(ra.sv);
+      const sb=rb.unranked?-1:Number(rb.sv);
       return sb-sa;
     });
     if(grid){sortedRows.forEach(r=>grid.appendChild(r));}
 
     let rank=1;
     sortedRows.forEach(row=>{
-      const days=JSON.parse(row.dataset.days||'[]');
-      const tot=Number(row.dataset.score||0);
-      const sv=isAll?tot:Number(days[di]||0);
-      const modeOk=isAll||cMode==='all'||(goal>0&&cMode==='above'&&sv>=goal)||(goal>0&&cMode==='below'&&sv<goal);
+      const {sv,unranked}=rowVal(row);
+      const modeOk=!isDaily||cMode==='all'||(!unranked&&goal>0&&cMode==='above'&&sv>=goal)||(!unranked&&goal>0&&cMode==='below'&&sv<goal);
       row.style.display=modeOk?'':'none';
-      const noEl=row.querySelector('.no');
-      if(noEl&&modeOk){noEl.textContent=rank++;}
+      row.classList.toggle('unranked',unranked);
+      const noEl=row.querySelector('.kvk-no');
+      if(noEl&&modeOk){noEl.textContent=unranked?'-':rank++;}
       const se=row.querySelector('.kvk-score');
       if(se){
-        se.textContent=sv.toLocaleString();
-        se.className='kvk-score'+(isAll?' high':goal>0&&di<5?(sv>=goal?' high':sv===0?' zs':''):' high');
+        se.textContent=unranked?'미확인':Number(sv).toLocaleString();
+        se.className='kvk-score'+(unranked?' unranked':isAll?' high':isDaily&&goal>0?(sv>=goal?' high':sv===0?' zs':''):' high');
       }
     });
   }
@@ -583,6 +1063,7 @@ function staticCss(){
   ".grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;position:relative;z-index:1}\n"+
   ".row{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:11px 14px;gap:10px;min-width:0}\n"+
   ".row.zero{background:rgba(255,80,80,0.05);border-color:rgba(255,80,80,0.15)}\n"+
+  ".row.unranked{opacity:0.5}\n.sc.unranked{color:rgba(255,255,255,0.3);font-size:13px;font-style:italic}\n"+
   ".no{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:rgba(255,220,120,0.35);width:22px;text-align:right;flex-shrink:0}\n"+
   ".nm{flex:1;font-size:16px;font-weight:700;color:#fff9e6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n"+
   ".sc{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fbbf24;text-align:right;flex-shrink:0;min-width:64px}\n.sc.high{color:#34d399}\n.sc.zs{color:rgba(255,100,100,0.6)}\n"+
@@ -592,7 +1073,7 @@ function staticCss(){
   ".vshdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}\n"+
   ".vstitle{font-size:13px;color:rgba(56,189,248,0.7);letter-spacing:1px;font-weight:700}\n"+
   ".vsresult{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px}\n"+
-  ".vsgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}\n"+
+  ".vsgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}\n"+
   ".vsday{display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:8px 4px}\n"+
   ".vsday.win{background:rgba(52,211,153,0.10);border-color:rgba(52,211,153,0.3)}\n"+
   ".vsday.lose{background:rgba(255,80,80,0.08);border-color:rgba(255,80,80,0.2)}\n"+
@@ -608,87 +1089,158 @@ function staticCss(){
   ".vsbadge.draw{background:rgba(255,200,80,0.2);color:#fcd34d}\n"+
   ".vsbadge.pending{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.35)}\n"+
   "@media(max-width:860px){body{padding:12px}.wrap{padding:22px 18px 28px}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start}.hright{text-align:left;align-items:flex-start}.gname{font-size:36px;letter-spacing:4px}.vsgrid{grid-template-columns:repeat(3,1fr)}}\n"+
-  "@media(max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}.vsgrid{grid-template-columns:repeat(6,1fr)!important}}";
+  "@media(max-width:860px) and (orientation:landscape){.grid{grid-template-columns:repeat(2,1fr)!important}.vsgrid{grid-template-columns:repeat(7,1fr)!important}}\n"+
+  ".ktbox{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.2);border-radius:14px;padding:16px 22px;margin-bottom:18px;position:relative;z-index:1}\n"+
+  ".kttitle{font-size:13px;color:rgba(196,181,253,0.8);letter-spacing:1px;font-weight:700;margin-bottom:12px}\n"+
+  ".ktrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}\n"+
+  ".ktrow.total{margin-top:10px;padding-top:12px;border-top:1px dashed rgba(139,92,246,0.25);font-size:13px;font-weight:800}\n"+
+  ".ktrow.total .ktday{color:#c4b5fd;width:auto;white-space:nowrap;margin-right:2px}\n.ktrow.total .ktnum{font-size:15px}\n.ktrow.total .ktbar{height:13px}\n"+
+  ".ktlead{margin-top:8px;font-size:12px;font-weight:700;text-align:right}\n"+
+  ".ktlead.us{color:#60a5fa}\n.ktlead.opp{color:#f87171}\n.ktlead.draw{color:#fcd34d;text-align:center}\n"+
+  ".ktday{width:44px;flex-shrink:0;color:rgba(196,181,253,0.6);font-weight:700}\n"+
+  ".ktbarwrap{flex:1;display:flex;align-items:center;gap:8px;min-width:0}\n"+
+  ".ktnum{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;flex-shrink:0;min-width:64px}\n"+
+  ".ktnum.us{color:#60a5fa;text-align:right}\n.ktnum.opp{color:#f87171;text-align:left}\n"+
+  ".ktbar{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;display:flex}\n"+
+  ".ktbarus{background:linear-gradient(90deg,#3b82f6,#60a5fa);height:100%}\n"+
+  ".ktbaropp{background:linear-gradient(90deg,#f87171,#ef4444);height:100%}\n"+
+  ".ktempty{color:rgba(255,255,255,0.25);font-style:italic}\n"+
+  ".t100box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 22px;margin-bottom:18px;position:relative;z-index:1}\n"+
+  ".t100title{font-size:13px;letter-spacing:1px;font-weight:700;margin-bottom:10px}\n"+
+  ".t100list{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}\n"+
+  ".t100row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;font-size:12px;background:rgba(255,255,255,0.02)}\n"+
+  ".t100row.own{background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3)}\n"+
+  ".t100row.us{background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.22)}\n"+
+  ".t100row.opp{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.18)}\n"+
+  ".t100rank{width:30px;flex-shrink:0;text-align:right;color:rgba(255,255,255,0.4);font-family:'Rajdhani',sans-serif;font-weight:700}\n"+
+  ".t100tag{color:#7dd3fc;flex-shrink:0}\n"+
+  ".t100name{flex:1;color:#fff9e6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}\n"+
+  ".t100pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:#fbbf24;flex-shrink:0}";
 }
 
 /* ── 정적 JS (출력용) ── */
-function staticJs(goal, allSum, dsArr, isArchive){
+function staticJs(goal, allSum, dsArr, isArchive, prepRefSum, warRefSum){
   const DLJ=JSON.stringify(DL), DCJ=JSON.stringify(DC);
+  const guildScoresJ=JSON.stringify(state.guildScores||[null,null,null,null,null]);
+  const guildRanksJ=JSON.stringify(state.guildRanks||[null,null,null,null,null]);
+  const guildPrepTotalJ=JSON.stringify(state.guildPrepTotal||{score:null,rank:null});
+  const guildWarJ=JSON.stringify(state.guildWar||{score:null,rank:null});
   return `(function(){
-var DL=${DLJ},DC=${DCJ},goal=${goal},allSum=${allSum},dsArr=${JSON.stringify(dsArr)};
+var DL=${DLJ},DC=${DCJ},WAR_COLOR="${WAR_COLOR}",goal=${goal},allSum=${allSum},dsArr=${JSON.stringify(dsArr)},prepRefSum=${prepRefSum},warRefSum=${warRefSum};
+var guildScores=${guildScoresJ},guildRanks=${guildRanksJ},guildPrepTotal=${guildPrepTotalJ},guildWar=${guildWarJ};
 var isArchive=${isArchive};
 var KVKI18N=${JSON.stringify(kvkDict())};
 function curLang(){var l=document.documentElement.getAttribute('lang')||'ko';return KVKI18N[l]?l:'en';}
 function tr(k){var d=KVKI18N[curLang()]||KVKI18N.en;return d[k]!=null?d[k]:k;}
 function trf(k,p){return tr(k).replace(/\\{(\\w+)\\}/g,function(_,x){return (p&&p[x]!=null)?p[x]:'';});}
+function guildLatestRank(){
+  if(guildWar&&guildWar.rank!=null)return guildWar.rank;
+  if(guildPrepTotal&&guildPrepTotal.rank!=null)return guildPrepTotal.rank;
+  var idxs=[0,1,2,3,4].filter(function(i){return guildRanks[i]!=null;});
+  return idxs.length?guildRanks[idxs[idxs.length-1]]:null;
+}
+function rankBadgeHtml(rank){return rank!=null?'<span style="margin-left:8px;color:#fbbf24;">🏰 '+trf('guildRankBadge',{rank:rank})+'</span>':'';}
 var updateInput="${state.updateInput||''}";
 function getUpdateDay(){
   var d=updateInput?new Date(updateInput):null;
   if(!d||isNaN(d.getTime()))return null;
   var dow=d.getDay()===0?7:d.getDay();
-  var before11=d.getHours()<11;
-  if(dow===7&&before11)return{num:6,idx:5};
+  var beforeCutoff=(d.getHours()<10)||(d.getHours()===10&&d.getMinutes()<30);
+  if(dow===7&&beforeCutoff)return{phase:'war'};
   if(dow===7)return null;
-  var eff=before11?dow-1:dow;
-  if(eff<=0||eff>6)return null;
-  return{num:eff,idx:eff-1};
+  if(dow===6&&!beforeCutoff)return{phase:'war'};
+  var eff=beforeCutoff?dow-1:dow;
+  if(eff<=0||eff>5)return null;
+  return{phase:'prep',num:eff,idx:eff-1};
 }
 var updateDay=isArchive?null:getUpdateDay();
-var cDay=updateDay?String(updateDay.idx):'all';
+var cDay=updateDay?(updateDay.phase==='war'?'war':String(updateDay.idx)):(((guildWar&&guildWar.score!=null)||warRefSum>0)?'war':'preptotal');
 var cMode='all';
 document.querySelectorAll('.tab').forEach(function(b){
   b.classList.toggle('active',b.getAttribute('data-day')===cDay);
 });
 var dayInfoEl=document.getElementById('dayInfoText');
 if(dayInfoEl){
-  dayInfoEl.textContent=updateDay?'Day '+updateDay.num+' / 6':'';
+  dayInfoEl.textContent=updateDay?(updateDay.phase==='war'?'전쟁단계':'Day '+updateDay.num+' / 5'):'';
   if(!updateDay)dayInfoEl.style.display='none';
+}
+function tabDisplay(tabKey){
+  if(tabKey==='all'){
+    var hasOff=(guildPrepTotal&&guildPrepTotal.score!=null)||guildScores.some(function(v){return v!=null;})||(guildWar&&guildWar.score!=null);
+    var prepScore=(guildPrepTotal&&guildPrepTotal.score!=null)?Number(guildPrepTotal.score):guildScores.reduce(function(s,v){return s+(v==null?0:Number(v));},0);
+    var warScore=(guildWar&&guildWar.score!=null)?Number(guildWar.score):0;
+    return {lbl:hasOff?tr('officialTotal'):tr('refTotal'), val:hasOff?(prepScore+warScore):allSum, color:'#f59e0b', rank:hasOff?guildLatestRank():null};
+  }
+  if(tabKey==='preptotal'){
+    var hasOff2=guildPrepTotal&&guildPrepTotal.score!=null;
+    return {lbl:hasOff2?tr('prepTotalConfirmed'):tr('prepTotalRef'), val:hasOff2?Number(guildPrepTotal.score):prepRefSum, color:'#fbbf24', rank:hasOff2?guildPrepTotal.rank:null};
+  }
+  if(tabKey==='war'){
+    var hasOff3=guildWar&&guildWar.score!=null;
+    return {lbl:hasOff3?tr('warConfirmed'):(warRefSum>0?tr('refTotal'):tr('warNoData')), val:hasOff3?Number(guildWar.score):warRefSum, color:WAR_COLOR, rank:hasOff3?guildWar.rank:null};
+  }
+  var di=Number(tabKey);
+  var gS=guildScores[di], gR=guildRanks[di];
+  if(gS!=null){
+    return {lbl:'🏆 Day'+(di+1)+' '+tr('cat'+di)+' '+(curLang()==='ko'?'길드 점수 (확인)':'(confirmed)'), val:Number(gS), color:DC[di], rank:gR};
+  }
+  return {lbl:'🏆 Day'+(di+1)+' '+tr('cat'+di)+' '+(curLang()==='ko'?'확인된 인원 합계 (참고)':'(reference)'), val:dsArr[di], color:DC[di], rank:null};
 }
 function applyFilter(){
   var isAll=cDay==='all';
+  var isDaily=/^[0-4]$/.test(cDay);
   var rows=Array.from(document.querySelectorAll('[data-days]'));
   var lbl=document.getElementById('tLbl'),val=document.getElementById('tVal');
   var cntWrap=document.getElementById('bCntWrap'),cnt=document.getElementById('bCnt');
   var fbar=document.getElementById('fbar');
   var ruleBox=document.getElementById('ruleBox'),gnote=document.getElementById('gnote');
   var grid=document.querySelector('.grid');
-  if(fbar)fbar.style.display=isAll?'none':'';
-  if(cntWrap)cntWrap.style.display=isAll?'none':'';
-  if(ruleBox)ruleBox.style.display=isAll?'none':'';
-  if(gnote)gnote.style.display=isAll?'none':'';
-  var di=isAll?-1:Number(cDay);
-  if(isAll){
-    lbl.textContent=tr('totalSum');val.textContent=allSum.toLocaleString();val.style.color='#f59e0b';
-    cMode='all';
-  }else{
-    lbl.textContent='🏆 Day'+(di+1)+' '+tr('cat'+di);
-    val.textContent=dsArr[di].toLocaleString();val.style.color=DC[di];
-    if(cnt&&goal>0&&di<5){
-      var b2=0;rows.forEach(function(r){var d=JSON.parse(r.getAttribute('data-days')||'[]');if((Number(d[di])||0)<goal)b2++;});
-      cnt.textContent=trf('belowGoal',{below:b2});
-    }
+  var rankBadgeEl=document.getElementById('rankBadge'),confirmCntEl=document.getElementById('confirmCnt');
+  if(fbar)fbar.style.display=isDaily?'':'none';
+  if(cntWrap)cntWrap.style.display=isDaily?'':'none';
+  if(ruleBox)ruleBox.style.display=isDaily?'':'none';
+  if(gnote)gnote.style.display=isDaily?'':'none';
+  if(!isDaily)cMode='all';
+  document.querySelectorAll('[data-top100-day]').forEach(function(el){ el.style.display=(el.getAttribute('data-top100-day')===cDay)?'':'none'; });
+  var di=isDaily?Number(cDay):-1;
+  var d=tabDisplay(cDay);
+  lbl.textContent=d.lbl;val.textContent=d.val.toLocaleString();val.style.color=d.color;
+  if(rankBadgeEl)rankBadgeEl.innerHTML=rankBadgeHtml(d.rank);
+  if(cnt&&isDaily&&goal>0){
+    var b2=0;rows.forEach(function(r){var dd=JSON.parse(r.getAttribute('data-days')||'[]');if(dd[di]!=null&&Number(dd[di])<goal)b2++;});
+    cnt.textContent=trf('belowGoal',{below:b2});
+  }
+  function rowVal(row){
+    if(isAll)return{sv:Number(row.getAttribute('data-score')||0),unranked:false};
+    if(cDay==='preptotal'){var p=JSON.parse(row.getAttribute('data-prep')||'{}');return{sv:p.known?p.score:null,unranked:!p.known};}
+    if(cDay==='war'){var w=JSON.parse(row.getAttribute('data-war')||'{}');return{sv:w.known?w.score:null,unranked:!w.known};}
+    var da=JSON.parse(row.getAttribute('data-days')||'[]');
+    return{sv:da[di],unranked:da[di]==null};
+  }
+  if(confirmCntEl){
+    var cc=rows.filter(function(r){return !rowVal(r).unranked;}).length;
+    confirmCntEl.textContent=trf('confirmCount',{count:cc});
   }
   var sorted=rows.slice().sort(function(a,b){
-    var da=JSON.parse(a.getAttribute('data-days')||'[]');
-    var db=JSON.parse(b.getAttribute('data-days')||'[]');
-    var sa=isAll?Number(a.getAttribute('data-score')||0):Number(da[di]||0);
-    var sb=isAll?Number(b.getAttribute('data-score')||0):Number(db[di]||0);
+    var ra=rowVal(a),rb=rowVal(b);
+    var sa=ra.unranked?-1:Number(ra.sv);
+    var sb=rb.unranked?-1:Number(rb.sv);
     return sb-sa;
   });
   if(grid){sorted.forEach(function(r){grid.appendChild(r);});}
   var rank=1;
   sorted.forEach(function(row){
-    var days=JSON.parse(row.getAttribute('data-days')||'[]');
-    var tot=Number(row.getAttribute('data-score')||0);
-    var sv=isAll?tot:Number(days[di]||0);
-    var modeOk=isAll||cMode==='all'||(goal>0&&di<5&&cMode==='above'&&sv>=goal)||(goal>0&&di<5&&cMode==='below'&&sv<goal);
+    var rv=rowVal(row);
+    var sv=rv.sv,unranked=rv.unranked;
+    var modeOk=!isDaily||cMode==='all'||(!unranked&&goal>0&&cMode==='above'&&sv>=goal)||(!unranked&&goal>0&&cMode==='below'&&sv<goal);
     row.style.display=modeOk?'':'none';
+    row.classList.toggle('unranked',unranked);
     var noEl=row.querySelector('.no');
-    if(noEl&&modeOk){noEl.textContent=rank++;}
+    if(noEl&&modeOk){noEl.textContent=unranked?'-':rank++;}
     var se=row.querySelector('.sc');
     if(se){
-      se.textContent=sv.toLocaleString();
-      se.className='sc'+(isAll?' high':goal>0&&di<5?(sv>=goal?' high':sv===0?' zs':''):' high');
+      se.textContent=unranked?tr('unranked'):Number(sv).toLocaleString();
+      se.className='sc'+(unranked?' unranked':isAll?' high':isDaily&&goal>0?(sv>=goal?' high':sv===0?' zs':''):' high');
     }
   });
 }
@@ -713,23 +1265,44 @@ window.__kvkApplyFilter=applyFilter;
 /* ── HTML 본문 생성 ── */
 function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   const allSum=manualTotal>0?manualTotal:sorted.reduce((s,m)=>s+mTotal(m),0);
-  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
+  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(m.days[i]==null?0:(Number(m.days[i])||0)),0));
+  const prepRefSum=dsArr.reduce((a,b)=>a+b,0);
+  const warRefSum=sorted.reduce((s,m)=>s+(mWarKnown(m)?mWarScore(m):0),0);
   const below=sorted.filter(m=>mTotal(m)<goal).length;
   const dispUpd=fmtUpd(state.updateInput);
   const mNote=manualTotal>0?' <span style="font-size:11px;color:rgba(255,220,120,0.4);" data-i18n="serverNote">(서버 기준)</span>':'';
+  const gScoresH=state.guildScores||[null,null,null,null,null];
+  const gRanksH=state.guildRanks||[null,null,null,null,null];
+  const gPrepTotalH=state.guildPrepTotal||{score:null,rank:null};
+  const gWarH=state.guildWar||{score:null,rank:null};
+  const hasOfficial=(gPrepTotalH.score!=null)||gScoresH.some(v=>v!=null)||(gWarH.score!=null);
+  const hasPrepOfficial=gPrepTotalH.score!=null;
+  const officialPrep=gPrepTotalH.score!=null?Number(gPrepTotalH.score):gScoresH.reduce((s,v)=>s+(v==null?0:Number(v)),0);
+  const officialWar=gWarH.score!=null?Number(gWarH.score):0;
+  const officialVal=hasOfficial?(officialPrep+officialWar):allSum;
+  function latestRankH(){
+    if(gPrepTotalH.rank!=null)return gPrepTotalH.rank;
+    const idxs=[0,1,2,3,4].filter(i=>gRanksH[i]!=null);
+    return idxs.length?gRanksH[idxs[idxs.length-1]]:null;
+  }
+  const latestRankValH=latestRankH();
+  const rankBadgeInit=(isArchive&&hasPrepOfficial&&latestRankValH!=null)?`<span style="margin-left:8px;color:#fbbf24;">🏰 왕국 ${esc(latestRankValH)}위</span>`:'';
 
   const rows=sorted.map(m=>{
     const days=m.days; const tot=mTotal(m);
+    const prepKnown=mPrepKnown(m), warKnown=mWarKnown(m);
     const sc=goal>0?(tot>=goal*5?' high':tot===0?' zs':''):' high';
-    return `<div class="row${tot===0?' zero':''}" data-score="${tot}" data-days='${JSON.stringify(days)}'>\n` +
+    const rowState=(!prepKnown&&!warKnown)?' unranked':(tot===0?' zero':'');
+    const prepData=JSON.stringify({score:mPrepScore(m),known:prepKnown});
+    const warData=JSON.stringify({score:mWarScore(m),known:warKnown});
+    return `<div class="row${rowState}" data-score="${tot}" data-days='${JSON.stringify(days)}' data-prep='${prepData}' data-war='${warData}'>\n` +
       `  <span class="no">${m.no}</span>\n  <span class="nm">${esc(m.name)}</span>\n` +
       `  <span class="sc${sc}">${tot.toLocaleString()}</span>\n</div>\n`;
   }).join('');
 
-  // vs 스코어보드
+  // vs 스코어보드 (Day1~5는 왕국 총점 기반 자동 승패, 전쟁단계는 별도)
   const opp=state.opponent||'';
-  const oppDays=(state.opponentDays||[0,0,0,0,0,0]);
-  const oppResults=(state.opponentResults||['','','','','','']);
+  const oppWar=state.opponentWar||{score:0,result:''};
   const vsHtml=(()=>{
     if(!opp) return '';
     const rLabel={win:'승',lose:'패',draw:'무','':'대기'};
@@ -738,15 +1311,25 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
     const rBg={win:'rgba(52,211,153,0.10)',lose:'rgba(255,80,80,0.08)',draw:'rgba(255,200,80,0.08)','':'rgba(255,255,255,0.03)'};
     const rBd={win:'rgba(52,211,153,0.3)',lose:'rgba(255,80,80,0.2)',draw:'rgba(255,200,80,0.2)','':'rgba(255,255,255,0.06)'};
     function fmtM(v){return (v&&Number(v)>0)?Number(v).toLocaleString()+'M':'—';}
+    function fmtKM(v){return v!=null?Math.round(v/1000000).toLocaleString()+'M':'—';}
+    function ktResult(our,o){if(our==null||o==null)return '';if(our>o)return 'win';if(our<o)return 'lose';return 'draw';}
+    const kt=state.kingdomTotals||[];
     let wins=0,loses=0,draws=0;
-    oppResults.forEach(r=>{if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
-    const usDaysM=DL.map((_,i)=>{const s=dsArr[i];return s>0?Math.floor(s/1000000):0;});
+    kt.forEach(d=>{const r=ktResult(d&&d.our,d&&d.opp);if(r==='win')wins++;else if(r==='lose')loses++;else if(r==='draw')draws++;});
+    if(oppWar.result==='win')wins++;else if(oppWar.result==='lose')loses++;else if(oppWar.result==='draw')draws++;
     const dayCols=DL.map((l,i)=>{
-      const r=oppResults[i]||'';
-      return `<div class="vsday" style="background:${rBg[r]};border-color:${rBd[r]};"><span class="vsdlbl">Day${i+1}</span><span class="vsdname" data-i18n="cat${i}">${l}</span><div class="vsscores"><span class="vsus">${usDaysM[i]?Number(usDaysM[i]).toLocaleString()+'M':'—'}</span><span class="vsopp">${fmtM(oppDays[i])}</span></div><span class="vsbadge" style="color:${rText[r]};background:${rBg[r]};border:1px solid ${rBd[r]};" data-i18n="${rKey[r]}">${rLabel[r]}</span></div>`;
+      const d=kt[i]||{our:null,opp:null};
+      const r=ktResult(d.our,d.opp);
+      return `<div class="vsday" style="background:${rBg[r]};border-color:${rBd[r]};"><span class="vsdlbl">Day${i+1}</span><span class="vsdname" data-i18n="cat${i}">${l}</span><div class="vsscores"><span class="vsus">${fmtKM(d.our)}</span><span class="vsopp">${fmtKM(d.opp)}</span></div><span class="vsbadge" style="color:${rText[r]};background:${rBg[r]};border:1px solid ${rBd[r]};" data-i18n="${rKey[r]}">${rLabel[r]}</span></div>`;
     }).join('');
+    const latest=sumKingdomTotal();
+    const totR=latest?ktResult(latest.our,latest.opp):'';
+    const totCol=`<div class="vsday" style="background:${rBg[totR]};border-color:${rBd[totR]};"><span class="vsdlbl">누적</span><span class="vsdname">총점</span><div class="vsscores"><span class="vsus">${latest?fmtKM(latest.our):'—'}</span><span class="vsopp">${latest?fmtKM(latest.opp):'—'}</span></div><span class="vsbadge" style="color:${rText[totR]};background:${rBg[totR]};border:1px solid ${rBd[totR]};" data-i18n="${rKey[totR]}">${rLabel[totR]}</span></div>`;
+    const warR=oppWar.result||'';
+    const usWarM=warRefSum>0?Math.floor((officialWar||warRefSum)/1000000):0;
+    const warCol=`<div class="vsday" style="background:${rBg[warR]};border-color:${rBd[warR]};"><span class="vsdlbl">⚔️</span><span class="vsdname">${WAR_LABEL}</span><div class="vsscores"><span class="vsus">${usWarM?Number(usWarM).toLocaleString()+'M':'—'}</span><span class="vsopp">${fmtM(oppWar.score)}</span></div><span class="vsbadge" style="color:${rText[warR]};background:${rBg[warR]};border:1px solid ${rBd[warR]};" data-i18n="${rKey[warR]}">${rLabel[warR]}</span></div>`;
     const resultStr='<span style="color:#34d399;">'+wins+'<span data-i18n="win">승</span></span> <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#f87171;">'+loses+'<span data-i18n="lose">패</span></span>'+(draws>0?' <span style="color:rgba(255,255,255,0.3);">·</span> <span style="color:#fcd34d;">'+draws+'<span data-i18n="draw">무</span></span>':'');
-    return `<div class="vsbox"><div class="vshdr"><span class="vstitle">🏰 ${(state.kingdomNum?esc(state.kingdomNum)+' vs ':'')}${esc(opp)}</span><span class="vsresult">${resultStr}</span></div><div class="vsgrid">${dayCols}</div></div>`;
+    return `<div class="vsbox"><div class="vshdr"><span class="vstitle">🏰 ${(state.kingdomNum?esc(state.kingdomNum)+' vs ':'')}${esc(opp)}</span><span class="vsresult">${resultStr}</span></div><div class="vsgrid">${dayCols}${totCol}${warCol}</div></div>`;
   })();
 
   const arcLinks=isArchive
@@ -755,6 +1338,9 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
 
   const dayInfoJs = isArchive ? '' :
     `<span id="dayInfoText" style="font-size:14px;color:rgba(255,220,120,0.45);"></span>`;
+
+  const prepTotalTabDisabled=!(gPrepTotalH.score!=null||gScoresH.some(v=>v!=null))&&sorted.every(m=>!mPrepKnown(m));
+  const warTabDisabled=!(gWarH.score!=null)&&sorted.every(m=>!mWarKnown(m));
 
   return `<div class="wrap">
   ${kvkToggleHtml()}<div class="header">
@@ -772,19 +1358,24 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
   </div>
   <div class="tbox">
     <div class="srow">
-      <span class="slbl" id="tLbl">🏆 ${isArchive?'전체 합산':'...'}</span>
-      <span class="sval" id="tVal" style="color:#f59e0b;">${isArchive?allSum.toLocaleString()+mNote:'...'}</span>
+      <span class="slbl" id="tLbl">${isArchive?(hasPrepOfficial?'🏆 준비단계 총점 (확인)':'🏆 준비단계 참고합산 (Day1~5)'):'...'}<span id="rankBadge">${rankBadgeInit}</span></span>
+      <span class="sval" id="tVal" style="color:#fbbf24;">${isArchive?(hasPrepOfficial?officialPrep.toLocaleString():prepRefSum.toLocaleString()):'...'}</span>
       <div class="ssub">
-        <span data-i18n="participate" data-count="${sorted.length}">${sorted.length}명 참여</span>
+        <span id="confirmCnt" data-count="${sorted.filter(m=>mKnownCount(m)>0).length}">top100 확인 ${sorted.filter(m=>mKnownCount(m)>0).length}명</span>
         ${goal>0?`<span id="bCntWrap">&nbsp;·&nbsp;<span id="bCnt" style="color:rgba(255,100,100,0.9);" data-i18n="belowGoal" data-below="${below}">목표점수 미달 ${below}명</span></span>`:''}
       </div>
     </div>
   </div>
+  <div style="font-size:12px;color:rgba(255,220,120,0.35);margin:-8px 0 14px;" data-i18n="top100Note">※ 개인 랭킹은 왕국 전체 top100까지만 확인 가능하여 목록에 없는 길드원은 순위권 밖으로 표시됩니다.</div>
   ${vsHtml}
+  ${buildKtBoxHtml(KT_CLS_STATIC, true)}
+  ${buildTop100TabbedHtml(T100_CLS_STATIC, state.top100IndividualByDay, state.top100IndividualTotal, true, '🏅 개인 랭킹 TOP100', 'top100IndivDayLabel', '🏆 개인 총점 랭킹 TOP100 (누적)', 'top100IndivTotalTitle', '', null, state.top100IndividualWar, '⚔️ 개인 랭킹 TOP100 (전쟁단계)', 'top100IndivWarTitle')}
+  ${buildTop100TabbedHtml(T100_CLS_STATIC, state.top100GuildByDay, state.top100GuildTotal, false, '🛡️ 길드 랭킹 TOP100', 'top100GuildDayLabel', '🛡️ 길드 총점 랭킹 TOP100 (누적)', 'top100GuildTotalTitle', '', null, state.top100GuildWar, '⚔️ 길드 랭킹 TOP100 (전쟁단계)', 'top100GuildWarTitle')}
   ${goal>0?`<div class="rbox" id="ruleBox"><span>📌</span><span data-i18n="ruleText" data-goal="${goal.toLocaleString()}">길드 규칙: 왕국대결(Kingdom Duel) 준비단계 최소 개인 일일점수 <strong>${goal.toLocaleString()}점</strong> 달성 바랍니다.</span></div>`:''}
   <div class="tabs" id="tabsWrap">
-    ${DL.map((l,i)=>{const empty=dsArr[i]===0;return `<button class="tab${i===5?' war-tab':''}${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1}</button>`;}).join('')}
-    <button class="tab${isArchive?' active':''}" data-day="all" data-i18n="totalSumTab">전체 합산</button>
+    ${DL.map((l,i)=>{const empty=dsArr[i]===0&&sorted.every(m=>m.days[i]==null);return `<button class="tab${empty?' disabled':''}" data-day="${i}"${empty?' disabled':''}>Day${i+1}</button>`;}).join('')}
+    <button class="tab${prepTotalTabDisabled?' disabled':''}${isArchive?' active':''}" data-day="preptotal" data-i18n="prepTotalTab"${prepTotalTabDisabled?' disabled':''}>준비단계 총점</button>
+    <button class="tab war-tab${warTabDisabled?' disabled':''}" data-day="war" data-i18n="warTab"${warTabDisabled?' disabled':''}>⚔️ 전쟁단계</button>
   </div>
   ${goal>0?`<div class="fbar" id="fbar">
     <button class="fbtn active" data-mode="all" data-i18n="filterAll">전체</button>
@@ -802,16 +1393,18 @@ function buildHtmlBody(sorted, goal, isArchive, periodLabel, manualTotal){
 function buildIndexHtml(){
   sortMems();
   const goal=Number(state.goalScore||0);
-  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[0,0,0,0,0,0])],no:i+1}));
+  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[null,null,null,null,null])],prepTotal:{...(m.prepTotal||{score:null,rank:null})},war:{...(m.war||{score:null,rank:null})},no:i+1}));
   const allSum=sorted.reduce((s,m)=>s+mTotal(m),0);
-  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
+  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(m.days[i]==null?0:(Number(m.days[i])||0)),0));
+  const prepRefSum=dsArr.reduce((a,b)=>a+b,0);
+  const warRefSum=sorted.reduce((s,m)=>s+(mWarKnown(m)?mWarScore(m):0),0);
 
   return `---\nlayout: null\n---\n<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n` +
     `<title>${esc(state.guildName||'')} Kingdom Duel</title>\n` +
     buildAnalyticsHead() + '\n' +
     `<style>\n${staticCss()}\n</style>\n</head>\n<body>\n` +
     buildHtmlBody(sorted,goal,false,'',0) +
-    `\n<script>\n${staticJs(goal,allSum,dsArr,false)}\n<\/script>\n` +
+    `\n<script>\n${staticJs(goal,allSum,dsArr,false,prepRefSum,warRefSum)}\n<\/script>\n` +
     `<script>\n(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();\n<\/script>\n` +
     kvkRuntime() +
     `</body>\n</html>`;
@@ -820,16 +1413,18 @@ function buildIndexHtml(){
 function buildArchiveHtml(sd, ed, manualTotal){
   sortMems();
   const goal=Number(state.goalScore||0);
-  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[0,0,0,0,0,0])],no:i+1}));
+  const sorted=state.members.map((m,i)=>({...m,days:[...(m.days||[null,null,null,null,null])],prepTotal:{...(m.prepTotal||{score:null,rank:null})},war:{...(m.war||{score:null,rank:null})},no:i+1}));
   const allSum=manualTotal>0?manualTotal:sorted.reduce((s,m)=>s+mTotal(m),0);
-  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(Number(m.days[i])||0),0));
+  const dsArr=DL.map((_,i)=>sorted.reduce((s,m)=>s+(m.days[i]==null?0:(Number(m.days[i])||0)),0));
+  const prepRefSum=dsArr.reduce((a,b)=>a+b,0);
+  const warRefSum=sorted.reduce((s,m)=>s+(mWarKnown(m)?mWarScore(m):0),0);
   const period=sd&&ed?sd+' ~ '+ed:(sd||ed||'');
   return `---\nlayout: null\n---\n<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n` +
     `<title>${esc(state.guildName||'')} KVK – ${esc(period)}</title>\n` +
     buildAnalyticsHead() + '\n' +
     `<style>\n${staticCss()}\n</style>\n</head>\n<body>\n` +
     buildHtmlBody(sorted,goal,true,period,manualTotal) +
-    `\n<script>\n${staticJs(goal,allSum,dsArr,true)}\n<\/script>\n` +
+    `\n<script>\n${staticJs(goal,allSum,dsArr,true,prepRefSum,warRefSum)}\n<\/script>\n` +
     `<script>\n(function(){var last=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-last<300){e.preventDefault();}last=now;},{passive:false});})();\n<\/script>\n` +
     kvkRuntime() +
     `</body>\n</html>`;
@@ -873,7 +1468,7 @@ $('importJsonBtn').addEventListener('click',()=>{
 });
 $('sortBtn').addEventListener('click',()=>{sortMems();syncForm();renderTable();renderPreview();});
 $('addMemberBtn').addEventListener('click',addMember);
-['guildName','goalScore','kingdomNum','opponentName'].forEach(id=>$(id).addEventListener('input',syncState));
+['guildName','kingdomNum','opponentName','gPrepTotalRank','gPrepTotalScore','gWarRank','gWarScore','oppPrepTotalScore','oppWarScore'].forEach(id=>$(id).addEventListener('input',syncState));
 
 function updateOppBtnStyle(dayIdx, val){
   const btns=document.querySelectorAll(`.opp-btn[data-day="${dayIdx}"]`);
@@ -886,35 +1481,93 @@ function updateOppBtnStyle(dayIdx, val){
     btn.style.transform=(bv===val)?'scale(1.05)':'scale(1)';
   });
 }
+function updateOppWarBtnStyle(val){
+  const btns=document.querySelectorAll('.opp-war-btn');
+  const styles={win:{bg:'rgba(52,211,153,0.25)',border:'rgba(52,211,153,0.7)',color:'#34d399'},lose:{bg:'rgba(255,80,80,0.25)',border:'rgba(255,80,80,0.7)',color:'#f87171'},draw:{bg:'rgba(255,200,80,0.25)',border:'rgba(255,200,80,0.7)',color:'#fcd34d'}};
+  const def={win:{bg:'rgba(52,211,153,0.1)',border:'rgba(52,211,153,0.3)',color:'#34d399'},lose:{bg:'rgba(255,80,80,0.1)',border:'rgba(255,80,80,0.3)',color:'#f87171'},draw:{bg:'rgba(255,200,80,0.1)',border:'rgba(255,200,80,0.3)',color:'#fcd34d'}};
+  btns.forEach(btn=>{
+    const bv=btn.dataset.val;
+    const s=(bv===val)?styles[bv]:def[bv];
+    btn.style.background=s.bg; btn.style.borderColor=s.border; btn.style.color=s.color;
+    btn.style.transform=(bv===val)?'scale(1.05)':'scale(1)';
+  });
+}
+
+function updateOppPrepBtnStyle(val){
+  const btns=document.querySelectorAll('.opp-prep-btn');
+  const styles={win:{bg:'rgba(52,211,153,0.25)',border:'rgba(52,211,153,0.7)',color:'#34d399'},lose:{bg:'rgba(255,80,80,0.25)',border:'rgba(255,80,80,0.7)',color:'#f87171'},draw:{bg:'rgba(255,200,80,0.25)',border:'rgba(255,200,80,0.7)',color:'#fcd34d'}};
+  const def={win:{bg:'rgba(52,211,153,0.1)',border:'rgba(52,211,153,0.3)',color:'#34d399'},lose:{bg:'rgba(255,80,80,0.1)',border:'rgba(255,80,80,0.3)',color:'#f87171'},draw:{bg:'rgba(255,200,80,0.1)',border:'rgba(255,200,80,0.3)',color:'#fcd34d'}};
+  btns.forEach(btn=>{
+    const bv=btn.dataset.val;
+    const s=(bv===val)?styles[bv]:def[bv];
+    btn.style.background=s.bg; btn.style.borderColor=s.border; btn.style.color=s.color;
+    btn.style.transform=(bv===val)?'scale(1.05)':'scale(1)';
+  });
+}
 
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.opp-btn');
-  if(!btn) return;
-  const di=Number(btn.dataset.day), val=btn.dataset.val;
-  if(!state.opponentResults) state.opponentResults=['','','','','',''];
-  state.opponentResults[di]=(state.opponentResults[di]===val)?'':val;
-  updateOppBtnStyle(di, state.opponentResults[di]);
-  syncState();
+  if(btn){
+    const di=Number(btn.dataset.day), val=btn.dataset.val;
+    if(!state.opponentResults) state.opponentResults=['','','','',''];
+    state.opponentResults[di]=(state.opponentResults[di]===val)?'':val;
+    updateOppBtnStyle(di, state.opponentResults[di]);
+    syncState();
+    return;
+  }
+  const pbtn=e.target.closest('.opp-prep-btn');
+  if(pbtn){
+    const val=pbtn.dataset.val;
+    if(!state.opponentPrepTotal) state.opponentPrepTotal={score:null,result:''};
+    state.opponentPrepTotal.result=(state.opponentPrepTotal.result===val)?'':val;
+    updateOppPrepBtnStyle(state.opponentPrepTotal.result);
+    syncState();
+    return;
+  }
+  const wbtn=e.target.closest('.opp-war-btn');
+  if(wbtn){
+    const val=wbtn.dataset.val;
+    if(!state.opponentWar) state.opponentWar={score:0,result:''};
+    state.opponentWar.result=(state.opponentWar.result===val)?'':val;
+    updateOppWarBtnStyle(state.opponentWar.result);
+    syncState();
+  }
 });
 
-function updArchPrev(){const s=$('archiveStart').value,e=$('archiveEnd').value,opp=(state.opponent||'').replace(/[\\/:*?"<>|\s]/g,'');const oppPart=opp?'_'+opp:'';$('archiveFilenamePreview').textContent=s&&e?s+'_'+e+oppPart+'.html':s?s+'_???'+oppPart+'.html':'시작일_종료일.html';}
+function updArchPrev(){const s=$('archiveStart').value,e=$('archiveEnd').value,opp=(state.opponent||'').replace(/[\\/:*?"<>|\s#]/g,'');const oppPart=opp?'_'+opp:'';$('archiveFilenamePreview').textContent=s&&e?s+'_'+e+oppPart+'.html':s?s+'_???'+oppPart+'.html':'시작일_종료일.html';}
 $('archiveStart').addEventListener('input',()=>{syncState();updArchPrev();});
 $('archiveEnd').addEventListener('input',()=>{syncState();updArchPrev();});
 $('downloadArchiveBtn').addEventListener('click',()=>{
   const s=$('archiveStart').value,e=$('archiveEnd').value;
   if(!s||!e){alert('시작일과 종료일을 모두 입력하세요.');return;}
-  const opp=(state.opponent||'').replace(/[\\/:*?"<>|\s]/g,'');const oppPart=opp?'_'+opp:'';syncMeta();dlFile(s+'_'+e+oppPart+'.html',buildArchiveHtml(s,e,0),'text/html;charset=utf-8');
+  const opp=(state.opponent||'').replace(/[\\/:*?"<>|\s#]/g,'');const oppPart=opp?'_'+opp:'';syncMeta();dlFile(s+'_'+e+oppPart+'.html',buildArchiveHtml(s,e,0),'text/html;charset=utf-8');
 });
 
 window.updateMember=updateMember;window.deleteMember=deleteMember;
 
-// 상대 왕국 Day 행 동적 생성
+// 우리 길드 Day별 순위/점수 행 동적 생성 (준비단계 5일)
 (function(){
-  const dayNames=['건설','기술','채집','영웅','훈련','전쟁'];
-  const dayColors=['#fbbf24','#60a5fa','#34d399','#f472b6','#38bdf8','#f87171'];
+  const container=document.getElementById('guildDayRows');
+  if(!container) return;
+  [0,1,2,3,4].forEach(i=>{
+    const row=document.createElement('div');
+    row.style.cssText='display:grid;grid-template-columns:80px 1fr 1fr;gap:6px;align-items:center;';
+    row.innerHTML=
+      `<span style="font-size:12px;color:${DC[i]};font-weight:700;">Day${i+1} <span style="color:rgba(255,255,255,0.35);font-weight:400;">${DL[i]}</span></span>`+
+      `<input id="gRank${i}" type="number" placeholder="순위" style="text-align:center;padding:6px 4px;">`+
+      `<input id="gScore${i}" type="number" placeholder="점수" style="text-align:center;padding:6px 4px;">`;
+    container.appendChild(row);
+    document.getElementById('gRank'+i).addEventListener('input', syncState);
+    document.getElementById('gScore'+i).addEventListener('input', syncState);
+  });
+})();
+
+// 상대 왕국 Day 행 동적 생성 (준비단계 5일, 전쟁단계는 별도 고정 행)
+(function(){
+  const dayNames=DL, dayColors=DC;
   const container=document.getElementById('oppDayRows');
   if(!container) return;
-  [0,1,2,3,4,5].forEach(i=>{
+  [0,1,2,3,4].forEach(i=>{
     const row=document.createElement('div');
     row.style.cssText='display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;';
     row.innerHTML=
@@ -927,6 +1580,94 @@ window.updateMember=updateMember;window.deleteMember=deleteMember;
     document.getElementById('opp'+i).addEventListener('input', syncState);
   });
 })();
+
+// 날짜별 왕국 총점 비교 (Day1~5) 입력행 동적 생성
+(function(){
+  const container=document.getElementById('ktRows');
+  if(!container) return;
+  [0,1,2,3,4].forEach(i=>{
+    const row=document.createElement('div');
+    row.style.cssText='display:grid;grid-template-columns:60px 1fr 1fr;gap:6px;align-items:center;';
+    row.innerHTML=
+      `<span style="font-size:12px;color:#a78bfa;font-weight:700;">Day${i+1}</span>`+
+      `<input id="ktOur${i}" type="number" placeholder="우리 왕국 총점" style="text-align:center;padding:6px 4px;">`+
+      `<input id="ktOpp${i}" type="number" placeholder="상대 왕국 총점" style="text-align:center;padding:6px 4px;">`;
+    container.appendChild(row);
+    document.getElementById('ktOur'+i).addEventListener('input', syncState);
+    document.getElementById('ktOpp'+i).addEventListener('input', syncState);
+  });
+})();
+
+// TOP100 랭킹 붙여넣기 파싱
+function parseTop100Line(line, hasName){
+  const parts=line.split(/\t|,/).map(s=>s.trim());
+  if(parts.length<1) return null;
+  const own=/^OUR$/i.test(parts[parts.length-1]);
+  const core=own?parts.slice(0,-1):parts;
+  if(hasName){
+    const [rank,server,guildTag,name,points]=core;
+    if(rank==null||points==null) return null;
+    return {rank:Number(rank)||0, server:(server||'').trim(), guildTag:(guildTag||'').trim(), name:(name||'').trim(), points:Number(points)||0, own};
+  } else {
+    const [rank,server,guildTag,points]=core;
+    if(rank==null||points==null) return null;
+    return {rank:Number(rank)||0, server:(server||'').trim(), guildTag:(guildTag||'').trim(), points:Number(points)||0, own};
+  }
+}
+function parseTop100Block(text, hasName){
+  return text.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>parseTop100Line(l,hasName)).filter(Boolean).sort((a,b)=>a.rank-b.rank);
+}
+function serializeTop100(arr, hasName){
+  return (arr||[]).map(r=>{
+    const parts=hasName?[r.rank,r.server,r.guildTag,r.name,r.points]:[r.rank,r.server,r.guildTag,r.points];
+    if(r.own) parts.push('OUR');
+    return parts.join(',');
+  }).join('\n');
+}
+function top100SlotArr(type, sel){
+  if(type==='indiv'){
+    if(sel==='total') return state.top100IndividualTotal||[];
+    if(sel==='war') return state.top100IndividualWar||[];
+    return state.top100IndividualByDay[Number(sel)]||[];
+  }
+  if(sel==='total') return state.top100GuildTotal||[];
+  if(sel==='war') return state.top100GuildWar||[];
+  return state.top100GuildByDay[Number(sel)]||[];
+}
+function setTop100SlotArr(type, sel, arr){
+  if(type==='indiv'){
+    if(sel==='total') state.top100IndividualTotal=arr;
+    else if(sel==='war') state.top100IndividualWar=arr;
+    else state.top100IndividualByDay[Number(sel)]=arr;
+  } else {
+    if(sel==='total') state.top100GuildTotal=arr;
+    else if(sel==='war') state.top100GuildWar=arr;
+    else state.top100GuildByDay[Number(sel)]=arr;
+  }
+}
+function refreshTop100Panel(type){
+  const selId=type==='indiv'?'top100IndivDaySel':'top100GuildDaySel';
+  const inputId=type==='indiv'?'top100IndivInput':'top100GuildInput';
+  const countId=type==='indiv'?'top100IndivCount':'top100GuildCount';
+  const sel=$(selId).value;
+  const arr=top100SlotArr(type, sel);
+  $(inputId).value=serializeTop100(arr, type==='indiv');
+  $(countId).textContent = type==='indiv' ? `${arr.length}명 입력됨` : `${arr.length}개 길드 입력됨`;
+}
+$('top100IndivDaySel').addEventListener('change', ()=>refreshTop100Panel('indiv'));
+$('top100GuildDaySel').addEventListener('change', ()=>refreshTop100Panel('guild'));
+$('applyTop100IndivBtn').addEventListener('click',()=>{
+  const sel=$('top100IndivDaySel').value;
+  setTop100SlotArr('indiv', sel, parseTop100Block($('top100IndivInput').value, true));
+  refreshTop100Panel('indiv');
+  syncState();
+});
+$('applyTop100GuildBtn').addEventListener('click',()=>{
+  const sel=$('top100GuildDaySel').value;
+  setTop100SlotArr('guild', sel, parseTop100Block($('top100GuildInput').value, false));
+  refreshTop100Panel('guild');
+  syncState();
+});
 
 (async()=>{await tryLoadJson();syncForm();renderTable();renderPreview();})();
 </script>
