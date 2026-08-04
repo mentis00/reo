@@ -1,0 +1,944 @@
+{
+  "type": "arena-report",
+  "generatedAt": "2026-08-04T00:13:43.071Z",
+  "goalScore": 7000,
+  "seasons": [
+    {
+      "season": "2026-07-27_2026-08-03",
+      "seasonStart": "2026-07-27",
+      "seasonEnd": "2026-08-03"
+    }
+  ],
+  "members": [
+    {
+      "name": "Ylis일리스",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 19912
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "PEPEぺぺ",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 34334
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "神崎澄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 23522
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "miyabi_みやび",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 0
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ellen_🦇",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 23885
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ꜰᴍＳＯＮＧ🌹🌷",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 47288
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ᴘʀɪɴᴄᴇꜱꜱ김깽",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 10764
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Aphrodite",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 9888
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "aki_あき",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 17897
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "red",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 40710
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "FARMER",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 40870
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "xxx",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 30898
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "cho 초초",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 33871
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "🫧Celli🫧",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 32508
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "hebssiba79",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 30025
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Vendetta 벤",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 17280
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Maese",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 27711
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "leez_이자하",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11860
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "sang 상한가",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11138
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Apii😇",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7826
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Satori",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 24728
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YaY 얍",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 34631
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "키라리♡kirari",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 20396
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Mama Raz",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 18000
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Tarik",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 27255
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Agnes",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 13448
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Soda 솜사탕",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 24616
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Nbybi",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 16730
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "yoon 💎",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 15914
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YT",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 9925
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "CHICKEN",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 26737
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "ulssy_얼씨군요",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7928
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "zzĐÚcdzz",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 31119
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Dong_동삼집",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 14559
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "apple_공주",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7552
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Lucas",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 26777
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "장첸 zzang",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 24564
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ter💗테라사",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8759
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ゆき💙Yuki💙",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8512
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "양파링",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 22195
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Teto디노니논",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 14592
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NaNashi名無し",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 29867
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Bell",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 12385
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "jason치로",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 13589
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "san、オーク",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8948
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "YOU_ゆう",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 36073
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "선배_sunbae",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8102
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HoHo_LiM",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 39170
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Andy5909",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 17318
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Shooshi",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 12103
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Meeshka",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7372
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ᴺⁱᶜʰᵒᵒ니콜ଳ",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8383
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Xeladriel",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7066
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Sekiden",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 6921
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "sweetNlow",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7209
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "chris",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7238
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Fisher",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 24219
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Black_리무바이",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7067
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "yon_욘욘",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8200
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "WhiteCat🐾",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 32993
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "jjing",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11966
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "PoP Heroes",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 19584
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "HJjjjJH🍀",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 40983
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "NSAIDs미노브이",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8922
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "영불리_YOYO",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 15478
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Uhhhhokay",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 4928
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "kb park",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7479
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "린_RIN",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7866
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Miffy",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8097
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Manjo_0",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11551
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Romariense",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 6685
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Luffy",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 10832
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "ʚTanakaɞ",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 5235
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Cort",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 43194
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Danbi",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11868
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Mayo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 13515
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "JIN진",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 44298
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Dayo🍒",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 21160
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Gayo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 23217
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "할v🔥🔥🔥",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 8487
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "COS🐏",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 28888
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "V25",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 6486
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Tess🍖",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 20486
+        }
+      ],
+      "missionViol": 1
+    },
+    {
+      "name": "Koyo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 23319
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "JOY🎵",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 26900
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Hayo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7175
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Bayo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 43815
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Burger",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 13374
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Ice Tea🍹",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 11349
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "manakiiii",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 34740
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "𝕜𝕠𝕞𝕪🐼",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7134
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "Joyo🍄",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 7513
+        }
+      ],
+      "missionViol": 0
+    },
+    {
+      "name": "SHOT",
+      "seasonScores": [
+        {
+          "season": "2026-07-27_2026-08-03",
+          "score": 345
+        }
+      ],
+      "missionViol": 0
+    }
+  ]
+}
